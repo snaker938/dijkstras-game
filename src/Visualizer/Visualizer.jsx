@@ -53,6 +53,19 @@ export default class dijkstraVisualizer extends Component {
     }
   }
 
+  // Function to create random walls on the grid.
+  randomWalls() {
+    // Loops 250 times- therefore around 250 walls will be made. Chances are, less than 250 walls will be made, as a node may be picked twice, which will reverse the wall.
+    for (let i = 0; i < 250; i++) {
+      let row = Math.floor(Math.random() * 20);
+      let column = Math.floor(Math.random() * 50);
+      let node = this.state.grid[row][column];
+      let { isEnd, isStart, isWall } = node;
+      let unWallable = isEnd || isStart;
+      this.toggleWall(row, column, isWall, unWallable);
+    }
+  }
+
   // Starts the dijkstra algorithm. It calls dijkstra.js to find the visited nodes in order
   startDijkstra() {
     const { grid } = this.state;
@@ -73,15 +86,25 @@ export default class dijkstraVisualizer extends Component {
         >
           Start
         </button>
+        <button
+          onClick={() => this.randomWalls()} /* adds random walls to the grid */
+        >
+          Random
+        </button>
         <div className="grid" /*  creates the div that holds the rows*/>
           {grid.map((row, rowID) => {
             return (
-              <div key={rowID}>
+              <div
+                id="row"
+                key={
+                  rowID
+                } /*  creates the div that holds all the nodes in the row*/
+              >
                 {row.map((node, nodeID) => {
                   const { row, col, isEnd, isStart, isWall } = node;
                   let unWallable = isEnd || isStart; // checks to see if the node is an End or start node
                   return (
-                    // Creates the node object
+                    // Creates the node object inside each row div. Each node is a div that is returned in Node.jsx
                     <Node
                       col={col}
                       row={row}
