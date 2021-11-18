@@ -57,21 +57,26 @@ export default class dijkstraVisualizer extends Component {
   randomWalls() {
     // Loops 250 times- therefore around 250 walls will be made. Chances are, less than 250 walls will be made, as a node may be picked twice, which will reverse the wall.
     for (let i = 0; i < 250; i++) {
+      // Generates a random row and column number
       let row = Math.floor(Math.random() * 20);
       let column = Math.floor(Math.random() * 50);
-      let node = this.state.grid[row][column];
-      let { isEnd, isStart, isWall } = node;
-      let unWallable = isEnd || isStart;
-      this.toggleWall(row, column, isWall, unWallable);
+      let node = this.state.grid[row][column]; // selects the node with the row and column specified above
+      let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
+      let unWallable = isEnd || isStart; // if the node is a start or end node, it cannot be changed
+      this.toggleWall(row, column, isWall, unWallable); // attempts to change the random node into a wall, unless it is unwallable, or already a wall- the function is still called regard;ess
     }
   }
 
   // Starts the dijkstra algorithm. It calls dijkstra.js to find the visited nodes in order
   startDijkstra() {
-    const { grid } = this.state;
-    const startNode = grid[START_NODE_ROW][START_NODE_COL];
+    const { grid } = this.state; // gets the current state of the grid at the time of the button being pressed
+    const startNode = grid[START_NODE_ROW][START_NODE_COL]; // gets the start and end nodes
     const endNode = grid[END_NODE_ROW][END_NODE_COL];
-    const visitedNodesInOrder = dijkstra(grid, startNode, endNode);
+    const visitedNodesInOrder = dijkstra(grid, startNode, endNode); // calls dijkstra to get the visited nodes in order
+    console.log(visitedNodesInOrder);
+    // TODO - calls the function to find the shortest path
+    // TODO - animates the visited nodes in order. Visited nodes get the class name - node-visited
+    // TODO - after the animation of all the visited nodes, animate the shortest path. Shortest path nodes get the class name - node-shortest-path
   }
 
   render() {
@@ -80,6 +85,7 @@ export default class dijkstraVisualizer extends Component {
     return (
       <>
         <button
+          className="cool-button"
           onClick={() =>
             this.startDijkstra()
           } /* starts the dijstra algorithm process */
@@ -87,6 +93,7 @@ export default class dijkstraVisualizer extends Component {
           Start
         </button>
         <button
+          className="cool-button"
           onClick={() => this.randomWalls()} /* adds random walls to the grid */
         >
           Random

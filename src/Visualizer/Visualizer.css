@@ -1,3 +1,15 @@
 .grid {
   margin: 100px 0 0;
+  text-align: center;
+}
+
+.cool-button {
+  margin-block: 0px;
+  position: relative;
+  top: 40px;
+  margin-left: 25px;
+}
+
+body {
+  text-align: center;
 }
