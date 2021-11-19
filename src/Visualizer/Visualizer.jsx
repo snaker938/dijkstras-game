@@ -9,13 +9,18 @@ import "./Visualizer.css";
 // const START_NODE_COL = 15;
 // const END_NODE_ROW = 10;
 // const END_NODE_COL = 35;
-const START_NODE_ROW = Math.floor(Math.random() * 20);
-const START_NODE_COL = Math.floor(Math.random() * 25);
-const END_NODE_ROW = Math.floor(Math.random() * 20);
-const END_NODE_COL = 25 + Math.floor(Math.random() * 25);
 // Specifies the number of rows and columns
 const NUM_ROWS = 20;
-const NUM_COLUMNS = 50;
+const NUM_COLUMNS = 40;
+
+// other constants
+const START_NODE_ROW = Math.floor(Math.random() * NUM_ROWS);
+const START_NODE_COL = Math.floor(Math.random() * Math.floor(NUM_COLUMNS / 2));
+const END_NODE_ROW = Math.floor(Math.random() * NUM_ROWS);
+const END_NODE_COL =
+  Math.floor(NUM_COLUMNS / 2) +
+  Math.floor(Math.random() * Math.floor(NUM_COLUMNS / 2));
+
 // Specifies the number of walls the player can have active at one time
 let NUM_WALLS_TOTAL = 1000;
 let NUM_WALLS_ACTIVE = 0;
@@ -80,8 +85,8 @@ export default class dijkstraVisualizer extends Component {
     // Loops 250 times- therefore around 250 walls will be made. Chances are, less than 250 walls will be made, as a node may be picked twice, which will reverse the wall.
     for (let i = 0; i < RANDOM_WALL_NUMBER; i++) {
       // Generates a random row and column number
-      let row = Math.floor(Math.random() * 20);
-      let column = Math.floor(Math.random() * 50);
+      let row = Math.floor(Math.random() * NUM_ROWS);
+      let column = Math.floor(Math.random() * NUM_COLUMNS);
       let node = this.state.grid[row][column]; // selects the node with the row and column specified above
       let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
       let unWallable = isEnd || isStart; // if the node is a start or end node, it cannot be changed
@@ -89,14 +94,53 @@ export default class dijkstraVisualizer extends Component {
     }
   }
 
-  animateShortestPath(shortestNodePathOrder) {
-    for (let i = 0; i < shortestNodePathOrder.length; i++) {
+  // animateShortestPath(shortestNodePathOrder) {
+  //   for (let i = 0; i < shortestNodePathOrder.length; i++) {
+  //     setTimeout(() => {
+  //       let currentNode = shortestNodePathOrder[i];
+  //       document.getElementById(
+  //         `node-${currentNode.row}-${currentNode.col}`
+  //       ).className = "node node-shortest-path";
+  //     }, 50 * i);
+  //   }
+  // }
+
+  // animateAllNodes(allNodes, shortestNodePathOrder) {
+  //   for (let i = 0; i < allNodes.length; i++) {
+  //     setTimeout(() => {
+  //       let currentNode = allNodes[i];
+  //       document.getElementById(
+  //         `node-${currentNode.row}-${currentNode.col}`
+  //       ).className = "node node-visited";
+  //     }, 3 * i);
+  //   }
+  //   this.animateShortestPath(shortestNodePathOrder);
+  // }
+
+  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length) {
+        setTimeout(() => {
+          this.animateShortestPath(nodesInShortestPathOrder);
+        }, 10 * i);
+        return;
+      }
       setTimeout(() => {
-        let currentNode = shortestNodePathOrder[i];
-        document.getElementById(
-          `node-${currentNode.row}-${currentNode.col}`
-        ).className = "node node-shortest-path";
-      }, 1 * i);
+        const node = visitedNodesInOrder[i];
+        if (!node.isStart)
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            "node node-visited";
+      }, 10 * i);
+    }
+  }
+
+  animateShortestPath(nodesInShortestPathOrder) {
+    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+      setTimeout(() => {
+        const node = nodesInShortestPathOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node node-shortest-path";
+      }, 50 * i);
     }
   }
 
@@ -116,7 +160,8 @@ export default class dijkstraVisualizer extends Component {
     let allNodes = things[1];
     console.log(shortestNodePathOrder, allNodes);
 
-    this.animateShortestPath(shortestNodePathOrder);
+    // this.animateShortestPath(shortestNodePathOrder);
+    this.animateDijkstra(allNodes, shortestNodePathOrder);
     // TODO - after the animation of all the visited nodes, animate the shortest path. Shortest path nodes get the class name - node-shortest-path
   }
 
