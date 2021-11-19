@@ -17,8 +17,9 @@ const END_NODE_COL = 25 + Math.floor(Math.random() * 25);
 const NUM_ROWS = 20;
 const NUM_COLUMNS = 50;
 // Specifies the number of walls the player can have active at one time
-let NUM_WALLS_TOTAL = 10;
+let NUM_WALLS_TOTAL = 1000;
 let NUM_WALLS_ACTIVE = 0;
+let RANDOM_WALL_NUMBER = 120;
 
 export default class dijkstraVisualizer extends Component {
   constructor() {
@@ -53,29 +54,69 @@ export default class dijkstraVisualizer extends Component {
     }
   }
 
+  toggleWallRandom(row, col, isWall, unWallable) {
+    let node = this.state.grid[row][col];
+    let grid = this.state.grid;
+    // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
+    if (
+      (!unWallable && NUM_WALLS_ACTIVE < NUM_WALLS_TOTAL + 1000000) ||
+      isWall
+    ) {
+      // If it isnt a wall currently, increase the number of active walls by one, else decrease them
+      // Creates a temporary node with the new property of isWall set to the opposite of its current state.
+      const newNode = {
+        ...node,
+        isWall: !isWall,
+      };
+      // Places the new node into the grid
+      grid[row][col] = newNode;
+      // Changes the overall state of the grid which re-renders it.
+      this.setState({ grid: grid });
+    }
+  }
+
   // Function to create random walls on the grid.
   randomWalls() {
     // Loops 250 times- therefore around 250 walls will be made. Chances are, less than 250 walls will be made, as a node may be picked twice, which will reverse the wall.
-    for (let i = 0; i < 250; i++) {
+    for (let i = 0; i < RANDOM_WALL_NUMBER; i++) {
       // Generates a random row and column number
       let row = Math.floor(Math.random() * 20);
       let column = Math.floor(Math.random() * 50);
       let node = this.state.grid[row][column]; // selects the node with the row and column specified above
       let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
       let unWallable = isEnd || isStart; // if the node is a start or end node, it cannot be changed
-      this.toggleWall(row, column, isWall, unWallable); // attempts to change the random node into a wall, unless it is unwallable, or already a wall- the function is still called regard;ess
+      this.toggleWallRandom(row, column, isWall, unWallable); // attempts to change the random node into a wall, unless it is unwallable, or already a wall- the function is still called regard;ess
+    }
+  }
+
+  animateShortestPath(shortestNodePathOrder) {
+    for (let i = 0; i < shortestNodePathOrder.length; i++) {
+      setTimeout(() => {
+        let currentNode = shortestNodePathOrder[i];
+        document.getElementById(
+          `node-${currentNode.row}-${currentNode.col}`
+        ).className = "node node-shortest-path";
+      }, 1 * i);
     }
   }
 
   // Starts the dijkstra algorithm. It calls dijkstra.js to find the visited nodes in order
   startDijkstra() {
     const { grid } = this.state; // gets the current state of the grid at the time of the button being pressed
-    const startNode = grid[START_NODE_ROW][START_NODE_COL]; // gets the start and end nodes
-    const endNode = grid[END_NODE_ROW][END_NODE_COL];
-    const visitedNodesInOrder = dijkstra(grid, startNode, endNode); // calls dijkstra to get the visited nodes in order
-    console.log(visitedNodesInOrder);
-    // TODO - calls the function to find the shortest path
-    // TODO - animates the visited nodes in order. Visited nodes get the class name - node-visited
+    const current_endNode = grid[END_NODE_ROW][END_NODE_COL];
+    const current_startNode = grid[START_NODE_ROW][START_NODE_COL]; // gets the start and end nodes
+    const things = dijkstra(
+      grid,
+      current_startNode,
+      current_endNode,
+      NUM_ROWS,
+      NUM_COLUMNS
+    ); // calls dijkstra to get the shortest path to the end node
+    let shortestNodePathOrder = things[0];
+    let allNodes = things[1];
+    console.log(shortestNodePathOrder, allNodes);
+
+    this.animateShortestPath(shortestNodePathOrder);
     // TODO - after the animation of all the visited nodes, animate the shortest path. Shortest path nodes get the class name - node-shortest-path
   }
 
@@ -102,7 +143,6 @@ export default class dijkstraVisualizer extends Component {
           {grid.map((row, rowID) => {
             return (
               <div
-                id="row"
                 key={
                   rowID
                 } /*  creates the div that holds all the nodes in the row*/

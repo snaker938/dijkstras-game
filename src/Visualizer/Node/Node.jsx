@@ -5,13 +5,14 @@ import "./Node.css";
 export default class Node extends Component {
   render() {
     const { col, row, isStart, isEnd, isWall, onClick } = this.props; // defines the properties of the node
-    const specialNode = isEnd
-      ? "node-end"
-      : isStart
-      ? "node-start"
-      : isWall
-      ? "node-wall"
-      : "";
+    const specialNode = getSpecialNode();
+
+    function getSpecialNode() {
+      if (isEnd) return "node-end";
+      else if (isStart) return "node-start";
+      else if (isWall) return "node-wall";
+      else return "";
+    }
     return (
       <div
         id={`node-${row}-${col}`}
