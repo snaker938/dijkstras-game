@@ -1,8 +1,9 @@
+import { NOTIMP } from "dns";
 import React, { Component } from "react";
 import { dijkstra } from "../algorithms/dijkstra";
 import Node from "./Node/Node";
-
 import "./Visualizer.css";
+import fs from "fs";
 
 // Placeholders for start node coordinates
 const START_NODE_ROW = 0;
@@ -189,37 +190,6 @@ export default class dijkstraVisualizer extends Component {
     return errorMessage.concat(E, R1, R2, O, R3);
   }
 
-  saveGrid() {
-    const grid = this.state.grid;
-    console.log(grid);
-    let fs = require("fs");
-
-    fs.readFile("src/templates/NO-PATH.json", "utf8", function (err, data) {
-      if (err) {
-        console.log(err);
-      } else {
-        const file = JSON.parse(data);
-        file.grid.push({ grid });
-
-        const json = JSON.stringify(file);
-
-        fs.writeFile(
-          "src/templates/NO-PATH.json",
-          json,
-          "utf8",
-          function (err) {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log("DONE!");
-              //Everything went OK!
-            }
-          }
-        );
-      }
-    });
-  }
-
   // Starts the dijkstra algorithm. It calls dijkstra.js to find the visited nodes in order
   startDijkstra() {
     const { grid } = this.state; // gets the current state of the grid at the time of the button being pressed
@@ -272,7 +242,7 @@ export default class dijkstraVisualizer extends Component {
         <button
           className="cool-button"
           onClick={() =>
-            this.saveGrid()
+            saveGrid(this.state.grid)
           } /* saves the current state of the grid */
         >
           Save Grid
@@ -352,3 +322,32 @@ const createNode = (col, row, isStart = false, isEnd = false) => {
     previousNode: null,
   };
 };
+
+// function saveGrid(grid) {
+//   const jsonString = JSON.stringify(grid);
+//   fs.writeFileSync("templates/NO-PATH.json", jsonString);
+//   // console.log(jsonString);
+// }
+
+function saveGrid(grid) {
+  // let fs = require("fs");
+
+  fs.readFile("/templates/NO-PATH.json", "utf8", function (err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      const file = JSON.parse(data);
+      file.grid.push(grid);
+
+      const json = JSON.stringify(file);
+
+      fs.writeFile("/templates/NO-PATH.json", json, "utf8", function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Done!");
+        }
+      });
+    }
+  });
+}
