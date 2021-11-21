@@ -20,12 +20,17 @@
 
 .node-visited {
   animation-name: visited;
-  animation-duration: 5s;
-  animation-timing-function: linear;
-  animation-delay: 0s;
-  animation-iteration-count: 1;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in;
+  animation-delay: 0;
   animation-direction: alternate;
-  /* background-color: rgb(143, 223, 243); */
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.node-text {
+  background-color: darkred;
 }
 
 .node-shortest-path {
@@ -79,7 +84,7 @@
     top: 200px;
   }
   100% {
-    background-color: red;
+    background-color: rgb(190, 58, 58);
     left: 0px;
     top: 0px;
   }

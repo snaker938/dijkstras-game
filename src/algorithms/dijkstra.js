@@ -2,6 +2,9 @@ export function dijkstra(grid, startNode, endNode, NUM_ROWSS, NUM_COLUMNSS) {
   const NUM_ROWS = NUM_ROWSS;
   const NUM_COLUMNS = NUM_COLUMNSS;
 
+  // resets all distances and previous nodes to starting values
+  resetALlNodes(grid);
+
   let otherVisitedNodes = []; // basically a list of visitied nodes in the order they were visited. Doesnt include walls
   let currentNode = startNode;
   let allUnvisitedNodes = getAllNodes(grid); // allUnvisitedNodes is a list of every single node in the grid
@@ -37,20 +40,20 @@ export function dijkstra(grid, startNode, endNode, NUM_ROWSS, NUM_COLUMNSS) {
   }
 
   // Once the end node has been reached, these lines are run. These lines also run if the end node is not found.
-  console.log("returning...");
   sortNodesByDistance(otherVisitedNodes); // does a final sort of all the visitedNodes
 
   // If the endnode has not been reached (ie. it has a distance of Infinity, which is the default value), set the shortest path to just the start node.
   if (endNode.distance === Infinity) {
     console.log("no path");
     // TODO-- special animation if no path is found
-    return [startNode, otherVisitedNodes];
+    return [[], getAllNodes(grid), false];
   }
 
+  console.log("returning...");
   // If there is a shortest path to the end node: get it
   let shortestNodePathOrder = getShortestPathNodeOrder(endNode, startNode);
   // The shortest path, and all the visited nodes in order are returned
-  return [shortestNodePathOrder, otherVisitedNodes];
+  return [shortestNodePathOrder, otherVisitedNodes, true];
 }
 
 // This function updates all the neighbours of the current node
@@ -132,4 +135,13 @@ function getAllNodes(grid) {
     }
   }
   return allNodes;
+}
+
+function resetALlNodes(grid) {
+  for (const row of grid) {
+    for (const node of row) {
+      node.distance = Infinity;
+      node.previousNode = null;
+    }
+  }
 }
