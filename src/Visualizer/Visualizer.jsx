@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { dijkstra } from "../algorithms/dijkstra";
 import Node from "./Node/Node";
 import "./Visualizer.css";
-import fs from "fs";
+import fs, { appendFileSync, writeFile } from "fs";
 
 // Placeholders for start node coordinates
 const START_NODE_ROW = 0;
@@ -46,9 +46,9 @@ export default class dijkstraVisualizer extends Component {
   removeAllWalls() {
     console.log("removing all walls...");
     let grid = [];
-    this.setState({ grid });
+    this.setState({ grid: grid });
     grid = initialiseGrid();
-    this.setState({ grid });
+    this.setState({ grid: grid });
   }
 
   // When a node is clicked, unless it is the start or end node, it gets toggled between a wall and not-wall
@@ -166,28 +166,56 @@ export default class dijkstraVisualizer extends Component {
     }
   }
 
-  animateNoProperPath() {
-    let errorMessage = this.sendError();
+  animateNoProperPath(errorMessage, otherNodes) {
+    // console.log(errorMessage);
     for (let i = 0; i < errorMessage.length; i++) {
       setTimeout(() => {
         const node = errorMessage[i];
+        // console.log(node);
         document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-wall";
-      }, 1.5 * i);
+          "node node-error";
+      }, 1.2 * i);
+    }
+    for (let i = 0; i < otherNodes.length; i++) {
+      setTimeout(() => {
+        const node = otherNodes[i];
+        // console.log(node);
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node node-error-other";
+      }, 1 * i);
     }
   }
 
-  sendError() {
-    // this.removeAllWalls();
-    const grid = this.state.grid;
-    let E = [];
-    let R1 = [];
-    let R2 = [];
-    let O = [];
-    let R3 = [];
+  sendError(error, allNodes) {
+    const newGrid = this.loadGrid(error);
 
-    let errorMessage = [];
-    return errorMessage.concat(E, R1, R2, O, R3);
+    function getImportantNodes(grid) {
+      let needed_nodes = [];
+      let unneededNodes = [];
+      for (const row of grid) {
+        for (const node of row) {
+          if (node.isWall) {
+            needed_nodes.push(node);
+          } else unneededNodes.push(node);
+        }
+      }
+      return [needed_nodes, unneededNodes];
+    }
+
+    // const result = newGrid.filter((node) => node.isWall);
+    let result = getImportantNodes(newGrid);
+    let needed_nodes = result[0];
+    let unneededNodes = result[1];
+    // console.log(needed_nodes);
+    this.animateNoProperPath(needed_nodes, unneededNodes);
+  }
+
+  loadGrid(error) {
+    this.removeAllWalls();
+    const json = require(`./templates/${error}.json`);
+    let newGrid = json.oog;
+    return newGrid;
+    // this.setState({ grid: newGrid });
   }
 
   // Starts the dijkstra algorithm. It calls dijkstra.js to find the visited nodes in order
@@ -208,7 +236,7 @@ export default class dijkstraVisualizer extends Component {
       let allNodes = dijkstraOutputs[1];
 
       this.animateAllNodes(allNodes, shortestNodePathOrder);
-    } else this.animateNoProperPath();
+    } else this.sendError("NO-PATH");
   }
 
   render() {
@@ -246,6 +274,12 @@ export default class dijkstraVisualizer extends Component {
           } /* saves the current state of the grid */
         >
           Save Grid
+        </button>
+        <button
+          className="cool-button"
+          onClick={() => this.loadGrid(this.state.grid)} /* loads the grid*/
+        >
+          Load Grid
         </button>
         <p className="walls-used text-info">
           {NUM_WALLS_ACTIVE} out of {NUM_WALLS_TOTAL} walls used
@@ -323,31 +357,9 @@ const createNode = (col, row, isStart = false, isEnd = false) => {
   };
 };
 
-// function saveGrid(grid) {
-//   const jsonString = JSON.stringify(grid);
-//   fs.writeFileSync("templates/NO-PATH.json", jsonString);
-//   // console.log(jsonString);
-// }
-
 function saveGrid(grid) {
-  // let fs = require("fs");
+  const json = require("./templates/NO-PATH.json");
+  const jsonString = JSON.stringify(grid);
 
-  fs.readFile("/templates/NO-PATH.json", "utf8", function (err, data) {
-    if (err) {
-      console.log(err);
-    } else {
-      const file = JSON.parse(data);
-      file.grid.push(grid);
-
-      const json = JSON.stringify(file);
-
-      fs.writeFile("/templates/NO-PATH.json", json, "utf8", function (err) {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log("Done!");
-        }
-      });
-    }
-  });
+  console.log(jsonString);
 }

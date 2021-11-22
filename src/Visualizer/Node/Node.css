@@ -18,6 +18,28 @@
   background-color: rgb(14, 55, 73);
 }
 
+.node-error {
+  animation-name: visited;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in;
+  animation-delay: 0.1;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.node-error-other {
+  animation-name: error-other;
+  animation-duration: 1;
+  animation-timing-function: ease-in;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
 .node-visited {
   animation-name: visited;
   animation-duration: 1.5s;
@@ -85,6 +107,34 @@
   }
   100% {
     background-color: rgb(190, 58, 58);
+    left: 0px;
+    top: 0px;
+  }
+}
+
+@keyframes error-other {
+  0% {
+    background-color: rgb(148, 170, 214);
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    background-color: rgb(73, 103, 188);
+    left: 200px;
+    top: 0px;
+  }
+  50% {
+    background-color: rgb(68, 68, 144);
+    left: 200px;
+    top: 200px;
+  }
+  75% {
+    background-color: rgb(25, 66, 110);
+    left: 0px;
+    top: 200px;
+  }
+  100% {
+    background-color: rgb(32, 65, 112);
     left: 0px;
     top: 0px;
   }
