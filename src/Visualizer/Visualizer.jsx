@@ -1,15 +1,13 @@
-import { NOTIMP } from "dns";
 import React, { Component } from "react";
 import { dijkstra } from "../algorithms/dijkstra";
 import Node from "./Node/Node";
 import "./Visualizer.css";
-import fs, { appendFileSync, writeFile } from "fs";
 
 // Placeholders for start node coordinates
-const START_NODE_ROW = 0;
-const START_NODE_COL = 0;
-const END_NODE_ROW = 20;
-const END_NODE_COL = 50;
+let START_NODE_ROW = 0;
+let START_NODE_COL = 0;
+let END_NODE_ROW = 20;
+let END_NODE_COL = 50;
 
 // Specifies the number of rows and columns
 const NUM_ROWS = 21;
@@ -27,7 +25,6 @@ const NUM_COLUMNS = 51;
 let NUM_WALLS_TOTAL = 10000000;
 let NUM_WALLS_ACTIVE = 0;
 let NUM_RANDOM_WALL_PRESSES = 2;
-// let RANDOM_WALL_NUMBER = Math.floor(NUM_ROWS / 2);
 let RANDOM_WALL_NUMBER = 400;
 
 export default class dijkstraVisualizer extends Component {
@@ -35,6 +32,7 @@ export default class dijkstraVisualizer extends Component {
     super();
     this.state = {
       grid: [],
+      dragging: [false, null, null, null],
     };
   }
   // Initialises grid
@@ -42,6 +40,71 @@ export default class dijkstraVisualizer extends Component {
     const grid = initialiseGrid();
     this.setState({ grid });
   }
+
+  dragStop() {
+    if (this.state.dragging[0]) {
+      console.log("stopped dragging...");
+      this.setState({ dragging: [false, null, null, null] });
+    }
+  }
+
+  dragStart(row, col) {
+    let grid = this.state.grid;
+    let node = grid[row][col];
+    let nodeBeingDragged = null;
+    if (node.isStart) nodeBeingDragged = node;
+    if (node.isEnd) nodeBeingDragged = node;
+    if (!this.state.dragging[0] && nodeBeingDragged) {
+      console.log("starting to drag...");
+      this.setState({ dragging: [true, node, node, node] });
+    }
+  }
+
+  drag(row, col) {
+    if (this.state.dragging[0]) {
+      this.dragNode(row, col);
+    }
+  }
+
+  dragNode(row, col) {
+    let typeBeingDragged;
+    if (this.state.dragging[1].isStart) typeBeingDragged = "start";
+    if (this.state.dragging[1].isEnd) typeBeingDragged = "end";
+    let grid = this.state.grid;
+    let node = grid[row][col];
+    let newNode = { ...node };
+
+    if (typeBeingDragged === "start") {
+      newNode = {
+        ...node,
+        isStart: !node.isStart,
+      };
+    } else if (typeBeingDragged === "end") {
+      newNode = {
+        ...node,
+        isEnd: !node.isEnd,
+      };
+    }
+
+    // Places the new node into the grid
+    grid[row][col] = newNode;
+    let previousNode = this.state.dragging[3];
+    if (this.state.dragging[2] !== this.state.dragging[3]) {
+      previousNode = this.state.dragging[2];
+      previousNode.isEnd = false;
+      previousNode.isStart = false;
+    }
+    // Changes the overall state of the grid which re-renders it.
+    this.setState({
+      dragging: [true, this.state.dragging[1], previousNode, previousNode],
+    });
+    previousNode = this.state.dragging[3];
+    previousNode.isEnd = false;
+    previousNode.isStart = false;
+    this.setState({ grid: grid });
+    console.log(this.state.dragging);
+  }
+
   // Initialises grid
   removeAllWalls() {
     console.log("removing all walls...");
@@ -104,47 +167,22 @@ export default class dijkstraVisualizer extends Component {
         let unWallable = isEnd || isStart; // if the node is a start or end node, it cannot be changed
         this.toggleWallRandom(row, column, isWall, unWallable); // attempts to change the random node into a wall, unless it is unwallable, or already a wall- the function is still called regard;ess
       }
-      // let things = dijkstra(
-      //   grid,
-      //   current_startNode,
-      //   current_endNode,
-      //   NUM_ROWS,
-      //   NUM_COLUMNS
-      // );
-
-      // // Loops 250 times- therefore around 250 walls will be made. Chances are, less than 250 walls will be made, as a node may be picked twice, which will reverse the wall.
-      // while (things[0] === current_startNode) {
-      //   console.log("random walling...");
-      //   this.removeAllWalls();
-      //   for (let i = 0; i < RANDOM_WALL_NUMBER; i++) {
-      //     // Generates a random row and column number
-      //     let row = Math.floor(Math.random() * NUM_ROWS);
-      //     let column = Math.floor(Math.random() * NUM_COLUMNS);
-      //     let node = this.state.grid[row][column]; // selects the node with the row and column specified above
-      //     let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
-      //     let unWallable = isEnd || isStart; // if the node is a start or end node, it cannot be changed
-      //     this.toggleWallRandom(row, column, isWall, unWallable); // attempts to change the random node into a wall, unless it is unwallable, or already a wall- the function is still called regard;ess
-      //   }
-
-      //   things = dijkstra(
-      //     this.state.grid,
-      //     current_startNode,
-      //     current_endNode,
-      //     NUM_ROWS,
-      //     NUM_COLUMNS
     }
     NUM_RANDOM_WALL_PRESSES--;
   }
 
+  // This function does what it says: it animates all the nodes, including the shortest path
   animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
+        // These lines of code run once all the nodes have been animated- because once they have all been animated, the shortest path needs to be animated
         setTimeout(() => {
           this.animateShortestPath(nodesInShortestPathOrder);
         }, 7 * i);
         return;
       }
       setTimeout(() => {
+        // This animates all the visited nodes, including the start node. It also adds the distance to the nodes so you can clearly see the algorithm working
         const node = visitedNodesInOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-visited";
@@ -154,6 +192,7 @@ export default class dijkstraVisualizer extends Component {
     }
   }
 
+  // This function animates the shortest path, including the start AND end nodes. It also adds the distance to the nodes. It is called AFTER all the other nodes have been animated.
   animateShortestPath(nodesInShortestPathOrder) {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
@@ -166,8 +205,9 @@ export default class dijkstraVisualizer extends Component {
     }
   }
 
+  // This function animates the rror message if there is no proper path.
   animateNoProperPath(errorMessage, otherNodes) {
-    // console.log(errorMessage);
+    // This for loop animates all the nodes that display the actual error message
     for (let i = 0; i < errorMessage.length; i++) {
       setTimeout(() => {
         const node = errorMessage[i];
@@ -176,6 +216,8 @@ export default class dijkstraVisualizer extends Component {
           "node node-error";
       }, 1.2 * i);
     }
+
+    // This for loop animates the other nodes in the message- ie. all the nodes that are not the actual, error message
     for (let i = 0; i < otherNodes.length; i++) {
       setTimeout(() => {
         const node = otherNodes[i];
@@ -186,36 +228,43 @@ export default class dijkstraVisualizer extends Component {
     }
   }
 
-  sendError(error, allNodes) {
-    const newGrid = this.loadGrid(error);
+  // This function is called when there is an error, and it needs to be animated on the grid.
+  sendError(error) {
+    const newGrid = this.loadGrid(error); // loads the grid template ie. the error message
 
     function getImportantNodes(grid) {
       let needed_nodes = [];
       let unneededNodes = [];
       for (const row of grid) {
         for (const node of row) {
+          // For each node of the template grid, if it is a wall: ie. it is part of the actual error message, push it to the neeeded nodes array.
           if (node.isWall) {
             needed_nodes.push(node);
-          } else unneededNodes.push(node);
+          } else unneededNodes.push(node); // if it is not a wall, ie. it is just the background/filler, then it is undeeed, but it still needs to be animated
         }
       }
       return [needed_nodes, unneededNodes];
     }
 
-    // const result = newGrid.filter((node) => node.isWall);
-    let result = getImportantNodes(newGrid);
+    let result = getImportantNodes(newGrid); //  this function separates the nodes needed for the actual message, and the ones that "surround" the message
     let needed_nodes = result[0];
     let unneededNodes = result[1];
-    // console.log(needed_nodes);
-    this.animateNoProperPath(needed_nodes, unneededNodes);
+    this.animateNoProperPath(needed_nodes, unneededNodes); // animatee both the error message, and the background
   }
 
   loadGrid(error) {
-    this.removeAllWalls();
-    const json = require(`./templates/${error}.json`);
+    this.removeAllWalls(); // removes all current walls so they dont get in the way
+    const json = require(`./templates/${error}.json`); // gets the contents of the json file so the grid can be accessed.
     let newGrid = json.oog;
-    return newGrid;
-    // this.setState({ grid: newGrid });
+    return newGrid; // returns the new grid, ie. the grid template that needs to be animated
+  }
+
+  // This function is purely for testing the grid templates. No animating or anything is done here
+  loadTestGrid() {
+    this.removeAllWalls(); // removes all existing walls
+    const json = require(`./templates/NO-PATH.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
+    let newGrid = json.oog; // this gets the actual grid template
+    this.setState({ grid: newGrid }); // sets the current state of the grid to the new grid.
   }
 
   // Starts the dijkstra algorithm. It calls dijkstra.js to find the visited nodes in order
@@ -232,11 +281,11 @@ export default class dijkstraVisualizer extends Component {
     ); // calls dijkstra to get the shortest path to the end node
     let pathFound = dijkstraOutputs[2];
     if (pathFound) {
+      // If there is a path, animate all the nodes and then the shortest path
       let shortestNodePathOrder = dijkstraOutputs[0];
       let allNodes = dijkstraOutputs[1];
-
       this.animateAllNodes(allNodes, shortestNodePathOrder);
-    } else this.sendError("NO-PATH");
+    } else this.sendError("NO-PATH"); // If there us no path, animate the "NO-PATH" error message, along with the remaining nodes to create a very cool error message.
   }
 
   render() {
@@ -277,7 +326,7 @@ export default class dijkstraVisualizer extends Component {
         </button>
         <button
           className="cool-button"
-          onClick={() => this.loadGrid(this.state.grid)} /* loads the grid*/
+          onClick={() => this.loadTestGrid()} /* loads the grid*/
         >
           Load Grid
         </button>
@@ -310,6 +359,9 @@ export default class dijkstraVisualizer extends Component {
                       onClick={(row, col) =>
                         this.toggleWall(row, col, isWall, unWallable)
                       }
+                      onMouseUp={() => this.dragStop()}
+                      onMouseDown={(row, col) => this.dragStart(row, col)}
+                      onMouseEnter={(row, col) => this.drag(row, col)}
                     ></Node>
                   );
                 })}
@@ -357,9 +409,8 @@ const createNode = (col, row, isStart = false, isEnd = false) => {
   };
 };
 
+// This function sends the current state of the grid to the console. You can then copy this string and paste it into a json file to easily load the grid.
 function saveGrid(grid) {
-  const json = require("./templates/NO-PATH.json");
   const jsonString = JSON.stringify(grid);
-
   console.log(jsonString);
 }
