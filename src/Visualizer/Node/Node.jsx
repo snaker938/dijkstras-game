@@ -17,6 +17,7 @@ export default class Node extends Component {
     } = this.props; // defines the properties of the node
     const specialNode = getSpecialNode();
 
+    // Checks whether the node is special. ie. is it a wall, a start or end node. If so, give them special css classes
     function getSpecialNode() {
       if (isEnd) return "node-end";
       else if (isStart) return "node-start";

@@ -32,80 +32,95 @@ export default class dijkstraVisualizer extends Component {
     super();
     this.state = {
       grid: [],
-      dragging: [false, null, null, null],
+      dragging: [false, null, null], // 0: is-dragging ; 1: node-being-dragged ; 2: end/previous node
+      // sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occured on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging alltogether. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to creatr an illusion like the user is actuall dragging the node around.
     };
   }
+
   // Initialises grid
   componentDidMount() {
     const grid = initialiseGrid();
     this.setState({ grid });
   }
 
-  dragStop() {
-    if (this.state.dragging[0]) {
-      console.log("stopped dragging...");
-      this.setState({ dragging: [false, null, null, null] });
-    }
-  }
-
+  // This function is called when a user presses, and holds, but no releases their mouse button on ANY node.
   dragStart(row, col) {
     let grid = this.state.grid;
     let node = grid[row][col];
     let nodeBeingDragged = null;
-    if (node.isStart) nodeBeingDragged = node;
-    if (node.isEnd) nodeBeingDragged = node;
+    if (node.isStart || node.isEnd) nodeBeingDragged = node; // this conditional statement is the deciding factor on whether the user is able to drag the node. Aka- it is draggable. A node is only draggable if it is a start or end node
     if (!this.state.dragging[0] && nodeBeingDragged) {
       console.log("starting to drag...");
-      this.setState({ dragging: [true, node, node, node] });
-    }
-  }
-
-  drag(row, col) {
-    if (this.state.dragging[0]) {
-      this.dragNode(row, col);
+      this.setState({ dragging: [true, node, node] }); // sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occured on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging alltogether. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to creatr an illusion like the user is actuall dragging the node around.
     }
   }
 
   dragNode(row, col) {
-    let typeBeingDragged;
-    if (this.state.dragging[1].isStart) typeBeingDragged = "start";
-    if (this.state.dragging[1].isEnd) typeBeingDragged = "end";
-    let grid = this.state.grid;
-    let node = grid[row][col];
-    let newNode = { ...node };
-
-    if (typeBeingDragged === "start") {
-      newNode = {
-        ...node,
-        isStart: !node.isStart,
+    // This function only works if the user is dragging a start/end node
+    if (this.state.dragging[0]) {
+      // Stores the previous node so that its class can be removed later to give an illusion that we are dragging the node
+      let previousNode = {
+        ...this.state.dragging[2],
+        isStart: false,
+        isEnd: false,
       };
-    } else if (typeBeingDragged === "end") {
-      newNode = {
-        ...node,
-        isEnd: !node.isEnd,
-      };
-    }
 
-    // Places the new node into the grid
-    grid[row][col] = newNode;
-    let previousNode = this.state.dragging[3];
-    if (this.state.dragging[2] !== this.state.dragging[3]) {
-      previousNode = this.state.dragging[2];
-      previousNode.isEnd = false;
-      previousNode.isStart = false;
+      // Finds the row and column of the previous node so we can add the updated previous node (with no classes on it because it is no longer a start or end node) to the grid
+      let previousRow = previousNode.row;
+      let previousCol = previousNode.col;
+      this.setState({ dragging: [true, this.state.dragging[1], previousNode] }); // sets the current state of dragging with its current indexs so it can be used later on, with the ammended previous node
+
+      // Finds the type of node that is being dragged- is it a start or end node
+      let typeBeingDragged;
+      if (this.state.dragging[1].isStart) typeBeingDragged = "start";
+      if (this.state.dragging[1].isEnd) typeBeingDragged = "end";
+
+      // Store the current state of the grid
+      let grid2 = this.state.grid;
+      let node = grid2[row][col];
+      let newNode = { ...node };
+
+      // Changes the properties of the current node depending on whether it is a start or end node.
+      if (typeBeingDragged === "start") {
+        newNode = {
+          ...node,
+          isStart: !node.isStart,
+        };
+      } else if (typeBeingDragged === "end") {
+        newNode = {
+          ...node,
+          isEnd: !node.isEnd,
+        };
+      }
+
+      grid2[row][col] = newNode; // sets the position in the grid to the new node with the new properties
+      grid2[previousRow][previousCol] = previousNode; // sets the previous node of the grid to have default properties, ie. it is no longer a start or end node
+      this.setState({ dragging: [true, this.state.dragging[1], newNode] }); // sets the status of dragging with all the new changes
     }
-    // Changes the overall state of the grid which re-renders it.
-    this.setState({
-      dragging: [true, this.state.dragging[1], previousNode, previousNode],
-    });
-    previousNode = this.state.dragging[3];
-    previousNode.isEnd = false;
-    previousNode.isStart = false;
-    this.setState({ grid: grid });
-    console.log(this.state.dragging);
   }
 
-  // Initialises grid
+  // This function is called when the user releases their mouse button and therefore is no longer dragging
+  dragStop() {
+    // Only works if dragging is taking place
+    if (this.state.dragging[0]) {
+      console.log("stopped dragging...");
+      // Finds the new position of the start OR end node- it doesnt matter
+      let newRow = this.state.dragging[2].row;
+      let newCol = this.state.dragging[2].col;
+
+      // Checks whether the new node is a start or end node, and then updates the cooridinates of them, otherwise the algorithm will use the old values
+      if (this.state.dragging[2].isStart) {
+        START_NODE_ROW = newRow;
+        START_NODE_COL = newCol;
+      } else if (this.state.dragging[2].isEnd) {
+        END_NODE_ROW = newRow;
+        END_NODE_COL = newCol;
+      }
+      this.setState({ dragging: [false, null, null] }); // sets the state of dragging to the main default values, waiting for the next time dragging is needed
+    }
+  }
+
+  // This function removes every wall on the grid
   removeAllWalls() {
     console.log("removing all walls...");
     let grid = [];
@@ -249,7 +264,7 @@ export default class dijkstraVisualizer extends Component {
     let result = getImportantNodes(newGrid); //  this function separates the nodes needed for the actual message, and the ones that "surround" the message
     let needed_nodes = result[0];
     let unneededNodes = result[1];
-    this.animateNoProperPath(needed_nodes, unneededNodes); // animatee both the error message, and the background
+    this.animateNoProperPath(needed_nodes, unneededNodes); // animates both the error message, and the background
   }
 
   loadGrid(error) {
@@ -361,7 +376,7 @@ export default class dijkstraVisualizer extends Component {
                       }
                       onMouseUp={() => this.dragStop()}
                       onMouseDown={(row, col) => this.dragStart(row, col)}
-                      onMouseEnter={(row, col) => this.drag(row, col)}
+                      onMouseEnter={(row, col) => this.dragNode(row, col)}
                     ></Node>
                   );
                 })}
