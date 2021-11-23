@@ -3,7 +3,7 @@ export function dijkstra(grid, startNode, endNode, NUM_ROWSS, NUM_COLUMNSS) {
   const NUM_COLUMNS = NUM_COLUMNSS;
 
   // resets all distances and previous nodes to starting values
-  resetALlNodes(grid);
+  resetAllNodes(grid);
 
   let otherVisitedNodes = []; // basically a list of visitied nodes in the order they were visited. Doesnt include walls
   let currentNode = startNode;
@@ -137,11 +137,22 @@ function getAllNodes(grid) {
   return allNodes;
 }
 
-function resetALlNodes(grid) {
+// This function resets all the nodes to the default class
+function resetAllNodes(grid) {
   for (const row of grid) {
     for (const node of row) {
+      let specialClass = "";
+      if (node.isWall) specialClass = "node-wall";
+      if (node.isStart) specialClass = "node-start";
+      if (node.isEnd) specialClass = "node-end";
       node.distance = Infinity;
       node.previousNode = null;
+      document.getElementById(
+        `node-${node.row}-${node.col}`
+      ).className = `node ${specialClass}`;
+      document.getElementById(
+        `node-${node.row}-${node.col}`
+      ).innerHTML = `&nbsp`;
     }
   }
 }

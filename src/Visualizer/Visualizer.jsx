@@ -22,10 +22,12 @@ const NUM_COLUMNS = 51;
 //   Math.floor(Math.random() * Math.floor(NUM_COLUMNS / 2));
 
 // Specifies the number of walls the player can have active at one time
-let NUM_WALLS_TOTAL = 10000000;
+let NUM_WALLS_TOTAL = 1000;
 let NUM_WALLS_ACTIVE = 0;
 let NUM_RANDOM_WALL_PRESSES = 2;
 let RANDOM_WALL_NUMBER = 400;
+
+let canDragOntoWall = true;
 
 export default class dijkstraVisualizer extends Component {
   constructor() {
@@ -45,57 +47,69 @@ export default class dijkstraVisualizer extends Component {
 
   // This function is called when a user presses, and holds, but no releases their mouse button on ANY node.
   dragStart(row, col) {
+    resetAllNodes(this.state.grid);
     let grid = this.state.grid;
     let node = grid[row][col];
     let nodeBeingDragged = null;
     if (node.isStart || node.isEnd) nodeBeingDragged = node; // this conditional statement is the deciding factor on whether the user is able to drag the node. Aka- it is draggable. A node is only draggable if it is a start or end node
     if (!this.state.dragging[0] && nodeBeingDragged) {
       console.log("starting to drag...");
-      this.setState({ dragging: [true, node, node] }); // sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occured on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging alltogether. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to creatr an illusion like the user is actuall dragging the node around.
+      this.setState({ dragging: [true, node, node] }); // sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occured on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging alltogether. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to create an illusion like the user is actuall dragging the node around.
     }
   }
 
   dragNode(row, col) {
-    // This function only works if the user is dragging a start/end node
+    // This function only works if the user is dragging a start/end node, and is not trying to drag it onto a start/end node and is not trying to drag it onto a wall if the situtation requires him not to
     if (this.state.dragging[0]) {
-      // Stores the previous node so that its class can be removed later to give an illusion that we are dragging the node
-      let previousNode = {
-        ...this.state.dragging[2],
-        isStart: false,
-        isEnd: false,
-      };
+      let firstGrid = this.state.grid;
+      let nodeBeingDraggedOnto = firstGrid[row][col];
+      // let fine = true;
+      // if (nodeBeingDraggedOnto.isWall && !canDragOntoWall) fine = false;
+      // else fine = true;
+      // console.log(fine, canDragOntoWall);
 
-      // Finds the row and column of the previous node so we can add the updated previous node (with no classes on it because it is no longer a start or end node) to the grid
-      let previousRow = previousNode.row;
-      let previousCol = previousNode.col;
-      this.setState({ dragging: [true, this.state.dragging[1], previousNode] }); // sets the current state of dragging with its current indexs so it can be used later on, with the ammended previous node
-
-      // Finds the type of node that is being dragged- is it a start or end node
-      let typeBeingDragged;
-      if (this.state.dragging[1].isStart) typeBeingDragged = "start";
-      if (this.state.dragging[1].isEnd) typeBeingDragged = "end";
-
-      // Store the current state of the grid
-      let grid2 = this.state.grid;
-      let node = grid2[row][col];
-      let newNode = { ...node };
-
-      // Changes the properties of the current node depending on whether it is a start or end node.
-      if (typeBeingDragged === "start") {
-        newNode = {
-          ...node,
-          isStart: !node.isStart,
+      if (!nodeBeingDraggedOnto.isStart && !nodeBeingDraggedOnto.isEnd) {
+        // Stores the previous node so that its class can be removed later to give an illusion that we are dragging the node
+        let previousNode = {
+          ...this.state.dragging[2],
+          isStart: false,
+          isEnd: false,
         };
-      } else if (typeBeingDragged === "end") {
-        newNode = {
-          ...node,
-          isEnd: !node.isEnd,
-        };
+
+        // Finds the row and column of the previous node so we can add the updated previous node (with no classes on it because it is no longer a start or end node) to the grid
+        let previousRow = previousNode.row;
+        let previousCol = previousNode.col;
+        this.setState({
+          dragging: [true, this.state.dragging[1], previousNode],
+        }); // sets the current state of dragging with its current indexs so it can be used later on, with the ammended previous node
+
+        // Finds the type of node that is being dragged- is it a start or end node
+        let typeBeingDragged;
+        if (this.state.dragging[1].isStart) typeBeingDragged = "start";
+        if (this.state.dragging[1].isEnd) typeBeingDragged = "end";
+
+        // Store the current state of the grid
+        let grid2 = this.state.grid;
+        let node = grid2[row][col];
+        let newNode = { ...node };
+
+        // Changes the properties of the current node depending on whether it is a start or end node.
+        if (typeBeingDragged === "start") {
+          newNode = {
+            ...node,
+            isStart: !node.isStart,
+          };
+        } else if (typeBeingDragged === "end") {
+          newNode = {
+            ...node,
+            isEnd: !node.isEnd,
+          };
+        }
+
+        grid2[row][col] = newNode; // sets the position in the grid to the new node with the new properties
+        grid2[previousRow][previousCol] = previousNode; // sets the previous node of the grid to have default properties, ie. it is no longer a start or end node
+        this.setState({ dragging: [true, this.state.dragging[1], newNode] }); // sets the status of dragging with all the new changes
       }
-
-      grid2[row][col] = newNode; // sets the position in the grid to the new node with the new properties
-      grid2[previousRow][previousCol] = previousNode; // sets the previous node of the grid to have default properties, ie. it is no longer a start or end node
-      this.setState({ dragging: [true, this.state.dragging[1], newNode] }); // sets the status of dragging with all the new changes
     }
   }
 
@@ -108,6 +122,19 @@ export default class dijkstraVisualizer extends Component {
       let newRow = this.state.dragging[2].row;
       let newCol = this.state.dragging[2].col;
 
+      let newSepcialNode = this.state.dragging[2];
+      if (newSepcialNode.isWall) {
+        NUM_WALLS_ACTIVE--;
+        // if (NUM_WALLS_ACTIVE === 0 && NUM_RANDOM_WALL_PRESSES !== 2) {
+        //   canDragOntoWall = false;
+        // } else canDragOntoWall = true;
+      }
+      newSepcialNode = { ...newSepcialNode, isWall: false };
+      let grid = this.state.grid;
+      grid[newRow][newCol] = newSepcialNode;
+      this.setState({ grid: grid });
+      // newSepcialNode.isWall = false;
+
       // Checks whether the new node is a start or end node, and then updates the cooridinates of them, otherwise the algorithm will use the old values
       if (this.state.dragging[2].isStart) {
         START_NODE_ROW = newRow;
@@ -116,6 +143,7 @@ export default class dijkstraVisualizer extends Component {
         END_NODE_ROW = newRow;
         END_NODE_COL = newCol;
       }
+
       this.setState({ dragging: [false, null, null] }); // sets the state of dragging to the main default values, waiting for the next time dragging is needed
     }
   }
@@ -127,6 +155,7 @@ export default class dijkstraVisualizer extends Component {
     this.setState({ grid: grid });
     grid = initialiseGrid();
     this.setState({ grid: grid });
+    NUM_WALLS_ACTIVE = 0;
   }
 
   // When a node is clicked, unless it is the start or end node, it gets toggled between a wall and not-wall
@@ -182,8 +211,9 @@ export default class dijkstraVisualizer extends Component {
         let unWallable = isEnd || isStart; // if the node is a start or end node, it cannot be changed
         this.toggleWallRandom(row, column, isWall, unWallable); // attempts to change the random node into a wall, unless it is unwallable, or already a wall- the function is still called regard;ess
       }
+      NUM_RANDOM_WALL_PRESSES--;
+      NUM_WALLS_ACTIVE = 10;
     }
-    NUM_RANDOM_WALL_PRESSES--;
   }
 
   // This function does what it says: it animates all the nodes, including the shortest path
@@ -193,7 +223,7 @@ export default class dijkstraVisualizer extends Component {
         // These lines of code run once all the nodes have been animated- because once they have all been animated, the shortest path needs to be animated
         setTimeout(() => {
           this.animateShortestPath(nodesInShortestPathOrder);
-        }, 7 * i);
+        }, 8 * i); //used to be 7
         return;
       }
       setTimeout(() => {
@@ -203,7 +233,7 @@ export default class dijkstraVisualizer extends Component {
           "node node-visited";
         document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
           visitedNodesInOrder[i].distance;
-      }, 5 * i);
+      }, 6 * i); // used to be 5
     }
   }
 
@@ -216,7 +246,7 @@ export default class dijkstraVisualizer extends Component {
           "node node-shortest-path";
         document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
           nodesInShortestPathOrder[i].distance;
-      }, 5 * i);
+      }, 6 * i); // used to be 5
     }
   }
 
@@ -268,7 +298,7 @@ export default class dijkstraVisualizer extends Component {
   }
 
   loadGrid(error) {
-    this.removeAllWalls(); // removes all current walls so they dont get in the way
+    // this.removeAllWalls(); // removes all current walls so they dont get in the way
     const json = require(`./templates/${error}.json`); // gets the contents of the json file so the grid can be accessed.
     let newGrid = json.oog;
     return newGrid; // returns the new grid, ie. the grid template that needs to be animated
@@ -344,6 +374,14 @@ export default class dijkstraVisualizer extends Component {
           onClick={() => this.loadTestGrid()} /* loads the grid*/
         >
           Load Grid
+        </button>
+        <button
+          className="cool-button"
+          onClick={() =>
+            resetAllNodes(this.state.grid)
+          } /* resets all animations*/
+        >
+          UnAnimate
         </button>
         <p className="walls-used text-info">
           {NUM_WALLS_ACTIVE} out of {NUM_WALLS_TOTAL} walls used
@@ -428,4 +466,24 @@ const createNode = (col, row, isStart = false, isEnd = false) => {
 function saveGrid(grid) {
   const jsonString = JSON.stringify(grid);
   console.log(jsonString);
+}
+
+// This function resets all the nodes to the default class
+function resetAllNodes(grid) {
+  for (const row of grid) {
+    for (const node of row) {
+      let specialClass = "";
+      if (node.isWall) specialClass = "node-wall";
+      if (node.isStart) specialClass = "node-start";
+      if (node.isEnd) specialClass = "node-end";
+      node.distance = Infinity;
+      node.previousNode = null;
+      document.getElementById(
+        `node-${node.row}-${node.col}`
+      ).className = `node ${specialClass}`;
+      document.getElementById(
+        `node-${node.row}-${node.col}`
+      ).innerHTML = `&nbsp`; // sets inner html to a blank space. This will remove the distance showing on the node
+    }
+  }
 }
