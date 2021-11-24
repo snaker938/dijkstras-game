@@ -27,8 +27,6 @@ let NUM_WALLS_ACTIVE = 0;
 let NUM_RANDOM_WALL_PRESSES = 2;
 let RANDOM_WALL_NUMBER = 400;
 
-let canDragOntoWall = true;
-
 export default class dijkstraVisualizer extends Component {
   constructor() {
     super();
@@ -123,12 +121,6 @@ export default class dijkstraVisualizer extends Component {
       let newCol = this.state.dragging[2].col;
 
       let newSepcialNode = this.state.dragging[2];
-      if (newSepcialNode.isWall) {
-        NUM_WALLS_ACTIVE--;
-        // if (NUM_WALLS_ACTIVE === 0 && NUM_RANDOM_WALL_PRESSES !== 2) {
-        //   canDragOntoWall = false;
-        // } else canDragOntoWall = true;
-      }
       newSepcialNode = { ...newSepcialNode, isWall: false };
       let grid = this.state.grid;
       grid[newRow][newCol] = newSepcialNode;
