@@ -45,8 +45,11 @@ export function dijkstra(grid, startNode, endNode, NUM_ROWSS, NUM_COLUMNSS) {
   // If the endnode has not been reached (ie. it has a distance of Infinity, which is the default value), set the shortest path to just the start node.
   if (endNode.distance === Infinity) {
     console.log("no path");
+    otherVisitedNodes = otherVisitedNodes.filter(
+      (node) => node.distance !== Infinity
+    );
     // TODO-- special animation if no path is found
-    return [[], getAllNodes(grid), false];
+    return [otherVisitedNodes, getAllNodes(grid), false];
   }
 
   console.log("returning...");

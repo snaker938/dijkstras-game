@@ -189,6 +189,10 @@ export default class dijkstraVisualizer extends Component {
 
   // Function to create random walls on the grid. There will ALWAYS be a path, no matter what.
   randomWalls() {
+    // document.cookie = [NUM_COLUMNS, NUM_ROWS];
+    // let x = document.cookie;
+    // console.log(document.cookie.split(",")[1]);
+    // console.log(document.cookie);
     if (NUM_RANDOM_WALL_PRESSES > 0) {
       // let { grid } = this.state; // gets the current state of the grid at the time of the button being pressed
       // let current_endNode = grid[END_NODE_ROW][END_NODE_COL];
@@ -212,6 +216,12 @@ export default class dijkstraVisualizer extends Component {
   animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
+        if (nodesInShortestPathOrder.length === 0) {
+          setTimeout(() => {
+            this.sendError("NO-PATH"); // If there us no path, animate the "NO-PATH" error message, along with the remaining nodes to create a very cool error message.
+            return;
+          }, 8 * i); //used to be 7
+        }
         // These lines of code run once all the nodes have been animated- because once they have all been animated, the shortest path needs to be animated
         setTimeout(() => {
           this.animateShortestPath(nodesInShortestPathOrder);
@@ -267,6 +277,7 @@ export default class dijkstraVisualizer extends Component {
 
   // This function is called when there is an error, and it needs to be animated on the grid.
   sendError(error) {
+    resetAllNodes(this.state.grid);
     const newGrid = this.loadGrid(error); // loads the grid template ie. the error message
 
     function getImportantNodes(grid) {
@@ -316,13 +327,17 @@ export default class dijkstraVisualizer extends Component {
       NUM_ROWS,
       NUM_COLUMNS
     ); // calls dijkstra to get the shortest path to the end node
+    let triedNodes = dijkstraOutputs[0];
     let pathFound = dijkstraOutputs[2];
     if (pathFound) {
       // If there is a path, animate all the nodes and then the shortest path
       let shortestNodePathOrder = dijkstraOutputs[0];
       let allNodes = dijkstraOutputs[1];
       this.animateAllNodes(allNodes, shortestNodePathOrder);
-    } else this.sendError("NO-PATH"); // If there us no path, animate the "NO-PATH" error message, along with the remaining nodes to create a very cool error message.
+    } else {
+      // this.sendError("NO-PATH")}; // If there us no path, animate the "NO-PATH" error message, along with the remaining nodes to create a very cool error message.
+      this.animateAllNodes(triedNodes, []);
+    }
   }
 
   render() {
