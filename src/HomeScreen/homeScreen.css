@@ -1,0 +1,17 @@
+body {
+  text-align: center;
+}
+
+.play-sandbox-button {
+  position: relative;
+  top: 15px;
+  right: 75px;
+  margin-left: 25px;
+}
+
+.play-campaign-button {
+  position: relative;
+  top: 15px;
+  right: 75px;
+  margin-left: 25px;
+}
