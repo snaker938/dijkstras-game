@@ -1,15 +1,15 @@
 import React from "react";
-import Visualizer from "./Visualizer/Visualizer";
 import ReactDOM from "react-dom";
+import HomeScreen from "./HomeScreen/homeScreen";
 
-function EnterSandbox() {
+function EnterHome() {
   ReactDOM.render(
     <React.StrictMode>
       <div className="App">
-        <Visualizer></Visualizer>
+        <HomeScreen></HomeScreen>
       </div>
     </React.StrictMode>,
     document.getElementById("root")
   );
 }
-export default EnterSandbox;
+export default EnterHome;

@@ -2,17 +2,28 @@ const path = require("path");
 
 const { app, BrowserWindow } = require("electron");
 const isDev = require("electron-is-dev");
+const height = 600;
+const width = 800;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
+// function getNumLevels() {
+//   const fs = require("fs");
+//   const dir = "/src/levels";
+
+//   fs.readdir(dir, (err, levels) => {
+//     return levels.length;
+//   });
+// }
+
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: width,
+    height: height,
     webPreferences: {
       nodeIntegration: true,
     },

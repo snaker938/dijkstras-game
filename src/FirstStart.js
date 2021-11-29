@@ -1,10 +1,10 @@
 import React from "react";
-import FirstStartScreen from "./HomeScreen/homeScreen";
+import HomeScreen from "./HomeScreen/homeScreen";
 
 function FirstStart() {
   return (
     <div className="firstStart">
-      <FirstStartScreen></FirstStartScreen>
+      <HomeScreen></HomeScreen>
     </div>
   );
 }

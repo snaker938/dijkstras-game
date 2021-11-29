@@ -1,8 +1,10 @@
 import React from "react";
 import Visualizer from "./Visualizer/Visualizer";
 import ReactDOM from "react-dom";
+import { setCurrentLevel } from "./currentLevelHandling";
 
-function EnterSandbox() {
+function EnterLevel(levelNum) {
+  setCurrentLevel(levelNum);
   ReactDOM.render(
     <React.StrictMode>
       <div className="App">
@@ -12,4 +14,4 @@ function EnterSandbox() {
     document.getElementById("root")
   );
 }
-export default EnterSandbox;
+export default EnterLevel;

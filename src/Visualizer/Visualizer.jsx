@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { dijkstra } from "../algorithms/dijkstra";
+import { currentLevel } from "../currentLevelHandling";
+import EnterHome from "../EnterHomeScreen";
 import Node from "./Node/Node";
 import "./Visualizer.css";
 
@@ -13,17 +15,11 @@ let END_NODE_COL = 50;
 const NUM_ROWS = 21;
 const NUM_COLUMNS = 51;
 
-// other constants
-// const START_NODE_ROW = Math.floor(Math.random() * NUM_ROWS);
-// const START_NODE_COL = Math.floor(Math.random() * Math.floor(NUM_COLUMNS / 2));
-// const END_NODE_ROW = Math.floor(Math.random() * NUM_ROWS);
-// const END_NODE_COL =
-//   Math.floor(NUM_COLUMNS / 2) +
-//   Math.floor(Math.random() * Math.floor(NUM_COLUMNS / 2));
-
 // Specifies the number of walls the player can have active at one time
 let NUM_WALLS_TOTAL = 1000;
 let NUM_WALLS_ACTIVE = 0;
+
+// Wall Presses
 let NUM_RANDOM_WALL_PRESSES = 2;
 let RANDOM_WALL_NUMBER = 400;
 
@@ -45,6 +41,7 @@ export default class dijkstraVisualizer extends Component {
 
   // This function is called when a user presses, and holds, but no releases their mouse button on ANY node.
   dragStart(row, col) {
+    console.log(currentLevel);
     resetAllNodes(this.state.grid);
     let grid = this.state.grid;
     let node = grid[row][col];
@@ -278,7 +275,7 @@ export default class dijkstraVisualizer extends Component {
   // This function is called when there is an error, and it needs to be animated on the grid.
   sendError(error) {
     resetAllNodes(this.state.grid);
-    const newGrid = this.loadGrid(error); // loads the grid template ie. the error message
+    const newGrid = this.loadGridMessage(error); // loads the grid template ie. the error message
 
     function getImportantNodes(grid) {
       let needed_nodes = [];
@@ -300,18 +297,18 @@ export default class dijkstraVisualizer extends Component {
     this.animateNoProperPath(needed_nodes, unneededNodes); // animates both the error message, and the background
   }
 
-  loadGrid(error) {
+  loadGridMessage(error) {
     // this.removeAllWalls(); // removes all current walls so they dont get in the way
     const json = require(`./templates/${error}.json`); // gets the contents of the json file so the grid can be accessed.
-    let newGrid = json.oog;
+    let newGrid = json.grid;
     return newGrid; // returns the new grid, ie. the grid template that needs to be animated
   }
 
   // This function is purely for testing the grid templates. No animating or anything is done here
   loadTestGrid() {
     this.removeAllWalls(); // removes all existing walls
-    const json = require(`./templates/NO-PATH.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
-    let newGrid = json.oog; // this gets the actual grid template
+    const json = require(`../levels/level1.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
+    let newGrid = json.grid; // this gets the actual grid template
     this.setState({ grid: newGrid }); // sets the current state of the grid to the new grid.
   }
 
@@ -345,7 +342,7 @@ export default class dijkstraVisualizer extends Component {
 
     return (
       <>
-        <p class="cool-text-bar"></p>
+        <p className="cool-text-bar"></p>
         <button
           className="cool-button"
           onClick={() =>
@@ -389,6 +386,12 @@ export default class dijkstraVisualizer extends Component {
           } /* resets all animations*/
         >
           UnAnimate
+        </button>
+        <button
+          className="cool-button"
+          onClick={() => EnterHome()} /* goes home*/
+        >
+          Home
         </button>
         <p className="walls-used text-info">
           {NUM_WALLS_ACTIVE} out of {NUM_WALLS_TOTAL} walls used

@@ -1,0 +1,11 @@
+{
+  "levelID": 2,
+  "levelName": "Level 2",
+  "randomWallPressesAllowed": 0,
+  "lives": 3,
+  "wallsAllowed": 10,
+  "wallsForNoStar": 10,
+  "wallsForOneStar": 7,
+  "wallsForTwoStar": 5,
+  "wallsForThreeStar": 3
+}
