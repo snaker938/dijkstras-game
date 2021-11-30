@@ -2,6 +2,7 @@
   "levelID": 1,
   "levelName": "The Three Walled Rows",
   "randomWallPressesAllowed": 0,
+  "randomWallNumber": 400,
   "lives": 3,
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 20],

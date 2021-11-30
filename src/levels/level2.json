@@ -2,6 +2,7 @@
   "levelID": 2,
   "levelName": "Level 2",
   "randomWallPressesAllowed": 0,
+  "randomWallNumber": 400,
   "lives": 3,
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 20],

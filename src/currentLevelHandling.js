@@ -7,6 +7,7 @@ import {
   allLevelNames,
   allLevelNodeCoords,
   allLevelIDs,
+  allLevelRandomWallNumber,
 } from "./allLevelData";
 
 let currentLevel = 1;
@@ -47,11 +48,16 @@ export function getCurrentLevelID() {
   return allLevelIDs[currentLevel - 1];
 }
 
+export function getCurrentLevelRandomWallNumber() {
+  return allLevelRandomWallNumber[currentLevel - 1];
+}
+
 export function getAllCurrentLevelData() {
   return [
     getCurrentLevelID(),
     getCurrentLevelName(),
     getCurrentLevelRandomWallPresses(),
+    getCurrentLevelRandomWallNumber(),
     getCurrentLevelLives(),
     getCurrentLevelNodeCoords(),
     getCurrentLevelWallsAllowed(),

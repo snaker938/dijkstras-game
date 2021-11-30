@@ -9,6 +9,7 @@ let allLevelStars = getAllStars();
 let allLevelLives = getAllLives();
 let allLevelNodeCoords = getAllSpecialNodeCoords();
 let allLevelIDs = getAllLevelIDs();
+let allLevelRandomWallNumber = getAllLevelRandomWallNumber();
 
 // This function gets the names of every single level and stores it in an array
 function getAllLevelNames() {
@@ -100,6 +101,16 @@ function getAllLevelIDs() {
   return allLevelIDs;
 }
 
+// This function gets the number of walls randomWalls should place
+function getAllLevelRandomWallNumber() {
+  let allLevelRandomWallNumber = [];
+  for (let i = 1; i <= numLevels; i++) {
+    let level = require(`./levels/level${i}`);
+    allLevelRandomWallNumber.push(level.randomWallNumber);
+  }
+  return allLevelRandomWallNumber;
+}
+
 // Export all the level data as global variables
 export {
   numLevels,
@@ -111,4 +122,5 @@ export {
   allLevelLives,
   allLevelNodeCoords,
   allLevelIDs,
+  allLevelRandomWallNumber,
 };
