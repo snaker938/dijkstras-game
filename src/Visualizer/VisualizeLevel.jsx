@@ -203,6 +203,9 @@ export default class levelVisualizer extends Component {
                       onClick={(row, col) =>
                         this.toggleWall(row, col, isWall, unWallable)
                       }
+                      onMouseUp={() => {}}
+                      onMouseDown={() => {}}
+                      onMouseEnter={() => {}}
                     ></Node>
                   );
                 })}
