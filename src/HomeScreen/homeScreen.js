@@ -1,12 +1,16 @@
 import React, { Component } from "react";
-import EnterSandbox from "../EnterSandbox";
-import EnterCampaign from "../EnterCampaignScreen";
+import { getAllCurrentLevelData } from "../currentLevelHandling";
+import { EnterSandbox, EnterCampaign } from "../Navigation";
 import "./homeScreen.css";
 
 export default class HomeScreen extends Component {
   constructor() {
     super();
     this.state = {};
+  }
+
+  getCurrentLevelData() {
+    console.log(getAllCurrentLevelData());
   }
 
   render() {
@@ -24,6 +28,14 @@ export default class HomeScreen extends Component {
           onClick={() => EnterCampaign()} /* Enters level selection */
         >
           Campaign
+        </button>
+        <button
+          className="play-campaign-button"
+          onClick={() =>
+            this.getCurrentLevelData()
+          } /* views available data about the current level */
+        >
+          View Current Level Data
         </button>
       </>
     );

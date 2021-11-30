@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { dijkstra } from "../algorithms/dijkstra";
-import { currentLevel } from "../currentLevelHandling";
-import EnterHome from "../EnterHomeScreen";
+import { EnterHome } from "../Navigation";
 import Node from "./Node/Node";
 import "./Visualizer.css";
 
@@ -41,7 +40,6 @@ export default class dijkstraVisualizer extends Component {
 
   // This function is called when a user presses, and holds, but no releases their mouse button on ANY node.
   dragStart(row, col) {
-    console.log(currentLevel);
     resetAllNodes(this.state.grid);
     let grid = this.state.grid;
     let node = grid[row][col];
@@ -186,10 +184,6 @@ export default class dijkstraVisualizer extends Component {
 
   // Function to create random walls on the grid. There will ALWAYS be a path, no matter what.
   randomWalls() {
-    // document.cookie = [NUM_COLUMNS, NUM_ROWS];
-    // let x = document.cookie;
-    // console.log(document.cookie.split(",")[1]);
-    // console.log(document.cookie);
     if (NUM_RANDOM_WALL_PRESSES > 0) {
       // let { grid } = this.state; // gets the current state of the grid at the time of the button being pressed
       // let current_endNode = grid[END_NODE_ROW][END_NODE_COL];

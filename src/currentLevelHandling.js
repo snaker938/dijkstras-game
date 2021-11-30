@@ -3,8 +3,10 @@ import {
   allLevelLives,
   allLevelsAllowedWalls,
   allLevelsRandomWallPresses,
-  allLevelsStars,
+  allLevelStars,
   allLevelNames,
+  allLevelNodeCoords,
+  allLevelIDs,
 } from "./allLevelData";
 
 let currentLevel = 1;
@@ -30,11 +32,45 @@ export function getCurrentLevelGrid() {
 }
 
 export function getCurrentLevelStars() {
-  return allLevelsStars[currentLevel - 1];
+  return allLevelStars[currentLevel - 1];
 }
 
 export function getCurrentLevelLives() {
   return allLevelLives[currentLevel - 1];
 }
+
+export function getCurrentLevelNodeCoords() {
+  return allLevelNodeCoords[currentLevel - 1];
+}
+
+export function getCurrentLevelID() {
+  return allLevelIDs[currentLevel - 1];
+}
+
+export function getAllCurrentLevelData() {
+  return [
+    getCurrentLevelID(),
+    getCurrentLevelName(),
+    getCurrentLevelRandomWallPresses(),
+    getCurrentLevelLives(),
+    getCurrentLevelNodeCoords(),
+    getCurrentLevelWallsAllowed(),
+    getCurrentLevelStars(),
+    getCurrentLevelGrid(),
+  ];
+}
+
+// export function getAllCurrentLevelData() {
+//   return [
+//     getCurrentLevelID(),
+//     getCurrentLevelName(),
+//     getCurrentLevelRandomWallPresses(),
+//     getCurrentLevelLives(),
+//     getCurrentLevelNodeCoords(),
+//     getCurrentLevelWallsAllowed(),
+//     getCurrentLevelStars(),
+//     getCurrentLevelGrid(),
+//   ];
+// }
 
 export { currentLevel };

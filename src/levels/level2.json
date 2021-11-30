@@ -3,6 +3,8 @@
   "levelName": "Level 2",
   "randomWallPressesAllowed": 0,
   "lives": 3,
+  "startNodeCoords": [0, 0],
+  "endNodeCoords": [50, 20],
   "wallsAllowed": 10,
   "wallsForNoStar": 10,
   "wallsForOneStar": 7,

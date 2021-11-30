@@ -41,6 +41,7 @@ function createWindow() {
   if (isDev) {
     win.webContents.openDevTools({ mode: "detach" });
   }
+  win.maximize();
 }
 
 // This method will be called when Electron has finished

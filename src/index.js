@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import FirstStart from "./FirstStart";
+import { FirstStart } from "./Navigation";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(

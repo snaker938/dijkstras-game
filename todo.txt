@@ -1,1 +1,1 @@
-tidy up navigation -- put all in one file
+difference between currentLevel, and levelUnlocked-- new variable
