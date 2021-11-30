@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { dijkstra } from "../algorithms/dijkstra";
 import { EnterHome } from "../Navigation";
 import Node from "./Node/Node";
+import { resetAllNodes } from "./Visualizer2";
 import "./Visualizer.css";
 
 // Placeholders for start node coordinates
@@ -470,24 +471,4 @@ const createNode = (col, row, isStart = false, isEnd = false) => {
 function saveGrid(grid) {
   const jsonString = JSON.stringify(grid);
   console.log(jsonString);
-}
-
-// This function resets all the nodes to the default class
-function resetAllNodes(grid) {
-  for (const row of grid) {
-    for (const node of row) {
-      let specialClass = "";
-      if (node.isWall) specialClass = "node-wall";
-      if (node.isStart) specialClass = "node-start";
-      if (node.isEnd) specialClass = "node-end";
-      node.distance = Infinity;
-      node.previousNode = null;
-      document.getElementById(
-        `node-${node.row}-${node.col}`
-      ).className = `node ${specialClass}`;
-      document.getElementById(
-        `node-${node.row}-${node.col}`
-      ).innerHTML = `&nbsp`; // sets inner html to a blank space. This will remove the distance showing on the node
-    }
-  }
 }

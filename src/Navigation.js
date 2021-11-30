@@ -4,6 +4,7 @@ import Visualizer from "./Visualizer/Visualizer";
 import { setCurrentLevel } from "./currentLevelHandling";
 import ReactDOM from "react-dom";
 import CampaignScreen from "./HomeScreen/CampaignScreen/campaignScreen";
+import VisualizeLevel from "./Visualizer/VisualizeLevel";
 
 let inSandbox = false;
 
@@ -34,7 +35,7 @@ function EnterLevel(levelNum) {
   ReactDOM.render(
     <React.StrictMode>
       <div className="App">
-        <Visualizer></Visualizer>
+        <VisualizeLevel></VisualizeLevel>
       </div>
     </React.StrictMode>,
     document.getElementById("root")

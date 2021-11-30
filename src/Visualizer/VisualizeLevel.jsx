@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { dijkstra } from "../algorithms/dijkstra";
+// import { dijkstra } from "../algorithms/dijkstra";
+import { resetAllNodes, startDijkstra } from "./Visualizer2";
 import {
   getCurrentLevelGrid,
   getCurrentLevelID,
@@ -120,5 +121,96 @@ export default class levelVisualizer extends Component {
       NUM_RANDOM_WALL_PRESSES--;
       NUM_WALLS_ACTIVE = 10;
     }
+  }
+
+  render() {
+    const { grid } = this.state;
+    let numRandomWallButton;
+
+    if (NUM_RANDOM_WALL_PRESSES !== 0) {
+      numRandomWallButton = (
+        <button
+          className="cool-button"
+          onClick={() => this.randomWalls()} /* adds random walls to the grid */
+        >
+          Random
+        </button>
+      );
+    } else {
+      numRandomWallButton = null;
+    }
+
+    return (
+      <>
+        <p className="cool-text-bar"></p>
+        <button
+          className="cool-button"
+          onClick={() =>
+            startDijkstra(
+              this.state.grid,
+              END_NODE_ROW,
+              END_NODE_COL,
+              START_NODE_ROW,
+              START_NODE_COL,
+              NUM_ROWS,
+              NUM_COLUMNS
+            )
+          } /* starts the dijstra algorithm process */
+        >
+          Start
+        </button>
+        {numRandomWallButton}
+        <button
+          className="cool-button"
+          onClick={() =>
+            resetAllNodes(this.state.grid)
+          } /* resets all animations*/
+        >
+          UnAnimate
+        </button>
+        <button
+          className="cool-button"
+          onClick={() => EnterHome()} /* goes home*/
+        >
+          Home
+        </button>
+        <p className="walls-used text-info">
+          {NUM_WALLS_ACTIVE} out of {NUM_WALLS_TOTAL} walls used
+        </p>
+        <p className="walls-random-used text-info">
+          {NUM_RANDOM_WALL_PRESSES} random wall presses left
+        </p>
+        <div className="grid" /*  creates the div that holds the rows*/>
+          {grid.map((row, rowID) => {
+            return (
+              <div
+                key={
+                  rowID
+                } /*  creates the div that holds all the nodes in the row*/
+              >
+                {row.map((node, nodeID) => {
+                  const { row, col, isEnd, isStart, isWall } = node;
+                  let unWallable = isEnd || isStart; // checks to see if the node is an End or start node
+                  return (
+                    // Creates the node object inside each row div. Each node is a div that is returned in Node.jsx
+                    <Node
+                      col={col}
+                      row={row}
+                      isStart={isStart}
+                      isEnd={isEnd}
+                      isWall={isWall}
+                      key={nodeID}
+                      onClick={(row, col) =>
+                        this.toggleWall(row, col, isWall, unWallable)
+                      }
+                    ></Node>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      </>
+    );
   }
 }
