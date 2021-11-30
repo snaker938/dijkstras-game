@@ -63,20 +63,8 @@ export function getAllCurrentLevelData() {
     getCurrentLevelWallsAllowed(),
     getCurrentLevelStars(),
     getCurrentLevelGrid(),
+    allLevelGrids,
   ];
 }
-
-// export function getAllCurrentLevelData() {
-//   return [
-//     getCurrentLevelID(),
-//     getCurrentLevelName(),
-//     getCurrentLevelRandomWallPresses(),
-//     getCurrentLevelLives(),
-//     getCurrentLevelNodeCoords(),
-//     getCurrentLevelWallsAllowed(),
-//     getCurrentLevelStars(),
-//     getCurrentLevelGrid(),
-//   ];
-// }
 
 export { currentLevel };

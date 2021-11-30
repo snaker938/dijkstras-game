@@ -1,15 +1,15 @@
 // This whole file will get the data for every single level that there is.
 
-let numLevels = 3; // The total number of levels in the game
-let allLevelNames = getAllLevelNames();
-let allLevelGrids = getAllLevelGrids();
-let allLevelsAllowedWalls = getAllLevelAllowedWalls();
-let allLevelsRandomWallPresses = getAllLevelRandomWallPresses();
-let allLevelStars = getAllStars();
-let allLevelLives = getAllLives();
-let allLevelNodeCoords = getAllSpecialNodeCoords();
-let allLevelIDs = getAllLevelIDs();
-let allLevelRandomWallNumber = getAllLevelRandomWallNumber();
+const numLevels = 3; // The total number of levels in the game
+const allLevelNames = getAllLevelNames();
+const allLevelGrids = getAllLevelGrids();
+const allLevelsAllowedWalls = getAllLevelAllowedWalls();
+const allLevelsRandomWallPresses = getAllLevelRandomWallPresses();
+const allLevelStars = getAllStars();
+const allLevelLives = getAllLives();
+const allLevelNodeCoords = getAllSpecialNodeCoords();
+const allLevelIDs = getAllLevelIDs();
+const allLevelRandomWallNumber = getAllLevelRandomWallNumber();
 
 // This function gets the names of every single level and stores it in an array
 function getAllLevelNames() {

@@ -53,7 +53,7 @@ export default class levelVisualizer extends Component {
   //Initialises grid to the level grid
   componentDidMount() {
     const grid = getCurrentLevelGrid();
-    this.setState({ grid });
+    this.setState({ grid: grid });
   }
 
   // This function removes every wall on the grid

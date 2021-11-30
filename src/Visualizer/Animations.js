@@ -1,5 +1,4 @@
 import { sendError } from "./errorHandling";
-import { resetAllNodes } from "./Visualizer2";
 
 export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
   for (let i = 0; i <= visitedNodesInOrder.length; i++) {
