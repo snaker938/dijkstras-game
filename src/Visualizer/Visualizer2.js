@@ -31,11 +31,11 @@ export function startDijkstra(
   numRows,
   numCols
 ) {
-  const { grid } = currentGrid; // gets the current state of the grid at the time of the button being pressed
-  const current_endNode = grid[endRow][endCol];
-  const current_startNode = grid[startRow][startCol]; // gets the start and end nodes
+  // gets the current state of the grid at the time of the button being pressed
+  const current_endNode = currentGrid[endRow][endCol];
+  const current_startNode = currentGrid[startRow][startCol]; // gets the start and end nodes
   const dijkstraOutputs = dijkstra(
-    grid,
+    currentGrid,
     current_startNode,
     current_endNode,
     numRows,
