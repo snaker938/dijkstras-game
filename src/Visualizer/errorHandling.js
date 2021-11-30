@@ -1,10 +1,10 @@
 import { animateNoProperPath } from "./Animations";
+import { resetAllNodes } from "./Visualizer2";
 
 // This function is called when there is an error, and it needs to be animated on the grid.
 export function sendError(error) {
-  //   resetAllNodes(this.state.grid);
   const newGrid = loadGridMessage(error); // loads the grid template ie. the error message
-
+  resetAllNodes(newGrid);
   function getImportantNodes(grid) {
     let needed_nodes = [];
     let unneededNodes = [];

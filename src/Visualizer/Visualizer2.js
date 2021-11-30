@@ -49,7 +49,7 @@ export function startDijkstra(
     let allNodes = dijkstraOutputs[1];
     animateAllNodes(allNodes, shortestNodePathOrder);
   } else {
-    // this.sendError("NO-PATH")}; // If there us no path, animate the "NO-PATH" error message, along with the remaining nodes to create a very cool error message.
+    // If there is no path, animate the "NO-PATH" error message, along with the remaining nodes to create a very cool error message.
     animateAllNodes(triedNodes, []);
   }
 }
