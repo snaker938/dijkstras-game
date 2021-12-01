@@ -196,6 +196,14 @@ export default class sandboxVisualizer extends Component {
     NUM_WALLS_ACTIVE = 10;
   }
 
+  // This function is purely for testing the grid templates. No animating or anything is done here
+  loadTestGrid() {
+    this.removeAllWalls(); // removes all existing walls
+    const json = require(`../levels/level1.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
+    let newGrid = json.grid; // this gets the actual grid template
+    this.setState({ grid: newGrid }); // sets the current state of the grid to the new grid.
+  }
+
   render() {
     const { grid } = this.state;
 
