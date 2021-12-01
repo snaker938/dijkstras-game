@@ -12,6 +12,7 @@ import {
   getCurrentLevelWallsAllowed,
 } from "../currentLevelHandling";
 import { EnterHome } from "../Navigation";
+import { allLevelGrids } from "../allLevelData";
 import Node from "./Node/Node";
 import "./Visualizer.css";
 
@@ -68,8 +69,8 @@ export default class levelVisualizer extends Component {
 
   // When a node is clicked, unless it is the start or end node, it gets toggled between a wall and not-wall
   toggleWall(row, col, isWall, unWallable) {
-    let node = this.state.grid[row][col];
-    let grid = this.state.grid;
+    const { grid } = this.state;
+    let node = grid[row][col];
     // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
     if ((!unWallable && NUM_WALLS_ACTIVE < NUM_WALLS_TOTAL) || isWall) {
       // If it isnt a wall currently, increase the number of active walls by one, else decrease them
@@ -80,9 +81,9 @@ export default class levelVisualizer extends Component {
         ...node,
         isWall: !isWall,
       };
-      // Places the new node into the grid
+      //   Places the new node into the grid
       grid[row][col] = newNode;
-      // Changes the overall state of the grid which re-renders it.
+      //   Changes the overall state of the grid which re-renders it.
       this.setState({ grid: grid });
     }
   }
@@ -124,7 +125,7 @@ export default class levelVisualizer extends Component {
   }
 
   render() {
-    const { grid } = this.state;
+    const grid = this.state.grid;
     let numRandomWallButton;
 
     if (NUM_RANDOM_WALL_PRESSES !== 0) {

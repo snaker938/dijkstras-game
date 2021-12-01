@@ -1,5 +1,6 @@
 import { dijkstra } from "../algorithms/dijkstra";
 import { animateAllNodes } from "./Animations";
+import { allLevelGrids } from "../allLevelData";
 
 // This function resets all the nodes to the default class
 export function resetAllNodes(grid) {
