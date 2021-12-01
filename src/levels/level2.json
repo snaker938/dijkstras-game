@@ -1,10 +1,10 @@
 {
   "levelID": 2,
-  "levelName": "The Spiral Of Death",
+  "levelName": "Symmetrical Surveillance",
   "randomWallPressesAllowed": 1,
   "randomWallNumber": 400,
   "lives": 3,
-  "startNodeCoords": [25, 9],
+  "startNodeCoords": [25, 10],
   "endNodeCoords": [50, 20],
   "wallsAllowed": 10,
   "wallsForNoStar": 10,
@@ -46,7 +46,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -154,7 +154,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -334,7 +334,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -442,7 +442,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -507,7 +507,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -516,7 +516,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -615,7 +615,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -705,7 +705,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -795,7 +795,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -894,7 +894,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -903,7 +903,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1076,7 +1076,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1112,7 +1112,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1121,7 +1121,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1166,7 +1166,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1211,7 +1211,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1220,7 +1220,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1256,7 +1256,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1402,7 +1402,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1411,7 +1411,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1510,7 +1510,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1618,7 +1618,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1627,7 +1627,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1636,7 +1636,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1744,7 +1744,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1843,7 +1843,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1852,7 +1852,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       }
     ],
@@ -1872,7 +1872,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1899,7 +1899,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -1971,7 +1971,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2043,7 +2043,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2061,7 +2061,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -2115,7 +2115,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -2133,7 +2133,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2205,7 +2205,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2277,7 +2277,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2304,7 +2304,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2432,7 +2432,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2486,7 +2486,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2504,7 +2504,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -2522,7 +2522,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2576,7 +2576,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2594,7 +2594,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -2612,7 +2612,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2666,7 +2666,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2857,7 +2857,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2866,7 +2866,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -2875,7 +2875,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -3145,7 +3145,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -3154,7 +3154,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -3163,7 +3163,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -3426,7 +3426,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -3444,7 +3444,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -3471,7 +3471,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -3498,7 +3498,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -3516,7 +3516,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -3734,7 +3734,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -3770,7 +3770,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -3905,7 +3905,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -3932,7 +3932,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -3959,7 +3959,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -4094,7 +4094,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -4130,7 +4130,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -4195,7 +4195,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -4231,7 +4231,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -4267,7 +4267,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -4330,7 +4330,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -4366,7 +4366,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -4384,12 +4384,473 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
         "col": 25,
         "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 26,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 27,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 28,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 29,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 30,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 31,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 32,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 33,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 34,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 35,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 36,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 37,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 38,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 39,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 40,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 41,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 42,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 43,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 44,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 45,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 46,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 47,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 48,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 49,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 50,
+        "row": 9,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      }
+    ],
+    [
+      {
+        "col": 0,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 1,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 2,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 3,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 4,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 5,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 6,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 7,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 8,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 9,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 10,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 11,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 12,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 13,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 14,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 15,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 16,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 17,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 18,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 19,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 20,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 21,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 22,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 23,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 24,
+        "row": 10,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 25,
+        "row": 10,
         "isStart": true,
         "isEnd": false,
         "distance": null,
@@ -4398,7 +4859,7 @@
       },
       {
         "col": 26,
-        "row": 9,
+        "row": 10,
         "isStart": false,
         "isEnd": false,
         "distance": null,
@@ -4407,7 +4868,7 @@
       },
       {
         "col": 27,
-        "row": 9,
+        "row": 10,
         "isStart": false,
         "isEnd": false,
         "distance": null,
@@ -4416,7 +4877,7 @@
       },
       {
         "col": 28,
-        "row": 9,
+        "row": 10,
         "isStart": false,
         "isEnd": false,
         "distance": null,
@@ -4425,467 +4886,6 @@
       },
       {
         "col": 29,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 30,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 31,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 32,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 33,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 34,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 35,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 36,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 37,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 38,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 39,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 40,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 41,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 42,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 43,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 44,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 45,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 46,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 47,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 48,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 49,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 50,
-        "row": 9,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      }
-    ],
-    [
-      {
-        "col": 0,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 1,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 2,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 3,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 4,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 5,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 6,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 7,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 8,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 9,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 10,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 11,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 12,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 13,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 14,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 15,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 16,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 17,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 18,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 19,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 20,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 21,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 22,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 23,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 24,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 25,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 26,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 27,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 28,
-        "row": 10,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 29,
         "row": 10,
         "isStart": false,
         "isEnd": false,
@@ -4917,7 +4917,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -4926,7 +4926,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -4935,7 +4935,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -4971,7 +4971,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -4980,7 +4980,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -4989,7 +4989,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5034,7 +5034,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5070,7 +5070,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5079,7 +5079,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       }
     ],
@@ -5117,7 +5117,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5153,7 +5153,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5189,7 +5189,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5252,7 +5252,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5288,7 +5288,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -5306,7 +5306,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5315,7 +5315,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -5324,7 +5324,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5342,7 +5342,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -5378,7 +5378,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5441,7 +5441,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5477,7 +5477,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5513,7 +5513,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5578,7 +5578,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5614,7 +5614,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5731,7 +5731,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -5749,7 +5749,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5776,7 +5776,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5803,7 +5803,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5821,7 +5821,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": true,
+        "isWall": false,
         "previousNode": null
       },
       {
@@ -5938,7 +5938,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -5974,7 +5974,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -6545,128 +6545,11 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
         "col": 9,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 10,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 11,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 12,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 13,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 14,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 15,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 16,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 17,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 18,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 19,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 20,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 21,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 22,
         "row": 14,
         "isStart": false,
         "isEnd": false,
@@ -6675,52 +6558,7 @@
         "previousNode": null
       },
       {
-        "col": 23,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 24,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 25,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 26,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 27,
-        "row": 14,
-        "isStart": false,
-        "isEnd": false,
-        "distance": null,
-        "isWall": false,
-        "previousNode": null
-      },
-      {
-        "col": 28,
+        "col": 10,
         "row": 14,
         "isStart": false,
         "isEnd": false,
@@ -6729,6 +6567,168 @@
         "previousNode": null
       },
       {
+        "col": 11,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 12,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 13,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 14,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 15,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 16,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 17,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 18,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 19,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 20,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": true,
+        "previousNode": null
+      },
+      {
+        "col": 21,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 22,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 23,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 24,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 25,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 26,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 27,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
+        "col": 28,
+        "row": 14,
+        "isStart": false,
+        "isEnd": false,
+        "distance": null,
+        "isWall": false,
+        "previousNode": null
+      },
+      {
         "col": 29,
         "row": 14,
         "isStart": false,
@@ -6743,7 +6743,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -6833,7 +6833,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -6842,7 +6842,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -6851,7 +6851,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7042,7 +7042,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7096,7 +7096,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7132,7 +7132,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7186,7 +7186,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7222,7 +7222,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7276,7 +7276,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7404,7 +7404,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7431,7 +7431,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7503,7 +7503,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7575,7 +7575,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7665,7 +7665,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7737,7 +7737,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7809,7 +7809,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7836,7 +7836,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7856,7 +7856,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7865,7 +7865,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -7964,7 +7964,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8072,7 +8072,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8081,7 +8081,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8090,7 +8090,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8198,7 +8198,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8297,7 +8297,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8306,7 +8306,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       }
     ],
@@ -8452,7 +8452,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8488,7 +8488,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8497,7 +8497,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8542,7 +8542,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8587,7 +8587,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8596,7 +8596,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8641,7 +8641,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8805,7 +8805,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8814,7 +8814,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -8913,7 +8913,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -9003,7 +9003,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -9102,7 +9102,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -9192,7 +9192,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -9201,7 +9201,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -9266,7 +9266,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -9374,7 +9374,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -9563,7 +9563,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {
@@ -9662,7 +9662,7 @@
         "isStart": false,
         "isEnd": false,
         "distance": null,
-        "isWall": false,
+        "isWall": true,
         "previousNode": null
       },
       {

@@ -151,8 +151,9 @@ export default class levelVisualizer extends Component {
   render() {
     const grid = this.state.grid;
     let numRandomWallButton;
+    let numRandomWallText;
 
-    if (NUM_RANDOM_WALL_PRESSES !== 0) {
+    if (getCurrentLevelRandomWallPresses() !== 0) {
       numRandomWallButton = (
         <button
           className="cool-button"
@@ -161,7 +162,13 @@ export default class levelVisualizer extends Component {
           Random
         </button>
       );
+      numRandomWallText = (
+        <p className="walls-random-used text-info">
+          {NUM_RANDOM_WALL_PRESSES} random wall presses left
+        </p>
+      );
     } else {
+      numRandomWallText = null;
       numRandomWallButton = null;
     }
 
@@ -202,9 +209,7 @@ export default class levelVisualizer extends Component {
         <p className="walls-used text-info">
           {NUM_WALLS_ACTIVE} out of {NUM_WALLS_TOTAL} walls used
         </p>
-        <p className="walls-random-used text-info">
-          {NUM_RANDOM_WALL_PRESSES} random wall presses left
-        </p>
+        {numRandomWallText}
         <div className="grid" /*  creates the div that holds the rows*/>
           {grid.map((row, rowID) => {
             return (

@@ -41,6 +41,7 @@ export function getCurrentLevelLives() {
   return cloneVariable(allLevelLives[currentLevel - 1]);
 }
 
+// Start col, start row     end col, end row
 export function getCurrentLevelNodeCoords() {
   return cloneVariable(allLevelNodeCoords[currentLevel - 1]);
 }
