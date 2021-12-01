@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import { dijkstra } from "../algorithms/dijkstra";
 import { resetAllNodes, startDijkstra } from "./Visualizer";
 import {
+  currentLevel,
   getCurrentLevelGrid,
   getCurrentLevelID,
   getCurrentLevelLives,
@@ -12,33 +13,59 @@ import {
   getCurrentLevelWallsAllowed,
 } from "../currentLevelHandling";
 import { EnterHome } from "../Navigation";
-import { allLevelGrids } from "../allLevelData";
 import Node from "./Node/Node";
 import "./Visualizer.css";
 
+console.log("runs");
+
 // Placeholders for start node coordinates. It gets the current level data
-let START_NODE_ROW = getCurrentLevelNodeCoords()[0][1];
-let START_NODE_COL = getCurrentLevelNodeCoords()[0][0];
-let END_NODE_ROW = getCurrentLevelNodeCoords()[1][1];
-let END_NODE_COL = getCurrentLevelNodeCoords()[1][0];
+let START_NODE_ROW;
+let START_NODE_COL;
+
+let END_NODE_ROW;
+let END_NODE_COL;
 
 // Specifies the number of rows and columns
 const NUM_ROWS = 21;
 const NUM_COLUMNS = 51;
 
 // Specifies the number of walls the player can have active at one time
-let NUM_WALLS_TOTAL = getCurrentLevelWallsAllowed();
-let NUM_WALLS_ACTIVE = 0;
+let NUM_WALLS_TOTAL;
+let NUM_WALLS_ACTIVE;
 
 // Wall Presses
-let NUM_RANDOM_WALL_PRESSES = getCurrentLevelRandomWallPresses();
-let RANDOM_WALL_NUMBER = getCurrentLevelRandomWallNumber();
+let NUM_RANDOM_WALL_PRESSES;
+let RANDOM_WALL_NUMBER;
 
 // Other level constants
-let LEVEL_NAME = getCurrentLevelName();
-let LEVEL_ID = getCurrentLevelID();
-let LIVES = getCurrentLevelLives();
+let LEVEL_NAME;
+let LEVEL_ID;
+let LIVES;
 // 0,1,2,3 star ---
+
+// reloads all level data
+export function reloadLevelData() {
+  // Placeholders for start node coordinates. It gets the current level data
+  START_NODE_ROW = getCurrentLevelNodeCoords()[0][1];
+  START_NODE_COL = getCurrentLevelNodeCoords()[0][0];
+
+  END_NODE_ROW = getCurrentLevelNodeCoords()[1][1];
+  END_NODE_COL = getCurrentLevelNodeCoords()[1][0];
+
+  // Specifies the number of walls the player can have active at one time
+  NUM_WALLS_TOTAL = getCurrentLevelWallsAllowed();
+  NUM_WALLS_ACTIVE = 0;
+
+  // Wall Presses
+  NUM_RANDOM_WALL_PRESSES = getCurrentLevelRandomWallPresses();
+  RANDOM_WALL_NUMBER = getCurrentLevelRandomWallNumber();
+
+  // Other level constants
+  LEVEL_NAME = getCurrentLevelName();
+  LEVEL_ID = getCurrentLevelID();
+  LIVES = getCurrentLevelLives();
+  // 0,1,2,3 star ---
+}
 
 // The class for the level visualizer
 export default class levelVisualizer extends Component {
@@ -46,9 +73,9 @@ export default class levelVisualizer extends Component {
     super();
     this.state = {
       grid: [],
-      dragging: [false, null, null], // 0: is-dragging ; 1: node-being-dragged ; 2: end/previous node
-      // sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occured on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging alltogether. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to creatr an illusion like the user is actuall dragging the node around.
     };
+    reloadLevelData();
+    NUM_WALLS_ACTIVE = 0;
   }
 
   //Initialises grid to the level grid
@@ -125,6 +152,7 @@ export default class levelVisualizer extends Component {
   }
 
   render() {
+    console.log(currentLevel);
     const grid = this.state.grid;
     let numRandomWallButton;
 

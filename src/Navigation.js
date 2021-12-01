@@ -35,7 +35,7 @@ function EnterLevel(levelNum) {
   ReactDOM.render(
     <React.StrictMode>
       <div className="App">
-        <VisualizeLevel></VisualizeLevel>
+        <VisualizeLevel />
       </div>
     </React.StrictMode>,
     document.getElementById("root")

@@ -54,3 +54,8 @@ export function startDijkstra(
     animateAllNodes(triedNodes, []);
   }
 }
+
+// Deep clones the varibale so it does not affect original data
+export function cloneVariable(variableData) {
+  return JSON.parse(JSON.stringify(variableData));
+}

@@ -9,47 +9,49 @@ import {
   allLevelIDs,
   allLevelRandomWallNumber,
 } from "./allLevelData";
+import { cloneVariable } from "./Visualizer/Visualizer";
 
 let currentLevel = 1;
 
 export function setCurrentLevel(newLevel) {
+  console.log(currentLevel, newLevel);
   currentLevel = newLevel;
 }
 
 export function getCurrentLevelName() {
-  return allLevelNames[currentLevel - 1];
+  return cloneVariable(allLevelNames[currentLevel - 1]);
 }
 
 export function getCurrentLevelWallsAllowed() {
-  return allLevelsAllowedWalls[currentLevel - 1];
+  return cloneVariable(allLevelsAllowedWalls[currentLevel - 1]);
 }
 
 export function getCurrentLevelRandomWallPresses() {
-  return allLevelsRandomWallPresses[currentLevel - 1];
+  return cloneVariable(allLevelsRandomWallPresses[currentLevel - 1]);
 }
 
 export function getCurrentLevelGrid() {
-  return allLevelGrids[currentLevel - 1];
+  return cloneVariable(allLevelGrids[currentLevel - 1]);
 }
 
 export function getCurrentLevelStars() {
-  return allLevelStars[currentLevel - 1];
+  return cloneVariable(allLevelStars[currentLevel - 1]);
 }
 
 export function getCurrentLevelLives() {
-  return allLevelLives[currentLevel - 1];
+  return cloneVariable(allLevelLives[currentLevel - 1]);
 }
 
 export function getCurrentLevelNodeCoords() {
-  return allLevelNodeCoords[currentLevel - 1];
+  return cloneVariable(allLevelNodeCoords[currentLevel - 1]);
 }
 
 export function getCurrentLevelID() {
-  return allLevelIDs[currentLevel - 1];
+  return cloneVariable(allLevelIDs[currentLevel - 1]);
 }
 
 export function getCurrentLevelRandomWallNumber() {
-  return allLevelRandomWallNumber[currentLevel - 1];
+  return cloneVariable(allLevelRandomWallNumber[currentLevel - 1]);
 }
 
 export function getAllCurrentLevelData() {
@@ -63,7 +65,7 @@ export function getAllCurrentLevelData() {
     getCurrentLevelWallsAllowed(),
     getCurrentLevelStars(),
     getCurrentLevelGrid(),
-    allLevelGrids,
+    currentLevel,
   ];
 }
 
