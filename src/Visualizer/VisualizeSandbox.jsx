@@ -56,10 +56,6 @@ export default class sandboxVisualizer extends Component {
     if (this.state.dragging[0]) {
       let firstGrid = this.state.grid;
       let nodeBeingDraggedOnto = firstGrid[row][col];
-      // let fine = true;
-      // if (nodeBeingDraggedOnto.isWall && !canDragOntoWall) fine = false;
-      // else fine = true;
-      // console.log(fine, canDragOntoWall);
 
       if (!nodeBeingDraggedOnto.isStart && !nodeBeingDraggedOnto.isEnd) {
         // Stores the previous node so that its class can be removed later to give an illusion that we are dragging the node

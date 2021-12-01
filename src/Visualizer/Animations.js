@@ -45,7 +45,6 @@ export function animateNoProperPath(errorMessage, otherNodes) {
   for (let i = 0; i < errorMessage.length; i++) {
     setTimeout(() => {
       const node = errorMessage[i];
-      // console.log(node);
       document.getElementById(`node-${node.row}-${node.col}`).className =
         "node node-error";
     }, 1.2 * i);
@@ -55,7 +54,6 @@ export function animateNoProperPath(errorMessage, otherNodes) {
   for (let i = 0; i < otherNodes.length; i++) {
     setTimeout(() => {
       const node = otherNodes[i];
-      // console.log(node);
       document.getElementById(`node-${node.row}-${node.col}`).className =
         "node node-error-other";
     }, 1 * i);

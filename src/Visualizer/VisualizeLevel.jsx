@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { dijkstra } from "../algorithms/dijkstra";
 import { resetAllNodes, startDijkstra } from "./Visualizer";
 import {
   currentLevel,
@@ -15,8 +14,6 @@ import {
 import { EnterHome } from "../Navigation";
 import Node from "./Node/Node";
 import "./Visualizer.css";
-
-console.log("runs");
 
 // Placeholders for start node coordinates. It gets the current level data
 let START_NODE_ROW;
@@ -152,7 +149,6 @@ export default class levelVisualizer extends Component {
   }
 
   render() {
-    console.log(currentLevel);
     const grid = this.state.grid;
     let numRandomWallButton;
 

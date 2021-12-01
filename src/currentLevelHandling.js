@@ -14,7 +14,6 @@ import { cloneVariable } from "./Visualizer/Visualizer";
 let currentLevel = 1;
 
 export function setCurrentLevel(newLevel) {
-  console.log(currentLevel, newLevel);
   currentLevel = newLevel;
 }
 
