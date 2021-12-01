@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import { dijkstra } from "../algorithms/dijkstra";
-import { resetAllNodes, startDijkstra } from "./Visualizer2";
+import { resetAllNodes, startDijkstra } from "./Visualizer";
 import {
   getCurrentLevelGrid,
   getCurrentLevelID,
@@ -103,7 +103,7 @@ export default class levelVisualizer extends Component {
     }
   }
 
-  // Function to create random walls on the grid. There will ALWAYS be a path, no matter what.
+  // Function to create random walls on the grid.
   randomWalls() {
     if (NUM_RANDOM_WALL_PRESSES > 0) {
       // let { grid } = this.state; // gets the current state of the grid at the time of the button being pressed

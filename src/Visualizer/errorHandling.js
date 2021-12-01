@@ -1,5 +1,5 @@
 import { animateNoProperPath } from "./Animations";
-import { resetAllNodes } from "./Visualizer2";
+import { resetAllNodes } from "./Visualizer";
 
 // This function is called when there is an error, and it needs to be animated on the grid.
 export function sendError(error) {

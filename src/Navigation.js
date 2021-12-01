@@ -1,10 +1,10 @@
 import React from "react";
 import HomeScreen from "./HomeScreen/homeScreen";
-import Visualizer from "./Visualizer/Visualizer";
 import { setCurrentLevel } from "./currentLevelHandling";
 import ReactDOM from "react-dom";
 import CampaignScreen from "./HomeScreen/CampaignScreen/campaignScreen";
 import VisualizeLevel from "./Visualizer/VisualizeLevel";
+import VisualizeSandbox from "./Visualizer/VisualizeSandbox";
 
 let inSandbox = false;
 
@@ -22,7 +22,7 @@ function EnterSandbox() {
   ReactDOM.render(
     <React.StrictMode>
       <div className="App">
-        <Visualizer></Visualizer>
+        <VisualizeSandbox></VisualizeSandbox>
       </div>
     </React.StrictMode>,
     document.getElementById("root")
