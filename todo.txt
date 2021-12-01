@@ -1,1 +1,3 @@
 difference between currentLevel, and levelUnlocked-- new variable
+
+new variable: distances to beat
