@@ -1,7 +1,6 @@
 import { dijkstra } from "../algorithms/dijkstra";
 import { animateAllNodes } from "./Animations";
 
-
 // This function resets all the nodes to the default class
 export function resetAllNodes(grid) {
   for (const row of grid) {
@@ -10,7 +9,6 @@ export function resetAllNodes(grid) {
       if (node.isWall) specialClass = "node-wall";
       if (node.isStart) specialClass = "node-start";
       if (node.isEnd) specialClass = "node-end";
-      node.distance = Infinity;
       node.previousNode = null;
       document.getElementById(
         `node-${node.row}-${node.col}`
