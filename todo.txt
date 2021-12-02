@@ -2,4 +2,5 @@ difference between currentLevel, and levelUnlocked-- new variable
 
 new variable: distances to beat
 
-some walls are permanent and cannot be modified -- different colour
+
+some walls are permanent and cannot be modified/deleted -- different colour
