@@ -25,6 +25,10 @@
   background-color: rgb(14, 55, 73);
 }
 
+.node-permanent-wall {
+  background-color: rgb(38, 115, 148);
+}
+
 .node-error {
   animation-name: visited;
   animation-duration: 1.5s;
