@@ -10,6 +10,7 @@ export default class Node extends Component {
       isStart,
       isEnd,
       isWall,
+      isPermanentWall,
       onClick,
       onMouseDown,
       onMouseEnter,
@@ -21,6 +22,7 @@ export default class Node extends Component {
     function getSpecialNode() {
       if (isEnd) return "node-end";
       else if (isStart) return "node-start";
+      else if (isPermanentWall) return "node-wall node-permanent-wall";
       else if (isWall) return "node-wall";
       else return "";
     }

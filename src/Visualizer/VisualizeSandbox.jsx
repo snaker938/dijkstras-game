@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { allLevelNodeCoords } from "../allLevelData";
 import { EnterHome } from "../Navigation";
 import Node from "./Node/Node";
+import NodeClickable from "./Node/otherNodes";
 import { resetAllNodes, startDijkstra } from "./Visualizer";
 import "./Visualizer.css";
 
@@ -15,8 +16,7 @@ let END_NODE_COL = 50;
 const NUM_ROWS = 21;
 const NUM_COLUMNS = 51;
 
-// Specifies the number of walls the player can have active at one time
-let NUM_WALLS_TOTAL = NUM_ROWS * NUM_COLUMNS;
+// Number of walls currently active
 let NUM_WALLS_ACTIVE = 0;
 
 // Wall Presses
@@ -143,21 +143,44 @@ export default class sandboxVisualizer extends Component {
   }
 
   // When a node is clicked, unless it is the start or end node, it gets toggled between a wall and not-wall
-  toggleWall(row, col, isWall, unWallable) {
+  toggleWall(row, col, isWall, unWallable, isPermanentWall) {
     let node = this.state.grid[row][col];
     let grid = this.state.grid;
     // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
-    if ((!unWallable && NUM_WALLS_ACTIVE < NUM_WALLS_TOTAL) || isWall) {
+    if (!unWallable) {
       // If it isnt a wall currently, increase the number of active walls by one, else decrease them
-      if (!unWallable && !isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
+      if (
+        isWall &&
+        !isPermanentWall &&
+        document
+          .getElementById("node-clickable")
+          .classList.contains("node-clickable-toggled")
+      )
+        NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 0;
+      else if (!unWallable && !isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
       else if (!unWallable && isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE - 1;
-      // Creates a temporary node with the new property of isWall set to the opposite of its current state.
-      const newNode = {
-        ...node,
-        isWall: !isWall,
-      };
-      // Places the new node into the grid
-      grid[row][col] = newNode;
+      // Creates a temporary node with the new property of isWall set to the opposite of its current state. If permanent wall is toggled, then the new node will switch between a permanent and non-permanent wall.
+      if (
+        document
+          .getElementById("node-clickable")
+          .classList.contains("node-clickable-toggled")
+      ) {
+        const newNode = {
+          ...node,
+          isWall: !isPermanentWall,
+          isPermanentWall: !isPermanentWall,
+        };
+        // Places the new node into the grid
+        grid[row][col] = newNode;
+      } else {
+        const newNode = {
+          ...node,
+          isWall: !isWall,
+          isPermanentWall: false,
+        };
+        // Places the new node into the grid
+        grid[row][col] = newNode;
+      }
       // Changes the overall state of the grid which re-renders it.
       this.setState({ grid: grid });
     }
@@ -177,6 +200,16 @@ export default class sandboxVisualizer extends Component {
       // Changes the overall state of the grid which re-renders it.
       this.setState({ grid: grid });
     }
+  }
+
+  toggleBetweenClass(type) {
+    let node = document.getElementById(`node-${type}`);
+    if (node.classList.contains(`node-${type}-toggled`))
+      document.getElementById(`node-${type}`).className = `node-${type}`;
+    else
+      document.getElementById(
+        `node-${type}`
+      ).className = `node-${type} node-${type}-toggled`;
   }
 
   // Function to create random walls on the grid.
@@ -270,6 +303,15 @@ export default class sandboxVisualizer extends Component {
         >
           Home
         </button>
+        <div className="toggle-permanent-holder text-info">
+          Toggle Permanent Wall
+          <div>
+            <NodeClickable
+              type="clickable"
+              onClick={(type) => this.toggleBetweenClass(type)}
+            ></NodeClickable>
+          </div>
+        </div>
         <p className="walls-used text-info">{NUM_WALLS_ACTIVE} walls used</p>
         <div className="grid" /*  creates the div that holds the rows*/>
           {grid.map((row, rowID) => {
@@ -280,7 +322,8 @@ export default class sandboxVisualizer extends Component {
                 } /*  creates the div that holds all the nodes in the row*/
               >
                 {row.map((node, nodeID) => {
-                  const { row, col, isEnd, isStart, isWall } = node;
+                  const { row, col, isEnd, isStart, isWall, isPermanentWall } =
+                    node;
                   let unWallable = isEnd || isStart; // checks to see if the node is an End or start node
                   return (
                     // Creates the node object inside each row div. Each node is a div that is returned in Node.jsx
@@ -290,9 +333,16 @@ export default class sandboxVisualizer extends Component {
                       isStart={isStart}
                       isEnd={isEnd}
                       isWall={isWall}
+                      isPermanentWall={isPermanentWall}
                       key={nodeID}
                       onClick={(row, col) =>
-                        this.toggleWall(row, col, isWall, unWallable)
+                        this.toggleWall(
+                          row,
+                          col,
+                          isWall,
+                          unWallable,
+                          isPermanentWall
+                        )
                       }
                       onMouseUp={() => this.dragStop()}
                       onMouseDown={(row, col) => this.dragStart(row, col)}
@@ -340,6 +390,7 @@ const createNode = (col, row, isStart = false, isEnd = false) => {
     isEnd: isEnd === true,
     distance: Infinity,
     isWall: false,
+    isPermanentWall: false,
     previousNode: null,
   };
 };

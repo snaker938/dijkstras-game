@@ -6,7 +6,8 @@ export function resetAllNodes(grid) {
   for (const row of grid) {
     for (const node of row) {
       let specialClass = "";
-      if (node.isWall) specialClass = "node-wall";
+      if (node.isPermanentWall) specialClass = "node-wall node-permanent-wall";
+      if (node.isWall && !node.isPermanentWall) specialClass = "node-wall";
       if (node.isStart) specialClass = "node-start";
       if (node.isEnd) specialClass = "node-end";
       node.previousNode = null;

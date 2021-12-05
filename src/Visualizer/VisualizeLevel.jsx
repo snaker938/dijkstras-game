@@ -95,35 +95,45 @@ export default class levelVisualizer extends Component {
   toggleWall(row, col, isWall, unWallable) {
     const { grid } = this.state;
     let node = grid[row][col];
-    // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
-    if ((!unWallable && NUM_WALLS_ACTIVE < NUM_WALLS_TOTAL) || isWall) {
-      // If it isnt a wall currently, increase the number of active walls by one, else decrease them
-      if (!unWallable && !isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
-      else if (!unWallable && isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE - 1;
-      // Creates a temporary node with the new property of isWall set to the opposite of its current state.
-      const newNode = {
-        ...node,
-        isWall: !isWall,
-      };
-      //   Places the new node into the grid
-      grid[row][col] = newNode;
-      //   Changes the overall state of the grid which re-renders it.
-      this.setState({ grid: grid });
+    if (!node.isPermanentWall) {
+      // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall and the active walls is not 0.
+      if (
+        (!unWallable &&
+          NUM_WALLS_ACTIVE < NUM_WALLS_TOTAL &&
+          NUM_WALLS_ACTIVE > 0) ||
+        (isWall && NUM_WALLS_ACTIVE > 0) ||
+        (!isWall && NUM_WALLS_ACTIVE === 0)
+      ) {
+        // If it isnt a wall currently, increase the number of active walls by one, else decrease them
+        if (!unWallable && !isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
+        else if (!unWallable && isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE - 1;
+        // Creates a temporary node with the new property of isWall set to the opposite of its current state.
+        const newNode = {
+          ...node,
+          isWall: !isWall,
+        };
+        //   Places the new node into the grid
+        grid[row][col] = newNode;
+        //   Changes the overall state of the grid which re-renders it.
+        this.setState({ grid: grid });
+      }
     }
   }
   toggleWallRandom(row, col, isWall, unWallable) {
     let node = this.state.grid[row][col];
     let grid = this.state.grid;
-    // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
-    if (!unWallable) {
-      const newNode = {
-        ...node,
-        isWall: !isWall,
-      };
-      // Places the new node into the grid
-      grid[row][col] = newNode;
-      // Changes the overall state of the grid which re-renders it.
-      this.setState({ grid: grid });
+    if (!node.isPermanent) {
+      // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
+      if (!unWallable) {
+        const newNode = {
+          ...node,
+          isWall: !isWall,
+        };
+        // Places the new node into the grid
+        grid[row][col] = newNode;
+        // Changes the overall state of the grid which re-renders it.
+        this.setState({ grid: grid });
+      }
     }
   }
 
@@ -219,7 +229,8 @@ export default class levelVisualizer extends Component {
                 } /*  creates the div that holds all the nodes in the row*/
               >
                 {row.map((node, nodeID) => {
-                  const { row, col, isEnd, isStart, isWall } = node;
+                  const { row, col, isEnd, isStart, isWall, isPermanentWall } =
+                    node;
                   let unWallable = isEnd || isStart; // checks to see if the node is an End or start node
                   return (
                     // Creates the node object inside each row div. Each node is a div that is returned in Node.jsx
@@ -229,6 +240,7 @@ export default class levelVisualizer extends Component {
                       isStart={isStart}
                       isEnd={isEnd}
                       isWall={isWall}
+                      isPermanentWall={isPermanentWall}
                       key={nodeID}
                       onClick={(row, col) =>
                         this.toggleWall(row, col, isWall, unWallable)

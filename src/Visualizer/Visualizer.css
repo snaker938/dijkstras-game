@@ -1,17 +1,17 @@
 .walls-used {
   width: 200px;
-  margin: 0px;
-  position: relative;
-  top: -64px;
-  left: 1280px;
+  margin: 20px;
+  position: fixed;
+  top: 10px;
+  left: 1240px;
 }
 
 .walls-random-used {
   width: 200px;
   margin: 0px;
-  position: relative;
-  top: -82px;
-  left: 1030px;
+  position: fixed;
+  top: 30px;
+  left: 1000px;
 }
 
 .cool-text-bar {
@@ -53,4 +53,11 @@ body {
   /* padding: 2rem; */
   text-align: center;
   transition: all 0.75s;
+}
+
+.toggle-permanent-holder {
+  width: 200px;
+  position: relative;
+  top: -76px;
+  left: 1000px;
 }
