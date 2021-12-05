@@ -1,6 +1,6 @@
 // This whole file will get the data for every single level that there is.
 
-const numLevels = 4; // The total number of levels in the game
+const numLevels = 5; // The total number of levels in the game
 const allLevelNames = getAllLevelNames();
 const allLevelGrids = getAllLevelGrids();
 const allLevelsAllowedWalls = getAllLevelAllowedWalls();

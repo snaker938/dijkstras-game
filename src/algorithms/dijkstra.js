@@ -113,7 +113,7 @@ function getShortestPathNodeOrder(endNode, startNode) {
 
   // This while loop will keep on backtracking through the previous node untill the currentNode is null, which is when we have reached the start node- as the start node has no previous node.
   while (currentNode !== null) {
-    // Adds the current node to the shortestPath at the beggining, therefore the start node will be at the begginning, and the next closest node will be the next item in the array and so forth.
+    // Adds the current node to the shortestPath at the beggining, and the next closest node will be the next item in the array and so forth.
     shortestNodePathOrder.unshift(currentNode);
     // Sets the currentNode to the previous node. This is effectively a linked list, as all the items have a pointer that links to its previous node- regardles of their position in the array. This also allows us to backtrack from the end node, back to the start node, by following these previous nodes- untill the previous node is the start node, and this will be our shortest path.
     currentNode = currentNode.previousNode;

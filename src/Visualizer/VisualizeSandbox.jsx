@@ -159,12 +159,14 @@ export default class sandboxVisualizer extends Component {
         NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 0;
       else if (!unWallable && !isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
       else if (!unWallable && isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE - 1;
-      // Creates a temporary node with the new property of isWall set to the opposite of its current state. If permanent wall is toggled, then the new node will switch between a permanent and non-permanent wall.
+
+      if (NUM_WALLS_ACTIVE < 0) NUM_WALLS_ACTIVE = 0;
       if (
         document
           .getElementById("node-clickable")
           .classList.contains("node-clickable-toggled")
       ) {
+        // Creates a temporary node with the new property of isWall set to the opposite of its current state. If permanent wall is toggled, then the new node will switch between a permanent and non-permanent wall.
         const newNode = {
           ...node,
           isWall: !isPermanentWall,
