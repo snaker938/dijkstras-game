@@ -10,15 +10,6 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-// function getNumLevels() {
-//   const fs = require("fs");
-//   const dir = "/src/levels";
-
-//   fs.readdir(dir, (err, levels) => {
-//     return levels.length;
-//   });
-// }
-
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({

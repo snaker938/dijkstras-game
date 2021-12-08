@@ -1,9 +1,18 @@
 .walls-used {
   width: 200px;
-  margin: 20px;
+  margin: 0px;
   position: fixed;
-  top: 10px;
+  top: 30px;
   left: 1240px;
+}
+
+.level-name {
+  padding-right: 0.9%;
+  padding-left: 1%;
+  margin: 0px;
+  position: fixed;
+  top: 30px;
+  left: 45px;
 }
 
 .walls-random-used {
@@ -59,5 +68,6 @@ body {
   width: 200px;
   position: relative;
   top: -76px;
+  margin: -2.4px;
   left: 1000px;
 }
