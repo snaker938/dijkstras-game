@@ -8,4 +8,7 @@ https://medium.com/@brockhoff/using-electron-with-react-the-basics-e93f9761f86f
 
 http://people.loyno.edu/~rharvey/teaching/cosc-a319/2019f/converting-cra-to-electron/
 
+
+
+USED:
 https://dev.to/mandiwise/electron-apps-made-easy-with-create-react-app-and-electron-forge-560e
