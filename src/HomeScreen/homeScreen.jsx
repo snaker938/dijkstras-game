@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { getAllCurrentLevelData } from "../currentLevelHandling";
-import { EnterSandbox, EnterCampaign } from "../Navigation";
-import "./homeScreen.css";
+import React, { Component } from 'react';
+import { getAllCurrentLevelData } from '../currentLevelHandling';
+import { EnterSandbox, EnterCampaign } from '../Navigation';
+import './homeScreen.css';
 
 export default class HomeScreen extends Component {
   constructor() {

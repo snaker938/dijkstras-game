@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { allLevelNames, numLevels } from "../../allLevelData";
-import { EnterLevel } from "../../Navigation";
-import "./campaignScreen.css";
+import React, { Component } from 'react';
+import { allLevelNames, numLevels } from '../../allLevelData';
+import { EnterLevel } from '../../Navigation';
+import './campaignScreen.css';
 
 export default class CampaignScreen extends Component {
   constructor() {
