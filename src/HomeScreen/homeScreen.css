@@ -1,17 +1,81 @@
-body {
-  text-align: center;
-}
-
-.play-sandbox-button {
+/* .play-sandbox-button {
   position: relative;
   top: 15px;
   right: 75px;
   margin-left: 25px;
-}
+} */
 
-.play-campaign-button {
+/* .play-campaign-button {
   position: relative;
   top: 15px;
   right: 75px;
   margin-left: 25px;
+} */
+
+.mainBodyHome {
+  /* background: rgb(34, 33, 33); */
+  background: radial-gradient(rgb(97, 92, 92), rgb(8, 8, 8));
+  justify-content: center;
+  /* align-self: auto; */
+  align-items: center;
+  display: flex;
+  min-height: 98vh;
+}
+
+.bulb {
+  width: 80px;
+  /* left: 16.3vh; */
+  left: calc(192%);
+  /* position: absolute; */
+  position: relative;
+  background: rgb(75, 72, 72);
+  border-radius: 50%;
+  height: 80px;
+  background: #fff;
+  top: -21vh;
+  box-shadow: 0 0 50px #fff, 0 0 100px #fff, 0 0 150px #fff, 0 0 200px #fff,
+    0 0 250px #fff, 0 0 300px #fff, 0 0 350px #fff;
+}
+
+.bulb::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: 22.5px;
+  width: 35px;
+  height: 80px;
+  background: #444;
+  border-top: 30px solid #000;
+  border-radius: 10px;
+}
+
+.mainBodyHome .bulb::before {
+  background: #fff;
+}
+
+.mainBodyHome .bulb::after {
+  position: absolute;
+  /* position: fixed; */
+  height: 120px;
+  border-radius: 50%;
+  /* top: -10vh;
+  left: 18.8vh; */
+  top: 50%;
+  content: '';
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  background: #fff;
+  filter: blur(50px);
+}
+
+.wire {
+  position: absolute;
+  left: 50%;
+  bottom: 80%;
+  width: 4px;
+  height: 20vh;
+  top: 1vh;
+  /* overflow: hidden; */
+  background: #000;
 }
