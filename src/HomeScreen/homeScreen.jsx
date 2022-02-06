@@ -13,6 +13,20 @@ export default class HomeScreen extends Component {
     console.log(getAllCurrentLevelData());
   }
 
+  renderUselessBar() {
+    // Change the variable to modify the speed of the number increasing from 0 to (ms)
+    let SPEED = 40;
+    // Retrieve the percentage value
+    let limit = 100;
+    document.getElementById('mainBar').classList = 'bar';
+
+    for (let i = 0; i <= limit; i++) {
+      setTimeout(function () {
+        document.getElementById('value1').innerHTML = i + '%';
+      }, SPEED * i);
+    }
+  }
+
   render() {
     return (
       <>
@@ -25,25 +39,23 @@ export default class HomeScreen extends Component {
             </div>
           </div>
           <button
-            className="play-sandbox-button"
-            onClick={() => EnterSandbox()} /* Enters the sandbox */
-          >
-            Sandbox
-          </button>
-          <button
-            className="play-campaign-button"
-            onClick={() => EnterCampaign()} /* Enters level selection */
+            className="buttonMain"
+            onClick={() => this.renderUselessBar()} /* Enters level selection */
           >
             Campaign
           </button>
           <button
-            className="play-campaign-button"
-            onClick={() =>
-              this.getCurrentLevelData()
-            } /* views available data about the current level */
+            className="buttonMain"
+            onClick={() => EnterSandbox()} /* Enters the sandbox */
           >
-            View Current Level Data
+            Sandbox
           </button>
+          <div class="bodyBar">
+            <div class="chart">
+              <div id="mainBar" class=""></div>
+              <span id="value1"></span>
+            </div>
+          </div>
         </div>
       </>
     );

@@ -1,16 +1,4 @@
-/* .play-sandbox-button {
-  position: relative;
-  top: 15px;
-  right: 75px;
-  margin-left: 25px;
-} */
-
-/* .play-campaign-button {
-  position: relative;
-  top: 15px;
-  right: 75px;
-  margin-left: 25px;
-} */
+/* ---------- LIGHT EFFECT -------------- */
 
 .mainBodyHome {
   /* background: rgb(34, 33, 33); */
@@ -25,7 +13,7 @@
 .bulb {
   width: 80px;
   /* left: 16.3vh; */
-  left: calc(192%);
+  left: calc(447%);
   /* position: absolute; */
   position: relative;
   background: rgb(75, 72, 72);
@@ -78,4 +66,104 @@
   top: 1vh;
   /* overflow: hidden; */
   background: #000;
+}
+
+/* -------------------------------------------------------------------- */
+
+/* ---------------- BUTTONS ---------------------*/
+.buttonMain {
+  color: #1cc49d;
+  right: calc(5% + 4.3%);
+  top: 5vh;
+  position: relative;
+  background-color: #1b2f31;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3em;
+  width: 8em;
+  font-size: large;
+  font-weight: 600;
+  margin-left: calc(13.4%);
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently */
+}
+
+.buttonMain:hover {
+  color: #fff;
+}
+
+.buttonMain .buttonMainspan {
+  align-items: center;
+  background: #0e0e10;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  transition: background 0.5s ease;
+  width: 100%;
+}
+
+.buttonMain:hover {
+  background: transparent;
+}
+
+/* ------------------------------------------------------------- */
+
+/* ----------- LOADING BAR ------------------- */
+.bodyBar {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.chart {
+  background: rgba(255, 255, 255, 0.1);
+  justify-content: flex-start;
+  border-radius: 100px;
+  align-items: center;
+  position: relative;
+  padding: 0 5px;
+  display: flex;
+  height: 40px;
+  width: 500px;
+}
+.chart span {
+  /* You can modify the value below to change the distance between the percentage number and the bar */
+  margin-left: -409px;
+  color: #fff;
+  text-align: center;
+  font-weight: bolder;
+}
+
+.bar {
+  /* You can modify the total time used for the animation here */
+  animation: load 5s normal forwards;
+  /* 
+  Add a little spice by having a shadow below the bar.
+  Feel free to comment out this line below to have an even LITE version :D 
+  */
+  box-shadow: 0 10px 40px -10px #fff;
+
+  border-radius: 100px;
+  background: #fff;
+  height: 30px;
+  width: 0;
+}
+
+@keyframes load {
+  0% {
+    width: 0;
+  }
+  100% {
+    /* You need to change the percentage below to match the value in the corresponding <span> */
+    width: 100%;
+  }
 }
