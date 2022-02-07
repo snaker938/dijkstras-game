@@ -13,7 +13,7 @@
 .bulb {
   width: 80px;
   /* left: 16.3vh; */
-  left: calc(447%);
+  left: calc(755%);
   /* position: absolute; */
   position: relative;
   background: rgb(75, 72, 72);
@@ -73,7 +73,7 @@
 /* ---------------- BUTTONS ---------------------*/
 .buttonMain {
   color: #1cc49d;
-  right: calc(5% + 4.3%);
+  left: calc(7%);
   top: 5vh;
   position: relative;
   background-color: #1b2f31;
@@ -122,6 +122,9 @@
   display: flex;
   padding: 0;
   margin: 0;
+  top: 30vh;
+  right: 45vh;
+  position: relative;
 }
 
 .chart {
@@ -135,21 +138,16 @@
   height: 40px;
   width: 500px;
 }
-.chart span {
-  /* You can modify the value below to change the distance between the percentage number and the bar */
+/* .chart span {
   margin-left: -409px;
   color: #fff;
   text-align: center;
   font-weight: bolder;
-}
+} */
 
 .bar {
-  /* You can modify the total time used for the animation here */
-  animation: load 5s normal forwards;
-  /* 
-  Add a little spice by having a shadow below the bar.
-  Feel free to comment out this line below to have an even LITE version :D 
-  */
+  animation: load 2.4s normal forwards;
+
   box-shadow: 0 10px 40px -10px #fff;
 
   border-radius: 100px;
@@ -161,9 +159,22 @@
 @keyframes load {
   0% {
     width: 0;
+    background-color: white;
   }
+  /* 25% {
+    width: 25%;
+    background-color: lightblue;
+  }
+  50% {
+    width: 50%;
+    background-color: darkcyan;
+  }
+  75% {
+    width: 75%;
+    background-color: blue;
+  } */
   100% {
-    /* You need to change the percentage below to match the value in the corresponding <span> */
     width: 100%;
+    background-color: darkblue;
   }
 }

@@ -1,3 +1,4 @@
+import { getAllByRole } from '@testing-library/react';
 import React, { Component } from 'react';
 import { getAllCurrentLevelData } from '../currentLevelHandling';
 import { EnterSandbox, EnterCampaign } from '../Navigation';
@@ -6,7 +7,9 @@ import './homeScreen.css';
 export default class HomeScreen extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      bar: null,
+    };
   }
 
   getCurrentLevelData() {
@@ -14,18 +17,16 @@ export default class HomeScreen extends Component {
   }
 
   renderUselessBar() {
-    // Change the variable to modify the speed of the number increasing from 0 to (ms)
-    let SPEED = 40;
-    // Retrieve the percentage value
-    let limit = 100;
     document.getElementById('mainBar').classList = 'bar';
-
-    for (let i = 0; i <= limit; i++) {
+    for (let i = 0; i <= 100; i++) {
       setTimeout(function () {
-        document.getElementById('value1').innerHTML = i + '%';
-      }, SPEED * i);
+        if (i === 100) {
+          EnterCampaign();
+        }
+      }, i * 23);
     }
   }
+  // document.getElementById('value1').innerHTML = i + '%';
 
   render() {
     return (
@@ -50,7 +51,7 @@ export default class HomeScreen extends Component {
           >
             Sandbox
           </button>
-          <div class="bodyBar">
+          <div id="bodyBar" class="bodyBar">
             <div class="chart">
               <div id="mainBar" class=""></div>
               <span id="value1"></span>
