@@ -1,10 +1,10 @@
-import React from "react";
-import HomeScreen from "./HomeScreen/homeScreen";
-import { setCurrentLevel } from "./currentLevelHandling";
-import ReactDOM from "react-dom";
-import CampaignScreen from "./HomeScreen/CampaignScreen/campaignScreen";
-import VisualizeLevel from "./Visualizer/VisualizeLevel";
-import VisualizeSandbox from "./Visualizer/VisualizeSandbox";
+import React from 'react';
+import HomeScreen from './HomeScreen/homeScreen';
+import { setCurrentLevel } from './currentLevelHandling';
+import ReactDOM from 'react-dom';
+import CampaignScreen from './HomeScreen/CampaignScreen/campaignScreen';
+import VisualizeLevel from './Visualizer/VisualizeLevel';
+import VisualizeSandbox from './Visualizer/VisualizeSandbox';
 
 let inSandbox = false;
 
@@ -25,7 +25,7 @@ function EnterSandbox() {
         <VisualizeSandbox></VisualizeSandbox>
       </div>
     </React.StrictMode>,
-    document.getElementById("root")
+    document.getElementById('root')
   );
 }
 
@@ -38,20 +38,25 @@ function EnterLevel(levelNum) {
         <VisualizeLevel />
       </div>
     </React.StrictMode>,
-    document.getElementById("root")
+    document.getElementById('root')
   );
 }
 
 function EnterHome() {
   inSandbox = false;
-  ReactDOM.render(
-    <React.StrictMode>
-      <div className="App">
-        <HomeScreen></HomeScreen>
-      </div>
-    </React.StrictMode>,
-    document.getElementById("root")
-  );
+  const button = document.getElementById('homeButton');
+  const classes = button.classList;
+  if (classes.contains('enabled')) {
+    ReactDOM.render(
+      <React.StrictMode>
+        <div className="App">
+          <HomeScreen></HomeScreen>
+        </div>
+      </React.StrictMode>,
+      document.getElementById('root')
+    );
+  } else {
+  }
 }
 
 function EnterCampaign() {
@@ -62,7 +67,7 @@ function EnterCampaign() {
         <CampaignScreen></CampaignScreen>
       </div>
     </React.StrictMode>,
-    document.getElementById("root")
+    document.getElementById('root')
   );
 }
 

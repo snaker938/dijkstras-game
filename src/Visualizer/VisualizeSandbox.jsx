@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { allLevelNodeCoords } from "../allLevelData";
-import { EnterHome } from "../Navigation";
-import Node from "./Node/Node";
-import NodeClickable from "./Node/otherNodes";
-import { resetAllNodes, startDijkstra } from "./Visualizer";
-import "./Visualizer.css";
+import React, { Component } from 'react';
+import { allLevelNodeCoords } from '../allLevelData';
+import { EnterHome } from '../Navigation';
+import Node from './Node/Node';
+import NodeClickable from './Node/otherNodes';
+import { resetAllNodes, startDijkstra } from './Visualizer';
+import './Visualizer.css';
 
 // Placeholders for start node coordinates
 let START_NODE_ROW = 0;
@@ -47,7 +47,7 @@ export default class sandboxVisualizer extends Component {
     let nodeBeingDragged = null;
     if (node.isStart || node.isEnd) nodeBeingDragged = node; // this conditional statement is the deciding factor on whether the user is able to drag the node. Aka- it is draggable. A node is only draggable if it is a start or end node
     if (!this.state.dragging[0] && nodeBeingDragged) {
-      console.log("starting to drag...");
+      console.log('starting to drag...');
       this.setState({ dragging: [true, node, node] }); // sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occured on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging alltogether. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to create an illusion like the user is actuall dragging the node around.
     }
   }
@@ -75,8 +75,8 @@ export default class sandboxVisualizer extends Component {
 
         // Finds the type of node that is being dragged- is it a start or end node
         let typeBeingDragged;
-        if (this.state.dragging[1].isStart) typeBeingDragged = "start";
-        if (this.state.dragging[1].isEnd) typeBeingDragged = "end";
+        if (this.state.dragging[1].isStart) typeBeingDragged = 'start';
+        if (this.state.dragging[1].isEnd) typeBeingDragged = 'end';
 
         // Store the current state of the grid
         let grid2 = this.state.grid;
@@ -84,12 +84,12 @@ export default class sandboxVisualizer extends Component {
         let newNode = { ...node };
 
         // Changes the properties of the current node depending on whether it is a start or end node.
-        if (typeBeingDragged === "start") {
+        if (typeBeingDragged === 'start') {
           newNode = {
             ...node,
             isStart: !node.isStart,
           };
-        } else if (typeBeingDragged === "end") {
+        } else if (typeBeingDragged === 'end') {
           newNode = {
             ...node,
             isEnd: !node.isEnd,
@@ -107,7 +107,7 @@ export default class sandboxVisualizer extends Component {
   dragStop() {
     // Only works if dragging is taking place
     if (this.state.dragging[0]) {
-      console.log("stopped dragging...");
+      console.log('stopped dragging...');
       // Finds the new position of the start OR end node- it doesnt matter
       let newRow = this.state.dragging[2].row;
       let newCol = this.state.dragging[2].col;
@@ -134,7 +134,7 @@ export default class sandboxVisualizer extends Component {
 
   // This function removes every wall on the grid
   removeAllWalls() {
-    console.log("removing all walls...");
+    console.log('removing all walls...');
     let grid = [];
     this.setState({ grid: grid });
     grid = initialiseGrid();
@@ -153,8 +153,8 @@ export default class sandboxVisualizer extends Component {
         isWall &&
         !isPermanentWall &&
         document
-          .getElementById("node-clickable")
-          .classList.contains("node-clickable-toggled")
+          .getElementById('node-clickable')
+          .classList.contains('node-clickable-toggled')
       )
         NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 0;
       else if (!unWallable && !isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
@@ -163,8 +163,8 @@ export default class sandboxVisualizer extends Component {
       if (NUM_WALLS_ACTIVE < 0) NUM_WALLS_ACTIVE = 0;
       if (
         document
-          .getElementById("node-clickable")
-          .classList.contains("node-clickable-toggled")
+          .getElementById('node-clickable')
+          .classList.contains('node-clickable-toggled')
       ) {
         // Creates a temporary node with the new property of isWall set to the opposite of its current state. If permanent wall is toggled, then the new node will switch between a permanent and non-permanent wall.
         const newNode = {
@@ -300,7 +300,8 @@ export default class sandboxVisualizer extends Component {
           UnAnimate
         </button>
         <button
-          className="cool-button"
+          id="homeButton"
+          className="cool-button enabled"
           onClick={() => EnterHome()} /* goes home*/
         >
           Home

@@ -16,12 +16,13 @@ export default class HomeScreen extends Component {
     console.log(getAllCurrentLevelData());
   }
 
-  renderUselessBar() {
+  renderUselessBar(where) {
     document.getElementById('mainBar').classList = 'bar';
     for (let i = 0; i <= 100; i++) {
       setTimeout(function () {
         if (i === 100) {
-          EnterCampaign();
+          if (where === 'campaign') EnterCampaign();
+          else EnterSandbox();
         }
       }, i * 23);
     }
@@ -41,13 +42,17 @@ export default class HomeScreen extends Component {
           </div>
           <button
             className="buttonMain"
-            onClick={() => this.renderUselessBar()} /* Enters level selection */
+            onClick={() =>
+              this.renderUselessBar('campaign')
+            } /* Enters level selection */
           >
             Campaign
           </button>
           <button
             className="buttonMain"
-            onClick={() => EnterSandbox()} /* Enters the sandbox */
+            onClick={() =>
+              this.renderUselessBar('sandbox')
+            } /* Enters the sandbox */
           >
             Sandbox
           </button>
