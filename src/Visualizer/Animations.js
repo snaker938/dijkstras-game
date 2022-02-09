@@ -32,7 +32,7 @@ export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
 export function animateShortestPath(nodesInShortestPathOrder) {
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
     setTimeout(() => {
-      if (nodesInShortestPathOrder[i].distance >= 70) {
+      if (nodesInShortestPathOrder[i].distance > 70) {
         endTrail(i);
       } else {
         const node = nodesInShortestPathOrder[i];
@@ -48,11 +48,12 @@ export function animateShortestPath(nodesInShortestPathOrder) {
   }
 }
 
-function endTrail(endIndex) {
-  for (let x = endIndex; x > 0; x--) {
-    console.log(x);
-  }
-}
+const endTrail = function func() {
+  if (endTrail.fired) return;
+  endTrail.fired = true;
+  // These next statements only run once- no matter how many times the function is called.
+  // console.log('called once and never again!');
+};
 
 // This function animates the error message if there is no proper path.
 export function animateNoProperPath(errorMessage, otherNodes) {
