@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { resetAllNodes, startDijkstra } from "./Visualizer";
+import React, { Component } from 'react';
+import { resetAllNodes, startDijkstra } from './Visualizer';
 import {
   currentLevel,
   getCurrentLevelGrid,
@@ -10,10 +10,10 @@ import {
   getCurrentLevelRandomWallNumber,
   getCurrentLevelRandomWallPresses,
   getCurrentLevelWallsAllowed,
-} from "../currentLevelHandling";
-import { EnterHome } from "../Navigation";
-import Node from "./Node/Node";
-import "./Visualizer.css";
+} from '../currentLevelHandling';
+import { EnterHome } from '../Navigation';
+import Node from './Node/Node';
+import './Visualizer.css';
 
 // Placeholders for start node coordinates. It gets the current level data
 let START_NODE_ROW;
@@ -83,7 +83,7 @@ export default class levelVisualizer extends Component {
 
   // This function removes every wall on the grid
   removeAllWalls() {
-    console.log("removing all walls...");
+    console.log('removing all walls...');
     let grid = [];
     this.setState({ grid: grid });
     grid = getCurrentLevelGrid();
@@ -212,7 +212,8 @@ export default class levelVisualizer extends Component {
           UnAnimate
         </button>
         <button
-          className="cool-button"
+          id="homeButton"
+          className="cool-button enabled"
           onClick={() => EnterHome()} /* goes home*/
         >
           Home
