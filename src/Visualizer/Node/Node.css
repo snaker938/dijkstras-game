@@ -34,6 +34,16 @@
   background-color: rgb(38, 115, 148);
 }
 
+.node-ended-head {
+  margin: 0px;
+  background-color: rgb(38, 115, 148);
+}
+
+.node-ended-body {
+  margin: 0px;
+  background-color: rgb(175, 216, 248);
+}
+
 .node-clickable {
   width: 25px;
   height: 25px;

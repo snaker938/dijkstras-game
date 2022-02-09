@@ -9,12 +9,12 @@ export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
         setTimeout(() => {
           sendError('NO-PATH'); // If there is no path, animate the "NO-PATH" error message, along with the remaining nodes to create a very cool error message.
           return;
-        }, 8 * i); //used to be 7
+        }, 8 * i); //used to be 8
       }
       // These lines of code run once all the nodes have been animated- because once they have all been animated, the shortest path needs to be animated
       setTimeout(() => {
         animateShortestPath(nodesInShortestPathOrder);
-      }, 8 * i); //used to be 7
+      }, 8 * i); //used to be 8
       return;
     }
     setTimeout(() => {
@@ -24,7 +24,7 @@ export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
         'node node-visited';
       document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
         visitedNodesInOrder[i].distance;
-    }, 6 * i); // used to be 5
+    }, 6 * i); // used to be 6
   }
 }
 
@@ -32,15 +32,25 @@ export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
 export function animateShortestPath(nodesInShortestPathOrder) {
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
     setTimeout(() => {
-      const node = nodesInShortestPathOrder[i];
-      document.getElementById(`node-${node.row}-${node.col}`).className =
-        'node node-shortest-path';
-      document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-        nodesInShortestPathOrder[i].distance;
-      if (i === nodesInShortestPathOrder.length - 1) {
-        document.getElementById('homeButton').classList.add('enabled');
-      } // add the removed class. Animation has finished.
-    }, 6 * i); // used to be 5
+      if (nodesInShortestPathOrder[i].distance >= 70) {
+        endTrail(i);
+      } else {
+        const node = nodesInShortestPathOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          'node node-shortest-path';
+        document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
+          nodesInShortestPathOrder[i].distance;
+        if (i === nodesInShortestPathOrder.length - 1) {
+          document.getElementById('homeButton').classList.add('enabled');
+        } // add the removed class. Animation has finished.
+      }
+    }, 80 * i); // used to be 6 or 120
+  }
+}
+
+function endTrail(endIndex) {
+  for (let x = endIndex; x > 0; x--) {
+    console.log(x);
   }
 }
 
@@ -70,3 +80,38 @@ export function animateNoProperPath(errorMessage, otherNodes) {
     }, 1 * i);
   }
 }
+
+// setTimeout(() => {
+//   if (x === endIndex - 1) {
+//     const node = nodesInShortestPathOrder[x];
+//     document.getElementById(`node-${node.row}-${node.col}`).className =
+//       'node node-ended-head';
+//     document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
+//       nodesInShortestPathOrder[x].distance;
+//   } else {
+//     setTimeout(() => {
+//       console.log(nodesInShortestPathOrder[x].distance);
+//       const node = nodesInShortestPathOrder[x];
+//       document.getElementById(
+//         `node-${node.row}-${node.col}`
+//       ).className = 'node node-ended-body';
+//       // if (i === nodesInShortestPathOrder.length - 1) {
+//       //   document.getElementById('homeButton').classList.add('enabled');
+//       // } // add the removed class. Animation has finished.
+//     }, 7 * x);
+//   }
+// }, 90 * i); // used to be 6 or 120
+
+// else if (!ended) {
+//   ended = true;
+//   let endIndex;
+//   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+//     if (nodesInShortestPathOrder[i].distance >= 70) {
+//       endIndex = i;
+//       break;
+//     }
+//   }
+//   for (let x = endIndex; x > 0; x--) {
+//     console.log(x);
+//   }
+// }
