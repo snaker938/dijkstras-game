@@ -31,7 +31,7 @@ export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
 
 // This function animates the shortest path, including the start AND end nodes. It also adds the distance to the nodes. It is called AFTER all the other nodes have been animated.
 export function animateShortestPath(nodesInShortestPathOrder) {
-  let endIndex;
+  let endIndex = Infinity; // endIndex is Infinity if the distance is never > 70
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
     if (nodesInShortestPathOrder[i].distance > 70) {
       endIndex = i;
@@ -79,6 +79,9 @@ const endTrail = function func(endIndex, nodesInShortestPathOrder, count) {
         const node = nodesInShortestPathOrder[count - 2 - x];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           'node node-ended-body';
+        if (x === endIndex - 2) {
+          document.getElementById('homeButton').classList.add('enabled');
+        } // add the removed class. Animation has finished.
       }, 10 * x);
     }
   }
