@@ -1,4 +1,3 @@
-import { getAllByRole } from '@testing-library/react';
 import React, { Component } from 'react';
 import { getAllCurrentLevelData } from '../currentLevelHandling';
 import { EnterSandbox, EnterCampaign } from '../Navigation';

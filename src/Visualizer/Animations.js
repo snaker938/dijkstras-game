@@ -33,7 +33,7 @@ export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
 export function animateShortestPath(nodesInShortestPathOrder) {
   let endIndex = Infinity; // endIndex is Infinity if the distance is never > 70
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-    if (nodesInShortestPathOrder[i].distance > 70) {
+    if (nodesInShortestPathOrder[i].distance > 75) {
       endIndex = i;
       break;
     }
@@ -41,7 +41,7 @@ export function animateShortestPath(nodesInShortestPathOrder) {
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
     setTimeout(() => {
       if (
-        nodesInShortestPathOrder[i].distance > 70 &&
+        nodesInShortestPathOrder[i].distance > 75 &&
         i === nodesInShortestPathOrder.length - 1
       ) {
         endTrail(
