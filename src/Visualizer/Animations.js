@@ -1,4 +1,5 @@
 import { sendError } from './errorHandling';
+import { cloneVariable } from './Visualizer';
 
 export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
   // First, toggle the classlist of the homebutton to remove the "enabled" class. This means that animations are playing.
@@ -30,11 +31,25 @@ export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
 
 // This function animates the shortest path, including the start AND end nodes. It also adds the distance to the nodes. It is called AFTER all the other nodes have been animated.
 export function animateShortestPath(nodesInShortestPathOrder) {
+  let endIndex;
+  for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+    if (nodesInShortestPathOrder[i].distance > 70) {
+      endIndex = i;
+      break;
+    }
+  }
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
     setTimeout(() => {
-      if (nodesInShortestPathOrder[i].distance > 70) {
-        endTrail(i);
-      } else {
+      if (
+        nodesInShortestPathOrder[i].distance > 70 &&
+        i === nodesInShortestPathOrder.length - 1
+      ) {
+        endTrail(
+          endIndex,
+          nodesInShortestPathOrder,
+          cloneVariable(cloneVariable(endIndex))
+        );
+      } else if (i < endIndex) {
         const node = nodesInShortestPathOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           'node node-shortest-path';
@@ -48,11 +63,25 @@ export function animateShortestPath(nodesInShortestPathOrder) {
   }
 }
 
-const endTrail = function func() {
-  if (endTrail.fired) return;
-  endTrail.fired = true;
-  // These next statements only run once- no matter how many times the function is called.
-  // console.log('called once and never again!');
+const endTrail = function func(endIndex, nodesInShortestPathOrder, count) {
+  // if (endTrail.fired) return;
+  // endTrail.fired = true;
+  for (let x = endIndex - 1; x >= 0; x--) {
+    if (x === endIndex - 1) {
+      const node = nodesInShortestPathOrder[x];
+      document.getElementById(`node-${node.row}-${node.col}`).className =
+        'node node-ended-head';
+      document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
+        nodesInShortestPathOrder[x].distance;
+    } else {
+      setTimeout(() => {
+        // Used [count - 2 - x] for the index as the setTimout reverses the for loop, so instead from starting from endIndex, going to 0, it starts from 0 to endIndex. The count - 2 - x, reverses this reversal, so the nodes are selected from the top down, like it should be.
+        const node = nodesInShortestPathOrder[count - 2 - x];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          'node node-ended-body';
+      }, 10 * x);
+    }
+  }
 };
 
 // This function animates the error message if there is no proper path.
@@ -91,28 +120,10 @@ export function animateNoProperPath(errorMessage, otherNodes) {
 //       nodesInShortestPathOrder[x].distance;
 //   } else {
 //     setTimeout(() => {
-//       console.log(nodesInShortestPathOrder[x].distance);
-//       const node = nodesInShortestPathOrder[x];
-//       document.getElementById(
-//         `node-${node.row}-${node.col}`
-//       ).className = 'node node-ended-body';
-//       // if (i === nodesInShortestPathOrder.length - 1) {
-//       //   document.getElementById('homeButton').classList.add('enabled');
-//       // } // add the removed class. Animation has finished.
+//       // Used [count - 2 - x] for the index as the setTimout reverses the for loop, so instead from starting from endIndex, going to 0, it starts from 0 to endIndex. The count - 2 - x, reverses this reversal, so the nodes are selected from the top down, like it should be.
+//       const node = nodesInShortestPathOrder[count - 2 - x];
+//       document.getElementById(`node-${node.row}-${node.col}`).className =
+//         'node node-ended-body';
 //     }, 7 * x);
 //   }
-// }, 90 * i); // used to be 6 or 120
-
-// else if (!ended) {
-//   ended = true;
-//   let endIndex;
-//   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-//     if (nodesInShortestPathOrder[i].distance >= 70) {
-//       endIndex = i;
-//       break;
-//     }
-//   }
-//   for (let x = endIndex; x > 0; x--) {
-//     console.log(x);
-//   }
-// }
+// }, 20 * x); // used to be 6 or 120
