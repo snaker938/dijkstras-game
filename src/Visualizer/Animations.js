@@ -31,18 +31,23 @@ export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
 
 // This function animates the shortest path, including the start AND end nodes. It also adds the distance to the nodes. It is called AFTER all the other nodes have been animated.
 export function animateShortestPath(nodesInShortestPathOrder) {
-  let endIndex = Infinity; // endIndex is Infinity if the distance is never > 70
+  let endIndex = Infinity; // endIndex is Infinity if the distance is never > 75
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
     if (nodesInShortestPathOrder[i].distance > 75) {
       endIndex = i;
       break;
     }
   }
-  for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+  // If the missile will end, (the distance is bigger than the distance the missile can travel), loopLength is set to the index of the first node to reach this max distance. This means the program will animate the end animation straight away. Otherwise, loopLength is set to all the nodes, as the missile will reach its end target.
+  let loopLength;
+  if (endIndex < Infinity) loopLength = endIndex;
+  else loopLength = nodesInShortestPathOrder.length;
+
+  for (let i = 0; i < loopLength; i++) {
     setTimeout(() => {
       if (
-        nodesInShortestPathOrder[i].distance > 75 &&
-        i === nodesInShortestPathOrder.length - 1
+        nodesInShortestPathOrder[i].distance >= 75 //&&
+        //i === nodesInShortestPathOrder.length - 1
       ) {
         endTrail(
           endIndex,
