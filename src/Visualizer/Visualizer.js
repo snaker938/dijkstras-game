@@ -1,15 +1,15 @@
-import { dijkstra } from "../algorithms/dijkstra";
-import { animateAllNodes } from "./Animations";
+import { dijkstra } from '../algorithms/dijkstra';
+import { animateAllNodes } from './Animations';
 
 // This function resets all the nodes to the default class
 export function resetAllNodes(grid) {
   for (const row of grid) {
     for (const node of row) {
-      let specialClass = "";
-      if (node.isPermanentWall) specialClass = "node-wall node-permanent-wall";
-      if (node.isWall && !node.isPermanentWall) specialClass = "node-wall";
-      if (node.isStart) specialClass = "node-start";
-      if (node.isEnd) specialClass = "node-end";
+      let specialClass = '';
+      if (node.isPermanentWall) specialClass = 'node-wall node-permanent-wall';
+      if (node.isWall && !node.isPermanentWall) specialClass = 'node-wall';
+      if (node.isStart) specialClass = 'node-start';
+      if (node.isEnd) specialClass = 'node-end';
       node.previousNode = null;
       document.getElementById(
         `node-${node.row}-${node.col}`

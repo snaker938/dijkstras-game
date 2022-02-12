@@ -93,6 +93,7 @@ export default class levelVisualizer extends Component {
 
   // When a node is clicked, unless it is the start or end node, it gets toggled between a wall and not-wall
   toggleWall(row, col, isWall, unWallable) {
+    resetAllNodes(this.state.grid);
     const { grid } = this.state;
     let node = grid[row][col];
     if (!node.isPermanentWall) {
