@@ -9,12 +9,12 @@ import './Visualizer.css';
 // Placeholders for start node coordinates
 let START_NODE_ROW = 0;
 let START_NODE_COL = 0;
-let END_NODE_ROW = 20;
-let END_NODE_COL = 50;
+let END_NODE_ROW = 22;
+let END_NODE_COL = 48;
 
 // Specifies the number of rows and columns
-const NUM_ROWS = 21;
-const NUM_COLUMNS = 51;
+const NUM_ROWS = 23;
+const NUM_COLUMNS = 49;
 
 // Number of walls currently active
 let NUM_WALLS_ACTIVE = 0;

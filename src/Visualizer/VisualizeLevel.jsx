@@ -23,8 +23,8 @@ let END_NODE_ROW;
 let END_NODE_COL;
 
 // Specifies the number of rows and columns
-const NUM_ROWS = 21;
-const NUM_COLUMNS = 51;
+const NUM_ROWS = 23;
+const NUM_COLUMNS = 49;
 
 // Specifies the number of walls the player can have active at one time
 let NUM_WALLS_TOTAL;
@@ -219,11 +219,11 @@ export default class levelVisualizer extends Component {
         >
           Home
         </button>
-        <p className="walls-used text-info">
+        <p className="walls-used-level text-info">
           {NUM_WALLS_ACTIVE} out of {NUM_WALLS_TOTAL} walls used
         </p>
         {numRandomWallText}
-        <div className="grid" /*  creates the div that holds the rows*/>
+        <div className="grid-level" /*  creates the div that holds the rows*/>
           {grid.map((row, rowID) => {
             return (
               <div
