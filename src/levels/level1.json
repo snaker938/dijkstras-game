@@ -4,6 +4,8 @@
   "randomWallPressesAllowed": 0,
   "randomWallNumber": 400,
   "lives": 3,
+  "difficulty": "Very Easy",
+  "description": "Example description",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [48, 22],
   "wallsAllowed": 10,

@@ -1,6 +1,6 @@
 // This whole file will get the data for every single level that there is.
 
-const numLevels = 5; // The total number of levels in the game
+const numLevels = 15; // The total number of levels in the game
 const allLevelNames = getAllLevelNames();
 const allLevelGrids = getAllLevelGrids();
 const allLevelsAllowedWalls = getAllLevelAllowedWalls();
@@ -10,6 +10,8 @@ const allLevelLives = getAllLives();
 const allLevelNodeCoords = getAllSpecialNodeCoords();
 const allLevelIDs = getAllLevelIDs();
 const allLevelRandomWallNumber = getAllLevelRandomWallNumber();
+const allLevelDifficulties = getAllLevelDifficulties();
+const allLevelDescriptions = getAllLevelDescriptions();
 
 // This function gets the names of every single level and stores it in an array
 function getAllLevelNames() {
@@ -19,6 +21,26 @@ function getAllLevelNames() {
     levelNames.push(level.levelName);
   }
   return levelNames;
+}
+
+// This function gets the difficulty of every single level and stores it in an array
+function getAllLevelDifficulties() {
+  let levelDifficulties = [];
+  for (let i = 1; i <= numLevels; i++) {
+    let level = require(`./levels/level${i}`);
+    levelDifficulties.push(level.difficulty);
+  }
+  return levelDifficulties;
+}
+
+// This function gets the description of every single level and stores it in an array
+function getAllLevelDescriptions() {
+  let levelDescriptions = [];
+  for (let i = 1; i <= numLevels; i++) {
+    let level = require(`./levels/level${i}`);
+    levelDescriptions.push(level.description);
+  }
+  return levelDescriptions;
 }
 
 // This function gets all the level grids
@@ -111,6 +133,38 @@ function getAllLevelRandomWallNumber() {
   return allLevelRandomWallNumber;
 }
 
+export function getLevelName(id) {
+  return allLevelNames[id];
+}
+
+export function getLevelAllowedWalls(id) {
+  return allLevelsAllowedWalls[id];
+}
+
+export function getLevelRandomWallPresses(id) {
+  return allLevelsRandomWallPresses[id];
+}
+
+export function getLevelRandomWallNumber(id) {
+  return allLevelRandomWallNumber[id];
+}
+
+export function getLevelStars(id) {
+  return allLevelStars[id];
+}
+
+export function getLevelLives(id) {
+  return allLevelLives[id];
+}
+
+export function getLevelDifficulty(id) {
+  return allLevelDifficulties[id];
+}
+
+export function getLevelDescription(id) {
+  return allLevelDescriptions[id];
+}
+
 // Export all the level data as global variables
 export {
   numLevels,
@@ -123,4 +177,6 @@ export {
   allLevelNodeCoords,
   allLevelIDs,
   allLevelRandomWallNumber,
+  allLevelDescriptions,
+  allLevelDifficulties,
 };
