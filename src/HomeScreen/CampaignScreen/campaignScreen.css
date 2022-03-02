@@ -1,0 +1,217 @@
+.levelButtonClicked {
+  border: 2px solid rgb(175, 175, 175);
+  display: block;
+  margin-bottom: 7px;
+  font-family: QTYPE;
+  width: 350px;
+  text-align: left;
+  height: 33px;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(255, 255, 255, 1);
+  position: relative;
+  top: 30px;
+  left: 50px;
+}
+
+.levelButtons {
+  position: relative;
+  top: 30px;
+  left: 50px;
+  display: block;
+  margin-bottom: 10px;
+  height: 30px;
+  font-family: QTYPE;
+  width: 350px;
+  text-align: left;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 1);
+  border: 0;
+  /* filter: blur(0.1px); */
+  /* border-radius: 0; */
+}
+
+.levelButtons:hover {
+  opacity: 65%;
+}
+
+.campaignScreenButton {
+  font-family: QTYPEBOLD;
+  font-size: 40px;
+  position: absolute;
+  bottom: 9px;
+  background-color: transparent;
+  border: 0;
+  text-decoration: none;
+  text-shadow: 0px 1px 2px #000000;
+  opacity: 100%;
+  /* color: rgb(124, 124, 120); */
+  /* color: rgb(203, 203, 203); */
+  color: rgb(180, 180, 180);
+}
+
+.campaignScreenButton:hover {
+  color: rgb(216, 216, 216);
+}
+
+.startLevel {
+  bottom: 15px;
+  left: 460px;
+}
+
+.backButton {
+  bottom: 15px;
+  right: 190px;
+}
+
+button:focus {
+  outline: none;
+}
+
+.selectStageText {
+  font-family: 'QYTPE';
+  position: absolute;
+  font-weight: 900;
+  font-size: 35px;
+  color: white;
+  top: 30px;
+  left: 188px;
+  white-space: nowrap;
+  /* text-decoration: underline;
+  text-underline-offset: 3px; */
+  border-bottom: 3px solid white;
+  border-radius: 8px;
+  padding-bottom: 3px;
+  user-select: none;
+}
+
+@font-face {
+  font-family: 'QTYPE';
+  src: local('QTYPE'),
+    url(../../assets/Fonts/levelNameFont.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'QTYPEBOLD';
+  src: local('QTYPEBOLD'),
+    url(../../assets/Fonts/boldText.otf) format('opentype');
+}
+
+.levelContainer {
+  height: 0;
+  width: 201px;
+  top: 20px;
+  left: 85px;
+  position: absolute;
+  border-bottom: 65px solid #1a1717;
+  border-left: 90px solid transparent;
+  border-right: 90px solid transparent;
+  /* border-bottom: 105px solid #1a1717;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent; */
+  opacity: 80%;
+  /* backdrop-filter: blur(10px); */
+}
+.levelContainer2 {
+  width: 381px;
+  height: 611px;
+  top: 85px;
+  left: 85px;
+  position: absolute;
+  background: #1a1717;
+  opacity: 80%;
+  backdrop-filter: blur(10px);
+}
+
+.levelInfoContainer {
+  height: 0;
+  width: 400px;
+  top: 20px;
+  left: 600px;
+  position: absolute;
+  border-bottom: 65px solid #1a1717;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  /* border-bottom: 105px solid #1a1717;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent; */
+  opacity: 80%;
+}
+
+.levelInfoContainer2 {
+  width: 601px;
+  height: 611px;
+  top: 85px;
+  left: 600px;
+  position: absolute;
+  background: #1a1717;
+  opacity: 80%;
+  backdrop-filter: blur(10px);
+}
+
+.levelNameToRender {
+  font-family: 'QTYPE';
+  font-weight: 900;
+  font-size: 35px;
+  color: white;
+  /* left: 25px; */
+  text-align: center;
+  /* line-height: 100px; */
+  user-select: none;
+}
+
+/* z index to make div go behind text */
+.levelNameToRenderContainer {
+  border-top: 100px solid blue;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  height: 0;
+  width: 300px;
+  top: 10px;
+  z-index: -1;
+  position: absolute;
+}
+
+.levelDescription {
+  font-family: 'QTYPE';
+  color: white;
+  /* position: absolute; */
+  margin-left: 0px;
+  text-align: center;
+  font-size: 20px;
+  margin-top: 14px;
+  /* line-height: 75px; */
+}
+
+.levelDescriptionContainer {
+  width: 560px;
+  height: 75px;
+  top: 250px;
+  left: 620px;
+  position: absolute;
+  background: #1a1717;
+  opacity: 40%;
+  backdrop-filter: blur(10px);
+}
+
+.powerupContainer {
+  width: 560px;
+  height: 35px;
+  top: 350px;
+  left: 620px;
+  position: absolute;
+  background: #1a1717;
+  opacity: 80%;
+  backdrop-filter: blur(10px);
+}
+
+.powerupNumberText {
+  font-family: 'QTYPE';
+  color: white;
+  /* position: absolute; */
+  margin-left: 0px;
+  text-align: center;
+  font-size: 20px;
+  line-height: 35px;
+}

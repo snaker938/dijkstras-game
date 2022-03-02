@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { getAllCurrentLevelData } from '../currentLevelHandling';
 import { EnterSandbox, EnterCampaign } from '../Navigation';
 import './homeScreen.css';
+import testingImagePath from '.././assets/mainbackground.png';
 
 export default class HomeScreen extends Component {
   constructor() {
@@ -31,37 +32,59 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <>
-        <div class="mainBodyHome">
-          <div class="light">
-            <div class="wire"></div>
-            <div class="bulb">
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-          <button
-            className="buttonMain"
-            onClick={() =>
-              this.renderUselessBar('campaign')
-            } /* Enters level selection */
-          >
-            Campaign
-          </button>
-          <button
-            className="buttonMain"
-            onClick={() =>
-              this.renderUselessBar('sandbox')
-            } /* Enters the sandbox */
-          >
-            Sandbox
-          </button>
-          <div id="bodyBar" class="bodyBar">
-            <div class="chart">
-              <div id="mainBar" class=""></div>
-              <span id="value1"></span>
-            </div>
-          </div>
+        <div
+          style={{
+            backgroundColor: 'rgb(187, 211, 223)',
+            position: 'absolute',
+            width: '100%',
+            height: '100vh',
+          }}
+        ></div>
+        <div class="imgbox">
+          <img alt="test" className="center-fit" src={testingImagePath}></img>
         </div>
+        <div className="titleText">DIJKTRA'S GAME</div>
+        <div className="bottomSector"></div>
+
+        <div>
+          <p className="welcomeBackText">Welcome Back, </p>
+          <input
+            type="text"
+            id="usernameInput"
+            className="usernameInput"
+            spellCheck="false"
+          ></input>
+        </div>
+
+        <button
+          className="dividerButton campaignStartButton"
+          onClick={() => EnterCampaign()}
+        >
+          Campaign
+        </button>
+
+        <button
+          className="dividerButton sandboxStartButton"
+          onClick={() => EnterSandbox()}
+        >
+          Sandbox
+        </button>
+
+        <button className="dividerButton settingsButton" onClick={() => {}}>
+          Settings
+        </button>
+
+        <button className="dividerButton creditsButton" onClick={() => {}}>
+          Credits
+        </button>
+
+        {/* <div id="bodyBar" class="bodyBar">
+          <div class="chart">
+            <div id="mainBar" class=""></div>
+            <span id="value1"></span>
+          </div>
+        </div> */}
+        {/* </div> */}
       </>
     );
   }

@@ -1,5 +1,3 @@
-/* ---------- LIGHT EFFECT -------------- */
-
 .mainBodyHome {
   /* background: rgb(34, 33, 33); */
   background: radial-gradient(rgb(97, 92, 92), rgb(8, 8, 8));
@@ -10,71 +8,155 @@
   min-height: 98vh;
 }
 
-.bulb {
-  width: 80px;
-  /* left: 16.3vh; */
-  left: calc(710%);
-  /* position: absolute; */
-  position: relative;
-  background: rgb(75, 72, 72);
-  border-radius: 50%;
-  height: 80px;
-  background: #fff;
-  top: -21vh;
-  box-shadow: 0 0 50px #fff, 0 0 100px #fff, 0 0 150px #fff, 0 0 200px #fff,
-    0 0 250px #fff, 0 0 300px #fff, 0 0 350px #fff;
-}
+/* body {
+  background: radial-gradient(rgb(97, 92, 92), rgb(8, 8, 8));
+  min-height: 98vh;
+} */
 
-.bulb::before {
-  content: '';
+.titleText {
+  font-family: ADUMA;
+  font-size: 120px;
   position: absolute;
-  top: -50px;
-  left: 22.5px;
-  width: 35px;
-  height: 80px;
-  background: #444;
-  border-top: 30px solid #000;
-  border-radius: 10px;
+  bottom: 480px;
+  right: 190px;
+  color: rgb(202, 64, 14);
+
+  text-shadow: -8px -4px 0 #000, 1px -4px 0 #000, -1px 1px 0 #000,
+    2px 2px 0 #000;
+
+  opacity: 85%;
+  user-select: none;
 }
 
-.mainBodyHome .bulb::before {
-  background: #fff;
+@font-face {
+  font-family: 'TITLE';
+  src: local('TITLE'), url(.././assets/Fonts/TitleFont.otf) format('opentype');
 }
 
-.mainBodyHome .bulb::after {
+@font-face {
+  font-family: 'ADUMA';
+  src: local('ADUMA'), url(.././assets/Fonts/Adumu.ttf) format('truetype');
+}
+
+.imgbox {
+  display: grid;
+  /* height: 100%;
+  width: 100%; */
+}
+
+/*
+.center-fit {
+  max-width: 100%;
+  max-height: 100vh;
+  margin-top: -10px;
+  opacity: 70%;
+  border: 0px;
+}
+margin: auto
+*/
+.center-fit {
+  /* max-width: 100%; */
+  width: 178.3vh;
+  max-height: 100vh;
+  /* margin: auto; */
   position: absolute;
-  /* position: fixed; */
-  height: 120px;
-  border-radius: 50%;
-  /* top: -10vh;
-  left: 18.8vh; */
+  border: 0px;
+  margin-right: 0px;
+  /* margin-top: -10px; */
+  object-fit: fill;
+
+  animation-duration: 8s;
+  animation-name: slidein;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 1%;
+  }
+
+  to {
+    margin-left: -2.5%;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.tempButton {
+  position: fixed;
   top: 50%;
-  content: '';
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120px;
-  background: #fff;
-  filter: blur(50px);
 }
-
-.wire {
+.bottomSector {
+  /* box-shadow: 0 0 3pt 2pt red; */
+  height: 0;
+  width: 981px;
+  top: 643px;
+  left: 0px;
   position: absolute;
-  left: 50%;
-  bottom: 80%;
-  width: 4px;
-  height: 20vh;
-  top: 1.08vh;
-  /* overflow: hidden; */
-  background: #000;
+  border-bottom: 75px solid #1a1717;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  opacity: 80%;
 }
 
-/* -------------------------------------------------------------------- */
+/* ::-webkit-scrollbar {
+  width: 0px;
+} */
+
+.welcomeBackText {
+  position: absolute;
+  font-family: 'QTYPE';
+  bottom: 140px;
+  right: 200px;
+  font-size: 45px;
+  font-weight: bold;
+  color: rgb(66, 65, 65);
+  text-shadow: -1px -1px 0 #000, 0px -1px 0 #000, -1px 1px 0 #000,
+    0px 0px 0 #000;
+  user-select: none;
+}
+
+.usernameInput {
+  position: absolute;
+  padding: 5px;
+  bottom: 96px;
+  height: 30px;
+  right: 142px;
+  width: 350px;
+  font-size: 30px;
+  border-width: 1px;
+  border-color: #cccccc;
+  background-color: #1a1717;
+  opacity: 80%;
+  color: #ffffff;
+  font-family: 'QTYPE';
+  border-style: solid;
+  border-radius: 0px;
+  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
+}
+
+.usernameInput:focus {
+  outline: none;
+}
+
+body {
+  overflow-x: hidden;
+
+  /* background-color: rgb(187, 211, 223); */
+  /* background-color: rgb(190, 214, 221); */
+  /* background-color: lightcoral; */
+  /* background-color: rgb(190, 58, 58); */
+  /* background-color: lightgreen; */
+}
 
 /* ---------------- BUTTONS ---------------------*/
 .buttonMain {
   color: #1cc49d;
-  left: calc(10.7%);
-  top: 5vh;
+  bottom: 00px;
   position: relative;
   background-color: #1b2f31;
   border-radius: 50px;
@@ -86,6 +168,7 @@
   font-size: large;
   font-weight: 600;
   margin-left: calc(13.4%);
+  margin-right: 20px;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
@@ -115,66 +198,45 @@
 
 /* ------------------------------------------------------------- */
 
-/* ----------- LOADING BAR ------------------- */
-.bodyBar {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  padding: 0;
-  margin: 0;
-  top: 30vh;
-  right: 49vh;
-  position: relative;
+.dividerButton {
+  font-family: 'QTYPEBOLD';
+  font-size: 40px;
+  position: absolute;
+  bottom: 9px;
+  background-color: transparent;
+  border: 0;
+  text-decoration: none;
+  text-shadow: 0px 1px 2px #000000;
+  opacity: 100%;
+  /* color: rgb(124, 124, 120); */
+  /* color: rgb(203, 203, 203); */
+  color: rgb(180, 180, 180);
+  margin-left: 32px;
 }
 
-.chart {
-  background: rgba(255, 255, 255, 0.1);
-  justify-content: flex-start;
-  border-radius: 100px;
-  align-items: center;
-  position: relative;
-  padding: 0 5px;
-  display: flex;
-  height: 40px;
-  width: 500px;
-}
-/* .chart span {
-  margin-left: -409px;
-  color: #fff;
-  text-align: center;
-  font-weight: bolder;
-} */
-
-.bar {
-  animation: load 2.4s normal forwards;
-
-  box-shadow: 0 10px 40px -10px #fff;
-
-  border-radius: 100px;
-  background: #fff;
-  height: 30px;
-  width: 0;
+.campaignStartButton {
+  left: 145px;
 }
 
-@keyframes load {
-  0% {
-    width: 0;
-    background-color: white;
-  }
-  /* 25% {
-    width: 25%;
-    background-color: lightblue;
-  }
-  50% {
-    width: 50%;
-    background-color: darkcyan;
-  }
-  75% {
-    width: 75%;
-    background-color: blue;
-  } */
-  100% {
-    width: 100%;
-    background-color: darkblue;
-  }
+.sandboxStartButton {
+  left: 415px;
+}
+
+.creditsButton {
+  left: 657px;
+}
+
+.settingsButton {
+  left: 872px;
+}
+
+.dividerButton:hover {
+  /* color: rgb(124, 124, 120); */
+  color: rgb(216, 216, 216);
+}
+
+@font-face {
+  font-family: 'QTYPEBOLD';
+  src: local('QTYPEBOLD'),
+    url(../../src/assets/Fonts/boldText.otf) format('opentype');
 }
