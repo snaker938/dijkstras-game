@@ -30,6 +30,7 @@ function EnterSandbox() {
 }
 
 function EnterLevel(levelNum) {
+  console.log('Trying to enter level ', levelNum);
   inSandbox = false;
   setCurrentLevel(levelNum);
   ReactDOM.render(
@@ -59,6 +60,18 @@ function EnterHome() {
   }
 }
 
+function EnterHomeFromMenu() {
+  inSandbox = false;
+  ReactDOM.render(
+    <React.StrictMode>
+      <div className="App">
+        <HomeScreen></HomeScreen>
+      </div>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+}
+
 function EnterCampaign() {
   inSandbox = false;
   ReactDOM.render(
@@ -72,4 +85,11 @@ function EnterCampaign() {
 }
 
 export { inSandbox };
-export { FirstStart, EnterCampaign, EnterHome, EnterLevel, EnterSandbox };
+export {
+  FirstStart,
+  EnterCampaign,
+  EnterHome,
+  EnterLevel,
+  EnterSandbox,
+  EnterHomeFromMenu,
+};
