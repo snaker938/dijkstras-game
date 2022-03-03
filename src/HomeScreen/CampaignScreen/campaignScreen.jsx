@@ -48,8 +48,8 @@ export default class CampaignScreen extends Component {
             </div>
             <span
               style={
-                // i < 10 ? { marginLeft: '3.5rem' } : { marginLeft: '3.5rem' }
-                { marginLeft: '3rem' }
+                i < 10 ? { marginLeft: '3.4rem' } : { marginLeft: '3.5rem' }
+                // { marginLeft: '3rem' }
               }
             >
               {this.allLevelNames[i - 1]}

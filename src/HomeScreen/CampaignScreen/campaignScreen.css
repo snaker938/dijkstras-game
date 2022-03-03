@@ -107,11 +107,7 @@ button:focus {
   border-bottom: 65px solid #1a1717;
   border-left: 90px solid transparent;
   border-right: 90px solid transparent;
-  /* border-bottom: 105px solid #1a1717;
-  border-left: 150px solid transparent;
-  border-right: 150px solid transparent; */
   opacity: 80%;
-  /* backdrop-filter: blur(10px); */
 }
 .levelContainer2 {
   width: 381px;

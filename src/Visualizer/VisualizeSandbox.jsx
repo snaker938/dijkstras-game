@@ -6,17 +6,17 @@ import NodeClickable from './Node/otherNodes';
 import { resetAllNodes, startDijkstra } from './Visualizer';
 import './VisualizerLevel.css';
 import './VisualizerSandbox.css';
-import './VisualizerBoth.css'
+import './VisualizerBoth.css';
 
 // Placeholders for start node coordinates
 let START_NODE_ROW = 0;
 let START_NODE_COL = 0;
-let END_NODE_ROW = 23;
-let END_NODE_COL = 48;
+let END_NODE_ROW = 25;
+let END_NODE_COL = 50;
 
 // Specifies the number of rows and columns
-const NUM_ROWS = 25;
-const NUM_COLUMNS = 49;
+const NUM_ROWS = 26;
+const NUM_COLUMNS = 51;
 
 // Number of walls currently active
 let NUM_WALLS_ACTIVE = 0;
@@ -248,7 +248,40 @@ export default class sandboxVisualizer extends Component {
 
     return (
       <>
+        <div
+          style={{
+            backgroundColor: 'rgb(187, 211, 223)',
+            position: 'absolute',
+            width: '100%',
+            height: '100vh',
+          }}
+        ></div>
         <div className="topGameButtonsContainer"></div>
+        <button
+          class="button-82-pushable"
+          onClick={() =>
+            startDijkstra(
+              this.state.grid,
+              END_NODE_ROW,
+              END_NODE_COL,
+              START_NODE_ROW,
+              START_NODE_COL,
+              NUM_ROWS,
+              NUM_COLUMNS
+            )
+          }
+        >
+          <span class="button-82-shadow"></span>
+          <span class="button-82-edge"></span>
+          <span class="button-82-front text">Run</span>
+        </button>
+        <button
+          id="homeButton"
+          className="cool-button enabled"
+          onClick={() => EnterHome()} /* goes home*/
+        >
+          Home
+        </button>
         <div className="grid" /*  creates the div that holds the rows*/>
           {grid.map((row, rowID) => {
             return (

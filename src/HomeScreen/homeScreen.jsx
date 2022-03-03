@@ -52,6 +52,7 @@ export default class HomeScreen extends Component {
             type="text"
             id="usernameInput"
             className="usernameInput"
+            maxLength={22}
             spellCheck="false"
           ></input>
         </div>

@@ -1,16 +1,11 @@
 .node {
-  width: 25px;
+  width: 25.1px;
   height: 25px;
-  outline: 1px solid rgb(175, 216, 248);
+  /* outline: 1px solid rgb(175, 216, 248); */
+  outline: 1.3px solid rgb(58, 56, 56);
   display: inline-block;
   text-align: center;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+  user-select: none;
 }
 
 .node-end {
@@ -50,13 +45,7 @@
   outline: 1px solid rgb(175, 216, 248);
   display: inline-block;
   text-align: center;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+  user-select: none;
 }
 
 .node-error {
