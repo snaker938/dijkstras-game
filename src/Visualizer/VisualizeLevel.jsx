@@ -13,7 +13,9 @@ import {
 } from '../currentLevelHandling';
 import { EnterHome } from '../Navigation';
 import Node from './Node/Node';
-import './Visualizer.css';
+import './VisualizerSandbox.css';
+import './VisualizerLevel.css';
+import './VisualizerBoth.css';
 
 // Placeholders for start node coordinates. It gets the current level data
 let START_NODE_ROW;

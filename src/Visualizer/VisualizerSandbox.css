@@ -1,0 +1,9 @@
+.grid {
+  position: absolute;
+  left: 27px;
+  top: 80px;
+}
+
+body {
+  text-align: center;
+}

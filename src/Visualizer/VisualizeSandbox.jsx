@@ -4,7 +4,9 @@ import { EnterHome } from '../Navigation';
 import Node from './Node/Node';
 import NodeClickable from './Node/otherNodes';
 import { resetAllNodes, startDijkstra } from './Visualizer';
-import './Visualizer.css';
+import './VisualizerLevel.css';
+import './VisualizerSandbox.css';
+import './VisualizerBoth.css'
 
 // Placeholders for start node coordinates
 let START_NODE_ROW = 0;
@@ -246,76 +248,7 @@ export default class sandboxVisualizer extends Component {
 
     return (
       <>
-        <p className="cool-text-bar"></p>
-        <button
-          className="cool-button"
-          onClick={() =>
-            startDijkstra(
-              this.state.grid,
-              END_NODE_ROW,
-              END_NODE_COL,
-              START_NODE_ROW,
-              START_NODE_COL,
-              NUM_ROWS,
-              NUM_COLUMNS
-            )
-          } /* starts the dijstra algorithm process */
-        >
-          Start
-        </button>
-        <button
-          className="cool-button"
-          onClick={() => this.randomWalls()} /* adds random walls to the grid */
-        >
-          Random
-        </button>
-        <button
-          className="cool-button"
-          onClick={() =>
-            this.removeAllWalls()
-          } /* adds random walls to the grid */
-        >
-          Remove Walls
-        </button>
-        <button
-          className="cool-button"
-          onClick={() =>
-            saveGrid(this.state.grid)
-          } /* saves the current state of the grid */
-        >
-          Save Grid
-        </button>
-        <button
-          className="cool-button"
-          onClick={() => this.loadTestGrid()} /* loads the grid*/
-        >
-          Load Grid
-        </button>
-        <button
-          className="cool-button"
-          onClick={() =>
-            resetAllNodes(this.state.grid)
-          } /* resets all animations*/
-        >
-          UnAnimate
-        </button>
-        <button
-          id="homeButton"
-          className="cool-button enabled"
-          onClick={() => EnterHome()} /* goes home*/
-        >
-          Home
-        </button>
-        <div className="toggle-permanent-holder text-info">
-          Toggle Permanent Wall
-          <div>
-            <NodeClickable
-              type="clickable"
-              onClick={(type) => this.toggleBetweenClass(type)}
-            ></NodeClickable>
-          </div>
-        </div>
-        <p className="walls-used text-info">{NUM_WALLS_ACTIVE} walls used</p>
+        <div className="topGameButtonsContainer"></div>
         <div className="grid" /*  creates the div that holds the rows*/>
           {grid.map((row, rowID) => {
             return (
