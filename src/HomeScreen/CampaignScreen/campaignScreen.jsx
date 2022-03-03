@@ -7,10 +7,12 @@ import {
   getLevelName,
   getLevelDescription,
   getLevelRandomWallPresses,
+  getLevelDifficulty,
+  getLevelAllowedWalls,
+  getLevelLives,
 } from '../../allLevelData';
 import { EnterLevel, EnterHomeFromMenu } from '../../Navigation';
 import './campaignScreen.css';
-import campaignText from '../../assets/Campaign_Text.png';
 
 export default class CampaignScreen extends Component {
   constructor() {
@@ -75,15 +77,54 @@ export default class CampaignScreen extends Component {
     let powerupMessage = 'None';
     if (numRandomWallPresses > 0) powerupMessage = numRandomWallPresses;
     return (
-      <div>
+      <div style={{ position: 'absolute', top: '40px' }}>
         <div>
           <div className="levelDescriptionContainer">
             <p className="levelDescription">{getLevelDescription(id)}</p>
           </div>
         </div>
         <div>
-          <div className="powerupContainer">
-            <p className="powerupNumberText"> {powerupMessage}</p>
+          <div
+            className="infoContainer"
+            style={{ top: '350px', left: '620px' }}
+          >
+            <span>
+              <div className="levelInfoTag">Powerups</div>
+              <p className="infoText"> {powerupMessage}</p>
+            </span>
+          </div>
+        </div>
+        <div>
+          <div
+            className="infoContainer"
+            style={{ top: '410px', left: '620px' }}
+          >
+            <span>
+              <div className="levelInfoTag">Allowed Walls</div>
+              <span className="infoText">{getLevelAllowedWalls(id)}</span>
+            </span>
+          </div>
+        </div>
+        <div>
+          <div
+            className="infoContainer"
+            style={{ top: '470px', left: '620px' }}
+          >
+            <span>
+              <div className="levelInfoTag">Lives</div>
+              <span className="infoText">{getLevelLives(id)}</span>
+            </span>
+          </div>
+        </div>
+        <div>
+          <div
+            className="infoContainer"
+            style={{ top: '530px', left: '620px' }}
+          >
+            <span>
+              <div className="levelInfoTag">Difficulty</div>
+              <span className="infoText"> {getLevelDifficulty(id)}</span>
+            </span>
           </div>
         </div>
       </div>

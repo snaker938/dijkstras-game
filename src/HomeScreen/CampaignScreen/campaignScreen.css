@@ -56,13 +56,13 @@
 }
 
 .startLevel {
-  bottom: 15px;
-  left: 460px;
+  bottom: 25px;
+  left: 861px;
 }
 
 .backButton {
-  bottom: 15px;
-  right: 190px;
+  bottom: 25px;
+  right: 610px;
 }
 
 button:focus {
@@ -195,23 +195,36 @@ button:focus {
   backdrop-filter: blur(10px);
 }
 
-.powerupContainer {
+.infoContainer {
   width: 560px;
   height: 35px;
-  top: 350px;
-  left: 620px;
   position: absolute;
   background: #1a1717;
   opacity: 80%;
   backdrop-filter: blur(10px);
 }
 
-.powerupNumberText {
+.levelInfoTag {
   font-family: 'QTYPE';
   color: white;
-  /* position: absolute; */
+  font-weight: bold;
+  margin-left: 10px;
+  font-size: 20px;
+  line-height: 35px;
+  position: absolute;
+  user-select: none;
+}
+
+.infoText {
+  font-family: 'QTYPE';
+  color: white;
   margin-left: 0px;
   text-align: center;
   font-size: 20px;
   line-height: 35px;
+  user-select: none;
+}
+
+body {
+  user-select: none;
 }
