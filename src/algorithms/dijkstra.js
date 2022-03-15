@@ -19,13 +19,13 @@ export function dijkstra(grid, startNode, endNode, NUM_ROWSS, NUM_COLUMNSS) {
 
     if (currentNode.isEnd) {
       // exit the while loop if the current node is the EndNode
-      console.log("end reached...");
+      console.log('end reached...');
       break;
     }
 
     if (currentNode.isWall) {
       // if the current node is a wall, skip through one iteration, stay in the while loop
-      console.log("I am a wall");
+      console.log('I am a wall');
       continue;
     }
 
@@ -44,7 +44,7 @@ export function dijkstra(grid, startNode, endNode, NUM_ROWSS, NUM_COLUMNSS) {
 
   // If the endnode has not been reached (ie. it has a distance of Infinity, which is the default value), set the shortest path to just the start node.
   if (endNode.distance === Infinity) {
-    console.log("no path");
+    console.log('no path');
     otherVisitedNodes = otherVisitedNodes.filter(
       (node) => node.distance !== Infinity
     );
@@ -52,7 +52,7 @@ export function dijkstra(grid, startNode, endNode, NUM_ROWSS, NUM_COLUMNSS) {
     return [otherVisitedNodes, getAllNodes(grid), false];
   }
 
-  console.log("returning...");
+  console.log('returning...');
   // If there is a shortest path to the end node: get it
   let shortestNodePathOrder = getShortestPathNodeOrder(endNode, startNode);
   // The shortest path, and all the visited nodes in order are returned
@@ -119,7 +119,9 @@ function getShortestPathNodeOrder(endNode, startNode) {
     currentNode = currentNode.previousNode;
   }
 
-  shortestNodePathOrder.unshift(startNode); // The startNode is never added above, which is why we add it now, at the beginning of the shortest path, so we can change its class
+  shortestNodePathOrder.shift(); //removes start node from being animated
+  shortestNodePathOrder.pop(); //removes ends node from being animated
+  // shortestNodePathOrder.unshift(startNode); // The startNode is never added above, which is why we add it now, at the beginning of the shortest path, so we can change its class
   return shortestNodePathOrder;
 }
 
@@ -144,11 +146,11 @@ function getAllNodes(grid) {
 function resetAllNodes(grid) {
   for (const row of grid) {
     for (const node of row) {
-      let specialClass = "";
-      if (node.isPermanentWall) specialClass = "node-wall node-permanent-wall";
-      if (node.isWall && !node.isPermanentWall) specialClass = "node-wall";
-      if (node.isStart) specialClass = "node-start";
-      if (node.isEnd) specialClass = "node-end";
+      let specialClass = '';
+      if (node.isPermanentWall) specialClass = 'node-wall node-permanent-wall';
+      if (node.isWall && !node.isPermanentWall) specialClass = 'node-wall';
+      if (node.isStart) specialClass = 'node-start';
+      if (node.isEnd) specialClass = 'node-end';
       node.distance = Infinity;
       node.previousNode = null;
       document.getElementById(

@@ -1,7 +1,10 @@
 import { sendError } from './errorHandling';
 import { cloneVariable } from './Visualizer';
 
+let endDistance = 90;
+
 export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
+  visitedNodesInOrder.shift();
   // First, toggle the classlist of the homebutton to remove the "enabled" class. This means that animations are playing.
   document.getElementById('homeButton').classList.remove('enabled');
   for (let i = 0; i <= visitedNodesInOrder.length; i++) {
@@ -33,7 +36,7 @@ export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
 export function animateShortestPath(nodesInShortestPathOrder) {
   let endIndex = Infinity; // endIndex is Infinity if the distance is never > 75
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-    if (nodesInShortestPathOrder[i].distance > 75) {
+    if (nodesInShortestPathOrder[i].distance > endDistance) {
       endIndex = i;
       break;
     }
@@ -46,7 +49,7 @@ export function animateShortestPath(nodesInShortestPathOrder) {
   for (let i = 0; i < loopLength; i++) {
     setTimeout(() => {
       if (
-        nodesInShortestPathOrder[i].distance >= 75 //&&
+        nodesInShortestPathOrder[i].distance >= endDistance //&&
         //i === nodesInShortestPathOrder.length - 1
       ) {
         endTrail(

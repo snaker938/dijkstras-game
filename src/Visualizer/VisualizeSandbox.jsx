@@ -245,12 +245,14 @@ export default class sandboxVisualizer extends Component {
 
   render() {
     const { grid } = this.state;
+    // backgroundColor: 'rgb(187, 211, 223)'
 
     return (
       <>
         <div
+          class="backgroundDiv"
           style={{
-            backgroundColor: 'rgb(187, 211, 223)',
+            // backgroundColor: 'rgb(187, 211, 223)',
             position: 'absolute',
             width: '100%',
             height: '100vh',
@@ -282,6 +284,15 @@ export default class sandboxVisualizer extends Component {
         >
           Home
         </button>
+        <div className="toggle-permanent-holder text-info">
+          Toggle Permanent Wall
+          <div>
+            <NodeClickable
+              type="clickable"
+              onClick={(type) => this.toggleBetweenClass(type)}
+            ></NodeClickable>
+          </div>
+        </div>
         <div className="grid" /*  creates the div that holds the rows*/>
           {grid.map((row, rowID) => {
             return (

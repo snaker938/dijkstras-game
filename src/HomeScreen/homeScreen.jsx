@@ -40,7 +40,7 @@ export default class HomeScreen extends Component {
             height: '100vh',
           }}
         ></div>
-        <div class="imgbox">
+        <div className="imgbox">
           <img alt="test" className="center-fit" src={testingImagePath}></img>
         </div>
         <div className="titleText">DIJKTRA'S GAME</div>
