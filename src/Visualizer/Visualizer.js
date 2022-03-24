@@ -47,6 +47,8 @@ export function startDijkstra(
     // If there is a path, animate all the nodes and then the shortest path
     let shortestNodePathOrder = dijkstraOutputs[0];
     let allNodes = dijkstraOutputs[1];
+    allNodes.shift();
+    allNodes.shift();
     animateAllNodes(allNodes, shortestNodePathOrder);
   } else {
     // If there is no path, animate the "NO-PATH" error message, along with the remaining nodes to create a very cool error message.

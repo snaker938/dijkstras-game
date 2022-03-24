@@ -277,6 +277,11 @@ export default class sandboxVisualizer extends Component {
           <span class="button-82-edge"></span>
           <span class="button-82-front text">Run</span>
         </button>
+
+        <div class="button-wrapper">
+          <button class="background-button mainButton" title="Home"></button>
+        </div>
+
         <button
           id="homeButton"
           className="cool-button enabled"

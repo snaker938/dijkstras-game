@@ -1,6 +1,6 @@
 {
   "levelID": 6,
-  "levelName": "Level 6",
+  "levelName": "Intel",
   "randomWallPressesAllowed": 0,
   "randomWallNumber": 400,
   "lives": 3,
@@ -9,7 +9,7 @@
   "wallsAllowed": 10,
   "wallsForNoStar": 10,
   "difficulty": "Very Easy",
-  "description": "Example description",
+  "description": "Intel has been received about the whereabouts of the enemy base. Hold them off while we locate them!",
   "wallsForOneStar": 7,
   "wallsForTwoStar": 5,
   "wallsForThreeStar": 3,

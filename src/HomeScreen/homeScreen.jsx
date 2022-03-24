@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Modal, Button } from 'bootstrap';
 import { getAllCurrentLevelData } from '../currentLevelHandling';
 import { EnterSandbox, EnterCampaign } from '../Navigation';
 import './homeScreen.css';
@@ -27,7 +28,6 @@ export default class HomeScreen extends Component {
       }, i * 23);
     }
   }
-  // document.getElementById('value1').innerHTML = i + '%';
 
   render() {
     return (
@@ -78,14 +78,6 @@ export default class HomeScreen extends Component {
         <button className="dividerButton creditsButton" onClick={() => {}}>
           Credits
         </button>
-
-        {/* <div id="bodyBar" class="bodyBar">
-          <div class="chart">
-            <div id="mainBar" class=""></div>
-            <span id="value1"></span>
-          </div>
-        </div> */}
-        {/* </div> */}
       </>
     );
   }

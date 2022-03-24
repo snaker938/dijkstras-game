@@ -4,7 +4,6 @@ import { cloneVariable } from './Visualizer';
 let endDistance = 90;
 
 export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
-  visitedNodesInOrder.shift();
   // First, toggle the classlist of the homebutton to remove the "enabled" class. This means that animations are playing.
   document.getElementById('homeButton').classList.remove('enabled');
   for (let i = 0; i <= visitedNodesInOrder.length; i++) {
@@ -61,8 +60,11 @@ export function animateShortestPath(nodesInShortestPathOrder) {
         const node = nodesInShortestPathOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           'node node-shortest-path';
-        document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-          nodesInShortestPathOrder[i].distance;
+        document.getElementById(
+          `node-${node.row}-${node.col}`
+        ).innerHTML = `&nbsp`;
+        // document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
+        //   nodesInShortestPathOrder[i].distance;
         if (i === nodesInShortestPathOrder.length - 1) {
           document.getElementById('homeButton').classList.add('enabled');
         } // add the removed class. Animation has finished.
@@ -72,8 +74,6 @@ export function animateShortestPath(nodesInShortestPathOrder) {
 }
 
 const endTrail = function func(endIndex, nodesInShortestPathOrder, count) {
-  // if (endTrail.fired) return;
-  // endTrail.fired = true;
   for (let x = endIndex - 1; x >= 0; x--) {
     if (x === endIndex - 1) {
       const node = nodesInShortestPathOrder[x];
@@ -121,20 +121,3 @@ export function animateNoProperPath(errorMessage, otherNodes) {
     }, 1 * i);
   }
 }
-
-// setTimeout(() => {
-//   if (x === endIndex - 1) {
-//     const node = nodesInShortestPathOrder[x];
-//     document.getElementById(`node-${node.row}-${node.col}`).className =
-//       'node node-ended-head';
-//     document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-//       nodesInShortestPathOrder[x].distance;
-//   } else {
-//     setTimeout(() => {
-//       // Used [count - 2 - x] for the index as the setTimout reverses the for loop, so instead from starting from endIndex, going to 0, it starts from 0 to endIndex. The count - 2 - x, reverses this reversal, so the nodes are selected from the top down, like it should be.
-//       const node = nodesInShortestPathOrder[count - 2 - x];
-//       document.getElementById(`node-${node.row}-${node.col}`).className =
-//         'node node-ended-body';
-//     }, 7 * x);
-//   }
-// }, 20 * x); // used to be 6 or 120

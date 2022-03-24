@@ -1,6 +1,6 @@
 {
   "levelID": 7,
-  "levelName": "Level 7",
+  "levelName": "Our Turn",
   "randomWallPressesAllowed": 0,
   "randomWallNumber": 400,
   "lives": 3,
@@ -10,7 +10,7 @@
   "wallsForNoStar": 10,
   "wallsForOneStar": 7,
   "wallsForTwoStar": 5,
-  "description": "Example description",
+  "description": "We ",
   "difficulty": "Very Easy",
   "wallsForThreeStar": 3,
   "grid": [
