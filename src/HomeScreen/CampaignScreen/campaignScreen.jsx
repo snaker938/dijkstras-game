@@ -13,6 +13,7 @@ import {
 } from '../../allLevelData';
 import { EnterLevel, EnterHomeFromMenu } from '../../Navigation';
 import './campaignScreen.css';
+import { numLevelsUnlocked } from '../../actualLevelHandling';
 
 export default class CampaignScreen extends Component {
   constructor() {
@@ -27,17 +28,30 @@ export default class CampaignScreen extends Component {
 
   getButtonsUsingForLoop = (numLevels) => {
     const buttons = [];
+    let levelName;
 
     for (let i = 1; i <= numLevels; i++) {
       let first;
+      let locked = false;
+      levelName = this.allLevelNames[i - 1];
       if (i === 1) {
         first = true;
       } else {
         first = false;
       }
+      if (i > numLevelsUnlocked) {
+        levelName = 'Locked';
+        locked = true;
+      }
       buttons.push(
         <button
-          className={first ? 'levelButtonClicked' : 'levelButtons'}
+          className={
+            first
+              ? 'levelButtonClicked'
+              : locked
+              ? 'levelButtonLocked'
+              : 'levelButtons'
+          }
           id={i}
           onClick={() => this.showLevelInfo(i)}
           key={i}
@@ -52,7 +66,7 @@ export default class CampaignScreen extends Component {
                 // { marginLeft: '3rem' }
               }
             >
-              {this.allLevelNames[i - 1]}
+              {levelName}
             </span>
           </span>
         </button>
@@ -63,6 +77,7 @@ export default class CampaignScreen extends Component {
   };
 
   showLevelInfo(levelID) {
+    if (levelID > numLevelsUnlocked) return;
     for (let button of document.getElementsByClassName('levelButtonClicked')) {
       button.classList = 'levelButtons';
     }

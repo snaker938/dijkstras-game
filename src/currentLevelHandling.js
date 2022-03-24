@@ -8,8 +8,8 @@ import {
   allLevelNodeCoords,
   allLevelIDs,
   allLevelRandomWallNumber,
-} from "./allLevelData";
-import { cloneVariable } from "./Visualizer/Visualizer";
+} from './allLevelData';
+import { cloneVariable } from './Visualizer/Visualizer';
 
 let currentLevel = 1;
 
