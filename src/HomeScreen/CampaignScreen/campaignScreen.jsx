@@ -13,7 +13,7 @@ import {
 } from '../../allLevelData';
 import { EnterLevel, EnterHomeFromMenu } from '../../Navigation';
 import './campaignScreen.css';
-import { numLevelsUnlocked } from '../../actualLevelHandling';
+import { numLevelsUnlocked } from '../../currentUserDataHandling';
 
 export default class CampaignScreen extends Component {
   constructor() {
@@ -157,7 +157,7 @@ export default class CampaignScreen extends Component {
             height: '100vh',
           }}
         ></div>
-        <div class="imgbox">
+        <div className="imgbox">
           <img alt="test" className="center-fit" src={testingImagePath}></img>
         </div>
         {/* <img

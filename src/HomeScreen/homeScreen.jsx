@@ -4,17 +4,54 @@ import { getAllCurrentLevelData } from '../currentLevelHandling';
 import { EnterSandbox, EnterCampaign } from '../Navigation';
 import './homeScreen.css';
 import testingImagePath from '.././assets/mainbackground.png';
+import {
+  getCurrentUserName,
+  setCurrentUserName,
+} from '../currentUserDataHandling';
 
 export default class HomeScreen extends Component {
   constructor() {
     super();
-    this.state = {
-      bar: null,
-    };
+    this.state = {};
   }
 
   getCurrentLevelData() {
     console.log(getAllCurrentLevelData());
+  }
+
+  // This function sets the inputted username, and checks it, and then takes the user to their desired location
+  preEnterGame(where) {
+    let userNameEntered = document.getElementById('usernameInput').value;
+    if (
+      userNameEntered === '' ||
+      userNameEntered === 'ERROR: NO NAME ENTERED' ||
+      userNameEntered.includes(' ') ||
+      userNameEntered.match(/[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/)
+    ) {
+      document.getElementById('usernameInput').value = 'ERROR: INVALID INPUT';
+      document.getElementById('usernameInput').style.color = 'red';
+
+      // Change the box style/value default
+      setTimeout(() => {
+        document.getElementById('usernameInput').value = '';
+        document.getElementById('usernameInput').style.color = 'white';
+      }, 3000);
+    } else {
+      setCurrentUserName(document.getElementById('usernameInput').value);
+      if (where === 'campaign') {
+        EnterCampaign();
+      } else {
+        EnterSandbox();
+      }
+    }
+  }
+
+  // Changes the color of the input box text to the default colour (from red), if the user clicks the box before it changes automatically
+  changeColor() {
+    if (document.getElementById('usernameInput').style.color === 'red') {
+      document.getElementById('usernameInput').value = '';
+    }
+    document.getElementById('usernameInput').style.color = 'white';
   }
 
   renderUselessBar(where) {
@@ -27,6 +64,14 @@ export default class HomeScreen extends Component {
         }
       }, i * 23);
     }
+  }
+
+  // Creates a NEW modal window. Includes a button to clear all local storage data. Includes a button to close the modal window.
+  openSettingsModalWindow() {}
+
+  // This function clears all local storage data
+  clearAllLocalStorageData() {
+    localStorage.clear();
   }
 
   render() {
@@ -45,7 +90,6 @@ export default class HomeScreen extends Component {
         </div>
         <div className="titleText">DIJKTRA'S GAME</div>
         <div className="bottomSector"></div>
-
         <div>
           <p className="welcomeBackText">Welcome Back, </p>
           <input
@@ -54,24 +98,31 @@ export default class HomeScreen extends Component {
             className="usernameInput"
             maxLength={22}
             spellCheck="false"
+            onClick={() => this.changeColor()}
+            defaultValue={getCurrentUserName()}
           ></input>
         </div>
 
         <button
           className="dividerButton campaignStartButton"
-          onClick={() => EnterCampaign()}
+          onClick={() => this.preEnterGame('campaign')}
         >
           Campaign
         </button>
 
         <button
           className="dividerButton sandboxStartButton"
-          onClick={() => EnterSandbox()}
+          onClick={() => this.preEnterGame('sandbox')}
         >
           Sandbox
         </button>
 
-        <button className="dividerButton settingsButton" onClick={() => {}}>
+        <button
+          className="dividerButton settingsButton"
+          onClick={() => {
+            this.openSettingsModalWindow();
+          }}
+        >
           Settings
         </button>
 
