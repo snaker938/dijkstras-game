@@ -19,7 +19,7 @@ export default class CampaignScreen extends Component {
   constructor() {
     super();
     this.state = {
-      levelClicked: 1,
+      levelClicked: numLevelsUnlocked,
     };
     this.numLevels = numLevels;
     this.allLevelNames = allLevelNames;
@@ -31,13 +31,13 @@ export default class CampaignScreen extends Component {
     let levelName;
 
     for (let i = 1; i <= numLevels; i++) {
-      let first;
+      let lastLevelUnlocked;
       let locked = false;
       levelName = this.allLevelNames[i - 1];
-      if (i === 1) {
-        first = true;
+      if (i === numLevelsUnlocked) {
+        lastLevelUnlocked = true;
       } else {
-        first = false;
+        lastLevelUnlocked = false;
       }
       if (i > numLevelsUnlocked) {
         levelName = 'Locked';
@@ -46,7 +46,7 @@ export default class CampaignScreen extends Component {
       buttons.push(
         <button
           className={
-            first
+            lastLevelUnlocked
               ? 'levelButtonClicked'
               : locked
               ? 'levelButtonLocked'

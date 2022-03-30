@@ -129,6 +129,7 @@
   color: #333;
 }
 
+/* 
 button.background-button {
   background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/323909/yellow-shadow.png);
 
@@ -156,9 +157,8 @@ button.background-button {
 }
 
 .button-wrapper {
-  width: 355px;
   display: inline-block;
   margin: 20px;
   -webkit-filter: hue-rotate(144deg);
   filter: hue-rotate(144deg);
-}
+} */

@@ -7,3 +7,21 @@
 body {
   text-align: center;
 }
+
+.toggle-permanent-holder {
+  position: absolute;
+  top: 10px;
+  left: 0px;
+  opacity: 80%;
+  z-index: 1;
+}
+
+.text-info {
+  background-color: #c7365f;
+  opacity: 0.8;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  transition: all 0.75s;
+  margin: 0px;
+}

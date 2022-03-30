@@ -24,17 +24,22 @@ export default class HomeScreen extends Component {
     let userNameEntered = document.getElementById('usernameInput').value;
     if (
       userNameEntered === '' ||
-      userNameEntered === 'ERROR: NO NAME ENTERED' ||
+      userNameEntered === 'ERROR: INVALID INPUT' ||
       userNameEntered.includes(' ') ||
       userNameEntered.match(/[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/)
     ) {
       document.getElementById('usernameInput').value = 'ERROR: INVALID INPUT';
       document.getElementById('usernameInput').style.color = 'red';
 
-      // Change the box style/value default
+      // Change the box style/value default after a set amount of time
       setTimeout(() => {
-        document.getElementById('usernameInput').value = '';
-        document.getElementById('usernameInput').style.color = 'white';
+        if (
+          document.getElementById('usernameInput').value ===
+          'ERROR: INVALID INPUT'
+        ) {
+          document.getElementById('usernameInput').value = '';
+          document.getElementById('usernameInput').style.color = 'white';
+        }
       }, 3000);
     } else {
       setCurrentUserName(document.getElementById('usernameInput').value);
@@ -66,7 +71,7 @@ export default class HomeScreen extends Component {
     }
   }
 
-  // Creates a NEW modal window. Includes a button to clear all local storage data. Includes a button to close the modal window.
+  // Opens a simple react modal window with a button to close the window
   openSettingsModalWindow() {}
 
   // This function clears all local storage data
