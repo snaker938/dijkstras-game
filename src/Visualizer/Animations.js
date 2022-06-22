@@ -1,7 +1,7 @@
 import { sendError } from './errorHandling';
 import { cloneVariable } from './Visualizer';
 
-let endDistance = 90;
+let endDistance = 33;
 
 export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
   // First, toggle the classlist of the homebutton to remove the "enabled" class. This means that animations are playing.

@@ -12,7 +12,7 @@ import {
 export default class HomeScreen extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = { rerender: [] };
   }
 
   getCurrentLevelData() {
@@ -22,26 +22,8 @@ export default class HomeScreen extends Component {
   // This function sets the inputted username, and checks it, and then takes the user to their desired location
   preEnterGame(where) {
     let userNameEntered = document.getElementById('usernameInput').value;
-    if (
-      userNameEntered === '' ||
-      userNameEntered === 'ERROR: INVALID INPUT' ||
-      userNameEntered.includes(' ') ||
-      userNameEntered.match(/[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/)
-    ) {
-      document.getElementById('usernameInput').value = 'ERROR: INVALID INPUT';
-      document.getElementById('usernameInput').style.color = 'red';
-
-      // Change the box style/value default after a set amount of time
-      setTimeout(() => {
-        if (
-          document.getElementById('usernameInput').value ===
-          'ERROR: INVALID INPUT'
-        ) {
-          document.getElementById('usernameInput').value = '';
-          document.getElementById('usernameInput').style.color = 'white';
-        }
-      }, 3000);
-    } else {
+    // Makes sure the username entered is valid.
+    if (checkUsername(userNameEntered)) {
       setCurrentUserName(document.getElementById('usernameInput').value);
       if (where === 'campaign') {
         EnterCampaign();
@@ -136,5 +118,32 @@ export default class HomeScreen extends Component {
         </button>
       </>
     );
+  }
+}
+
+// This function will alert the user that the username they entered is not allowed
+function checkUsername(userNameEntered) {
+  if (
+    userNameEntered === '' ||
+    userNameEntered === 'ERROR: INVALID INPUT' ||
+    userNameEntered.includes(' ') ||
+    userNameEntered.match(/[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/)
+  ) {
+    document.getElementById('usernameInput').value = 'ERROR: INVALID INPUT';
+    document.getElementById('usernameInput').style.color = 'red';
+
+    // Change the box style/value default after a set amount of time
+    setTimeout(() => {
+      if (
+        document.getElementById('usernameInput').value ===
+        'ERROR: INVALID INPUT'
+      ) {
+        document.getElementById('usernameInput').value = '';
+        document.getElementById('usernameInput').style.color = 'white';
+      }
+    }, 3000);
+    return false;
+  } else {
+    return true;
   }
 }
