@@ -1,3 +1,6 @@
+// import { resetAllNodes } from '../Visualizer/Visualizer';
+import { getDisplayOutlineClass } from '../actualLevelHandling';
+
 export function dijkstra(grid, startNode, endNode, NUM_ROWSS, NUM_COLUMNSS) {
   const NUM_ROWS = NUM_ROWSS;
   const NUM_COLUMNS = NUM_COLUMNSS;
@@ -146,6 +149,12 @@ function getAllNodes(grid) {
 function resetAllNodes(grid) {
   for (const row of grid) {
     for (const node of row) {
+      let displayOutline = false;
+      if (
+        document.getElementById(`node-0-0`).classList.contains('nodeOutline')
+      ) {
+        displayOutline = true;
+      }
       let specialClass = '';
       if (node.isPermanentWall) specialClass = 'node-wall node-permanent-wall';
       if (node.isWall && !node.isPermanentWall) specialClass = 'node-wall';
@@ -155,7 +164,7 @@ function resetAllNodes(grid) {
       node.previousNode = null;
       document.getElementById(
         `node-${node.row}-${node.col}`
-      ).className = `node ${specialClass}`;
+      ).className = `${getDisplayOutlineClass(displayOutline)} ${specialClass}`;
       document.getElementById(
         `node-${node.row}-${node.col}`
       ).innerHTML = `&nbsp`;

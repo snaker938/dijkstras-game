@@ -7,6 +7,11 @@ import { resetAllNodes, startDijkstra } from './Visualizer';
 import './VisualizerLevel.css';
 import './VisualizerSandbox.css';
 import './VisualizerBoth.css';
+import { getActualCurrentEndDistance } from '../otherDataHandling';
+import {
+  displayOutlineValue,
+  setDisplayOutlineValue,
+} from '../actualLevelHandling';
 
 // Placeholders for start node coordinates
 let START_NODE_ROW = 0;
@@ -30,6 +35,8 @@ export default class sandboxVisualizer extends Component {
     super();
     this.state = {
       grid: [],
+      gridOn: false,
+      draggingWall: [false],
       dragging: [false, null, null], // 0: is-dragging ; 1: node-being-dragged ; 2: end/previous node
       // sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occured on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging alltogether. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to creatr an illusion like the user is actuall dragging the node around.
     };
@@ -41,13 +48,20 @@ export default class sandboxVisualizer extends Component {
     this.setState({ grid });
   }
 
-  // This function is called when a user presses, and holds, but no releases their mouse button on ANY node.
+  dragWallStart() {
+    console.log('Starting to drag walls...');
+    this.setState({ draggingWall: [true] });
+  }
+
+  // This function is called when a user presses, and holds, but not releases their mouse button on ANY node.
   dragStart(row, col) {
     resetAllNodes(this.state.grid);
     let grid = this.state.grid;
     let node = grid[row][col];
     let nodeBeingDragged = null;
     if (node.isStart || node.isEnd) nodeBeingDragged = node; // this conditional statement is the deciding factor on whether the user is able to drag the node. Aka- it is draggable. A node is only draggable if it is a start or end node
+    if (nodeBeingDragged == null && node.isWall && !node.isPermanentWall)
+      this.dragWallStart(); // if the node is a wall, but not a permanent one, then the dragWall function is called
     if (!this.state.dragging[0] && nodeBeingDragged) {
       console.log('starting to drag...');
       this.setState({ dragging: [true, node, node] }); // sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occured on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging alltogether. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to create an illusion like the user is actuall dragging the node around.
@@ -102,6 +116,19 @@ export default class sandboxVisualizer extends Component {
         grid2[previousRow][previousCol] = previousNode; // sets the previous node of the grid to have default properties, ie. it is no longer a start or end node
         this.setState({ dragging: [true, this.state.dragging[1], newNode] }); // sets the status of dragging with all the new changes
       }
+    } else if (this.state.draggingWall[0]) {
+      // These lines of code only run if the user is dragging a wall
+      let grid = this.state.grid;
+      let node = grid[row][col];
+      let newNode = { ...node };
+      if (!node.isStart && !node.isEnd && !node.isPermanentWall) {
+        newNode = {
+          ...node,
+          isWall: !node.isWall, // changes whether a wall becomes empty, or empty becomes a wall
+        };
+        grid[row][col] = newNode;
+        this.setState({ grid });
+      }
     }
   }
 
@@ -131,7 +158,48 @@ export default class sandboxVisualizer extends Component {
       }
 
       this.setState({ dragging: [false, null, null] }); // sets the state of dragging to the main default values, waiting for the next time dragging is needed
+    } else if (this.state.draggingWall[0]) {
+      this.setState({ draggingWall: [false] });
     }
+  }
+
+  toggleGrid() {
+    console.log('Toggling grid');
+    let grid = this.state.grid;
+    // let displayOutline = false;
+
+    // if (document.getElementById(`node-0-0`).classList.contains('nodeOutline')) {
+    //   displayOutline = true;
+    // }
+
+    for (const row of grid) {
+      for (const node of row) {
+        let nodeElement = document.getElementById(
+          `node-${node.row}-${node.col}`
+        );
+        if (displayOutlineValue) {
+          nodeElement.classList.remove('nodeOutline');
+          nodeElement.classList.add('nodeNoOutline');
+        } else {
+          nodeElement.classList.remove('nodeNoOutline');
+          nodeElement.classList.add('nodeOutline');
+        }
+      }
+    }
+
+    if (displayOutlineValue) {
+      setDisplayOutlineValue(false);
+    } else {
+      setDisplayOutlineValue(true);
+    }
+
+    // resetAllNodes(this.state.grid);
+    // // This function is called when the user presses the toggle grid button. It toggles the grid on and off
+    // if (this.state.gridOn) {
+    //   this.setState({ gridOn: false });
+    // } else {
+    //   this.setState({ gridOn: true });
+    // }
   }
 
   // This function removes every wall on the grid
@@ -245,12 +313,11 @@ export default class sandboxVisualizer extends Component {
 
   render() {
     const { grid } = this.state;
-    // backgroundColor: 'rgb(187, 211, 223)'
 
     return (
       <>
         <div
-          class="backgroundDiv"
+          className="backgroundDiv"
           style={{
             // backgroundColor: 'rgb(187, 211, 223)',
             position: 'absolute',
@@ -258,9 +325,36 @@ export default class sandboxVisualizer extends Component {
             height: '100vh',
           }}
         ></div>
+
+        <button
+          className="random-wall-button"
+          onClick={() => this.randomWalls()} /* adds random walls to the grid */
+        >
+          Random
+        </button>
+
+        <label className="toggle" htmlFor="uniqueID">
+          <input type="checkbox" className="toggle__input" id="uniqueID" />
+          <span className="toggle-track" onClick={() => this.toggleGrid()}>
+            <span className="toggle-indicator">
+              <span className="checkMark">
+                <svg
+                  viewBox="0 0 24 24"
+                  id="ghq-svg-check"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path>
+                </svg>
+              </span>
+            </span>
+          </span>
+          Grid
+        </label>
+
         <div className="topGameButtonsContainer"></div>
         <button
-          class="button-82-pushable"
+          className="button-82-pushable"
           onClick={() =>
             startDijkstra(
               this.state.grid,
@@ -273,22 +367,19 @@ export default class sandboxVisualizer extends Component {
             )
           }
         >
-          <span class="button-82-shadow"></span>
-          <span class="button-82-edge"></span>
-          <span class="button-82-front text">Run</span>
+          <span className="button-82-shadow"></span>
+          <span className="button-82-edge"></span>
+          <span className="button-82-front text">Run</span>
         </button>
 
-        {/* <div class="button-wrapper">
-          <button class="background-button mainButton" title="Home"></button>
-        </div> */}
-
         <button
+          className="home-button enabled"
           id="homeButton"
-          className="cool-button enabled"
-          onClick={() => EnterHome()} /* goes home*/
+          onClick={() => EnterHome()}
         >
           Home
         </button>
+
         <div className="toggle-permanent-holder text-info">
           Toggle Permanent Wall
           <div>
@@ -297,6 +388,17 @@ export default class sandboxVisualizer extends Component {
               onClick={(type) => this.toggleBetweenClass(type)}
             ></NodeClickable>
           </div>
+        </div>
+        <div>
+          <input
+            type="text"
+            id="endDistanceInput"
+            className="usernameInput"
+            style={{ top: '10px', zIndex: '1', width: '35px', right: '300px' }}
+            maxLength={22}
+            spellCheck="false"
+            defaultValue={getActualCurrentEndDistance()}
+          ></input>
         </div>
         <div className="grid" /*  creates the div that holds the rows*/>
           {grid.map((row, rowID) => {
@@ -332,6 +434,7 @@ export default class sandboxVisualizer extends Component {
                       onMouseUp={() => this.dragStop()}
                       onMouseDown={(row, col) => this.dragStart(row, col)}
                       onMouseEnter={(row, col) => this.dragNode(row, col)}
+                      displayOutline={this.state.gridOn}
                     ></Node>
                   );
                 })}

@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { getDisplayOutlineClass } from '../../actualLevelHandling';
 
-import "./Node.css";
+import './Node.css';
 
 export default class Node extends Component {
   render() {
@@ -15,22 +16,23 @@ export default class Node extends Component {
       onMouseDown,
       onMouseEnter,
       onMouseUp,
+      displayOutline,
     } = this.props; // defines the properties of the node
     const specialNode = getSpecialNode();
 
     // Checks whether the node is special. ie. is it a wall, a start or end node. If so, give them special css classes
     function getSpecialNode() {
-      if (isEnd) return "node-end";
-      else if (isStart) return "node-start";
-      else if (isPermanentWall) return "node-wall node-permanent-wall";
-      else if (isWall) return "node-wall";
-      else return "";
+      if (isEnd) return 'node-end';
+      else if (isStart) return 'node-start';
+      else if (isPermanentWall) return 'node-wall node-permanent-wall';
+      else if (isWall) return 'node-wall';
+      else return '';
     }
     return (
       // Each node has a default display of "&nbsp". this is a blank space. I added it so that when the innerHTML of the div changes, ie when the paths/nodes are animated and the distances are displayed on each node, the grid is not shifted.
       <div
         id={`node-${row}-${col}`}
-        className={`node ${specialNode}`}
+        className={`${getDisplayOutlineClass(displayOutline)} ${specialNode}`}
         onClick={() => onClick(row, col)}
         onMouseEnter={() => onMouseEnter(row, col)}
         onMouseDown={() => onMouseDown(row, col)}

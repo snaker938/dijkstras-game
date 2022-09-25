@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'bootstrap';
 import { getAllCurrentLevelData } from '../currentLevelHandling';
 import { EnterSandbox, EnterCampaign } from '../Navigation';
 import './homeScreen.css';

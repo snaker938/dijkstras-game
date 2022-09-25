@@ -1,10 +1,15 @@
 import { sendError } from './errorHandling';
 import { cloneVariable } from './Visualizer';
+import { getCurrentDisplayOutlineClass } from '../actualLevelHandling';
 
-let endDistance = 33;
+// let endDistance = getCurrentEndDistance();
 
-export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
-  // First, toggle the classlist of the homebutton to remove the "enabled" class. This means that animations are playing.
+export function animateAllNodes(
+  visitedNodesInOrder,
+  nodesInShortestPathOrder,
+  endDistance
+) {
+  // First, toggle the classlist of the homebutton to remove the "enabled" class. This means that animations are playing and so the user cannot go to the home screen
   document.getElementById('homeButton').classList.remove('enabled');
   for (let i = 0; i <= visitedNodesInOrder.length; i++) {
     if (i === visitedNodesInOrder.length) {
@@ -16,27 +21,38 @@ export function animateAllNodes(visitedNodesInOrder, nodesInShortestPathOrder) {
       }
       // These lines of code run once all the nodes have been animated- because once they have all been animated, the shortest path needs to be animated
       setTimeout(() => {
-        animateShortestPath(nodesInShortestPathOrder);
+        animateShortestPath(nodesInShortestPathOrder, Number(endDistance));
       }, 8 * i); //used to be 8
       return;
     }
     setTimeout(() => {
       // This animates all the visited nodes, including the start node. It also adds the distance to the nodes so you can clearly see the algorithm working
       const node = visitedNodesInOrder[i];
-      document.getElementById(`node-${node.row}-${node.col}`).className =
-        'node node-visited';
-      document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-        visitedNodesInOrder[i].distance;
+      document.getElementById(
+        `node-${node.row}-${node.col}`
+      ).className = `${getCurrentDisplayOutlineClass()} node-visited`;
+      // document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
+      //   visitedNodesInOrder[i].distance;
     }, 6 * i); // used to be 6
   }
 }
 
 // This function animates the shortest path, including the start AND end nodes. It also adds the distance to the nodes. It is called AFTER all the other nodes have been animated.
-export function animateShortestPath(nodesInShortestPathOrder) {
-  let endIndex = Infinity; // endIndex is Infinity if the distance is never > 75
+export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
+  let endIndex = Infinity; // endIndex is Infinity if the distance is never > specified end distance
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-    if (nodesInShortestPathOrder[i].distance > endDistance) {
+    // console.log(nodesInShortestPathOrder[i].distance, endDistance);
+    if (nodesInShortestPathOrder[i].distance > Number(endDistance)) {
       endIndex = i;
+      console.log('End idex: ', endIndex);
+      break;
+    } else if (
+      i === nodesInShortestPathOrder.length - 1 &&
+      Number(nodesInShortestPathOrder[i].distance) === Number(endDistance) &&
+      i === Number(endDistance) - 1
+    ) {
+      endIndex = i + 1;
+      console.log('End index forced: ', endIndex);
       break;
     }
   }
@@ -46,26 +62,37 @@ export function animateShortestPath(nodesInShortestPathOrder) {
   else loopLength = nodesInShortestPathOrder.length;
 
   for (let i = 0; i < loopLength; i++) {
+    // console.log(nodesInShortestPathOrder[i], i, loopLength, endIndex);
     setTimeout(() => {
       if (
-        nodesInShortestPathOrder[i].distance >= endDistance //&&
-        //i === nodesInShortestPathOrder.length - 1
+        // Check that the next node in the shortest path is less than the endDistance, if it isn't, then end the trail as the missile did not reach the end node
+        nodesInShortestPathOrder[i].distance >
+        Number(endDistance) - 1
       ) {
+        // End trail
+        console.log('Missile did not reach end node');
         endTrail(
           endIndex,
           nodesInShortestPathOrder,
           cloneVariable(cloneVariable(endIndex))
         );
       } else if (i < endIndex) {
+        // Actually animate the shortest path by a class to each shortest path node
         const node = nodesInShortestPathOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          'node node-shortest-path';
         document.getElementById(
           `node-${node.row}-${node.col}`
-        ).innerHTML = `&nbsp`;
+        ).className = `${getCurrentDisplayOutlineClass()} node-shortest-path`;
+        document.getElementById(
+          `node-${node.row}-${node.col}`
+        ).innerHTML = `&nbsp`; // Set the html content to empty
         // document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
         //   nodesInShortestPathOrder[i].distance;
         if (i === nodesInShortestPathOrder.length - 1) {
+          console.log(
+            'Shortest path animation has finished and missile reached the end node'
+          );
+          document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
+            nodesInShortestPathOrder[i].distance;
           document.getElementById('homeButton').classList.add('enabled');
         } // add the removed class. Animation has finished.
       }
@@ -74,19 +101,31 @@ export function animateShortestPath(nodesInShortestPathOrder) {
 }
 
 const endTrail = function func(endIndex, nodesInShortestPathOrder, count) {
+  // This time uses a reversed loop. The animation must play from the "head" of the missile, which is the last index of the array
   for (let x = endIndex - 1; x >= 0; x--) {
     if (x === endIndex - 1) {
+      // console.log(x);
+      // If, and only if, the current node is the "head" of the missile, give it a special class
       const node = nodesInShortestPathOrder[x];
-      document.getElementById(`node-${node.row}-${node.col}`).className =
-        'node node-ended-head';
+      document.getElementById(
+        `node-${node.row}-${node.col}`
+      ).className = `${getCurrentDisplayOutlineClass()} node-ended-head`;
       document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
         nodesInShortestPathOrder[x].distance;
     } else {
       setTimeout(() => {
         // Used [count - 2 - x] for the index as the setTimout reverses the for loop, so instead from starting from endIndex, going to 0, it starts from 0 to endIndex. The count - 2 - x, reverses this reversal, so the nodes are selected from the top down, like it should be.
         const node = nodesInShortestPathOrder[count - 2 - x];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          'node node-ended-body';
+
+        // document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
+        //   count - 1 - x;
+
+        // document.getElementById(
+        //   `node-${node.row}-${node.col}`
+        // ).innerHTML = `&nbsp`;
+        document.getElementById(
+          `node-${node.row}-${node.col}`
+        ).className = `${getCurrentDisplayOutlineClass()} node-ended-body`;
         if (x === endIndex - 2) {
           document.getElementById('homeButton').classList.add('enabled');
         } // add the removed class. Animation has finished.
