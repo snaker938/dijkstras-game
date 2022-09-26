@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getDisplayOutlineClass } from '../../actualLevelHandling';
+import { getCurrentDisplayOutlineClass } from '../../actualLevelHandling';
 
 import './Node.css';
 
@@ -16,7 +16,6 @@ export default class Node extends Component {
       onMouseDown,
       onMouseEnter,
       onMouseUp,
-      displayOutline,
     } = this.props; // defines the properties of the node
     const specialNode = getSpecialNode();
 
@@ -32,7 +31,7 @@ export default class Node extends Component {
       // Each node has a default display of "&nbsp". this is a blank space. I added it so that when the innerHTML of the div changes, ie when the paths/nodes are animated and the distances are displayed on each node, the grid is not shifted.
       <div
         id={`node-${row}-${col}`}
-        className={`${getDisplayOutlineClass(displayOutline)} ${specialNode}`}
+        className={`${getCurrentDisplayOutlineClass()} ${specialNode}`}
         onClick={() => onClick(row, col)}
         onMouseEnter={() => onMouseEnter(row, col)}
         onMouseDown={() => onMouseDown(row, col)}

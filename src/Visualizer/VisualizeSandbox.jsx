@@ -36,6 +36,7 @@ export default class sandboxVisualizer extends Component {
     this.state = {
       grid: [],
       gridOn: false,
+      animatingPlane: false,
       draggingWall: [false],
       dragging: [false, null, null], // 0: is-dragging ; 1: node-being-dragged ; 2: end/previous node
       // sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occured on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging alltogether. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to creatr an illusion like the user is actuall dragging the node around.
@@ -258,6 +259,47 @@ export default class sandboxVisualizer extends Component {
     }
   }
 
+  startToAnimatePlane() {
+    if (!this.state.animatingPlane) {
+      console.log('starting plane animation...');
+      this.setState({ animatingPlane: true });
+
+      document.getElementById('plane').style.display = 'block';
+
+      // Play "plane_sound_effect.mp3" then stop it
+      let audio = new Audio(
+        require(`.././assets/Animated/plane_sound_effect.mp3`).default
+      );
+      audio.play();
+      setTimeout(() => {
+        audio.pause();
+      }, 6300);
+
+      this.setState({ animatingPlane: true });
+
+      console.log('Animating plane...');
+      setInterval(() => AnimateSprite(), 100);
+      var x = 1;
+
+      function AnimateSprite() {
+        document.getElementById('plane').src =
+          require(`.././assets/Animated/${x}.png`).default;
+        x++;
+        if (4 === x) {
+          x = 1;
+        }
+      }
+
+      // let posX = -350;
+      for (let i = 1; i < 800; i++) {
+        setTimeout(() => {
+          document.getElementById('plane').style.left = `${-450 + i * 3.3}px`;
+          if (i === 799) this.setState({ animatingPlane: false });
+        }, 10 * i);
+      }
+    }
+  }
+
   toggleWallRandom(row, col, isWall, unWallable) {
     let node = this.state.grid[row][col];
     let grid = this.state.grid;
@@ -267,6 +309,7 @@ export default class sandboxVisualizer extends Component {
         ...node,
         isWall: !isWall,
       };
+      console.log(document.getElementById(`node-${row}-${col}`).classList);
       // Places the new node into the grid
       grid[row][col] = newNode;
       // Changes the overall state of the grid which re-renders it.
@@ -314,6 +357,23 @@ export default class sandboxVisualizer extends Component {
   render() {
     const { grid } = this.state;
 
+    let src = require(`.././assets/Animated/1.png`).default;
+
+    let plane = null;
+
+    plane = (
+      <img
+        className="plane"
+        src={src}
+        alt={`plane`}
+        id={`plane`}
+        key={`planes`}
+        height={500}
+        width={350}
+        style={{ left: `300px`, display: 'none' }}
+      />
+    );
+
     return (
       <>
         <div
@@ -333,9 +393,24 @@ export default class sandboxVisualizer extends Component {
           Random
         </button>
 
+        <button
+          className="testing-button"
+          onClick={() =>
+            this.startToAnimatePlane()
+          } /* adds random walls to the grid */
+        >
+          Testing Button
+        </button>
+        {plane}
+
         <label className="toggle" htmlFor="uniqueID">
-          <input type="checkbox" className="toggle__input" id="uniqueID" />
-          <span className="toggle-track" onClick={() => this.toggleGrid()}>
+          <input
+            type="checkbox"
+            className="toggle__input"
+            id="uniqueID"
+            onClick={() => this.toggleGrid()}
+          />
+          <span className="toggle-track">
             <span className="toggle-indicator">
               <span className="checkMark">
                 <svg
@@ -434,7 +509,6 @@ export default class sandboxVisualizer extends Component {
                       onMouseUp={() => this.dragStop()}
                       onMouseDown={(row, col) => this.dragStart(row, col)}
                       onMouseEnter={(row, col) => this.dragNode(row, col)}
-                      displayOutline={this.state.gridOn}
                     ></Node>
                   );
                 })}

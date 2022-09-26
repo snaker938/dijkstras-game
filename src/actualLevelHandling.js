@@ -19,3 +19,5 @@ export function getDisplayOutlineClass(displayOutline) {
 }
 
 export { displayOutlineValue };
+
+// loop frame by frame animation using images in "../../assets/Animated"
