@@ -10,6 +10,7 @@ import './VisualizerBoth.css';
 import { getActualCurrentEndDistance } from '../otherDataHandling';
 import {
   displayOutlineValue,
+  randomIntFromInterval,
   setDisplayOutlineValue,
 } from '../actualLevelHandling';
 
@@ -167,11 +168,6 @@ export default class sandboxVisualizer extends Component {
   toggleGrid() {
     console.log('Toggling grid');
     let grid = this.state.grid;
-    // let displayOutline = false;
-
-    // if (document.getElementById(`node-0-0`).classList.contains('nodeOutline')) {
-    //   displayOutline = true;
-    // }
 
     for (const row of grid) {
       for (const node of row) {
@@ -259,14 +255,19 @@ export default class sandboxVisualizer extends Component {
     }
   }
 
+  // Animate plane and place random walls on the grid
   startToAnimatePlane() {
+    // This function only runs if the animation is not already playing
     if (!this.state.animatingPlane) {
+      resetAllNodes(this.state.grid);
       console.log('starting plane animation...');
+      // Set the animation running to true, which prevents further animations from playing
       this.setState({ animatingPlane: true });
 
+      // Changed the display from "none" to "block" so it becomes visible again
       document.getElementById('plane').style.display = 'block';
 
-      // Play "plane_sound_effect.mp3" then stop it
+      // Play "plane_sound_effect.mp3" then stop it after 6.3 seconds
       let audio = new Audio(
         require(`.././assets/Animated/plane_sound_effect.mp3`).default
       );
@@ -278,9 +279,12 @@ export default class sandboxVisualizer extends Component {
       this.setState({ animatingPlane: true });
 
       console.log('Animating plane...');
-      setInterval(() => AnimateSprite(), 100);
-      var x = 1;
 
+      // Set the interval of the animation to play every 0.1 seconds. This animation is not the plane moving across the screen, but the animation of the turbines spinning.
+      setInterval(() => AnimateSprite(), 100);
+
+      // Animate the turbines of the plane. This is done by changing the source path of the image to each of the 4 animation frames.
+      let x = 1;
       function AnimateSprite() {
         document.getElementById('plane').src =
           require(`.././assets/Animated/${x}.png`).default;
@@ -290,30 +294,51 @@ export default class sandboxVisualizer extends Component {
         }
       }
 
-      // let posX = -350;
+      // This is the code to move the plane across the screen. The plane starts from outside of the screen and move by a certain number of pixels each loop. At the very end of the animation, set animating plane variable to false, so the animation can be played again. The animation can only be played again a few seconds after the plane has reached the other side
       for (let i = 1; i < 800; i++) {
         setTimeout(() => {
-          document.getElementById('plane').style.left = `${-450 + i * 3.3}px`;
+          document.getElementById('plane').style.left = `${-450 + i * 3.4}px`;
           if (i === 799) this.setState({ animatingPlane: false });
         }, 10 * i);
       }
-    }
-  }
 
-  toggleWallRandom(row, col, isWall, unWallable) {
-    let node = this.state.grid[row][col];
-    let grid = this.state.grid;
-    // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
-    if (!unWallable) {
-      const newNode = {
-        ...node,
-        isWall: !isWall,
-      };
-      console.log(document.getElementById(`node-${row}-${col}`).classList);
-      // Places the new node into the grid
-      grid[row][col] = newNode;
-      // Changes the overall state of the grid which re-renders it.
-      this.setState({ grid: grid });
+      // This is the code to add random walls onto the grid. The grid is properly re-rendered every 45n i to prevent lag and once again at the end of the iternation
+      for (let i = 0; i < RANDOM_WALL_NUMBER; i++) {
+        setTimeout(() => {
+          let firstColumn =
+            (document.getElementById('plane').getBoundingClientRect().x + 520) /
+            27.5;
+
+          console.log(firstColumn);
+
+          // Generates a random row and column number
+          let row = Math.floor(Math.random() * NUM_ROWS);
+          let column = randomIntFromInterval(
+            Math.floor(firstColumn),
+            Math.ceil(firstColumn)
+          );
+
+          let node = this.state.grid[row][column]; // selects the node with the row and column specified above
+          let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
+          let unWallable = isEnd || isStart; // if the node is a start or end node, it cannot be changed
+
+          let grid = this.state.grid;
+          // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
+          if (!unWallable) {
+            const newNode = {
+              ...node,
+              isWall: !isWall,
+            };
+
+            // Places the new node into the grid
+            grid[row][column] = newNode;
+            // Changes the overall state of the grid which re-renders it.
+          }
+          if (i % 45 === 0 || i === RANDOM_WALL_NUMBER - 1)
+            this.setState({ grid: grid });
+        }, i * 10);
+      }
+      NUM_WALLS_ACTIVE = 10;
     }
   }
 
@@ -327,29 +352,15 @@ export default class sandboxVisualizer extends Component {
       ).className = `node-${type} node-${type}-toggled`;
   }
 
-  // Function to create random walls on the grid.
-  randomWalls() {
-    for (let i = 0; i < RANDOM_WALL_NUMBER; i++) {
-      // Generates a random row and column number
-      let row = Math.floor(Math.random() * NUM_ROWS);
-      let column = Math.floor(Math.random() * NUM_COLUMNS);
-      let node = this.state.grid[row][column]; // selects the node with the row and column specified above
-      let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
-      let unWallable = isEnd || isStart; // if the node is a start or end node, it cannot be changed
-      this.toggleWallRandom(row, column, isWall, unWallable); // attempts to change the random node into a wall, unless it is unwallable, or already a wall- the function is still called regard;ess
-    }
-    NUM_WALLS_ACTIVE = 10;
-  }
-
   // This function is purely for testing the grid templates. No animating or anything is done here
   loadTestGrid() {
     this.removeAllWalls(); // removes all existing walls
-    const json = require(`../levels/level2.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
-    let level = 2;
-    START_NODE_ROW = allLevelNodeCoords[level - 1][0][1];
-    START_NODE_COL = allLevelNodeCoords[level - 1][0][0];
-    END_NODE_ROW = allLevelNodeCoords[level - 1][1][1];
-    END_NODE_COL = allLevelNodeCoords[level - 1][1][0];
+    const json = require(`../Visualizer/templates/NO-PATH.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
+    // let level = 2;
+    // START_NODE_ROW = allLevelNodeCoords[level - 1][0][1];
+    // START_NODE_COL = allLevelNodeCoords[level - 1][0][0];
+    // END_NODE_ROW = allLevelNodeCoords[level - 1][1][1];
+    // END_NODE_COL = allLevelNodeCoords[level - 1][1][0];
     let newGrid = json.grid; // this gets the actual grid template
     this.setState({ grid: newGrid }); // sets the current state of the grid to the new grid.
   }
@@ -370,7 +381,7 @@ export default class sandboxVisualizer extends Component {
         key={`planes`}
         height={500}
         width={350}
-        style={{ left: `300px`, display: 'none' }}
+        style={{ left: `-450px`, display: 'none' }}
       />
     );
 
@@ -387,19 +398,22 @@ export default class sandboxVisualizer extends Component {
         ></div>
 
         <button
-          className="random-wall-button"
-          onClick={() => this.randomWalls()} /* adds random walls to the grid */
+          className="testing-button"
+          onClick={() => this.startToAnimatePlane()} // add random walls to the grid and animate plane
         >
-          Random
+          Random Walls
         </button>
-
         <button
           className="testing-button"
-          onClick={() =>
-            this.startToAnimatePlane()
-          } /* adds random walls to the grid */
+          onClick={() => saveGrid(this.state.grid)} // outputs the current grid so that it can be saved
         >
-          Testing Button
+          Save Grid
+        </button>
+        <button
+          className="testing-button"
+          onClick={() => this.loadTestGrid()} // loads current grid
+        >
+          Load
         </button>
         {plane}
 
