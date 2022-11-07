@@ -41,10 +41,8 @@ export function animateAllNodes(
 export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
   let endIndex = Infinity; // endIndex is Infinity if the distance is never > specified end distance
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-    // console.log(nodesInShortestPathOrder[i].distance, endDistance);
     if (nodesInShortestPathOrder[i].distance > Number(endDistance)) {
       endIndex = i;
-      console.log('End idex: ', endIndex);
       break;
     } else if (
       i === nodesInShortestPathOrder.length - 1 &&
@@ -52,7 +50,6 @@ export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
       i === Number(endDistance) - 1
     ) {
       endIndex = i + 1;
-      console.log('End index forced: ', endIndex);
       break;
     }
   }
@@ -62,7 +59,6 @@ export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
   else loopLength = nodesInShortestPathOrder.length;
 
   for (let i = 0; i < loopLength; i++) {
-    // console.log(nodesInShortestPathOrder[i], i, loopLength, endIndex);
     setTimeout(() => {
       if (
         // Check that the next node in the shortest path is less than the endDistance, if it isn't, then end the trail as the missile did not reach the end node
@@ -70,7 +66,6 @@ export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
         Number(endDistance) - 1
       ) {
         // End trail
-        console.log('Missile did not reach end node');
         endTrail(
           endIndex,
           nodesInShortestPathOrder,
@@ -88,9 +83,6 @@ export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
         // document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
         //   nodesInShortestPathOrder[i].distance;
         if (i === nodesInShortestPathOrder.length - 1) {
-          console.log(
-            'Shortest path animation has finished and missile reached the end node'
-          );
           document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
             nodesInShortestPathOrder[i].distance;
           document.getElementById('homeButton').classList.add('enabled');
@@ -104,7 +96,6 @@ const endTrail = function func(endIndex, nodesInShortestPathOrder, count) {
   // This time uses a reversed loop. The animation must play from the "head" of the missile, which is the last index of the array
   for (let x = endIndex - 1; x >= 0; x--) {
     if (x === endIndex - 1) {
-      // console.log(x);
       // If, and only if, the current node is the "head" of the missile, give it a special class
       const node = nodesInShortestPathOrder[x];
       document.getElementById(

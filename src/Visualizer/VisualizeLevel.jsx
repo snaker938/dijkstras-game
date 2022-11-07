@@ -85,7 +85,6 @@ export default class levelVisualizer extends Component {
 
   // This function removes every wall on the grid
   removeAllWalls() {
-    console.log('removing all walls...');
     let grid = [];
     this.setState({ grid: grid });
     grid = getCurrentLevelGrid();

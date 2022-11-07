@@ -30,7 +30,6 @@ function EnterSandbox() {
 }
 
 function EnterLevel(levelNum) {
-  console.log('Trying to enter level ', levelNum);
   inSandbox = false;
   setCurrentLevel(levelNum);
   ReactDOM.render(

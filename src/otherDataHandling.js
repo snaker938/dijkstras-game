@@ -5,7 +5,6 @@ export function setCurrentEndDistance(newEndDistance) {
   if (!(newEndDistance >= 1)) {
     currentEndDistance = 75;
   } else {
-    console.log('Setting current end distance to: ', newEndDistance);
     currentEndDistance = newEndDistance;
     document.getElementById('endDistanceInput').value = currentEndDistance;
   }

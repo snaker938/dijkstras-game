@@ -51,7 +51,6 @@ export default class sandboxVisualizer extends Component {
   }
 
   dragWallStart() {
-    console.log('Starting to drag walls...');
     this.setState({ draggingWall: [true] });
   }
 
@@ -65,7 +64,6 @@ export default class sandboxVisualizer extends Component {
     if (nodeBeingDragged == null && node.isWall && !node.isPermanentWall)
       this.dragWallStart(); // if the node is a wall, but not a permanent one, then the dragWall function is called
     if (!this.state.dragging[0] && nodeBeingDragged) {
-      console.log('starting to drag...');
       this.setState({ dragging: [true, node, node] }); // sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occured on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging alltogether. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to create an illusion like the user is actuall dragging the node around.
     }
   }
@@ -138,7 +136,6 @@ export default class sandboxVisualizer extends Component {
   dragStop() {
     // Only works if dragging is taking place
     if (this.state.dragging[0]) {
-      console.log('stopped dragging...');
       // Finds the new position of the start OR end node- it doesnt matter
       let newRow = this.state.dragging[2].row;
       let newCol = this.state.dragging[2].col;
@@ -166,7 +163,6 @@ export default class sandboxVisualizer extends Component {
   }
 
   toggleGrid() {
-    console.log('Toggling grid');
     let grid = this.state.grid;
 
     for (const row of grid) {
@@ -201,7 +197,6 @@ export default class sandboxVisualizer extends Component {
 
   // This function removes every wall on the grid
   removeAllWalls() {
-    console.log('removing all walls...');
     let grid = [];
     this.setState({ grid: grid });
     grid = initialiseGrid();
@@ -260,7 +255,6 @@ export default class sandboxVisualizer extends Component {
     // This function only runs if the animation is not already playing
     if (!this.state.animatingPlane) {
       resetAllNodes(this.state.grid);
-      console.log('starting plane animation...');
       // Set the animation running to true, which prevents further animations from playing
       this.setState({ animatingPlane: true });
 
@@ -278,7 +272,6 @@ export default class sandboxVisualizer extends Component {
 
       this.setState({ animatingPlane: true });
 
-      console.log('Animating plane...');
 
       // Set the interval of the animation to play every 0.1 seconds. This animation is not the plane moving across the screen, but the animation of the turbines spinning.
       setInterval(() => AnimateSprite(), 100);
@@ -309,7 +302,6 @@ export default class sandboxVisualizer extends Component {
             (document.getElementById('plane').getBoundingClientRect().x + 520) /
             27.5;
 
-          console.log(firstColumn);
 
           // Generates a random row and column number
           let row = Math.floor(Math.random() * NUM_ROWS);
