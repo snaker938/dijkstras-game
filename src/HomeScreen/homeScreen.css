@@ -214,19 +214,19 @@ body {
 }
 
 .campaignStartButton {
-  left: 145px;
+  left: 165px;
 }
 
 .sandboxStartButton {
-  left: 415px;
+  left: 435px;
 }
 
 .creditsButton {
-  left: 657px;
+  left: 675px;
 }
 
-.settingsButton {
-  left: 872px;
+.medalsButton {
+  left: 885px;
 }
 
 .dividerButton:hover {

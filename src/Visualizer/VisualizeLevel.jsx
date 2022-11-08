@@ -188,6 +188,7 @@ export default class levelVisualizer extends Component {
       <>
         <p className="cool-text-bar"></p>
         <p className="level-name text-info">{LEVEL_NAME}</p>
+
         <button
           className="cool-button"
           onClick={() =>

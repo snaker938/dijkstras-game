@@ -52,9 +52,6 @@ export default class HomeScreen extends Component {
     }
   }
 
-  // Opens a simple react modal window with a button to close the window
-  openSettingsModalWindow() {}
-
   // This function clears all local storage data
   clearAllLocalStorageData() {
     localStorage.clear();
@@ -103,13 +100,8 @@ export default class HomeScreen extends Component {
           Sandbox
         </button>
 
-        <button
-          className="dividerButton settingsButton"
-          onClick={() => {
-            this.openSettingsModalWindow();
-          }}
-        >
-          Settings
+        <button className="dividerButton medalsButton" onClick={() => {}}>
+          Medals
         </button>
 
         <button className="dividerButton creditsButton" onClick={() => {}}>

@@ -37,6 +37,7 @@ export default class sandboxVisualizer extends Component {
     this.state = {
       grid: [],
       gridOn: false,
+      showOptionsMenu: true,
       animatingPlane: false,
       draggingWall: [false],
       dragging: [false, null, null], // 0: is-dragging ; 1: node-being-dragged ; 2: end/previous node
@@ -185,14 +186,6 @@ export default class sandboxVisualizer extends Component {
     } else {
       setDisplayOutlineValue(true);
     }
-
-    // resetAllNodes(this.state.grid);
-    // // This function is called when the user presses the toggle grid button. It toggles the grid on and off
-    // if (this.state.gridOn) {
-    //   this.setState({ gridOn: false });
-    // } else {
-    //   this.setState({ gridOn: true });
-    // }
   }
 
   // This function removes every wall on the grid
@@ -272,7 +265,6 @@ export default class sandboxVisualizer extends Component {
 
       this.setState({ animatingPlane: true });
 
-
       // Set the interval of the animation to play every 0.1 seconds. This animation is not the plane moving across the screen, but the animation of the turbines spinning.
       setInterval(() => AnimateSprite(), 100);
 
@@ -301,7 +293,6 @@ export default class sandboxVisualizer extends Component {
           let firstColumn =
             (document.getElementById('plane').getBoundingClientRect().x + 520) /
             27.5;
-
 
           // Generates a random row and column number
           let row = Math.floor(Math.random() * NUM_ROWS);
@@ -357,6 +348,58 @@ export default class sandboxVisualizer extends Component {
     this.setState({ grid: newGrid }); // sets the current state of the grid to the new grid.
   }
 
+  toggleOptionsMenu() {
+    this.setState({ showOptionsMenu: !this.state.showOptionsMenu });
+  }
+
+  getOptionsMenu() {
+    return (
+      <>
+        <div
+          onClick={() => {}}
+          style={{
+            // backgroundColor: 'rgb(187, 211, 223)',
+            position: 'absolute',
+            width: '100%',
+            height: '200vh',
+            background: '#1a1717',
+            opacity: '0.5',
+            backdropFilter: 'blur(100px)',
+            zIndex: '99',
+          }}
+        ></div>
+        <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
+          <div className="levelInfoContainer">
+            <p
+              style={{ left: '143px', opacity: '1' }}
+              className="levelNameToRender"
+            >
+              Options
+            </p>
+          </div>
+          <div className="levelInfoContainer2">
+            <button
+              style={{ left: '12px', top: '558px' }}
+              onClick={() => {
+                this.toggleOptionsMenu();
+              }}
+              className="optionsMenuButton"
+            >
+              Back
+            </button>
+            <button
+              style={{ right: '12px', top: '558px' }}
+              className="optionsMenuButton"
+              onClick={() => {}}
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   render() {
     const { grid } = this.state;
 
@@ -380,6 +423,7 @@ export default class sandboxVisualizer extends Component {
     return (
       <>
         <div
+          id="backgroundDiv"
           className="backgroundDiv"
           style={{
             // backgroundColor: 'rgb(187, 211, 223)',
@@ -389,13 +433,23 @@ export default class sandboxVisualizer extends Component {
           }}
         ></div>
 
+        {this.state.showOptionsMenu ? this.getOptionsMenu() : null}
+
         <button
           className="testing-button"
           onClick={() => this.startToAnimatePlane()} // add random walls to the grid and animate plane
         >
           Random Walls
         </button>
+
         <button
+          className="testing-button"
+          onClick={() => this.toggleOptionsMenu()} // Options
+        >
+          Options
+        </button>
+
+        {/* <button
           className="testing-button"
           onClick={() => saveGrid(this.state.grid)} // outputs the current grid so that it can be saved
         >
@@ -406,7 +460,7 @@ export default class sandboxVisualizer extends Component {
           onClick={() => this.loadTestGrid()} // loads current grid
         >
           Load
-        </button>
+        </button> */}
         {plane}
 
         <label className="toggle" htmlFor="uniqueID">

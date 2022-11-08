@@ -136,6 +136,8 @@ button:focus {
   backdrop-filter: blur(10px);
 }
 
+
+
 .levelInfoContainer {
   height: 0;
   width: 400px;
