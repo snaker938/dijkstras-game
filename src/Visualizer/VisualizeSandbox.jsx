@@ -13,6 +13,7 @@ import {
   randomIntFromInterval,
   setDisplayOutlineValue,
 } from '../actualLevelHandling';
+import { permanentWallToggled, togglePermanentWall } from '../optionsHandling';
 
 // Placeholders for start node coordinates
 let START_NODE_ROW = 0;
@@ -212,23 +213,13 @@ export default class sandboxVisualizer extends Component {
     // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
     if (!unWallable) {
       // If it isnt a wall currently, increase the number of active walls by one, else decrease them
-      if (
-        isWall &&
-        !isPermanentWall &&
-        document
-          .getElementById('node-clickable')
-          .classList.contains('node-clickable-toggled')
-      )
+      if (isWall && !isPermanentWall && permanentWallToggled)
         NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 0;
       else if (!unWallable && !isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
       else if (!unWallable && isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE - 1;
 
       if (NUM_WALLS_ACTIVE < 0) NUM_WALLS_ACTIVE = 0;
-      if (
-        document
-          .getElementById('node-clickable')
-          .classList.contains('node-clickable-toggled')
-      ) {
+      if (permanentWallToggled) {
         // Creates a temporary node with the new property of isWall set to the opposite of its current state. If permanent wall is toggled, then the new node will switch between a permanent and non-permanent wall.
         const newNode = {
           ...node,
@@ -333,7 +324,8 @@ export default class sandboxVisualizer extends Component {
     }
   }
 
-  toggleBetweenClass(type) {
+  toggleBetweenWallType(type) {
+    togglePermanentWall();
     let node = document.getElementById(`node-${type}`);
     if (node.classList.contains(`node-${type}-toggled`))
       document.getElementById(`node-${type}`).className = `node-${type}`;
@@ -361,6 +353,14 @@ export default class sandboxVisualizer extends Component {
   }
 
   getOptionsMenu() {
+    let currentPermanentWallClass = null;
+
+    if (permanentWallToggled)
+      currentPermanentWallClass = 'node-clickable-toggled';
+    else currentPermanentWallClass = 'node-clickable';
+
+    console.log(currentPermanentWallClass);
+
     return (
       <>
         <div
@@ -415,7 +415,8 @@ export default class sandboxVisualizer extends Component {
               <div>
                 <NodeClickable
                   type="clickable"
-                  onClick={(type) => this.toggleBetweenClass(type)}
+                  className={currentPermanentWallClass}
+                  onClick={(type) => this.toggleBetweenWallType(type)}
                 ></NodeClickable>
               </div>
             </div>
@@ -447,7 +448,9 @@ export default class sandboxVisualizer extends Component {
             <button
               style={{ right: '12px', top: '558px' }}
               className="optionsMenuButton"
-              onClick={() => {}}
+              onClick={() => {
+                this.saveOptions();
+              }}
             >
               Save
             </button>

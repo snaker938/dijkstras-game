@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import "./Node.css";
+import './Node.css';
 
 export default class NodeClickable extends Component {
   render() {
