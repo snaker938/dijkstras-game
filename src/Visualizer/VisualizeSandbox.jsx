@@ -37,7 +37,7 @@ export default class sandboxVisualizer extends Component {
     this.state = {
       grid: [],
       gridOn: false,
-      showOptionsMenu: true,
+      showOptionsMenu: false,
       animatingPlane: false,
       draggingWall: [false],
       dragging: [false, null, null], // 0: is-dragging ; 1: node-being-dragged ; 2: end/previous node
@@ -45,8 +45,16 @@ export default class sandboxVisualizer extends Component {
     };
   }
 
+  // If the Escape button is pressed, run the Show Options function
+  handleKeyPress = (event) => {
+    if (event.key === 'Escape') {
+      if (!this.state.showOptionsMenu) this.toggleOptionsMenu();
+    }
+  };
+
   //   Initialises grid
   componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress, false);
     const grid = initialiseGrid();
     this.setState({ grid });
   }
@@ -374,10 +382,59 @@ export default class sandboxVisualizer extends Component {
               style={{ left: '143px', opacity: '1' }}
               className="levelNameToRender"
             >
-              Options
+              Settings
             </p>
           </div>
           <div className="levelInfoContainer2">
+            <label className="toggle" htmlFor="uniqueID">
+              <input
+                type="checkbox"
+                className="toggle__input"
+                id="uniqueID"
+                onClick={() => this.toggleGrid()}
+              />
+              <span className="toggle-track">
+                <span className="toggle-indicator">
+                  <span className="checkMark">
+                    <svg
+                      viewBox="0 0 24 24"
+                      id="ghq-svg-check"
+                      role="presentation"
+                      aria-hidden="true"
+                    >
+                      <path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path>
+                    </svg>
+                  </span>
+                </span>
+              </span>
+              Grid
+            </label>
+
+            <div className="toggle-permanent-holder text-info">
+              Toggle Permanent Wall
+              <div>
+                <NodeClickable
+                  type="clickable"
+                  onClick={(type) => this.toggleBetweenClass(type)}
+                ></NodeClickable>
+              </div>
+            </div>
+            <div>
+              <input
+                type="text"
+                id="endDistanceInput"
+                className="usernameInput"
+                style={{
+                  top: '10px',
+                  zIndex: '1',
+                  width: '35px',
+                  right: '300px',
+                }}
+                maxLength={22}
+                spellCheck="false"
+                defaultValue={getActualCurrentEndDistance()}
+              ></input>
+            </div>
             <button
               style={{ left: '12px', top: '558px' }}
               onClick={() => {
@@ -446,7 +503,7 @@ export default class sandboxVisualizer extends Component {
           className="testing-button"
           onClick={() => this.toggleOptionsMenu()} // Options
         >
-          Options
+          Settings
         </button>
 
         {/* <button
@@ -462,30 +519,6 @@ export default class sandboxVisualizer extends Component {
           Load
         </button> */}
         {plane}
-
-        <label className="toggle" htmlFor="uniqueID">
-          <input
-            type="checkbox"
-            className="toggle__input"
-            id="uniqueID"
-            onClick={() => this.toggleGrid()}
-          />
-          <span className="toggle-track">
-            <span className="toggle-indicator">
-              <span className="checkMark">
-                <svg
-                  viewBox="0 0 24 24"
-                  id="ghq-svg-check"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path>
-                </svg>
-              </span>
-            </span>
-          </span>
-          Grid
-        </label>
 
         <div className="topGameButtonsContainer"></div>
         <button
@@ -515,26 +548,6 @@ export default class sandboxVisualizer extends Component {
           Home
         </button>
 
-        <div className="toggle-permanent-holder text-info">
-          Toggle Permanent Wall
-          <div>
-            <NodeClickable
-              type="clickable"
-              onClick={(type) => this.toggleBetweenClass(type)}
-            ></NodeClickable>
-          </div>
-        </div>
-        <div>
-          <input
-            type="text"
-            id="endDistanceInput"
-            className="usernameInput"
-            style={{ top: '10px', zIndex: '1', width: '35px', right: '300px' }}
-            maxLength={22}
-            spellCheck="false"
-            defaultValue={getActualCurrentEndDistance()}
-          ></input>
-        </div>
         <div className="grid" /*  creates the div that holds the rows*/>
           {grid.map((row, rowID) => {
             return (
