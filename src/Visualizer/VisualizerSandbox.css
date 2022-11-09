@@ -1,9 +1,3 @@
-.grid {
-  position: absolute;
-  left: 0px;
-  top: 70px;
-}
-
 body {
   text-align: center;
 }
@@ -148,15 +142,6 @@ body {
   z-index: 3;
 }
 
-.home-button {
-  position: absolute;
-  display: inline-block;
-  margin: 20px;
-  top: 0;
-  left: 400px;
-  z-index: 3;
-}
-
 .plane {
   z-index: 3;
   position: absolute;
@@ -217,12 +202,6 @@ body {
   position: absolute;
 }
 
-.loadGridButton {
-  top: 140px;
-  right: 20px;
-  position: absolute;
-}
-
 .endDistanceOptions {
   position: absolute;
   font-family: 'QTYPE';
@@ -235,4 +214,88 @@ body {
   text-shadow: -1px -1px 0 #000, 0px -1px 0 #000, -1px 1px 0 #000,
     0px 0px 0 #000;
   user-select: none;
+}
+
+.standard-button-options {
+  /* padding: 1%; */
+  padding: 10px;
+  font-family: QTYPE;
+  font-size: 20px;
+  font-weight: bold;
+  /* border: 2px solid rgb(175, 175, 175); */
+  border: 3.5px solid rgb(43, 43, 43);
+  opacity: 0.8;
+  border-radius: 10px;
+
+  /* padding: 50%; */
+  text-align: center;
+}
+
+.standard-button {
+  font-family: QTYPE;
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  border: 3px solid rgb(43, 43, 43);
+  opacity: 0.8;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.standard-button:hover {
+  /* background-color: rgb(216, 216, 216); */
+  background-color: rgb(163, 163, 163);
+}
+
+.standard-button-options:hover {
+  background-color: rgb(163, 163, 163);
+  /* background-color: rgb(216, 216, 216); */
+}
+
+.loadGridButton {
+  top: 140px;
+  right: 20px;
+  position: absolute;
+}
+
+.topButtonsContainer {
+  height: 70px;
+  width: 1280px;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  background: #1a1717;
+  opacity: 80%;
+  backdrop-filter: blur(10px);
+}
+
+.topButtonsContainerOutline {
+  height: 0px;
+  width: 1080px;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  border-bottom: 70px solid #615e5e;
+  /* border-bottom: 70px solid #545050; */
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  /* border-bottom: 105px solid #1a1717;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent; */
+  opacity: 80%;
+}
+
+.grid {
+  position: absolute;
+  left: 0px;
+  top: 70px;
+  background: rgb(101, 97, 97);
+  background: linear-gradient(
+    90deg,
+    rgba(101, 97, 97, 1) 0%,
+    rgba(82, 77, 77, 1) 50%,
+    rgb(103, 97, 97) 75%,
+    rgb(84, 81, 81) 100%
+  );
+  /* background-color: rgb(180, 180, 180); */
 }

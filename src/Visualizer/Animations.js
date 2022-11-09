@@ -26,7 +26,7 @@ export function animateAllNodes(
       return;
     }
     setTimeout(() => {
-      // This animates all the visited nodes, including the start node. It also adds the distance to the nodes so you can clearly see the algorithm working
+      // This animates all the visited nodes, excluding the start node. It also adds the distance to the nodes so you can clearly see the algorithm working
       const node = visitedNodesInOrder[i];
       document.getElementById(
         `node-${node.row}-${node.col}`
@@ -37,7 +37,7 @@ export function animateAllNodes(
   }
 }
 
-// This function animates the shortest path, including the start AND end nodes. It also adds the distance to the nodes. It is called AFTER all the other nodes have been animated.
+// This function animates the shortest path. It also adds the distance to the nodes. It is called AFTER all the other nodes have been animated.
 export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
   let endIndex = Infinity; // endIndex is Infinity if the distance is never > specified end distance
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {

@@ -17,11 +17,12 @@ import {
   setDisplayOutlineValue,
 } from '../actualLevelHandling';
 import {
-  getCurrentGridOutlineCheckbox,
+  showingOptionsMenu,
   gridOutlineToggled,
   permanentWallToggled,
   toggleGridOutline,
   togglePermanentWall,
+  toggleShowingOptionsMenu,
 } from '../optionsHandling.jsx';
 import NodeToggleGrid from './Node/NodeToggleGrid';
 
@@ -367,9 +368,11 @@ export default class sandboxVisualizer extends Component {
   }
 
   toggleOptionsMenu() {
+    toggleShowingOptionsMenu();
     this.setState({ showOptionsMenu: !this.state.showOptionsMenu });
   }
   saveOptions() {
+    toggleShowingOptionsMenu();
     if (
       document.getElementById('endDistanceInput').value !==
       getActualCurrentEndDistance()
@@ -439,13 +442,13 @@ export default class sandboxVisualizer extends Component {
               <p className="developmentOptionsText">Development Options</p>
               <div>
                 <button
-                  className="saveGridButton"
+                  className="standard-button-options saveGridButton"
                   onClick={() => saveGrid(this.state.grid)} // outputs the current grid so that it can be saved
                 >
                   Save Grid
                 </button>
                 <button
-                  className="loadGridButton"
+                  className="standard-button-options loadGridButton"
                   onClick={() => this.loadTestGrid()} // loads current grid
                 >
                   Load Grid
@@ -507,7 +510,7 @@ export default class sandboxVisualizer extends Component {
 
     return (
       <>
-        <div
+        {/* <div
           id="backgroundDiv"
           className="backgroundDiv"
           style={{
@@ -516,53 +519,58 @@ export default class sandboxVisualizer extends Component {
             width: '100%',
             height: '100vh',
           }}
-        ></div>
+        ></div> */}
 
         {this.state.showOptionsMenu ? this.getOptionsMenu() : null}
-
-        <button
-          className="testing-button"
-          onClick={() => this.startToAnimatePlane()} // add random walls to the grid and animate plane
-        >
-          Random Walls
-        </button>
-
-        <button
-          className="testing-button"
-          onClick={() => this.toggleOptionsMenu()} // Options
-        >
-          Settings
-        </button>
-
         {plane}
 
-        <div className="topGameButtonsContainer"></div>
-        <button
-          className="button-82-pushable"
-          onClick={() =>
-            startDijkstra(
-              this.state.grid,
-              END_NODE_ROW,
-              END_NODE_COL,
-              START_NODE_ROW,
-              START_NODE_COL,
-              NUM_ROWS,
-              NUM_COLUMNS
-            )
-          }
-        >
-          <span className="button-82-shadow"></span>
-          <span className="button-82-edge"></span>
-          <span className="button-82-front text">Run</span>
-        </button>
+        <div className="topButtonsContainerOutline"> </div>
 
-        <button
-          className="home-button enabled"
-          id="homeButton"
-          onClick={() => EnterHome()}
-        >
-          Home
-        </button>
+        <div className="topButtonsContainer">
+          <button
+            style={{ left: '10px', top: '16px', padding: '5px' }}
+            className="standard-button"
+            onClick={() => this.startToAnimatePlane()} // add random walls to the grid and animate plane
+          >
+            Random Walls
+          </button>
+
+          <button
+            style={{ right: '100px', top: '16px', padding: '5px' }}
+            className="standard-button"
+            onClick={() => this.toggleOptionsMenu()} // Options
+          >
+            Settings
+          </button>
+
+          <button
+            style={{ right: '10px', top: '16px', padding: '5px' }}
+            className="standard-button home-button enabled"
+            id="homeButton"
+            onClick={() => EnterHome()}
+          >
+            Home
+          </button>
+
+          <button
+            className="button-82-pushable"
+            onClick={() =>
+              startDijkstra(
+                this.state.grid,
+                END_NODE_ROW,
+                END_NODE_COL,
+                START_NODE_ROW,
+                START_NODE_COL,
+                NUM_ROWS,
+                NUM_COLUMNS
+              )
+            }
+          >
+            <span className="button-82-shadow"></span>
+            <span className="button-82-edge"></span>
+            <span className="button-82-front text">Start</span>
+          </button>
+        </div>
 
         <div className="grid" /*  creates the div that holds the rows*/>
           {grid.map((row, rowID) => {
