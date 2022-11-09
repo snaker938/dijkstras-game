@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { allLevelNodeCoords } from '../allLevelData';
 import { EnterHome } from '../Navigation';
 import Node from './Node/Node';
-import NodeClickable from './Node/otherNodes';
+import NodeChangeWallType from './Node/NodeChangeWallType';
 import { resetAllNodes, startDijkstra } from './Visualizer';
 import './VisualizerLevel.css';
 import './VisualizerSandbox.css';
@@ -21,6 +21,7 @@ import {
   permanentWallToggled,
   togglePermanentWall,
 } from '../optionsHandling.jsx';
+import NodeToggleGrid from './Node/NodeToggleGrid';
 
 // Placeholders for start node coordinates
 let START_NODE_ROW = 0;
@@ -59,36 +60,6 @@ export default class sandboxVisualizer extends Component {
       if (!this.state.showOptionsMenu) this.toggleOptionsMenu();
     }
   };
-
-  getCurrentGridOutlineCheckbox(enabled) {
-    return (
-      <>
-        <label className="toggle" for="uniqueID">
-          <input
-            type="checkbox"
-            className="toggle__input"
-            id="uniqueID"
-            onClick={() => this.toggleGrid()}
-          ></input>
-          <span className="toggle-track">
-            <span className="toggle-indicator">
-              <span className="checkMark">
-                <svg
-                  viewBox="0 0 24 24"
-                  id="ghq-svg-check"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path>
-                </svg>
-              </span>
-            </span>
-          </span>
-          Grid
-        </label>
-      </>
-    );
-  }
 
   //   Initialises grid
   componentDidMount() {
@@ -210,6 +181,13 @@ export default class sandboxVisualizer extends Component {
   }
 
   toggleGrid() {
+    let node = document.getElementById(`node-toggleGrid`);
+    if (node.classList.contains(`node-toggledGrid-true`))
+      document.getElementById(`node-toggleGrid`).className = `node-toggleGrid`;
+    else
+      document.getElementById(
+        `node-toggleGrid`
+      ).className = `node-toggleGrid node-toggledGrid-true`;
     let grid = this.state.grid;
 
     for (const row of grid) {
@@ -430,33 +408,63 @@ export default class sandboxVisualizer extends Component {
             </p>
           </div>
           <div className="levelInfoContainer2">
-            {this.getCurrentGridOutlineCheckbox(this.state.gridOn)}
+            <div
+              style={{ right: '10px' }}
+              className="toggle-permanent-holder text-info"
+            >
+              Toggle Grid
+              <div>
+                <NodeToggleGrid
+                  currentState={`toggled-grid-${this.state.gridOn}`}
+                  onClick={() => this.toggleGrid()}
+                ></NodeToggleGrid>
+              </div>
+            </div>
 
             <div className="toggle-permanent-holder text-info">
               Toggle Permanent Wall
               <div>
-                <NodeClickable
+                <NodeChangeWallType
                   type="clickable"
                   currentState={currentPermanentWallClass}
                   onClick={(type) => this.toggleBetweenWallType(type)}
-                ></NodeClickable>
+                ></NodeChangeWallType>
               </div>
             </div>
-            <div>
-              <input
-                type="text"
-                id="endDistanceInput"
-                className="usernameInput"
-                style={{
-                  top: '10px',
-                  zIndex: '1',
-                  width: '35px',
-                  right: '300px',
-                }}
-                maxLength={22}
-                spellCheck="false"
-                defaultValue={getActualCurrentEndDistance()}
-              ></input>
+
+            <div style={{ zIndex: '100' }} className="optionsMenuDevelopment">
+              <p className="developmentOptionsText">Development Options</p>
+              <div>
+                <button
+                  className="saveGridButton"
+                  onClick={() => saveGrid(this.state.grid)} // outputs the current grid so that it can be saved
+                >
+                  Save Grid
+                </button>
+                <button
+                  className="loadGridButton"
+                  onClick={() => this.loadTestGrid()} // loads current grid
+                >
+                  Load Grid
+                </button>
+              </div>
+              <div>
+                <p className="endDistanceOptions">Set End Distance:</p>
+                <input
+                  type="text"
+                  id="endDistanceInput"
+                  className="usernameInput"
+                  style={{
+                    bottom: '20px',
+                    zIndex: '1',
+                    width: '35px',
+                    right: '150px',
+                  }}
+                  maxLength={22}
+                  spellCheck="false"
+                  defaultValue={getActualCurrentEndDistance()}
+                ></input>
+              </div>
             </div>
 
             <button
@@ -523,18 +531,6 @@ export default class sandboxVisualizer extends Component {
           Settings
         </button>
 
-        {/* <button
-          className="testing-button"
-          onClick={() => saveGrid(this.state.grid)} // outputs the current grid so that it can be saved
-        >
-          Save Grid
-        </button>
-        <button
-          className="testing-button"
-          onClick={() => this.loadTestGrid()} // loads current grid
-        >
-          Load
-        </button> */}
         {plane}
 
         <div className="topGameButtonsContainer"></div>

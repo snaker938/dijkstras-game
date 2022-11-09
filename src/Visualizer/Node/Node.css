@@ -58,6 +58,19 @@
   user-select: none;
 }
 
+.node-toggledGrid-true {
+  background-color: rgb(38, 115, 148);
+}
+
+.node-toggleGrid {
+  width: 25px;
+  height: 25px;
+  outline: 1px solid rgb(175, 216, 248);
+  display: inline-block;
+  text-align: center;
+  user-select: none;
+}
+
 .node-error {
   animation-name: visited;
   animation-duration: 1.5s;

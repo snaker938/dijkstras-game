@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './Node.css';
 
-export default class NodeClickable extends Component {
+export default class NodeChangeWallType extends Component {
   render() {
     const { type, currentState, onClick } = this.props; // defines the properties of the node
 
