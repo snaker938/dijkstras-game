@@ -10,7 +10,7 @@ export default class NodeToggleGrid extends Component {
       // Each node has a default display of "&nbsp". this is a blank space. I added it so that when the innerHTML of the div changes, ie when the paths/nodes are animated and the distances are displayed on each node, the grid is not shifted.
       <div
         id={`node-toggleGrid`}
-        className={`node-toggleGrid ${currentState}`}
+        className={`node-toggleGrid node-toggledGrid-${currentState}`}
         onClick={() => onClick()}
       ></div>
     );

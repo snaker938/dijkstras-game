@@ -18,7 +18,9 @@ import {
 } from '../actualLevelHandling';
 import {
   getCurrentGridOutlineCheckbox,
+  gridOutlineToggled,
   permanentWallToggled,
+  toggleGridOutline,
   togglePermanentWall,
 } from '../optionsHandling.jsx';
 import NodeToggleGrid from './Node/NodeToggleGrid';
@@ -45,7 +47,6 @@ export default class sandboxVisualizer extends Component {
     super();
     this.state = {
       grid: [],
-      gridOn: false,
       showOptionsMenu: false,
       animatingPlane: false,
       draggingWall: [false],
@@ -181,6 +182,8 @@ export default class sandboxVisualizer extends Component {
   }
 
   toggleGrid() {
+    toggleGridOutline();
+
     let node = document.getElementById(`node-toggleGrid`);
     if (node.classList.contains(`node-toggledGrid-true`))
       document.getElementById(`node-toggleGrid`).className = `node-toggleGrid`;
@@ -415,7 +418,7 @@ export default class sandboxVisualizer extends Component {
               Toggle Grid Outline
               <div>
                 <NodeToggleGrid
-                  currentState={`toggled-grid-${this.state.gridOn}`}
+                  currentState={gridOutlineToggled}
                   onClick={() => this.toggleGrid()}
                 ></NodeToggleGrid>
               </div>
