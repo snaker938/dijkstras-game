@@ -415,7 +415,7 @@ export default class sandboxVisualizer extends Component {
               <div>
                 <NodeClickable
                   type="clickable"
-                  className={currentPermanentWallClass}
+                  currentState={currentPermanentWallClass}
                   onClick={(type) => this.toggleBetweenWallType(type)}
                 ></NodeClickable>
               </div>
