@@ -160,6 +160,6 @@ export function animateNoProperPath(errorMessage, otherNodes, importantNodes) {
       if (i === otherNodes.length - 1) {
         document.getElementById('homeButton').classList.add('enabled');
       } // add the removed class. Animation has finished.
-    }, 1 * i);
+    }, 0.1 * i);
   }
 }

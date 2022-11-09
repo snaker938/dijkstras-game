@@ -94,17 +94,18 @@
 }
 
 .node-error-important {
-  animation-name: error-important;
+  background-color: rgb(128, 11, 11);
+  /* animation-name: error-important;
   animation-duration: 1;
   animation-timing-function: ease-in;
   animation-delay: 0;
   animation-direction: alternate;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
-  animation-play-state: running;
+  animation-play-state: running; */
 }
 
-@keyframes error-important {
+/* @keyframes error-important {
   0% {
     background-color: rgb(87, 16, 16);
     left: 0px;
@@ -130,7 +131,7 @@
     left: 0px;
     top: 0px;
   }
-}
+} */
 
 .node-visited {
   animation-name: visited;

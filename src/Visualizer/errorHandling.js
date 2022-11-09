@@ -7,28 +7,33 @@ export function sendError(error) {
   resetAllNodes(newGrid);
 
   function getImportantNodes(grid) {
-    let needed_nodes = [];
+    console.log(grid);
+    let neededNodes = [];
     let unneededNodes = [];
     let importantNodes = [];
 
     for (const row of grid) {
       for (const node of row) {
         // For each node of the template grid, if it is a wall: ie. it is part of the actual error message, push it to the neeeded nodes array.
-        if (node.isWall) {
-          needed_nodes.push(node);
+        if (node.isWall && !node.isPermanentWall) {
+          neededNodes.push(node);
         } else if (node.isPermanentWall) {
           importantNodes.push(node);
         } else unneededNodes.push(node); // if it is not a wall, ie. it is just the background/filler, then it is undeeed, but it still needs to be animated
       }
     }
-    return [needed_nodes, unneededNodes, importantNodes];
+    return [neededNodes, unneededNodes, importantNodes];
   }
 
   let result = getImportantNodes(newGrid); //  this function separates the nodes needed for the actual message, and the ones that "surround" the message
-  let needed_nodes = result[0];
-  let unneededNodes = result[1];
-  let importantNodes = result[2];
-  animateNoProperPath(needed_nodes, unneededNodes, importantNodes); // animates both the error message, and the background
+  let neededNodesResult = result[0];
+  let unneededNodesResult = result[1];
+  let importantNodesResult = result[2];
+  animateNoProperPath(
+    neededNodesResult,
+    unneededNodesResult,
+    importantNodesResult
+  ); // animates both the error message, and the background
 }
 
 function loadGridMessage(error) {
