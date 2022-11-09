@@ -126,25 +126,37 @@ const endTrail = function func(endIndex, nodesInShortestPathOrder, count) {
 };
 
 // This function animates the error message if there is no proper path.
-export function animateNoProperPath(errorMessage, otherNodes) {
+export function animateNoProperPath(errorMessage, otherNodes, importantNodes) {
+  document.getElementById('homeButton').classList.remove('enabled');
   // This for loop animates all the nodes that display the actual error message
+
+  for (let i = 0; i < importantNodes.length; i++) {
+    setTimeout(() => {
+      const node = importantNodes[i];
+      document.getElementById(
+        `node-${node.row}-${node.col}`
+      ).className = `${getCurrentDisplayOutlineClass()} node-error-important`;
+    }, 1.2 * i);
+  }
 
   for (let i = 0; i < errorMessage.length; i++) {
     setTimeout(() => {
       const node = errorMessage[i];
-      document.getElementById(`node-${node.row}-${node.col}`).className =
-        'node node-error';
+      document.getElementById(
+        `node-${node.row}-${node.col}`
+      ).className = `${getCurrentDisplayOutlineClass()} node-error`;
     }, 1.2 * i);
   }
 
   // This for loop animates the other nodes in the message- ie. all the nodes that are not the actual, error message
   for (let i = 0; i < otherNodes.length; i++) {
     // First, toggle the classlist of the homebutton to remove the "enabled" class. This means that animations are playing.
-    document.getElementById('homeButton').classList.remove('enabled');
     setTimeout(() => {
       const node = otherNodes[i];
-      document.getElementById(`node-${node.row}-${node.col}`).className =
-        'node node-error-other';
+      document.getElementById(
+        `node-${node.row}-${node.col}`
+      ).className = `${getCurrentDisplayOutlineClass()} node-error-other`;
+
       if (i === otherNodes.length - 1) {
         document.getElementById('homeButton').classList.add('enabled');
       } // add the removed class. Animation has finished.
