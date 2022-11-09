@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { allLevelNodeCoords } from '../allLevelData';
 import { EnterHome } from '../Navigation';
 import Node from './Node/Node';
 import NodeChangeWallType from './Node/NodeChangeWallType';
@@ -17,7 +16,6 @@ import {
   setDisplayOutlineValue,
 } from '../actualLevelHandling';
 import {
-  showingOptionsMenu,
   gridOutlineToggled,
   permanentWallToggled,
   toggleGridOutline,

@@ -1,4 +1,4 @@
-import audioPath from './assets/theme_song.mp3';
+// import audioPath from './assets/theme_song.mp3';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { FirstStart } from './Navigation';

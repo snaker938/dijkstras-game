@@ -118,7 +118,7 @@ function checkUsername(userNameEntered) {
     userNameEntered === '' ||
     userNameEntered === 'ERROR: INVALID INPUT' ||
     userNameEntered.includes(' ') ||
-    userNameEntered.match(/[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/)
+    userNameEntered.match(/[!#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/)
   ) {
     document.getElementById('usernameInput').value = 'ERROR: INVALID INPUT';
     document.getElementById('usernameInput').style.color = 'red';

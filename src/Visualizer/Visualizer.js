@@ -1,9 +1,5 @@
 import { dijkstra } from '../algorithms/dijkstra';
-import { inSandbox } from '../Navigation';
-import {
-  getActualCurrentEndDistance,
-  setCurrentEndDistance,
-} from '../otherDataHandling';
+import { getActualCurrentEndDistance } from '../otherDataHandling';
 import { animateAllNodes } from './Animations';
 import {
   getDisplayOutlineClass,
