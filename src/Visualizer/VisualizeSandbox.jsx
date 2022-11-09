@@ -283,19 +283,20 @@ export default class sandboxVisualizer extends Component {
 
       this.setState({ animatingPlane: true });
 
-      // Set the interval of the animation to play every 0.1 seconds. This animation is not the plane moving across the screen, but the animation of the turbines spinning.
-      setInterval(() => AnimateSprite(), 100);
-
-      // Animate the turbines of the plane. This is done by changing the source path of the image to each of the 4 animation frames.
+      // Set the interval of the animation to play every 0.1 seconds. This animation is not the plane moving across the screen, but the animation of the turbines spinning. Animate the turbines of the plane. This is done by changing the source path of the image to each of the 4 animation frames.
       let x = 1;
-      function AnimateSprite() {
-        document.getElementById('plane').src =
-          require(`.././assets/Animated/${x}.png`).default;
-        x++;
-        if (4 === x) {
-          x = 1;
+      const animateTubines = setInterval(() => {
+        if (this.state.animatingPlane) {
+          document.getElementById('plane').src =
+            require(`.././assets/Animated/${x}.png`).default;
+          x++;
+          if (4 === x) {
+            x = 1;
+          }
+        } else {
+          clearInterval(animateTubines);
         }
-      }
+      }, 100);
 
       // This is the code to move the plane across the screen. The plane starts from outside of the screen and move by a certain number of pixels each loop. At the very end of the animation, set animating plane variable to false, so the animation can be played again. The animation can only be played again a few seconds after the plane has reached the other side
       for (let i = 1; i < 800; i++) {
@@ -510,17 +511,6 @@ export default class sandboxVisualizer extends Component {
 
     return (
       <>
-        {/* <div
-          id="backgroundDiv"
-          className="backgroundDiv"
-          style={{
-            // backgroundColor: 'rgb(187, 211, 223)',
-            position: 'absolute',
-            width: '100%',
-            height: '100vh',
-          }}
-        ></div> */}
-
         {this.state.showOptionsMenu ? this.getOptionsMenu() : null}
         {plane}
 
@@ -547,7 +537,7 @@ export default class sandboxVisualizer extends Component {
             style={{ right: '10px', top: '16px', padding: '5px' }}
             className="standard-button home-button enabled"
             id="homeButton"
-            onClick={() => EnterHome()}
+            onClick={() => EnterHome(this.state.animatingPlane)}
           >
             Home
           </button>

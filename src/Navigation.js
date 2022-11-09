@@ -42,11 +42,11 @@ function EnterLevel(levelNum) {
   );
 }
 
-function EnterHome() {
+function EnterHome(animatingPlane) {
   inSandbox = false;
   const button = document.getElementById('homeButton');
   const classes = button.classList;
-  if (classes.contains('enabled')) {
+  if (classes.contains('enabled') && !animatingPlane) {
     ReactDOM.render(
       <React.StrictMode>
         <div className="App">
