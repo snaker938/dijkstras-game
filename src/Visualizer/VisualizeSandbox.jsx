@@ -7,13 +7,20 @@ import { resetAllNodes, startDijkstra } from './Visualizer';
 import './VisualizerLevel.css';
 import './VisualizerSandbox.css';
 import './VisualizerBoth.css';
-import { getActualCurrentEndDistance } from '../otherDataHandling';
+import {
+  getActualCurrentEndDistance,
+  setCurrentEndDistance,
+} from '../otherDataHandling';
 import {
   displayOutlineValue,
   randomIntFromInterval,
   setDisplayOutlineValue,
 } from '../actualLevelHandling';
-import { permanentWallToggled, togglePermanentWall } from '../optionsHandling';
+import {
+  getCurrentGridOutlineCheckbox,
+  permanentWallToggled,
+  togglePermanentWall,
+} from '../optionsHandling.jsx';
 
 // Placeholders for start node coordinates
 let START_NODE_ROW = 0;
@@ -52,6 +59,36 @@ export default class sandboxVisualizer extends Component {
       if (!this.state.showOptionsMenu) this.toggleOptionsMenu();
     }
   };
+
+  getCurrentGridOutlineCheckbox(enabled) {
+    return (
+      <>
+        <label className="toggle" for="uniqueID">
+          <input
+            type="checkbox"
+            className="toggle__input"
+            id="uniqueID"
+            onClick={() => this.toggleGrid()}
+          ></input>
+          <span className="toggle-track">
+            <span className="toggle-indicator">
+              <span className="checkMark">
+                <svg
+                  viewBox="0 0 24 24"
+                  id="ghq-svg-check"
+                  role="presentation"
+                  aria-hidden="true"
+                >
+                  <path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path>
+                </svg>
+              </span>
+            </span>
+          </span>
+          Grid
+        </label>
+      </>
+    );
+  }
 
   //   Initialises grid
   componentDidMount() {
@@ -351,6 +388,15 @@ export default class sandboxVisualizer extends Component {
   toggleOptionsMenu() {
     this.setState({ showOptionsMenu: !this.state.showOptionsMenu });
   }
+  saveOptions() {
+    if (
+      document.getElementById('endDistanceInput').value !==
+      getActualCurrentEndDistance()
+    ) {
+      setCurrentEndDistance(document.getElementById('endDistanceInput').value);
+    }
+    this.toggleOptionsMenu();
+  }
 
   getOptionsMenu() {
     let currentPermanentWallClass = null;
@@ -358,8 +404,6 @@ export default class sandboxVisualizer extends Component {
     if (permanentWallToggled)
       currentPermanentWallClass = 'node-clickable-toggled';
     else currentPermanentWallClass = 'node-clickable';
-
-    console.log(currentPermanentWallClass);
 
     return (
       <>
@@ -386,29 +430,7 @@ export default class sandboxVisualizer extends Component {
             </p>
           </div>
           <div className="levelInfoContainer2">
-            <label className="toggle" htmlFor="uniqueID">
-              <input
-                type="checkbox"
-                className="toggle__input"
-                id="uniqueID"
-                onClick={() => this.toggleGrid()}
-              />
-              <span className="toggle-track">
-                <span className="toggle-indicator">
-                  <span className="checkMark">
-                    <svg
-                      viewBox="0 0 24 24"
-                      id="ghq-svg-check"
-                      role="presentation"
-                      aria-hidden="true"
-                    >
-                      <path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path>
-                    </svg>
-                  </span>
-                </span>
-              </span>
-              Grid
-            </label>
+            {this.getCurrentGridOutlineCheckbox(this.state.gridOn)}
 
             <div className="toggle-permanent-holder text-info">
               Toggle Permanent Wall
@@ -436,15 +458,7 @@ export default class sandboxVisualizer extends Component {
                 defaultValue={getActualCurrentEndDistance()}
               ></input>
             </div>
-            <button
-              style={{ left: '12px', top: '558px' }}
-              onClick={() => {
-                this.toggleOptionsMenu();
-              }}
-              className="optionsMenuButton"
-            >
-              Back
-            </button>
+
             <button
               style={{ right: '12px', top: '558px' }}
               className="optionsMenuButton"

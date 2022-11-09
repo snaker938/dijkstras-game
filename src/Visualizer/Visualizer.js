@@ -55,14 +55,6 @@ export function startDijkstra(
   let triedNodes = dijkstraOutputs[0];
   let pathFound = dijkstraOutputs[2];
   if (pathFound) {
-    // If the user is in the sandbox mode, check to see if they have changed the end distance value. If its changed, set it
-    if (
-      inSandbox &&
-      document.getElementById('endDistanceInput').value !==
-        getActualCurrentEndDistance()
-    ) {
-      setCurrentEndDistance(document.getElementById('endDistanceInput').value);
-    }
     // If there is a path, animate all the nodes and then the shortest path
     let shortestNodePathOrder = dijkstraOutputs[0];
     let allNodes = dijkstraOutputs[1];
