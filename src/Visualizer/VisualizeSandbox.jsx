@@ -410,9 +410,9 @@ export default class sandboxVisualizer extends Component {
           <div className="levelInfoContainer2">
             <div
               style={{ right: '10px' }}
-              className="toggle-permanent-holder text-info"
+              className="toggle-grid-holder text-info"
             >
-              Toggle Grid
+              Toggle Grid Outline
               <div>
                 <NodeToggleGrid
                   currentState={`toggled-grid-${this.state.gridOn}`}

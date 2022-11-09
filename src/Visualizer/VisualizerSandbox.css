@@ -16,6 +16,14 @@ body {
   z-index: 1;
 }
 
+.toggle-grid-holder {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  opacity: 80%;
+  z-index: 1;
+}
+
 .text-info {
   /* background-color: #c7365f; */
   font-family: QTYPE;
