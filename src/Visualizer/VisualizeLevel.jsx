@@ -279,7 +279,6 @@ export default class levelVisualizer extends Component {
   }
 
   toggleTutorialMenu() {
-    toggleHasShownTutorial();
     this.setState({ showTutorialMenu: !this.state.showTutorialMenu });
   }
 
@@ -410,8 +409,9 @@ export default class levelVisualizer extends Component {
     );
 
     if (Number(currentLevel) === 1 && !getCurrentTutorialStatus()) {
+      console.log('Attempting to show tutorial...');
+      this.toggleTutorialMenu();
       toggleHasShownTutorial();
-      this.setState({ showTutorialMenu: true });
     }
 
     let numRandomWallButton;
