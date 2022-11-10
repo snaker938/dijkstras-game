@@ -45,7 +45,7 @@ let NUM_WALLS_ACTIVE;
 
 // Wall Presses
 let NUM_RANDOM_WALL_PRESSES;
-let RANDOM_WALL_NUMBER;
+let RANDOM_WALL_NUMBER = getCurrentLevelRandomWallNumber();
 
 // Other level constants
 let LEVEL_NAME;
@@ -67,7 +67,7 @@ export function reloadLevelData() {
 
   // Wall Presses
   NUM_RANDOM_WALL_PRESSES = getCurrentLevelRandomWallPresses();
-  RANDOM_WALL_NUMBER = getCurrentLevelRandomWallNumber();
+  RANDOM_WALL_NUMBER = 400;
 
   // Other level constants
   LEVEL_NAME = getCurrentLevelName();
@@ -201,89 +201,98 @@ export default class levelVisualizer extends Component {
 
   // Animate plane and place random walls on the grid
   startToAnimatePlane() {
-    if (NUM_RANDOM_WALL_PRESSES > 0) {
-      // This function only runs if the animation is not already playing
-      if (!this.state.animatingPlane) {
-        NUM_RANDOM_WALL_PRESSES--;
-        resetAllNodes(this.state.grid);
-        // Set the animation running to true, which prevents further animations from playing
-        this.setState({ animatingPlane: true });
+    if (document.getElementById('homeButton').classList.contains('enabled')) {
+      if (NUM_RANDOM_WALL_PRESSES > 0) {
+        // This function only runs if the animation is not already playing
+        if (!this.state.animatingPlane) {
+          NUM_RANDOM_WALL_PRESSES--;
+          resetAllNodes(this.state.grid);
+          // Set the animation running to true, which prevents further animations from playing
+          this.setState({ animatingPlane: true });
 
-        // Changed the display from "none" to "block" so it becomes visible again
-        document.getElementById('plane').style.display = 'block';
+          // Changed the display from "none" to "block" so it becomes visible again
+          document.getElementById('plane').style.display = 'block';
 
-        // Play "plane_sound_effect.mp3" then stop it after 6.3 seconds
-        let audio = new Audio(
-          require(`.././assets/Animated/plane_sound_effect.mp3`).default
-        );
-        audio.play();
-        setTimeout(() => {
-          audio.pause();
-        }, 6300);
-
-        this.setState({ animatingPlane: true });
-
-        // Set the interval of the animation to play every 0.1 seconds. This animation is not the plane moving across the screen, but the animation of the turbines spinning. Animate the turbines of the plane. This is done by changing the source path of the image to each of the 4 animation frames.
-        let x = 1;
-        const animateTubines = setInterval(() => {
-          if (this.state.animatingPlane) {
-            document.getElementById('plane').src =
-              require(`.././assets/Animated/${x}.png`).default;
-            x++;
-            if (4 === x) {
-              x = 1;
-            }
-          } else {
-            clearInterval(animateTubines);
-          }
-        }, 100);
-
-        // This is the code to move the plane across the screen. The plane starts from outside of the screen and move by a certain number of pixels each loop. At the very end of the animation, set animating plane variable to false, so the animation can be played again. The animation can only be played again a few seconds after the plane has reached the other side
-        for (let i = 1; i < 800; i++) {
+          // Play "plane_sound_effect.mp3" then stop it after 6.3 seconds
+          let audio = new Audio(
+            require(`.././assets/Animated/plane_sound_effect.mp3`).default
+          );
+          audio.play();
           setTimeout(() => {
-            document.getElementById('plane').style.left = `${-450 + i * 3.4}px`;
-            if (i === 799) {
-              this.setState({ animatingPlane: false });
+            audio.pause();
+          }, 6300);
+
+          this.setState({ animatingPlane: true });
+
+          // Set the interval of the animation to play every 0.1 seconds. This animation is not the plane moving across the screen, but the animation of the turbines spinning. Animate the turbines of the plane. This is done by changing the source path of the image to each of the 4 animation frames.
+          let x = 1;
+          const animateTubines = setInterval(() => {
+            if (this.state.animatingPlane) {
+              document.getElementById('plane').src =
+                require(`.././assets/Animated/${x}.png`).default;
+              x++;
+              if (4 === x) {
+                x = 1;
+              }
+            } else {
+              clearInterval(animateTubines);
             }
-          }, 10 * i);
+          }, 100);
+
+          // This is the code to move the plane across the screen. The plane starts from outside of the screen and move by a certain number of pixels each loop. At the very end of the animation, set animating plane variable to false, so the animation can be played again. The animation can only be played again a few seconds after the plane has reached the other side
+          for (let i = 1; i < 800; i++) {
+            setTimeout(() => {
+              document.getElementById('plane').style.left = `${
+                -450 + i * 3.4
+              }px`;
+              if (i === 799) {
+                this.setState({ animatingPlane: false });
+              }
+            }, 10 * i);
+          }
+
+          // getCurrentLevelRandomWallNumber()
+          // This is the code to add random walls onto the grid. The grid is properly re-rendered every 45n i to prevent lag and once again at the end of the iternation
+          for (let i = 0; i < Number(getCurrentLevelRandomWallNumber()); i++) {
+            setTimeout(() => {
+              // console.log(RANDOM_WALL_NUMBER);
+              let firstColumn =
+                (document.getElementById('plane').getBoundingClientRect().x +
+                  520) /
+                27.5;
+
+              // Generates a random row and column number
+              let row = Math.floor(Math.random() * NUM_ROWS);
+              let column = randomIntFromInterval(
+                Math.floor(firstColumn),
+                Math.ceil(firstColumn)
+              );
+
+              let node = this.state.grid[row][column]; // selects the node with the row and column specified above
+              let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
+              let unWallable = isEnd || isStart || node.isPermanentWall; // if the node is a start or end node, or permanent, it cannot be changed
+
+              let grid = this.state.grid;
+              // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
+              if (!unWallable) {
+                const newNode = {
+                  ...node,
+                  isWall: !isWall,
+                };
+
+                // Places the new node into the grid
+                grid[row][column] = newNode;
+                // Changes the overall state of the grid which re-renders it.
+              }
+              if (
+                i % 45 === 0 ||
+                i === Number(getCurrentLevelRandomWallNumber()) - 1
+              )
+                this.setState({ grid: grid });
+            }, i * 10);
+          }
+          NUM_WALLS_ACTIVE = 10;
         }
-
-        // This is the code to add random walls onto the grid. The grid is properly re-rendered every 45n i to prevent lag and once again at the end of the iternation
-        for (let i = 0; i < RANDOM_WALL_NUMBER; i++) {
-          setTimeout((RANDOM_WALL_NUMBER) => {
-            let firstColumn =
-              (document.getElementById('plane').getBoundingClientRect().x +
-                520) /
-              27.5;
-
-            // Generates a random row and column number
-            let row = Math.floor(Math.random() * NUM_ROWS);
-            let column = randomIntFromInterval(
-              Math.floor(firstColumn),
-              Math.ceil(firstColumn)
-            );
-
-            let node = this.state.grid[row][column]; // selects the node with the row and column specified above
-            let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
-            let unWallable = isEnd || isStart; // if the node is a start or end node, it cannot be changed
-
-            let grid = this.state.grid;
-            // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
-            if (!unWallable) {
-              const newNode = {
-                ...node,
-                isWall: !isWall,
-              };
-
-              // Places the new node into the grid
-              grid[row][column] = newNode;
-              // Changes the overall state of the grid which re-renders it.
-            }
-            if (i % 45 === 0 || i === RANDOM_WALL_NUMBER - 1)
-              this.setState({ grid: grid });
-          }, i * 10);
-        }
-        NUM_WALLS_ACTIVE = 10;
       }
     }
   }
