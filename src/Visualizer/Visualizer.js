@@ -1,10 +1,10 @@
 import { dijkstra } from '../algorithms/dijkstra';
-import { getActualCurrentEndDistance } from '../otherDataHandling';
 import { animateAllNodes } from './Animations';
 import {
   getDisplayOutlineClass,
   displayOutlineValue,
   getCurrentPlaneAnimation,
+  getActualCurrentEndDistance,
 } from '../actualLevelHandling';
 import { inSandbox } from '../Navigation';
 import { getCurrentLevelEndDistance } from '../currentLevelHandling';

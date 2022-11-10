@@ -50,7 +50,12 @@ export default class HomeScreen extends Component {
         <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
           <div className="levelInfoContainer">
             <p
-              style={{ left: '143px', opacity: '1' }}
+              style={{
+                left: '143px',
+                opacity: '1',
+                marginTop: '12px',
+                fontSize: '35px',
+              }}
               className="levelNameToRender"
             >
               Credits

@@ -2,6 +2,18 @@ let displayOutlineValue = false;
 
 let isPlaneAnimationShowing = false;
 
+let hasShownTutorial = false;
+
+let currentEndDistance = 75;
+
+export function toggleHasShownTutorial() {
+  hasShownTutorial = !hasShownTutorial;
+}
+
+export function getCurrentTutorialStatus() {
+  return hasShownTutorial;
+}
+
 export function togglePlaneAnimation() {
   isPlaneAnimationShowing = !isPlaneAnimationShowing;
 }
@@ -28,9 +40,27 @@ export function getDisplayOutlineClass(displayOutline) {
   return 'nodeNoOutline';
 }
 
-export { displayOutlineValue };
+export function setCurrentEndDistance(newEndDistance) {
+  document.getElementById('endDistanceInput').value = currentEndDistance;
+  if (!(newEndDistance >= 1)) {
+    currentEndDistance = 75;
+  } else {
+    currentEndDistance = newEndDistance;
+    document.getElementById('endDistanceInput').value = currentEndDistance;
+  }
+}
+
+export function getActualCurrentEndDistance() {
+  return currentEndDistance;
+}
+
+export function getModifiedCurrentEndDistance() {
+  return currentEndDistance - 1;
+}
 
 export function randomIntFromInterval(min, max) {
   // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+export { displayOutlineValue, currentEndDistance };

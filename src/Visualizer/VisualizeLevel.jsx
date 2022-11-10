@@ -6,7 +6,6 @@ import './VisualizerLevel.css';
 import './VisualizerSandbox.css';
 import './VisualizerBoth.css';
 import {
-  currentLevel,
   getCurrentLevelGrid,
   getCurrentLevelID,
   getCurrentLevelLives,
@@ -26,7 +25,7 @@ import {
   gridOutlineToggled,
   toggleGridOutline,
   toggleShowingOptionsMenu,
-} from '../optionsHandling.jsx';
+} from '../optionsHandling.js';
 import NodeToggleGrid from './Node/NodeToggleGrid';
 
 // // Placeholders for start node coordinates. It gets the current level data
@@ -174,31 +173,6 @@ export default class levelVisualizer extends Component {
       }
     }
   }
-
-  // // When a node is clicked, unless it is the start or end node, it gets toggled between a wall and not-wall
-  // toggleWall(row, col, isWall, unWallable, isPermanentWall) {
-  //   let node = this.state.grid[row][col];
-  //   let grid = this.state.grid;
-  //   // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
-  //   if (!unWallable) {
-  //     // If it isnt a wall currently, increase the number of active walls by one, else decrease them
-  //     if (isWall && !isPermanentWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 0;
-  //     else if (!unWallable && !isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
-  //     else if (!unWallable && isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE - 1;
-
-  //     if (NUM_WALLS_ACTIVE < 0) NUM_WALLS_ACTIVE = 0;
-  //   } else {
-  //     const newNode = {
-  //       ...node,
-  //       isWall: !isWall,
-  //       isPermanentWall: false,
-  //     };
-  //     // Places the new node into the grid
-  //     grid[row][col] = newNode;
-  //   }
-  //   // Changes the overall state of the grid which re-renders it.
-  //   this.setState({ grid: grid });
-  // }
 
   // Animate plane and place random walls on the grid
   startToAnimatePlane() {

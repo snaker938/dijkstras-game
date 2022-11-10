@@ -165,24 +165,13 @@ button:focus {
 .levelNameToRender {
   font-family: 'QTYPE';
   font-weight: 900;
-  font-size: 35px;
+  font-size: 32.76px;
+  margin-top: 12px;
   color: white;
   /* left: 25px; */
   text-align: center;
   /* line-height: 100px; */
   user-select: none;
-}
-
-/* z index to make div go behind text */
-.levelNameToRenderContainer {
-  border-top: 100px solid blue;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  height: 0;
-  width: 300px;
-  top: 10px;
-  z-index: -1;
-  position: absolute;
 }
 
 .levelDescription {

@@ -7,12 +7,10 @@ import './VisualizerLevel.css';
 import './VisualizerSandbox.css';
 import './VisualizerBoth.css';
 import {
-  getActualCurrentEndDistance,
-  setCurrentEndDistance,
-} from '../otherDataHandling';
-import {
   displayOutlineValue,
   randomIntFromInterval,
+  getActualCurrentEndDistance,
+  setCurrentEndDistance,
   setDisplayOutlineValue,
   togglePlaneAnimation,
 } from '../actualLevelHandling';
@@ -22,7 +20,7 @@ import {
   toggleGridOutline,
   togglePermanentWall,
   toggleShowingOptionsMenu,
-} from '../optionsHandling.jsx';
+} from '../optionsHandling.js';
 import NodeToggleGrid from './Node/NodeToggleGrid';
 import { allLevelNodeCoords } from '../allLevelData';
 
