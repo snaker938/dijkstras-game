@@ -1,0 +1,15 @@
+.numWallsActiveMessage {
+  position: absolute;
+  font-family: 'QTYPE';
+  top: 20px;
+  left: 10px;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  padding: 2px;
+  border: 2px solid rgb(175, 175, 175);
+  /* color: rgb(66, 65, 65); */
+  text-shadow: -1px -1px 0 #000, 0px -1px 0 #000, -1px 1px 0 #000,
+    0px 0px 0 #000;
+  user-select: none;
+}

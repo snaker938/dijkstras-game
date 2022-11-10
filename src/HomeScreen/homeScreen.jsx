@@ -10,7 +10,7 @@ import {
 export default class HomeScreen extends Component {
   constructor() {
     super();
-    this.state = { rerender: [], showCreditsMenu: true };
+    this.state = { rerender: [], showCreditsMenu: false };
   }
 
   // This function sets the inputted username, and checks it, and then takes the user to their desired location
