@@ -1,6 +1,7 @@
 import { sendError } from './errorHandling';
 import { cloneVariable } from './Visualizer';
 import { getCurrentDisplayOutlineClass } from '../actualLevelHandling';
+import { inSandbox } from '../Navigation';
 
 // let endDistance = getCurrentEndDistance();
 
@@ -15,7 +16,11 @@ export function animateAllNodes(
     if (i === visitedNodesInOrder.length) {
       if (nodesInShortestPathOrder.length === 0) {
         setTimeout(() => {
-          sendError('NO-PATH'); // If there is no path, animate the "NO-PATH" error message, along with the remaining nodes to create a very cool error message.
+          if (!inSandbox)
+            sendError(
+              'NO-PATH'
+            ); // If there is no path, and the user is in the Campaign, animate the "NO-PATH" error message
+          else sendError('NO-PATH-SANDBOX'); // If there is no path, and the user is in the Sandbox, animate the "NO-PATH-SANDBOX" error message
           return;
         }, 8 * i); //used to be 8
       }
@@ -160,6 +165,6 @@ export function animateNoProperPath(errorMessage, otherNodes, importantNodes) {
       if (i === otherNodes.length - 1) {
         document.getElementById('homeButton').classList.add('enabled');
       } // add the removed class. Animation has finished.
-    }, 0.1 * i);
+    }, 1.5 * i);
   }
 }
