@@ -242,6 +242,17 @@ body {
   text-align: center;
 }
 
+.standard-button-disabled {
+  font-family: QTYPE;
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  border: 3px solid rgb(43, 43, 43);
+  opacity: 0.8;
+  border-radius: 10px;
+  text-align: center;
+}
+
 .standard-button:hover {
   /* background-color: rgb(216, 216, 216); */
   background-color: rgb(163, 163, 163);
