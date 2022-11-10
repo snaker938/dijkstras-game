@@ -239,3 +239,55 @@ body {
   src: local('QTYPEBOLD'),
     url(../../src/assets/Fonts/boldText.otf) format('opentype');
 }
+
+.creditsDescription {
+  font-family: 'QTYPE';
+  color: white;
+  /* position: absolute; */
+  text-align: center;
+  font-size: 20px;
+  /* line-height: 75px; */
+}
+
+.creditsDescriptionContainer {
+  width: 560px;
+  height: 75px;
+  top: 50px;
+  left: 20px;
+  position: absolute;
+  background: #696969;
+  opacity: 40%;
+  backdrop-filter: blur(10px);
+}
+
+.creditsContainer {
+  width: 563px;
+  height: 35px;
+  position: absolute;
+  background: #696969;
+  opacity: 70%;
+  backdrop-filter: blur(10px);
+}
+
+.creditsInfoTag {
+  font-family: 'QTYPE';
+  color: white;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 35px;
+  position: absolute;
+  user-select: none;
+}
+
+.creditsText {
+  font-family: 'QTYPE';
+  color: white;
+  /* margin-left: 120px; */
+  position: absolute;
+  left: 250px;
+  text-align: center;
+  font-size: 20px;
+  line-height: 35px;
+  user-select: none;
+}
