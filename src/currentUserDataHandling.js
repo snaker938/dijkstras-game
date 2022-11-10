@@ -6,9 +6,8 @@
 let numLevelsUnlocked;
 
 export function newLevelUnlocked() {
-  console.log('unlocking level....');
-  numLevelsUnlocked += 1;
-  localStorage.setItem('numLevelsUnlocked', numLevelsUnlocked);
+  numLevelsUnlocked = Number(numLevelsUnlocked) + 14;
+  localStorage.setItem('numLevelsUnlocked', Number(numLevelsUnlocked));
 }
 
 // check if "numLevelsUnlocked" is in localStorage. If not, set it to 1. If it is, get it.
@@ -16,7 +15,7 @@ if (localStorage.getItem('numLevelsUnlocked') === null) {
   localStorage.setItem('numLevelsUnlocked', 1);
   numLevelsUnlocked = 1;
 } else {
-  numLevelsUnlocked = localStorage.getItem('numLevelsUnlocked');
+  numLevelsUnlocked = Number(localStorage.getItem('numLevelsUnlocked'));
 }
 
 // check if "userName" is in localStorage. If not, set it to the input. If it is, get it.
