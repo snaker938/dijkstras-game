@@ -174,7 +174,12 @@ export default class HomeScreen extends Component {
           Sandbox
         </button>
 
-        <button className="dividerButton medalsButton" onClick={() => {}}>
+        <button
+          className="dividerButton medalsButton"
+          onClick={() => {
+            this.clearAllLocalStorageData();
+          }}
+        >
           Medals
         </button>
 

@@ -1,8 +1,11 @@
+
 let displayOutlineValue = false;
 
 export function setDisplayOutlineValue(value) {
   displayOutlineValue = value;
 }
+
+
 
 export function getCurrentDisplayOutlineClass() {
   if (displayOutlineValue) {

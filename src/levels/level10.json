@@ -535,7 +535,7 @@
         "isEnd": false,
         "distance": 1,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -545,7 +545,7 @@
         "isEnd": false,
         "distance": 2,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -555,7 +555,7 @@
         "isEnd": false,
         "distance": 3,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -565,7 +565,7 @@
         "isEnd": false,
         "distance": 4,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -575,7 +575,7 @@
         "isEnd": false,
         "distance": 5,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -585,7 +585,7 @@
         "isEnd": false,
         "distance": 6,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -595,7 +595,7 @@
         "isEnd": false,
         "distance": 7,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -605,7 +605,7 @@
         "isEnd": false,
         "distance": 8,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -615,7 +615,7 @@
         "isEnd": false,
         "distance": 9,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -625,7 +625,7 @@
         "isEnd": false,
         "distance": 10,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -635,7 +635,7 @@
         "isEnd": false,
         "distance": 11,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -645,7 +645,7 @@
         "isEnd": false,
         "distance": 12,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -655,7 +655,7 @@
         "isEnd": false,
         "distance": 13,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -665,7 +665,7 @@
         "isEnd": false,
         "distance": 14,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -675,7 +675,7 @@
         "isEnd": false,
         "distance": 15,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -685,7 +685,7 @@
         "isEnd": false,
         "distance": 16,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -695,7 +695,7 @@
         "isEnd": false,
         "distance": 17,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -705,7 +705,7 @@
         "isEnd": false,
         "distance": 18,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -715,7 +715,7 @@
         "isEnd": false,
         "distance": 19,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -725,7 +725,7 @@
         "isEnd": false,
         "distance": 20,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -735,7 +735,7 @@
         "isEnd": false,
         "distance": 21,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -745,7 +745,7 @@
         "isEnd": false,
         "distance": 22,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -755,7 +755,7 @@
         "isEnd": false,
         "distance": 23,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -765,7 +765,7 @@
         "isEnd": false,
         "distance": 24,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -775,7 +775,7 @@
         "isEnd": false,
         "distance": 25,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -785,7 +785,7 @@
         "isEnd": false,
         "distance": 26,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -795,7 +795,7 @@
         "isEnd": false,
         "distance": 27,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -805,7 +805,7 @@
         "isEnd": false,
         "distance": 28,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -815,7 +815,7 @@
         "isEnd": false,
         "distance": 29,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -825,7 +825,7 @@
         "isEnd": false,
         "distance": 30,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -835,7 +835,7 @@
         "isEnd": false,
         "distance": 31,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -845,7 +845,7 @@
         "isEnd": false,
         "distance": 32,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -855,7 +855,7 @@
         "isEnd": false,
         "distance": 33,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -865,7 +865,7 @@
         "isEnd": false,
         "distance": 34,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -875,7 +875,7 @@
         "isEnd": false,
         "distance": 35,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -885,7 +885,7 @@
         "isEnd": false,
         "distance": 36,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -895,7 +895,7 @@
         "isEnd": false,
         "distance": 37,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -905,7 +905,7 @@
         "isEnd": false,
         "distance": 38,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -915,7 +915,7 @@
         "isEnd": false,
         "distance": 39,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -925,7 +925,7 @@
         "isEnd": false,
         "distance": 40,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -935,7 +935,7 @@
         "isEnd": false,
         "distance": 41,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -945,7 +945,7 @@
         "isEnd": false,
         "distance": 42,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -955,7 +955,7 @@
         "isEnd": false,
         "distance": 43,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -965,7 +965,7 @@
         "isEnd": false,
         "distance": 44,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -975,7 +975,7 @@
         "isEnd": false,
         "distance": 45,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -985,7 +985,7 @@
         "isEnd": false,
         "distance": 46,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -995,7 +995,7 @@
         "isEnd": false,
         "distance": 47,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1005,7 +1005,7 @@
         "isEnd": false,
         "distance": 48,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1015,7 +1015,7 @@
         "isEnd": false,
         "distance": 49,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1025,7 +1025,7 @@
         "isEnd": false,
         "distance": 50,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1569,7 +1569,7 @@
         "isEnd": false,
         "distance": 102,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1579,7 +1579,7 @@
         "isEnd": false,
         "distance": 101,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1589,7 +1589,7 @@
         "isEnd": false,
         "distance": 100,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1599,7 +1599,7 @@
         "isEnd": false,
         "distance": 99,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1609,7 +1609,7 @@
         "isEnd": false,
         "distance": 98,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1619,7 +1619,7 @@
         "isEnd": false,
         "distance": 97,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1629,7 +1629,7 @@
         "isEnd": false,
         "distance": 96,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1639,7 +1639,7 @@
         "isEnd": false,
         "distance": 95,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1649,7 +1649,7 @@
         "isEnd": false,
         "distance": 94,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1659,7 +1659,7 @@
         "isEnd": false,
         "distance": 93,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1669,7 +1669,7 @@
         "isEnd": false,
         "distance": 92,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1679,7 +1679,7 @@
         "isEnd": false,
         "distance": 91,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1689,7 +1689,7 @@
         "isEnd": false,
         "distance": 90,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1699,7 +1699,7 @@
         "isEnd": false,
         "distance": 89,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1709,7 +1709,7 @@
         "isEnd": false,
         "distance": 88,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1719,7 +1719,7 @@
         "isEnd": false,
         "distance": 87,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1729,7 +1729,7 @@
         "isEnd": false,
         "distance": 86,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1739,7 +1739,7 @@
         "isEnd": false,
         "distance": 85,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1749,7 +1749,7 @@
         "isEnd": false,
         "distance": 84,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1759,7 +1759,7 @@
         "isEnd": false,
         "distance": 83,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1769,7 +1769,7 @@
         "isEnd": false,
         "distance": 82,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1779,7 +1779,7 @@
         "isEnd": false,
         "distance": 81,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1789,7 +1789,7 @@
         "isEnd": false,
         "distance": 80,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1799,7 +1799,7 @@
         "isEnd": false,
         "distance": 79,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1809,7 +1809,7 @@
         "isEnd": false,
         "distance": 78,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1819,7 +1819,7 @@
         "isEnd": false,
         "distance": 77,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1829,7 +1829,7 @@
         "isEnd": false,
         "distance": 76,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1839,7 +1839,7 @@
         "isEnd": false,
         "distance": 75,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1849,7 +1849,7 @@
         "isEnd": false,
         "distance": 74,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1859,7 +1859,7 @@
         "isEnd": false,
         "distance": 73,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1869,7 +1869,7 @@
         "isEnd": false,
         "distance": 72,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1879,7 +1879,7 @@
         "isEnd": false,
         "distance": 71,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1889,7 +1889,7 @@
         "isEnd": false,
         "distance": 70,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1899,7 +1899,7 @@
         "isEnd": false,
         "distance": 69,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1909,7 +1909,7 @@
         "isEnd": false,
         "distance": 68,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1919,7 +1919,7 @@
         "isEnd": false,
         "distance": 67,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1929,7 +1929,7 @@
         "isEnd": false,
         "distance": 66,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1939,7 +1939,7 @@
         "isEnd": false,
         "distance": 65,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1949,7 +1949,7 @@
         "isEnd": false,
         "distance": 64,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1959,7 +1959,7 @@
         "isEnd": false,
         "distance": 63,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1969,7 +1969,7 @@
         "isEnd": false,
         "distance": 62,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1979,7 +1979,7 @@
         "isEnd": false,
         "distance": 61,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1989,7 +1989,7 @@
         "isEnd": false,
         "distance": 60,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -1999,7 +1999,7 @@
         "isEnd": false,
         "distance": 59,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2009,7 +2009,7 @@
         "isEnd": false,
         "distance": 58,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2019,7 +2019,7 @@
         "isEnd": false,
         "distance": 57,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2029,7 +2029,7 @@
         "isEnd": false,
         "distance": 56,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2039,7 +2039,7 @@
         "isEnd": false,
         "distance": 55,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2049,7 +2049,7 @@
         "isEnd": false,
         "distance": 54,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2059,7 +2059,7 @@
         "isEnd": false,
         "distance": 53,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       }
     ],
@@ -2583,7 +2583,7 @@
         "isEnd": false,
         "distance": 105,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2593,7 +2593,7 @@
         "isEnd": false,
         "distance": 106,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2603,7 +2603,7 @@
         "isEnd": false,
         "distance": 107,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2613,7 +2613,7 @@
         "isEnd": false,
         "distance": 108,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2623,7 +2623,7 @@
         "isEnd": false,
         "distance": 109,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2633,7 +2633,7 @@
         "isEnd": false,
         "distance": 110,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2643,7 +2643,7 @@
         "isEnd": false,
         "distance": 111,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2653,7 +2653,7 @@
         "isEnd": false,
         "distance": 112,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2663,7 +2663,7 @@
         "isEnd": false,
         "distance": 113,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2673,7 +2673,7 @@
         "isEnd": false,
         "distance": 114,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2683,7 +2683,7 @@
         "isEnd": false,
         "distance": 115,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2693,7 +2693,7 @@
         "isEnd": false,
         "distance": 116,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2703,7 +2703,7 @@
         "isEnd": false,
         "distance": 117,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2713,7 +2713,7 @@
         "isEnd": false,
         "distance": 118,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2723,7 +2723,7 @@
         "isEnd": false,
         "distance": 119,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2733,7 +2733,7 @@
         "isEnd": false,
         "distance": 120,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2743,7 +2743,7 @@
         "isEnd": false,
         "distance": 121,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2753,7 +2753,7 @@
         "isEnd": false,
         "distance": 122,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2763,7 +2763,7 @@
         "isEnd": false,
         "distance": 123,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2773,7 +2773,7 @@
         "isEnd": false,
         "distance": 124,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2783,7 +2783,7 @@
         "isEnd": false,
         "distance": 125,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2793,7 +2793,7 @@
         "isEnd": false,
         "distance": 126,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2803,7 +2803,7 @@
         "isEnd": false,
         "distance": 127,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2813,7 +2813,7 @@
         "isEnd": false,
         "distance": 128,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2823,7 +2823,7 @@
         "isEnd": false,
         "distance": 129,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2833,7 +2833,7 @@
         "isEnd": false,
         "distance": 130,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2843,7 +2843,7 @@
         "isEnd": false,
         "distance": 131,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2853,7 +2853,7 @@
         "isEnd": false,
         "distance": 132,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2863,7 +2863,7 @@
         "isEnd": false,
         "distance": 133,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2873,7 +2873,7 @@
         "isEnd": false,
         "distance": 134,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2883,7 +2883,7 @@
         "isEnd": false,
         "distance": 135,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2893,7 +2893,7 @@
         "isEnd": false,
         "distance": 136,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2903,7 +2903,7 @@
         "isEnd": false,
         "distance": 137,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2913,7 +2913,7 @@
         "isEnd": false,
         "distance": 138,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2923,7 +2923,7 @@
         "isEnd": false,
         "distance": 139,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2933,7 +2933,7 @@
         "isEnd": false,
         "distance": 140,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2943,7 +2943,7 @@
         "isEnd": false,
         "distance": 141,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2953,7 +2953,7 @@
         "isEnd": false,
         "distance": 142,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2963,7 +2963,7 @@
         "isEnd": false,
         "distance": 143,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2973,7 +2973,7 @@
         "isEnd": false,
         "distance": 144,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2983,7 +2983,7 @@
         "isEnd": false,
         "distance": 145,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -2993,7 +2993,7 @@
         "isEnd": false,
         "distance": 146,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3003,7 +3003,7 @@
         "isEnd": false,
         "distance": 147,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3013,7 +3013,7 @@
         "isEnd": false,
         "distance": 148,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3023,7 +3023,7 @@
         "isEnd": false,
         "distance": 149,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3033,7 +3033,7 @@
         "isEnd": false,
         "distance": 150,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3043,7 +3043,7 @@
         "isEnd": false,
         "distance": 151,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3053,7 +3053,7 @@
         "isEnd": false,
         "distance": 152,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3063,7 +3063,7 @@
         "isEnd": false,
         "distance": 153,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3073,7 +3073,7 @@
         "isEnd": false,
         "distance": 154,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3617,7 +3617,7 @@
         "isEnd": false,
         "distance": 206,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3627,7 +3627,7 @@
         "isEnd": false,
         "distance": 205,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3637,7 +3637,7 @@
         "isEnd": false,
         "distance": 204,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3647,7 +3647,7 @@
         "isEnd": false,
         "distance": 203,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3657,7 +3657,7 @@
         "isEnd": false,
         "distance": 202,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3667,7 +3667,7 @@
         "isEnd": false,
         "distance": 201,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3677,7 +3677,7 @@
         "isEnd": false,
         "distance": 200,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3687,7 +3687,7 @@
         "isEnd": false,
         "distance": 199,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3697,7 +3697,7 @@
         "isEnd": false,
         "distance": 198,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3707,7 +3707,7 @@
         "isEnd": false,
         "distance": 197,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3717,7 +3717,7 @@
         "isEnd": false,
         "distance": 196,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3727,7 +3727,7 @@
         "isEnd": false,
         "distance": 195,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3737,7 +3737,7 @@
         "isEnd": false,
         "distance": 194,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3747,7 +3747,7 @@
         "isEnd": false,
         "distance": 193,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3757,7 +3757,7 @@
         "isEnd": false,
         "distance": 192,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3767,7 +3767,7 @@
         "isEnd": false,
         "distance": 191,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3777,7 +3777,7 @@
         "isEnd": false,
         "distance": 190,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3787,7 +3787,7 @@
         "isEnd": false,
         "distance": 189,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3797,7 +3797,7 @@
         "isEnd": false,
         "distance": 188,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3807,7 +3807,7 @@
         "isEnd": false,
         "distance": 187,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3817,7 +3817,7 @@
         "isEnd": false,
         "distance": 186,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3827,7 +3827,7 @@
         "isEnd": false,
         "distance": 185,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3837,7 +3837,7 @@
         "isEnd": false,
         "distance": 184,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3847,7 +3847,7 @@
         "isEnd": false,
         "distance": 183,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3857,7 +3857,7 @@
         "isEnd": false,
         "distance": 182,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3867,7 +3867,7 @@
         "isEnd": false,
         "distance": 181,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3877,7 +3877,7 @@
         "isEnd": false,
         "distance": 180,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3887,7 +3887,7 @@
         "isEnd": false,
         "distance": 179,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3897,7 +3897,7 @@
         "isEnd": false,
         "distance": 178,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3907,7 +3907,7 @@
         "isEnd": false,
         "distance": 177,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3917,7 +3917,7 @@
         "isEnd": false,
         "distance": 176,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3927,7 +3927,7 @@
         "isEnd": false,
         "distance": 175,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3937,7 +3937,7 @@
         "isEnd": false,
         "distance": 174,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3947,7 +3947,7 @@
         "isEnd": false,
         "distance": 173,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3957,7 +3957,7 @@
         "isEnd": false,
         "distance": 172,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3967,7 +3967,7 @@
         "isEnd": false,
         "distance": 171,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3977,7 +3977,7 @@
         "isEnd": false,
         "distance": 170,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3987,7 +3987,7 @@
         "isEnd": false,
         "distance": 169,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -3997,7 +3997,7 @@
         "isEnd": false,
         "distance": 168,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4007,7 +4007,7 @@
         "isEnd": false,
         "distance": 167,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4017,7 +4017,7 @@
         "isEnd": false,
         "distance": 166,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4027,7 +4027,7 @@
         "isEnd": false,
         "distance": 165,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4037,7 +4037,7 @@
         "isEnd": false,
         "distance": 164,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4047,7 +4047,7 @@
         "isEnd": false,
         "distance": 163,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4057,7 +4057,7 @@
         "isEnd": false,
         "distance": 162,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4067,7 +4067,7 @@
         "isEnd": false,
         "distance": 161,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4077,7 +4077,7 @@
         "isEnd": false,
         "distance": 160,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4087,7 +4087,7 @@
         "isEnd": false,
         "distance": 159,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4097,7 +4097,7 @@
         "isEnd": false,
         "distance": 158,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4107,7 +4107,7 @@
         "isEnd": false,
         "distance": 157,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       }
     ],
@@ -4631,7 +4631,7 @@
         "isEnd": false,
         "distance": 209,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4641,7 +4641,7 @@
         "isEnd": false,
         "distance": 210,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4651,7 +4651,7 @@
         "isEnd": false,
         "distance": 211,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4661,7 +4661,7 @@
         "isEnd": false,
         "distance": 212,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4671,7 +4671,7 @@
         "isEnd": false,
         "distance": 213,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4681,7 +4681,7 @@
         "isEnd": false,
         "distance": 214,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4691,7 +4691,7 @@
         "isEnd": false,
         "distance": 215,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4701,7 +4701,7 @@
         "isEnd": false,
         "distance": 216,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4711,7 +4711,7 @@
         "isEnd": false,
         "distance": 217,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4721,7 +4721,7 @@
         "isEnd": false,
         "distance": 218,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4731,7 +4731,7 @@
         "isEnd": false,
         "distance": 219,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4741,7 +4741,7 @@
         "isEnd": false,
         "distance": 220,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4751,7 +4751,7 @@
         "isEnd": false,
         "distance": 221,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4761,7 +4761,7 @@
         "isEnd": false,
         "distance": 222,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4771,7 +4771,7 @@
         "isEnd": false,
         "distance": 223,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4781,7 +4781,7 @@
         "isEnd": false,
         "distance": 224,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4791,7 +4791,7 @@
         "isEnd": false,
         "distance": 225,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4801,7 +4801,7 @@
         "isEnd": false,
         "distance": 226,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4811,7 +4811,7 @@
         "isEnd": false,
         "distance": 227,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4821,7 +4821,7 @@
         "isEnd": false,
         "distance": 228,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4831,7 +4831,7 @@
         "isEnd": false,
         "distance": 229,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4841,7 +4841,7 @@
         "isEnd": false,
         "distance": 230,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4851,7 +4851,7 @@
         "isEnd": false,
         "distance": 231,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4861,7 +4861,7 @@
         "isEnd": false,
         "distance": 232,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4871,7 +4871,7 @@
         "isEnd": false,
         "distance": 233,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4881,7 +4881,7 @@
         "isEnd": false,
         "distance": 234,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4891,7 +4891,7 @@
         "isEnd": false,
         "distance": 235,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4901,7 +4901,7 @@
         "isEnd": false,
         "distance": 236,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4911,7 +4911,7 @@
         "isEnd": false,
         "distance": 237,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4921,7 +4921,7 @@
         "isEnd": false,
         "distance": 238,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4931,7 +4931,7 @@
         "isEnd": false,
         "distance": 239,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4941,7 +4941,7 @@
         "isEnd": false,
         "distance": 240,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4951,7 +4951,7 @@
         "isEnd": false,
         "distance": 241,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4961,7 +4961,7 @@
         "isEnd": false,
         "distance": 242,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4971,7 +4971,7 @@
         "isEnd": false,
         "distance": 243,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4981,7 +4981,7 @@
         "isEnd": false,
         "distance": 244,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -4991,7 +4991,7 @@
         "isEnd": false,
         "distance": 245,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5001,7 +5001,7 @@
         "isEnd": false,
         "distance": 246,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5011,7 +5011,7 @@
         "isEnd": false,
         "distance": 247,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5021,7 +5021,7 @@
         "isEnd": false,
         "distance": 248,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5031,7 +5031,7 @@
         "isEnd": false,
         "distance": 249,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5041,7 +5041,7 @@
         "isEnd": false,
         "distance": 250,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5051,7 +5051,7 @@
         "isEnd": false,
         "distance": 251,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5061,7 +5061,7 @@
         "isEnd": false,
         "distance": 252,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5071,7 +5071,7 @@
         "isEnd": false,
         "distance": 253,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5081,7 +5081,7 @@
         "isEnd": false,
         "distance": 254,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5091,7 +5091,7 @@
         "isEnd": false,
         "distance": 255,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5101,7 +5101,7 @@
         "isEnd": false,
         "distance": 256,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5111,7 +5111,7 @@
         "isEnd": false,
         "distance": 257,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5121,7 +5121,7 @@
         "isEnd": false,
         "distance": 258,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5665,7 +5665,7 @@
         "isEnd": false,
         "distance": 310,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5675,7 +5675,7 @@
         "isEnd": false,
         "distance": 309,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5685,7 +5685,7 @@
         "isEnd": false,
         "distance": 308,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5695,7 +5695,7 @@
         "isEnd": false,
         "distance": 307,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5705,7 +5705,7 @@
         "isEnd": false,
         "distance": 306,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5715,7 +5715,7 @@
         "isEnd": false,
         "distance": 305,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5725,7 +5725,7 @@
         "isEnd": false,
         "distance": 304,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5735,7 +5735,7 @@
         "isEnd": false,
         "distance": 303,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5745,7 +5745,7 @@
         "isEnd": false,
         "distance": 302,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5755,7 +5755,7 @@
         "isEnd": false,
         "distance": 301,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5765,7 +5765,7 @@
         "isEnd": false,
         "distance": 300,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5775,7 +5775,7 @@
         "isEnd": false,
         "distance": 299,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5785,7 +5785,7 @@
         "isEnd": false,
         "distance": 298,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5795,7 +5795,7 @@
         "isEnd": false,
         "distance": 297,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5805,7 +5805,7 @@
         "isEnd": false,
         "distance": 296,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5815,7 +5815,7 @@
         "isEnd": false,
         "distance": 295,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5825,7 +5825,7 @@
         "isEnd": false,
         "distance": 294,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5835,7 +5835,7 @@
         "isEnd": false,
         "distance": 293,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5845,7 +5845,7 @@
         "isEnd": false,
         "distance": 292,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5855,7 +5855,7 @@
         "isEnd": false,
         "distance": 291,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5865,7 +5865,7 @@
         "isEnd": false,
         "distance": 290,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5875,7 +5875,7 @@
         "isEnd": false,
         "distance": 289,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5885,7 +5885,7 @@
         "isEnd": false,
         "distance": 288,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5895,7 +5895,7 @@
         "isEnd": false,
         "distance": 287,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5905,7 +5905,7 @@
         "isEnd": false,
         "distance": 286,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5915,7 +5915,7 @@
         "isEnd": false,
         "distance": 285,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5925,7 +5925,7 @@
         "isEnd": false,
         "distance": 284,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5935,7 +5935,7 @@
         "isEnd": false,
         "distance": 283,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5945,7 +5945,7 @@
         "isEnd": false,
         "distance": 282,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5955,7 +5955,7 @@
         "isEnd": false,
         "distance": 281,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5965,7 +5965,7 @@
         "isEnd": false,
         "distance": 280,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5975,7 +5975,7 @@
         "isEnd": false,
         "distance": 279,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5985,7 +5985,7 @@
         "isEnd": false,
         "distance": 278,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -5995,7 +5995,7 @@
         "isEnd": false,
         "distance": 277,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6005,7 +6005,7 @@
         "isEnd": false,
         "distance": 276,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6015,7 +6015,7 @@
         "isEnd": false,
         "distance": 275,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6025,7 +6025,7 @@
         "isEnd": false,
         "distance": 274,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6035,7 +6035,7 @@
         "isEnd": false,
         "distance": 273,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6045,7 +6045,7 @@
         "isEnd": false,
         "distance": 272,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6055,7 +6055,7 @@
         "isEnd": false,
         "distance": 271,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6065,7 +6065,7 @@
         "isEnd": false,
         "distance": 270,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6075,7 +6075,7 @@
         "isEnd": false,
         "distance": 269,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6085,7 +6085,7 @@
         "isEnd": false,
         "distance": 268,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6095,7 +6095,7 @@
         "isEnd": false,
         "distance": 267,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6105,7 +6105,7 @@
         "isEnd": false,
         "distance": 266,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6115,7 +6115,7 @@
         "isEnd": false,
         "distance": 265,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6125,7 +6125,7 @@
         "isEnd": false,
         "distance": 264,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6135,7 +6135,7 @@
         "isEnd": false,
         "distance": 263,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6145,7 +6145,7 @@
         "isEnd": false,
         "distance": 262,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6155,7 +6155,7 @@
         "isEnd": false,
         "distance": 261,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       }
     ],
@@ -6679,7 +6679,7 @@
         "isEnd": false,
         "distance": 313,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6689,7 +6689,7 @@
         "isEnd": false,
         "distance": 314,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6699,7 +6699,7 @@
         "isEnd": false,
         "distance": 315,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6709,7 +6709,7 @@
         "isEnd": false,
         "distance": 316,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6719,7 +6719,7 @@
         "isEnd": false,
         "distance": 317,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6729,7 +6729,7 @@
         "isEnd": false,
         "distance": 318,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6739,7 +6739,7 @@
         "isEnd": false,
         "distance": 319,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6749,7 +6749,7 @@
         "isEnd": false,
         "distance": 320,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6759,7 +6759,7 @@
         "isEnd": false,
         "distance": 321,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6769,7 +6769,7 @@
         "isEnd": false,
         "distance": 322,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6779,7 +6779,7 @@
         "isEnd": false,
         "distance": 323,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6789,7 +6789,7 @@
         "isEnd": false,
         "distance": 324,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6799,7 +6799,7 @@
         "isEnd": false,
         "distance": 325,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6809,7 +6809,7 @@
         "isEnd": false,
         "distance": 326,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6819,7 +6819,7 @@
         "isEnd": false,
         "distance": 327,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6829,7 +6829,7 @@
         "isEnd": false,
         "distance": 328,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6839,7 +6839,7 @@
         "isEnd": false,
         "distance": 329,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6849,7 +6849,7 @@
         "isEnd": false,
         "distance": 330,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6859,7 +6859,7 @@
         "isEnd": false,
         "distance": 331,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6869,7 +6869,7 @@
         "isEnd": false,
         "distance": 332,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6879,7 +6879,7 @@
         "isEnd": false,
         "distance": 333,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6889,7 +6889,7 @@
         "isEnd": false,
         "distance": 334,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6899,7 +6899,7 @@
         "isEnd": false,
         "distance": 335,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6909,7 +6909,7 @@
         "isEnd": false,
         "distance": 336,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6919,7 +6919,7 @@
         "isEnd": false,
         "distance": 337,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6929,7 +6929,7 @@
         "isEnd": false,
         "distance": 338,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6939,7 +6939,7 @@
         "isEnd": false,
         "distance": 339,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6949,7 +6949,7 @@
         "isEnd": false,
         "distance": 340,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6959,7 +6959,7 @@
         "isEnd": false,
         "distance": 341,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6969,7 +6969,7 @@
         "isEnd": false,
         "distance": 342,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6979,7 +6979,7 @@
         "isEnd": false,
         "distance": 343,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6989,7 +6989,7 @@
         "isEnd": false,
         "distance": 344,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -6999,7 +6999,7 @@
         "isEnd": false,
         "distance": 345,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7009,7 +7009,7 @@
         "isEnd": false,
         "distance": 346,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7019,7 +7019,7 @@
         "isEnd": false,
         "distance": 347,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7029,7 +7029,7 @@
         "isEnd": false,
         "distance": 348,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7039,7 +7039,7 @@
         "isEnd": false,
         "distance": 349,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7049,7 +7049,7 @@
         "isEnd": false,
         "distance": 350,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7059,7 +7059,7 @@
         "isEnd": false,
         "distance": 351,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7069,7 +7069,7 @@
         "isEnd": false,
         "distance": 352,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7079,7 +7079,7 @@
         "isEnd": false,
         "distance": 353,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7089,7 +7089,7 @@
         "isEnd": false,
         "distance": 354,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7099,7 +7099,7 @@
         "isEnd": false,
         "distance": 355,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7109,7 +7109,7 @@
         "isEnd": false,
         "distance": 356,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7119,7 +7119,7 @@
         "isEnd": false,
         "distance": 357,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7129,7 +7129,7 @@
         "isEnd": false,
         "distance": 358,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7139,7 +7139,7 @@
         "isEnd": false,
         "distance": 359,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7149,7 +7149,7 @@
         "isEnd": false,
         "distance": 360,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7159,7 +7159,7 @@
         "isEnd": false,
         "distance": 361,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7169,7 +7169,7 @@
         "isEnd": false,
         "distance": 362,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7713,7 +7713,7 @@
         "isEnd": false,
         "distance": 414,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7723,7 +7723,7 @@
         "isEnd": false,
         "distance": 413,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7733,7 +7733,7 @@
         "isEnd": false,
         "distance": 412,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7743,7 +7743,7 @@
         "isEnd": false,
         "distance": 411,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7753,7 +7753,7 @@
         "isEnd": false,
         "distance": 410,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7763,7 +7763,7 @@
         "isEnd": false,
         "distance": 409,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7773,7 +7773,7 @@
         "isEnd": false,
         "distance": 408,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7783,7 +7783,7 @@
         "isEnd": false,
         "distance": 407,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7793,7 +7793,7 @@
         "isEnd": false,
         "distance": 406,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7803,7 +7803,7 @@
         "isEnd": false,
         "distance": 405,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7813,7 +7813,7 @@
         "isEnd": false,
         "distance": 404,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7823,7 +7823,7 @@
         "isEnd": false,
         "distance": 403,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7833,7 +7833,7 @@
         "isEnd": false,
         "distance": 402,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7843,7 +7843,7 @@
         "isEnd": false,
         "distance": 401,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7853,7 +7853,7 @@
         "isEnd": false,
         "distance": 400,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7863,7 +7863,7 @@
         "isEnd": false,
         "distance": 399,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7873,7 +7873,7 @@
         "isEnd": false,
         "distance": 398,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7883,7 +7883,7 @@
         "isEnd": false,
         "distance": 397,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7893,7 +7893,7 @@
         "isEnd": false,
         "distance": 396,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7903,7 +7903,7 @@
         "isEnd": false,
         "distance": 395,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7913,7 +7913,7 @@
         "isEnd": false,
         "distance": 394,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7923,7 +7923,7 @@
         "isEnd": false,
         "distance": 393,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7933,7 +7933,7 @@
         "isEnd": false,
         "distance": 392,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7943,7 +7943,7 @@
         "isEnd": false,
         "distance": 391,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7953,7 +7953,7 @@
         "isEnd": false,
         "distance": 390,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7963,7 +7963,7 @@
         "isEnd": false,
         "distance": 389,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7973,7 +7973,7 @@
         "isEnd": false,
         "distance": 388,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7983,7 +7983,7 @@
         "isEnd": false,
         "distance": 387,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -7993,7 +7993,7 @@
         "isEnd": false,
         "distance": 386,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8003,7 +8003,7 @@
         "isEnd": false,
         "distance": 385,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8013,7 +8013,7 @@
         "isEnd": false,
         "distance": 384,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8023,7 +8023,7 @@
         "isEnd": false,
         "distance": 383,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8033,7 +8033,7 @@
         "isEnd": false,
         "distance": 382,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8043,7 +8043,7 @@
         "isEnd": false,
         "distance": 381,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8053,7 +8053,7 @@
         "isEnd": false,
         "distance": 380,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8063,7 +8063,7 @@
         "isEnd": false,
         "distance": 379,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8073,7 +8073,7 @@
         "isEnd": false,
         "distance": 378,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8083,7 +8083,7 @@
         "isEnd": false,
         "distance": 377,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8093,7 +8093,7 @@
         "isEnd": false,
         "distance": 376,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8103,7 +8103,7 @@
         "isEnd": false,
         "distance": 375,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8113,7 +8113,7 @@
         "isEnd": false,
         "distance": 374,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8123,7 +8123,7 @@
         "isEnd": false,
         "distance": 373,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8133,7 +8133,7 @@
         "isEnd": false,
         "distance": 372,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8143,7 +8143,7 @@
         "isEnd": false,
         "distance": 371,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8153,7 +8153,7 @@
         "isEnd": false,
         "distance": 370,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8163,7 +8163,7 @@
         "isEnd": false,
         "distance": 369,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8173,7 +8173,7 @@
         "isEnd": false,
         "distance": 368,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8183,7 +8183,7 @@
         "isEnd": false,
         "distance": 367,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8193,7 +8193,7 @@
         "isEnd": false,
         "distance": 366,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8203,7 +8203,7 @@
         "isEnd": false,
         "distance": 365,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       }
     ],
@@ -8727,7 +8727,7 @@
         "isEnd": false,
         "distance": 417,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8737,7 +8737,7 @@
         "isEnd": false,
         "distance": 418,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8747,7 +8747,7 @@
         "isEnd": false,
         "distance": 419,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8757,7 +8757,7 @@
         "isEnd": false,
         "distance": 420,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8767,7 +8767,7 @@
         "isEnd": false,
         "distance": 421,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8777,7 +8777,7 @@
         "isEnd": false,
         "distance": 422,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8787,7 +8787,7 @@
         "isEnd": false,
         "distance": 423,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8797,7 +8797,7 @@
         "isEnd": false,
         "distance": 424,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8807,7 +8807,7 @@
         "isEnd": false,
         "distance": 425,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8817,7 +8817,7 @@
         "isEnd": false,
         "distance": 426,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8827,7 +8827,7 @@
         "isEnd": false,
         "distance": 427,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8837,7 +8837,7 @@
         "isEnd": false,
         "distance": 428,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8847,7 +8847,7 @@
         "isEnd": false,
         "distance": 429,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8857,7 +8857,7 @@
         "isEnd": false,
         "distance": 430,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8867,7 +8867,7 @@
         "isEnd": false,
         "distance": 431,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8877,7 +8877,7 @@
         "isEnd": false,
         "distance": 432,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8887,7 +8887,7 @@
         "isEnd": false,
         "distance": 433,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8897,7 +8897,7 @@
         "isEnd": false,
         "distance": 434,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8907,7 +8907,7 @@
         "isEnd": false,
         "distance": 435,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8917,7 +8917,7 @@
         "isEnd": false,
         "distance": 436,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8927,7 +8927,7 @@
         "isEnd": false,
         "distance": 437,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8937,7 +8937,7 @@
         "isEnd": false,
         "distance": 438,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8947,7 +8947,7 @@
         "isEnd": false,
         "distance": 439,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8957,7 +8957,7 @@
         "isEnd": false,
         "distance": 440,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8967,7 +8967,7 @@
         "isEnd": false,
         "distance": 441,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8977,7 +8977,7 @@
         "isEnd": false,
         "distance": 442,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8987,7 +8987,7 @@
         "isEnd": false,
         "distance": 443,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -8997,7 +8997,7 @@
         "isEnd": false,
         "distance": 444,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9007,7 +9007,7 @@
         "isEnd": false,
         "distance": 445,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9017,7 +9017,7 @@
         "isEnd": false,
         "distance": 446,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9027,7 +9027,7 @@
         "isEnd": false,
         "distance": 447,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9037,7 +9037,7 @@
         "isEnd": false,
         "distance": 448,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9047,7 +9047,7 @@
         "isEnd": false,
         "distance": 449,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9057,7 +9057,7 @@
         "isEnd": false,
         "distance": 450,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9067,7 +9067,7 @@
         "isEnd": false,
         "distance": 451,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9077,7 +9077,7 @@
         "isEnd": false,
         "distance": 452,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9087,7 +9087,7 @@
         "isEnd": false,
         "distance": 453,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9097,7 +9097,7 @@
         "isEnd": false,
         "distance": 454,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9107,7 +9107,7 @@
         "isEnd": false,
         "distance": 455,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9117,7 +9117,7 @@
         "isEnd": false,
         "distance": 456,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9127,7 +9127,7 @@
         "isEnd": false,
         "distance": 457,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9137,7 +9137,7 @@
         "isEnd": false,
         "distance": 458,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9147,7 +9147,7 @@
         "isEnd": false,
         "distance": 459,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9157,7 +9157,7 @@
         "isEnd": false,
         "distance": 460,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9167,7 +9167,7 @@
         "isEnd": false,
         "distance": 461,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9177,7 +9177,7 @@
         "isEnd": false,
         "distance": 462,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9187,7 +9187,7 @@
         "isEnd": false,
         "distance": 463,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9197,7 +9197,7 @@
         "isEnd": false,
         "distance": 464,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9207,7 +9207,7 @@
         "isEnd": false,
         "distance": 465,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9217,7 +9217,7 @@
         "isEnd": false,
         "distance": 466,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9761,7 +9761,7 @@
         "isEnd": false,
         "distance": 518,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9771,7 +9771,7 @@
         "isEnd": false,
         "distance": 517,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9781,7 +9781,7 @@
         "isEnd": false,
         "distance": 516,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9791,7 +9791,7 @@
         "isEnd": false,
         "distance": 515,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9801,7 +9801,7 @@
         "isEnd": false,
         "distance": 514,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9811,7 +9811,7 @@
         "isEnd": false,
         "distance": 513,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9821,7 +9821,7 @@
         "isEnd": false,
         "distance": 512,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9831,7 +9831,7 @@
         "isEnd": false,
         "distance": 511,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9841,7 +9841,7 @@
         "isEnd": false,
         "distance": 510,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9851,7 +9851,7 @@
         "isEnd": false,
         "distance": 509,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9861,7 +9861,7 @@
         "isEnd": false,
         "distance": 508,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9871,7 +9871,7 @@
         "isEnd": false,
         "distance": 507,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9881,7 +9881,7 @@
         "isEnd": false,
         "distance": 506,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9891,7 +9891,7 @@
         "isEnd": false,
         "distance": 505,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9901,7 +9901,7 @@
         "isEnd": false,
         "distance": 504,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9911,7 +9911,7 @@
         "isEnd": false,
         "distance": 503,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9921,7 +9921,7 @@
         "isEnd": false,
         "distance": 502,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9931,7 +9931,7 @@
         "isEnd": false,
         "distance": 501,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9941,7 +9941,7 @@
         "isEnd": false,
         "distance": 500,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9951,7 +9951,7 @@
         "isEnd": false,
         "distance": 499,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9961,7 +9961,7 @@
         "isEnd": false,
         "distance": 498,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9971,7 +9971,7 @@
         "isEnd": false,
         "distance": 497,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9981,7 +9981,7 @@
         "isEnd": false,
         "distance": 496,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -9991,7 +9991,7 @@
         "isEnd": false,
         "distance": 495,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10001,7 +10001,7 @@
         "isEnd": false,
         "distance": 494,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10011,7 +10011,7 @@
         "isEnd": false,
         "distance": 493,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10021,7 +10021,7 @@
         "isEnd": false,
         "distance": 492,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10031,7 +10031,7 @@
         "isEnd": false,
         "distance": 491,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10041,7 +10041,7 @@
         "isEnd": false,
         "distance": 490,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10051,7 +10051,7 @@
         "isEnd": false,
         "distance": 489,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10061,7 +10061,7 @@
         "isEnd": false,
         "distance": 488,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10071,7 +10071,7 @@
         "isEnd": false,
         "distance": 487,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10081,7 +10081,7 @@
         "isEnd": false,
         "distance": 486,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10091,7 +10091,7 @@
         "isEnd": false,
         "distance": 485,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10101,7 +10101,7 @@
         "isEnd": false,
         "distance": 484,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10111,7 +10111,7 @@
         "isEnd": false,
         "distance": 483,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10121,7 +10121,7 @@
         "isEnd": false,
         "distance": 482,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10131,7 +10131,7 @@
         "isEnd": false,
         "distance": 481,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10141,7 +10141,7 @@
         "isEnd": false,
         "distance": 480,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10151,7 +10151,7 @@
         "isEnd": false,
         "distance": 479,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10161,7 +10161,7 @@
         "isEnd": false,
         "distance": 478,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10171,7 +10171,7 @@
         "isEnd": false,
         "distance": 477,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10181,7 +10181,7 @@
         "isEnd": false,
         "distance": 476,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10191,7 +10191,7 @@
         "isEnd": false,
         "distance": 475,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10201,7 +10201,7 @@
         "isEnd": false,
         "distance": 474,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10211,7 +10211,7 @@
         "isEnd": false,
         "distance": 473,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10221,7 +10221,7 @@
         "isEnd": false,
         "distance": 472,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10231,7 +10231,7 @@
         "isEnd": false,
         "distance": 471,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10241,7 +10241,7 @@
         "isEnd": false,
         "distance": 470,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       },
       {
@@ -10251,7 +10251,7 @@
         "isEnd": false,
         "distance": 469,
         "isWall": true,
-        "isPermanentWall": false,
+        "isPermanentWall": true,
         "previousNode": null
       }
     ],

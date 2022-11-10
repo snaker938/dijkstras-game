@@ -2,6 +2,11 @@ import { sendError } from './errorHandling';
 import { cloneVariable } from './Visualizer';
 import { getCurrentDisplayOutlineClass } from '../actualLevelHandling';
 import { inSandbox } from '../Navigation';
+import {
+  newLevelUnlocked,
+  numLevelsUnlocked,
+} from '../currentUserDataHandling';
+import { currentLevel } from '../currentLevelHandling';
 
 // let endDistance = getCurrentEndDistance();
 
@@ -16,10 +21,8 @@ export function animateAllNodes(
     if (i === visitedNodesInOrder.length) {
       if (nodesInShortestPathOrder.length === 0) {
         setTimeout(() => {
-          if (!inSandbox)
-            sendError(
-              'NO-PATH'
-            ); // If there is no path, and the user is in the Campaign, animate the "NO-PATH" error message
+          if (!inSandbox) sendError('NO-PATH');
+          // If there is no path, and the user is in the Campaign, animate the "NO-PATH" error message
           else sendError('NO-PATH-SANDBOX'); // If there is no path, and the user is in the Sandbox, animate the "NO-PATH-SANDBOX" error message
           return;
         }, 8 * i); //used to be 8
@@ -36,8 +39,8 @@ export function animateAllNodes(
       document.getElementById(
         `node-${node.row}-${node.col}`
       ).className = `${getCurrentDisplayOutlineClass()} node-visited`;
-      // document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-      //   visitedNodesInOrder[i].distance;
+      document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
+        visitedNodesInOrder[i].distance;
     }, 6 * i); // used to be 6
   }
 }
@@ -85,8 +88,8 @@ export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
         document.getElementById(
           `node-${node.row}-${node.col}`
         ).innerHTML = `&nbsp`; // Set the html content to empty
-        // document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-        //   nodesInShortestPathOrder[i].distance;
+        document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
+          nodesInShortestPathOrder[i].distance;
         if (i === nodesInShortestPathOrder.length - 1) {
           document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
             nodesInShortestPathOrder[i].distance;
@@ -113,8 +116,8 @@ const endTrail = function func(endIndex, nodesInShortestPathOrder, count) {
         // Used [count - 2 - x] for the index as the setTimout reverses the for loop, so instead from starting from endIndex, going to 0, it starts from 0 to endIndex. The count - 2 - x, reverses this reversal, so the nodes are selected from the top down, like it should be.
         const node = nodesInShortestPathOrder[count - 2 - x];
 
-        // document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-        //   count - 1 - x;
+        document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
+          count - 1 - x;
 
         // document.getElementById(
         //   `node-${node.row}-${node.col}`
@@ -123,6 +126,8 @@ const endTrail = function func(endIndex, nodesInShortestPathOrder, count) {
           `node-${node.row}-${node.col}`
         ).className = `${getCurrentDisplayOutlineClass()} node-ended-body`;
         if (x === endIndex - 2) {
+          console.log(currentLevel, numLevelsUnlocked);
+          if (currentLevel === numLevelsUnlocked) newLevelUnlocked();
           document.getElementById('homeButton').classList.add('enabled');
         } // add the removed class. Animation has finished.
       }, 10 * x);

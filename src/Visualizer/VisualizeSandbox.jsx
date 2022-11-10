@@ -23,6 +23,7 @@ import {
   toggleShowingOptionsMenu,
 } from '../optionsHandling.jsx';
 import NodeToggleGrid from './Node/NodeToggleGrid';
+import { allLevelNodeCoords } from '../allLevelData';
 
 // Placeholders for start node coordinates
 let START_NODE_ROW = 0;
@@ -74,78 +75,82 @@ export default class sandboxVisualizer extends Component {
 
   // This function is called when a user presses, and holds, but not releases their mouse button on ANY node.
   dragStart(row, col) {
-    resetAllNodes(this.state.grid);
-    let grid = this.state.grid;
-    let node = grid[row][col];
-    let nodeBeingDragged = null;
-    if (node.isStart || node.isEnd) nodeBeingDragged = node; // this conditional statement is the deciding factor on whether the user is able to drag the node. Aka- it is draggable. A node is only draggable if it is a start or end node
-    if (nodeBeingDragged == null && node.isWall && !node.isPermanentWall)
-      this.dragWallStart(); // if the node is a wall, but not a permanent one, then the dragWall function is called
-    if (!this.state.dragging[0] && nodeBeingDragged) {
-      this.setState({ dragging: [true, node, node] }); // sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occured on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging alltogether. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to create an illusion like the user is actuall dragging the node around.
+    if (document.getElementById('homeButton').classList.contains('enabled')) {
+      resetAllNodes(this.state.grid);
+      let grid = this.state.grid;
+      let node = grid[row][col];
+      let nodeBeingDragged = null;
+      if (node.isStart || node.isEnd) nodeBeingDragged = node; // this conditional statement is the deciding factor on whether the user is able to drag the node. Aka- it is draggable. A node is only draggable if it is a start or end node
+      if (nodeBeingDragged == null && node.isWall && !node.isPermanentWall)
+        this.dragWallStart(); // if the node is a wall, but not a permanent one, then the dragWall function is called
+      if (!this.state.dragging[0] && nodeBeingDragged) {
+        this.setState({ dragging: [true, node, node] }); // sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occured on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging alltogether. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to create an illusion like the user is actuall dragging the node around.
+      }
     }
   }
 
   dragNode(row, col) {
-    // This function only works if the user is dragging a start/end node, and is not trying to drag it onto a start/end node and is not trying to drag it onto a wall if the situtation requires him not to
-    if (this.state.dragging[0]) {
-      let firstGrid = this.state.grid;
-      let nodeBeingDraggedOnto = firstGrid[row][col];
+    if (document.getElementById('homeButton').classList.contains('enabled')) {
+      // This function only works if the user is dragging a start/end node, and is not trying to drag it onto a start/end node and is not trying to drag it onto a wall if the situtation requires him not to
+      if (this.state.dragging[0]) {
+        let firstGrid = this.state.grid;
+        let nodeBeingDraggedOnto = firstGrid[row][col];
 
-      if (!nodeBeingDraggedOnto.isStart && !nodeBeingDraggedOnto.isEnd) {
-        // Stores the previous node so that its class can be removed later to give an illusion that we are dragging the node
-        let previousNode = {
-          ...this.state.dragging[2],
-          isStart: false,
-          isEnd: false,
-        };
-
-        // Finds the row and column of the previous node so we can add the updated previous node (with no classes on it because it is no longer a start or end node) to the grid
-        let previousRow = previousNode.row;
-        let previousCol = previousNode.col;
-        this.setState({
-          dragging: [true, this.state.dragging[1], previousNode],
-        }); // sets the current state of dragging with its current indexs so it can be used later on, with the ammended previous node
-
-        // Finds the type of node that is being dragged- is it a start or end node
-        let typeBeingDragged;
-        if (this.state.dragging[1].isStart) typeBeingDragged = 'start';
-        if (this.state.dragging[1].isEnd) typeBeingDragged = 'end';
-
-        // Store the current state of the grid
-        let grid2 = this.state.grid;
-        let node = grid2[row][col];
-        let newNode = { ...node };
-
-        // Changes the properties of the current node depending on whether it is a start or end node.
-        if (typeBeingDragged === 'start') {
-          newNode = {
-            ...node,
-            isStart: !node.isStart,
+        if (!nodeBeingDraggedOnto.isStart && !nodeBeingDraggedOnto.isEnd) {
+          // Stores the previous node so that its class can be removed later to give an illusion that we are dragging the node
+          let previousNode = {
+            ...this.state.dragging[2],
+            isStart: false,
+            isEnd: false,
           };
-        } else if (typeBeingDragged === 'end') {
-          newNode = {
-            ...node,
-            isEnd: !node.isEnd,
-          };
+
+          // Finds the row and column of the previous node so we can add the updated previous node (with no classes on it because it is no longer a start or end node) to the grid
+          let previousRow = previousNode.row;
+          let previousCol = previousNode.col;
+          this.setState({
+            dragging: [true, this.state.dragging[1], previousNode],
+          }); // sets the current state of dragging with its current indexs so it can be used later on, with the ammended previous node
+
+          // Finds the type of node that is being dragged- is it a start or end node
+          let typeBeingDragged;
+          if (this.state.dragging[1].isStart) typeBeingDragged = 'start';
+          if (this.state.dragging[1].isEnd) typeBeingDragged = 'end';
+
+          // Store the current state of the grid
+          let grid2 = this.state.grid;
+          let node = grid2[row][col];
+          let newNode = { ...node };
+
+          // Changes the properties of the current node depending on whether it is a start or end node.
+          if (typeBeingDragged === 'start') {
+            newNode = {
+              ...node,
+              isStart: !node.isStart,
+            };
+          } else if (typeBeingDragged === 'end') {
+            newNode = {
+              ...node,
+              isEnd: !node.isEnd,
+            };
+          }
+
+          grid2[row][col] = newNode; // sets the position in the grid to the new node with the new properties
+          grid2[previousRow][previousCol] = previousNode; // sets the previous node of the grid to have default properties, ie. it is no longer a start or end node
+          this.setState({ dragging: [true, this.state.dragging[1], newNode] }); // sets the status of dragging with all the new changes
         }
-
-        grid2[row][col] = newNode; // sets the position in the grid to the new node with the new properties
-        grid2[previousRow][previousCol] = previousNode; // sets the previous node of the grid to have default properties, ie. it is no longer a start or end node
-        this.setState({ dragging: [true, this.state.dragging[1], newNode] }); // sets the status of dragging with all the new changes
-      }
-    } else if (this.state.draggingWall[0]) {
-      // These lines of code only run if the user is dragging a wall
-      let grid = this.state.grid;
-      let node = grid[row][col];
-      let newNode = { ...node };
-      if (!node.isStart && !node.isEnd && !node.isPermanentWall) {
-        newNode = {
-          ...node,
-          isWall: !node.isWall, // changes whether a wall becomes empty, or empty becomes a wall
-        };
-        grid[row][col] = newNode;
-        this.setState({ grid });
+      } else if (this.state.draggingWall[0]) {
+        // These lines of code only run if the user is dragging a wall
+        let grid = this.state.grid;
+        let node = grid[row][col];
+        let newNode = { ...node };
+        if (!node.isStart && !node.isEnd && !node.isPermanentWall) {
+          newNode = {
+            ...node,
+            isWall: !node.isWall, // changes whether a wall becomes empty, or empty becomes a wall
+          };
+          grid[row][col] = newNode;
+          this.setState({ grid });
+        }
       }
     }
   }
@@ -225,120 +230,126 @@ export default class sandboxVisualizer extends Component {
 
   // When a node is clicked, unless it is the start or end node, it gets toggled between a wall and not-wall
   toggleWall(row, col, isWall, unWallable, isPermanentWall) {
-    let node = this.state.grid[row][col];
-    let grid = this.state.grid;
-    // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
-    if (!unWallable) {
-      // If it isnt a wall currently, increase the number of active walls by one, else decrease them
-      if (isWall && !isPermanentWall && permanentWallToggled)
-        NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 0;
-      else if (!unWallable && !isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
-      else if (!unWallable && isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE - 1;
+    if (document.getElementById('homeButton').classList.contains('enabled')) {
+      let node = this.state.grid[row][col];
+      let grid = this.state.grid;
+      // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
+      if (!unWallable) {
+        // If it isnt a wall currently, increase the number of active walls by one, else decrease them
+        if (isWall && !isPermanentWall && permanentWallToggled)
+          NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 0;
+        else if (!unWallable && !isWall)
+          NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
+        else if (!unWallable && isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE - 1;
 
-      if (NUM_WALLS_ACTIVE < 0) NUM_WALLS_ACTIVE = 0;
-      if (permanentWallToggled) {
-        // Creates a temporary node with the new property of isWall set to the opposite of its current state. If permanent wall is toggled, then the new node will switch between a permanent and non-permanent wall.
-        const newNode = {
-          ...node,
-          isWall: !isPermanentWall,
-          isPermanentWall: !isPermanentWall,
-        };
-        // Places the new node into the grid
-        grid[row][col] = newNode;
-      } else {
-        const newNode = {
-          ...node,
-          isWall: !isWall,
-          isPermanentWall: false,
-        };
-        // Places the new node into the grid
-        grid[row][col] = newNode;
+        if (NUM_WALLS_ACTIVE < 0) NUM_WALLS_ACTIVE = 0;
+        if (permanentWallToggled) {
+          // Creates a temporary node with the new property of isWall set to the opposite of its current state. If permanent wall is toggled, then the new node will switch between a permanent and non-permanent wall.
+          const newNode = {
+            ...node,
+            isWall: !isPermanentWall,
+            isPermanentWall: !isPermanentWall,
+          };
+          // Places the new node into the grid
+          grid[row][col] = newNode;
+        } else {
+          const newNode = {
+            ...node,
+            isWall: !isWall,
+            isPermanentWall: false,
+          };
+          // Places the new node into the grid
+          grid[row][col] = newNode;
+        }
+        // Changes the overall state of the grid which re-renders it.
+        this.setState({ grid: grid });
       }
-      // Changes the overall state of the grid which re-renders it.
-      this.setState({ grid: grid });
     }
   }
 
   // Animate plane and place random walls on the grid
   startToAnimatePlane() {
-    // This function only runs if the animation is not already playing
-    if (!this.state.animatingPlane) {
-      resetAllNodes(this.state.grid);
-      // Set the animation running to true, which prevents further animations from playing
-      this.setState({ animatingPlane: true });
+    if (document.getElementById('homeButton').classList.contains('enabled')) {
+      // This function only runs if the animation is not already playing
+      if (!this.state.animatingPlane) {
+        resetAllNodes(this.state.grid);
+        // Set the animation running to true, which prevents further animations from playing
+        this.setState({ animatingPlane: true });
 
-      // Changed the display from "none" to "block" so it becomes visible again
-      document.getElementById('plane').style.display = 'block';
+        // Changed the display from "none" to "block" so it becomes visible again
+        document.getElementById('plane').style.display = 'block';
 
-      // Play "plane_sound_effect.mp3" then stop it after 6.3 seconds
-      let audio = new Audio(
-        require(`.././assets/Animated/plane_sound_effect.mp3`).default
-      );
-      audio.play();
-      setTimeout(() => {
-        audio.pause();
-      }, 6300);
+        // Play "plane_sound_effect.mp3" then stop it after 6.3 seconds
+        let audio = new Audio(
+          require(`.././assets/Animated/plane_sound_effect.mp3`).default
+        );
+        audio.play();
+        setTimeout(() => {
+          audio.pause();
+        }, 6300);
 
-      this.setState({ animatingPlane: true });
+        this.setState({ animatingPlane: true });
 
-      // Set the interval of the animation to play every 0.1 seconds. This animation is not the plane moving across the screen, but the animation of the turbines spinning. Animate the turbines of the plane. This is done by changing the source path of the image to each of the 4 animation frames.
-      let x = 1;
-      const animateTubines = setInterval(() => {
-        if (this.state.animatingPlane) {
-          document.getElementById('plane').src =
-            require(`.././assets/Animated/${x}.png`).default;
-          x++;
-          if (4 === x) {
-            x = 1;
+        // Set the interval of the animation to play every 0.1 seconds. This animation is not the plane moving across the screen, but the animation of the turbines spinning. Animate the turbines of the plane. This is done by changing the source path of the image to each of the 4 animation frames.
+        let x = 1;
+        const animateTubines = setInterval(() => {
+          if (this.state.animatingPlane) {
+            document.getElementById('plane').src =
+              require(`.././assets/Animated/${x}.png`).default;
+            x++;
+            if (4 === x) {
+              x = 1;
+            }
+          } else {
+            clearInterval(animateTubines);
           }
-        } else {
-          clearInterval(animateTubines);
+        }, 100);
+
+        // This is the code to move the plane across the screen. The plane starts from outside of the screen and move by a certain number of pixels each loop. At the very end of the animation, set animating plane variable to false, so the animation can be played again. The animation can only be played again a few seconds after the plane has reached the other side
+        for (let i = 1; i < 800; i++) {
+          setTimeout(() => {
+            document.getElementById('plane').style.left = `${-450 + i * 3.4}px`;
+            if (i === 799) this.setState({ animatingPlane: false });
+          }, 10 * i);
         }
-      }, 100);
 
-      // This is the code to move the plane across the screen. The plane starts from outside of the screen and move by a certain number of pixels each loop. At the very end of the animation, set animating plane variable to false, so the animation can be played again. The animation can only be played again a few seconds after the plane has reached the other side
-      for (let i = 1; i < 800; i++) {
-        setTimeout(() => {
-          document.getElementById('plane').style.left = `${-450 + i * 3.4}px`;
-          if (i === 799) this.setState({ animatingPlane: false });
-        }, 10 * i);
+        // This is the code to add random walls onto the grid. The grid is properly re-rendered every 45n i to prevent lag and once again at the end of the iternation
+        for (let i = 0; i < RANDOM_WALL_NUMBER; i++) {
+          setTimeout(() => {
+            let firstColumn =
+              (document.getElementById('plane').getBoundingClientRect().x +
+                520) /
+              27.5;
+
+            // Generates a random row and column number
+            let row = Math.floor(Math.random() * NUM_ROWS);
+            let column = randomIntFromInterval(
+              Math.floor(firstColumn),
+              Math.ceil(firstColumn)
+            );
+
+            let node = this.state.grid[row][column]; // selects the node with the row and column specified above
+            let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
+            let unWallable = isEnd || isStart; // if the node is a start or end node, it cannot be changed
+
+            let grid = this.state.grid;
+            // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
+            if (!unWallable) {
+              const newNode = {
+                ...node,
+                isWall: !isWall,
+              };
+
+              // Places the new node into the grid
+              grid[row][column] = newNode;
+              // Changes the overall state of the grid which re-renders it.
+            }
+            if (i % 45 === 0 || i === RANDOM_WALL_NUMBER - 1)
+              this.setState({ grid: grid });
+          }, i * 10);
+        }
+        NUM_WALLS_ACTIVE = 10;
       }
-
-      // This is the code to add random walls onto the grid. The grid is properly re-rendered every 45n i to prevent lag and once again at the end of the iternation
-      for (let i = 0; i < RANDOM_WALL_NUMBER; i++) {
-        setTimeout(() => {
-          let firstColumn =
-            (document.getElementById('plane').getBoundingClientRect().x + 520) /
-            27.5;
-
-          // Generates a random row and column number
-          let row = Math.floor(Math.random() * NUM_ROWS);
-          let column = randomIntFromInterval(
-            Math.floor(firstColumn),
-            Math.ceil(firstColumn)
-          );
-
-          let node = this.state.grid[row][column]; // selects the node with the row and column specified above
-          let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
-          let unWallable = isEnd || isStart; // if the node is a start or end node, it cannot be changed
-
-          let grid = this.state.grid;
-          // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
-          if (!unWallable) {
-            const newNode = {
-              ...node,
-              isWall: !isWall,
-            };
-
-            // Places the new node into the grid
-            grid[row][column] = newNode;
-            // Changes the overall state of the grid which re-renders it.
-          }
-          if (i % 45 === 0 || i === RANDOM_WALL_NUMBER - 1)
-            this.setState({ grid: grid });
-        }, i * 10);
-      }
-      NUM_WALLS_ACTIVE = 10;
     }
   }
 
@@ -356,12 +367,12 @@ export default class sandboxVisualizer extends Component {
   // This function is purely for testing the grid templates. No animating or anything is done here
   loadTestGrid() {
     this.removeAllWalls(); // removes all existing walls
-    const json = require(`../Visualizer/templates/NO-PATH.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
-    // let level = 2;
-    // START_NODE_ROW = allLevelNodeCoords[level - 1][0][1];
-    // START_NODE_COL = allLevelNodeCoords[level - 1][0][0];
-    // END_NODE_ROW = allLevelNodeCoords[level - 1][1][1];
-    // END_NODE_COL = allLevelNodeCoords[level - 1][1][0];
+    const json = require(`../levels/level1.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
+    let level = 1;
+    START_NODE_ROW = allLevelNodeCoords[level - 1][0][1];
+    START_NODE_COL = allLevelNodeCoords[level - 1][0][0];
+    END_NODE_ROW = allLevelNodeCoords[level - 1][1][1];
+    END_NODE_COL = allLevelNodeCoords[level - 1][1][0];
     let newGrid = json.grid; // this gets the actual grid template
     this.setState({ grid: newGrid }); // sets the current state of the grid to the new grid.
   }

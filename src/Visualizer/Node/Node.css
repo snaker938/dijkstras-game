@@ -31,7 +31,8 @@
 }
 
 .node-permanent-wall {
-  background-color: rgb(38, 115, 148);
+  background-color: rgb(57, 55, 55);
+  /* background-color: rgb(38, 115, 148); */
 }
 
 .node-clickable-toggled {

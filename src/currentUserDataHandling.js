@@ -3,14 +3,20 @@
 // console.log(document.cookie.split(",")[1]);
 // console.log(document.cookie);
 
-let numLevelsUnlocked = 1;
+let numLevelsUnlocked;
+
+export function newLevelUnlocked() {
+  console.log('unlocking level....');
+  numLevelsUnlocked += 1;
+  localStorage.setItem('numLevelsUnlocked', numLevelsUnlocked);
+}
 
 // check if "numLevelsUnlocked" is in localStorage. If not, set it to 1. If it is, get it.
 if (localStorage.getItem('numLevelsUnlocked') === null) {
   localStorage.setItem('numLevelsUnlocked', 1);
+  numLevelsUnlocked = 1;
 } else {
   numLevelsUnlocked = localStorage.getItem('numLevelsUnlocked');
-  numLevelsUnlocked = 7;
 }
 
 // check if "userName" is in localStorage. If not, set it to the input. If it is, get it.
