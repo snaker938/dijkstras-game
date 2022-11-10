@@ -12,6 +12,7 @@ const allLevelIDs = getAllLevelIDs();
 const allLevelRandomWallNumber = getAllLevelRandomWallNumber();
 const allLevelDifficulties = getAllLevelDifficulties();
 const allLevelDescriptions = getAllLevelDescriptions();
+const allLevelEndDistances = getAllLevelEndDistances();
 
 // This function gets the names of every single level and stores it in an array
 function getAllLevelNames() {
@@ -21,6 +22,15 @@ function getAllLevelNames() {
     levelNames.push(level.levelName);
   }
   return levelNames;
+}
+
+function getAllLevelEndDistances() {
+  let levelEndDistances = [];
+  for (let i = 1; i <= numLevels; i++) {
+    let level = require(`./levels/level${i}`);
+    levelEndDistances.push(level.endDistance);
+  }
+  return levelEndDistances;
 }
 
 // This function gets the difficulty of every single level and stores it in an array
@@ -165,6 +175,10 @@ export function getLevelDescription(id) {
   return allLevelDescriptions[id];
 }
 
+export function getLevelEndDistance(id) {
+  return allLevelEndDistances[id];
+}
+
 // Export all the level data as global variables
 export {
   numLevels,
@@ -179,4 +193,5 @@ export {
   allLevelRandomWallNumber,
   allLevelDescriptions,
   allLevelDifficulties,
+  allLevelEndDistances,
 };

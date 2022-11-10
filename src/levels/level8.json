@@ -13,6 +13,7 @@
   "difficulty": "Very Easy",
   "description": "Example description",
   "wallsForThreeStar": 3,
+  "endDistance": 60,
   "grid": [
     [
       {

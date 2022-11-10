@@ -5,6 +5,8 @@ import {
   getDisplayOutlineClass,
   displayOutlineValue,
 } from '../actualLevelHandling';
+import { inSandbox } from '../Navigation';
+import { getCurrentLevelEndDistance } from '../currentLevelHandling';
 
 // This function resets all the nodes to the default class
 export function resetAllNodes(grid) {
@@ -57,11 +59,12 @@ export function startDijkstra(
     allNodes.shift();
     allNodes.shift();
 
-    animateAllNodes(
-      allNodes,
-      shortestNodePathOrder,
-      Number(getActualCurrentEndDistance())
-    );
+    let endDistance;
+
+    if (!inSandbox) endDistance = getCurrentLevelEndDistance();
+    else endDistance = getActualCurrentEndDistance();
+
+    animateAllNodes(allNodes, shortestNodePathOrder, Number(endDistance));
   } else {
     // If there is no path, animate the "NO-PATH" error message, along with the remaining nodes to create a very cool error message.
     animateAllNodes(triedNodes, []);

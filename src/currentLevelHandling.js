@@ -8,6 +8,7 @@ import {
   allLevelNodeCoords,
   allLevelIDs,
   allLevelRandomWallNumber,
+  allLevelEndDistances,
 } from './allLevelData';
 import { cloneVariable } from './Visualizer/Visualizer';
 
@@ -50,6 +51,10 @@ export function getCurrentLevelID() {
   return cloneVariable(allLevelIDs[currentLevel - 1]);
 }
 
+export function getCurrentLevelEndDistance() {
+  return cloneVariable(allLevelEndDistances[currentLevel - 1]);
+}
+
 export function getCurrentLevelRandomWallNumber() {
   return cloneVariable(allLevelRandomWallNumber[currentLevel - 1]);
 }
@@ -65,6 +70,7 @@ export function getAllCurrentLevelData() {
     getCurrentLevelWallsAllowed(),
     getCurrentLevelStars(),
     getCurrentLevelGrid(),
+    getCurrentLevelEndDistance(),
     currentLevel,
   ];
 }

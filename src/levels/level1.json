@@ -7,12 +7,13 @@
   "difficulty": "Very Easy",
   "description": "Seems like there is a problem with our defences. Only every other one is active",
   "startNodeCoords": [0, 0],
-  "endNodeCoords": [48, 22],
+  "endNodeCoords": [50, 25],
   "wallsAllowed": 10,
   "wallsForNoStar": 10,
   "wallsForOneStar": 7,
   "wallsForTwoStar": 5,
   "wallsForThreeStar": 3,
+  "endDistance": 60,
   "grid": [
     [
       {
