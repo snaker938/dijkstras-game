@@ -86,6 +86,7 @@ export default class levelVisualizer extends Component {
       grid: [],
       showOptionsMenu: false,
       showTutorialMenu: false,
+      tutorialPage: 1,
       animatingPlane: false,
     };
     reloadLevelData();
@@ -282,7 +283,27 @@ export default class levelVisualizer extends Component {
     this.setState({ showTutorialMenu: !this.state.showTutorialMenu });
   }
 
+  nextPage() {
+    if (this.state.tutorialPage < 3) {
+      this.setState({ tutorialPage: this.state.tutorialPage + 1 });
+    } else {
+      this.toggleTutorialMenu();
+    }
+  }
+
+  previousPage() {
+    this.setState({ tutorialPage: this.state.tutorialPage - 1 });
+  }
+
   getTutorialMenu() {
+    let tutorialNextPageText = 'Next';
+    if (this.state.tutorialPage === 3) tutorialNextPageText = 'Exit';
+
+    let tutorialPreviousPageText = 'Previous';
+    if (this.state.tutorialPage === 1) tutorialPreviousPageText = '';
+
+    function getCurrentTutorialPage() {}
+
     return (
       <>
         <div
@@ -309,14 +330,25 @@ export default class levelVisualizer extends Component {
           </div>
 
           <div className="levelInfoContainer2">
+            {getCurrentTutorialPage()}
             <button
               style={{ right: '12px', top: '558px' }}
               className="optionsMenuButton"
               onClick={() => {
-                this.toggleTutorialMenu();
+                this.nextPage();
               }}
             >
-              Exit
+              {tutorialNextPageText}
+            </button>
+
+            <button
+              style={{ left: '12px', top: '558px' }}
+              className="optionsMenuButton"
+              onClick={() => {
+                this.previousPage();
+              }}
+            >
+              {tutorialPreviousPageText}
             </button>
           </div>
         </div>
@@ -380,7 +412,7 @@ export default class levelVisualizer extends Component {
                 this.saveOptions();
               }}
             >
-              Save
+              Next
             </button>
           </div>
         </div>
