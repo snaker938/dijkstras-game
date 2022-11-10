@@ -8,7 +8,7 @@
   "endNodeCoords": [50, 20],
   "wallsAllowed": 10,
   "difficulty": "Very Easy",
-  "description": "With our resources low, we are having to make do with what we have",
+  "description": "Our plan to confuse the missile AI has failed, now all we have are some three walled rows to protect us!",
   "wallsForNoStar": 10,
   "wallsForOneStar": 7,
   "wallsForTwoStar": 5,

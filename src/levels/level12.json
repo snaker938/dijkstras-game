@@ -1,6 +1,6 @@
 {
   "levelID": 12,
-  "levelName": "Level 12",
+  "levelName": "The Hunt",
   "randomWallPressesAllowed": 0,
   "randomWallNumber": 400,
   "lives": 3,
@@ -10,7 +10,7 @@
   "wallsForNoStar": 10,
   "wallsForOneStar": 7,
   "difficulty": "Very Easy",
-  "description": "Example description",
+  "description": "With the location of Mr Smith in our hands, we must capture him as quickly as possible! But our enemy has other plans...",
   "wallsForTwoStar": 5,
   "wallsForThreeStar": 3,
   "endDistance": 60,

@@ -5,7 +5,7 @@
   "randomWallNumber": 400,
   "lives": 3,
   "difficulty": "Very Easy",
-  "description": "Seems like there is a problem with our defences. Only every other one is active",
+  "description": "Seems like there is a problem with our defences. Only every other one is active!",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 10,

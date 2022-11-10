@@ -1,6 +1,6 @@
 {
   "levelID": 11,
-  "levelName": "Level 11",
+  "levelName": "Mr Smith",
   "randomWallPressesAllowed": 0,
   "randomWallNumber": 400,
   "lives": 3,
@@ -10,7 +10,7 @@
   "wallsForNoStar": 10,
   "wallsForOneStar": 7,
   "difficulty": "Very Easy",
-  "description": "Example description",
+  "description": "One name has appeared as a result of the records: Mr Smith. While we try to find this elusive figure, you must prevent the enemy from attacking our research centre!",
   "wallsForTwoStar": 5,
   "wallsForThreeStar": 3,
   "endDistance": 60,

@@ -1,6 +1,6 @@
 {
   "levelID": 8,
-  "levelName": "Level 8",
+  "levelName": "Our Turn",
   "randomWallPressesAllowed": 0,
   "randomWallNumber": 400,
   "lives": 3,
@@ -11,7 +11,7 @@
   "wallsForOneStar": 7,
   "wallsForTwoStar": 5,
   "difficulty": "Very Easy",
-  "description": "Example description",
+  "description": "While we attack the enemy, you must make sure that the enemy doesn't launch a surprise attack on us!",
   "wallsForThreeStar": 3,
   "endDistance": 60,
   "grid": [

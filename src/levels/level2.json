@@ -7,7 +7,7 @@
   "startNodeCoords": [25, 13],
   "endNodeCoords": [50, 25],
   "difficulty": "Very Easy",
-  "description": "The enemy is targeting our surveillance system! You must stop them at once - otherwise our eyes and ears will be wiped out!",
+  "description": "The enemy is targetting our surveillance system! You must stop them at once - otherwise our eyes and ears will be wiped out!",
   "wallsAllowed": 10,
   "wallsForNoStar": 10,
   "wallsForOneStar": 7,

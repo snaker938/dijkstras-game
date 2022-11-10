@@ -1,6 +1,6 @@
 {
   "levelID": 7,
-  "levelName": "Our Turn",
+  "levelName": "Communication Catastrophe",
   "randomWallPressesAllowed": 0,
   "randomWallNumber": 400,
   "lives": 3,
@@ -10,7 +10,7 @@
   "wallsForNoStar": 10,
   "wallsForOneStar": 7,
   "wallsForTwoStar": 5,
-  "description": "We ",
+  "description": "We have a GPS location on our enemy, we are sending some agents to check it out - you must make sure the enemy doesn't destroy our communication system!",
   "difficulty": "Very Easy",
   "wallsForThreeStar": 3,
   "endDistance": 60,

@@ -1,6 +1,6 @@
 {
   "levelID": 9,
-  "levelName": "Level 9",
+  "levelName": "New Threat",
   "randomWallPressesAllowed": 0,
   "randomWallNumber": 400,
   "lives": 3,
@@ -10,7 +10,7 @@
   "wallsForNoStar": 10,
   "wallsForOneStar": 7,
   "difficulty": "Very Easy",
-  "description": "Example description",
+  "description": "The enemy are aware of our presence. Something peculiar has been spotted on our radar...",
   "wallsForTwoStar": 5,
   "wallsForThreeStar": 3,
   "endDistance": 60,

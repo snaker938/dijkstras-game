@@ -1,6 +1,6 @@
 {
   "levelID": 14,
-  "levelName": "Level 14",
+  "levelName": "Critical Info",
   "randomWallPressesAllowed": 0,
   "randomWallNumber": 400,
   "lives": 3,
@@ -8,7 +8,7 @@
   "endNodeCoords": [50, 20],
   "wallsAllowed": 10,
   "wallsForNoStar": 10,
-  "description": "Example description",
+  "description": "Mr Smith has revealed his overall plan: destroy London with a nuclear missile. While we figure out the location of the nuke, prevent the enemy from attacking us one last time.",
   "difficulty": "Very Easy",
   "wallsForOneStar": 7,
   "wallsForTwoStar": 5,
