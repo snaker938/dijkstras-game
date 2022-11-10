@@ -370,12 +370,12 @@ export default class sandboxVisualizer extends Component {
   // This function is purely for testing the grid templates. No animating or anything is done here
   loadTestGrid() {
     this.removeAllWalls(); // removes all existing walls
-    const json = require(`../levels/level1.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
-    let level = 1;
-    START_NODE_ROW = allLevelNodeCoords[level - 1][0][1];
-    START_NODE_COL = allLevelNodeCoords[level - 1][0][0];
-    END_NODE_ROW = allLevelNodeCoords[level - 1][1][1];
-    END_NODE_COL = allLevelNodeCoords[level - 1][1][0];
+    const json = require(`../Visualizer/templates/NO-PATH.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
+    // let level = 1;
+    // START_NODE_ROW = allLevelNodeCoords[level - 1][0][1];
+    // START_NODE_COL = allLevelNodeCoords[level - 1][0][0];
+    // END_NODE_ROW = allLevelNodeCoords[level - 1][1][1];
+    // END_NODE_COL = allLevelNodeCoords[level - 1][1][0];
     let newGrid = json.grid; // this gets the actual grid template
     this.setState({ grid: newGrid }); // sets the current state of the grid to the new grid.
   }

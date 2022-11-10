@@ -6,6 +6,7 @@ import './VisualizerLevel.css';
 import './VisualizerSandbox.css';
 import './VisualizerBoth.css';
 import {
+  currentLevel,
   getCurrentLevelGrid,
   getCurrentLevelID,
   getCurrentLevelLives,
@@ -17,8 +18,10 @@ import {
 } from '../currentLevelHandling';
 import {
   displayOutlineValue,
+  getCurrentTutorialStatus,
   randomIntFromInterval,
   setDisplayOutlineValue,
+  toggleHasShownTutorial,
   togglePlaneAnimation,
 } from '../actualLevelHandling';
 import {
@@ -82,6 +85,7 @@ export default class levelVisualizer extends Component {
     this.state = {
       grid: [],
       showOptionsMenu: false,
+      showTutorialMenu: false,
       animatingPlane: false,
     };
     reloadLevelData();
@@ -274,6 +278,53 @@ export default class levelVisualizer extends Component {
     }
   }
 
+  toggleTutorialMenu() {
+    toggleHasShownTutorial();
+    this.setState({ showTutorialMenu: !this.state.showTutorialMenu });
+  }
+
+  getTutorialMenu() {
+    return (
+      <>
+        <div
+          onClick={() => {}}
+          style={{
+            // backgroundColor: 'rgb(187, 211, 223)',
+            position: 'absolute',
+            width: '100%',
+            height: '200vh',
+            background: '#1a1717',
+            opacity: '0.5',
+            backdropFilter: 'blur(100px)',
+            zIndex: '99',
+          }}
+        ></div>
+        <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
+          <div className="levelInfoContainer">
+            <p
+              style={{ left: '143px', opacity: '1' }}
+              className="levelNameToRender"
+            >
+              Tutorial
+            </p>
+          </div>
+
+          <div className="levelInfoContainer2">
+            <button
+              style={{ right: '12px', top: '558px' }}
+              className="optionsMenuButton"
+              onClick={() => {
+                this.toggleTutorialMenu();
+              }}
+            >
+              Exit
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   toggleOptionsMenu() {
     toggleShowingOptionsMenu();
     this.setState({ showOptionsMenu: !this.state.showOptionsMenu });
@@ -358,6 +409,11 @@ export default class levelVisualizer extends Component {
       />
     );
 
+    if (Number(currentLevel) === 1 && !getCurrentTutorialStatus()) {
+      toggleHasShownTutorial();
+      this.setState({ showTutorialMenu: true });
+    }
+
     let numRandomWallButton;
     let numRandomWallText;
 
@@ -402,6 +458,10 @@ export default class levelVisualizer extends Component {
       <>
         {this.state.showOptionsMenu ? this.getOptionsMenu() : null}
         {plane}
+
+        {this.state.showTutorialMenu && Number(currentLevel) === 1
+          ? this.getTutorialMenu()
+          : null}
 
         <div className="topButtonsContainerOutline"> </div>
 
