@@ -127,7 +127,8 @@ const endTrail = function func(endIndex, nodesInShortestPathOrder, count) {
         ).className = `${getCurrentDisplayOutlineClass()} node-ended-body`;
         if (x === endIndex - 2) {
           console.log(currentLevel, numLevelsUnlocked);
-          if (currentLevel === numLevelsUnlocked) newLevelUnlocked();
+          if (Number(currentLevel) === Number(numLevelsUnlocked))
+            newLevelUnlocked();
           document.getElementById('homeButton').classList.add('enabled');
         } // add the removed class. Animation has finished.
       }, 10 * x);
