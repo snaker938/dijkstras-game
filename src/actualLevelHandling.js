@@ -1,11 +1,18 @@
-
 let displayOutlineValue = false;
+
+let isPlaneAnimationShowing = false;
+
+export function togglePlaneAnimation() {
+  isPlaneAnimationShowing = !isPlaneAnimationShowing;
+}
+
+export function getCurrentPlaneAnimation() {
+  return isPlaneAnimationShowing;
+}
 
 export function setDisplayOutlineValue(value) {
   displayOutlineValue = value;
 }
-
-
 
 export function getCurrentDisplayOutlineClass() {
   if (displayOutlineValue) {

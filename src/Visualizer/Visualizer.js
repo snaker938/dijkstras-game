@@ -4,6 +4,7 @@ import { animateAllNodes } from './Animations';
 import {
   getDisplayOutlineClass,
   displayOutlineValue,
+  getCurrentPlaneAnimation,
 } from '../actualLevelHandling';
 import { inSandbox } from '../Navigation';
 import { getCurrentLevelEndDistance } from '../currentLevelHandling';
@@ -40,7 +41,11 @@ export function startDijkstra(
   numRows,
   numCols
 ) {
-  if (document.getElementById('homeButton').classList.contains('enabled')) {
+  console.log(getCurrentPlaneAnimation());
+  if (
+    document.getElementById('homeButton').classList.contains('enabled') &&
+    !getCurrentPlaneAnimation()
+  ) {
     // gets the current state of the grid at the time of the button being pressed
     const current_endNode = currentGrid[endRow][endCol];
     const current_startNode = currentGrid[startRow][startCol]; // gets the start and end nodes

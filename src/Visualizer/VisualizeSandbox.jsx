@@ -14,6 +14,7 @@ import {
   displayOutlineValue,
   randomIntFromInterval,
   setDisplayOutlineValue,
+  togglePlaneAnimation,
 } from '../actualLevelHandling';
 import {
   gridOutlineToggled,
@@ -272,6 +273,7 @@ export default class sandboxVisualizer extends Component {
     if (document.getElementById('homeButton').classList.contains('enabled')) {
       // This function only runs if the animation is not already playing
       if (!this.state.animatingPlane) {
+        togglePlaneAnimation();
         resetAllNodes(this.state.grid);
         // Set the animation running to true, which prevents further animations from playing
         this.setState({ animatingPlane: true });
@@ -309,7 +311,10 @@ export default class sandboxVisualizer extends Component {
         for (let i = 1; i < 800; i++) {
           setTimeout(() => {
             document.getElementById('plane').style.left = `${-450 + i * 3.4}px`;
-            if (i === 799) this.setState({ animatingPlane: false });
+            if (i === 799) {
+              this.setState({ animatingPlane: false });
+              togglePlaneAnimation();
+            }
           }, 10 * i);
         }
 
