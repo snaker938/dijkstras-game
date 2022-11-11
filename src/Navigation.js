@@ -5,6 +5,10 @@ import ReactDOM from 'react-dom';
 import CampaignScreen from './HomeScreen/CampaignScreen/campaignScreen';
 import VisualizeLevel from './Visualizer/VisualizeLevel';
 import VisualizeSandbox from './Visualizer/VisualizeSandbox';
+import {
+  setCurrentDialogueLineNumber,
+  setHasShownDialogueMenu,
+} from './dialogueManager';
 
 let inSandbox = false;
 
@@ -47,6 +51,8 @@ function EnterHome(animatingPlane) {
   const button = document.getElementById('homeButton');
   const classes = button.classList;
   if (classes.contains('enabled') && !animatingPlane) {
+    setHasShownDialogueMenu(false);
+    setCurrentDialogueLineNumber(0);
     ReactDOM.render(
       <React.StrictMode>
         <div className="App">
