@@ -299,10 +299,57 @@ export default class levelVisualizer extends Component {
     let tutorialNextPageText = 'Next';
     if (this.state.tutorialPage === 3) tutorialNextPageText = 'Exit';
 
-    let tutorialPreviousPageText = 'Previous';
+    let tutorialPreviousPageText = 'Back';
     if (this.state.tutorialPage === 1) tutorialPreviousPageText = '';
 
-    function getCurrentTutorialPage() {}
+    function getCurrentTutorialPageText(pageNum) {
+      if (pageNum === 1) {
+        return (
+          <p className="tutorialText">
+            Welcome to Dijkstra's Game! This is a game where you can learn about
+            Dijkstra's Algorithm. Dijkstra's Algorithm is a pathfinding
+            algorithm that finds the shortest path between two nodes. In this
+            game, you will be able to see how the algorithm works and how it
+            finds the shortest path between two nodes. You will also be able to
+            see how the algorithm works in real time. This tutorial will teach
+            you how to play the game.
+          </p>
+        );
+      } else if (pageNum === 2) {
+        return (
+          <p className="tutorialText">
+            The grid is where the algorithm will run. It is made up of square
+            nodes. The nodes can be walls, permanent walls, start nodes, end
+            nodes, or empty nodes. The walls are the black squares and the
+            permanent walls are a bit lighter. The start nodes are the green
+            squares. The end nodes are the red squares. The empty nodes are the
+            grey-ish squares. The empty and wall nodes are the only nodes that
+            can be changed.
+            <br></br>
+            <br></br>
+            On the top of the screen, you will find the Home, Settings and Run
+            buttons. The Run button will run the Dijkstra algorithm, starting
+            from the start node.
+          </p>
+        );
+      } else if (pageNum === 3) {
+        return (
+          <p className="tutorialText">
+            The aim of the game is simple, make the "missile" self-destruct by
+            making it take the longest path you can think off. The "missile"
+            will self-destruct after a given distance. If the missile reaches
+            the end node, you will lose the level. You can stop this by placing
+            walls in the path of the missile, but be careful, do not fully block
+            the missile path because then the enemy who sent the missile will
+            know that we can view the missile's path, and change their software.
+            You will only have a limited amount of walls to place, so use them
+            wisely, and some walls are permanent, and cannot be removed.
+            Powerups, such as the Random Wall Powerup, can aid you in your
+            mission.
+          </p>
+        );
+      }
+    }
 
     return (
       <>
@@ -329,8 +376,21 @@ export default class levelVisualizer extends Component {
             </p>
           </div>
 
-          <div className="levelInfoContainer2">
-            {getCurrentTutorialPage()}
+          <div
+            className="levelInfoContainer2"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <div
+              className="tutorialContainer"
+              style={{ top: '25px', left: '20px' }}
+            >
+              <span>{getCurrentTutorialPageText(this.state.tutorialPage)}</span>
+            </div>
+
             <button
               style={{ right: '12px', top: '558px' }}
               className="optionsMenuButton"
@@ -412,7 +472,7 @@ export default class levelVisualizer extends Component {
                 this.saveOptions();
               }}
             >
-              Next
+              Save
             </button>
           </div>
         </div>
@@ -441,7 +501,6 @@ export default class levelVisualizer extends Component {
     );
 
     if (Number(currentLevel) === 1 && !getCurrentTutorialStatus()) {
-      console.log('Attempting to show tutorial...');
       this.toggleTutorialMenu();
       toggleHasShownTutorial();
     }
