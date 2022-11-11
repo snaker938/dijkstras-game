@@ -30,6 +30,7 @@ import {
   toggleShowingOptionsMenu,
 } from '../optionsHandling.js';
 import NodeToggleGrid from './Node/NodeToggleGrid';
+import { getCurrentLevelDialogue } from '../dialogueManager';
 
 // // Placeholders for start node coordinates. It gets the current level data
 let START_NODE_ROW;
@@ -88,6 +89,7 @@ export default class levelVisualizer extends Component {
       showTutorialMenu: false,
       tutorialPage: 1,
       animatingPlane: false,
+      showDialogueMenu: false,
     };
     reloadLevelData();
     NUM_WALLS_ACTIVE = 0;
@@ -310,8 +312,7 @@ export default class levelVisualizer extends Component {
             Dijkstra's Algorithm. Dijkstra's Algorithm is a pathfinding
             algorithm that finds the shortest path between two nodes. In this
             game, you will be able to see how the algorithm works and how it
-            finds the shortest path between two nodes. You will also be able to
-            see how the algorithm works in real time. This tutorial will teach
+            finds the shortest path between two nodes. This tutorial will teach
             you how to play the game.
           </p>
         );
@@ -328,21 +329,22 @@ export default class levelVisualizer extends Component {
             <br></br>
             <br></br>
             On the top of the screen, you will find the Home, Settings and Run
-            buttons. The Run button will run the Dijkstra algorithm, starting
-            from the start node.
+            buttons. You may also find powerup buttons, if they are available to
+            you. The Run button will run the Dijkstra algorithm, starting from
+            the start node.
           </p>
         );
       } else if (pageNum === 3) {
         return (
           <p className="tutorialText">
             The aim of the game is simple, make the "missile" self-destruct by
-            making it take the longest path you can think off. The "missile"
-            will self-destruct after a given distance. If the missile reaches
-            the end node, you will lose the level. You can stop this by placing
-            walls in the path of the missile, but be careful, do not fully block
-            the missile path because then the enemy who sent the missile will
-            know that we can view the missile's path, and change their software.
-            You will only have a limited amount of walls to place, so use them
+            making it take the longest path you can. The "missile" will
+            self-destruct after a given distance. If the missile reaches the end
+            node, you will lose the level. You can stop this by placing walls in
+            the path of the missile, but be careful, do not fully block the
+            missile path because then the enemy who sent the missile will know
+            that we can view the missile's path, and change their software. You
+            will only have a limited amount of walls to place, so use them
             wisely, and some walls are permanent, and cannot be removed.
             Powerups, such as the Random Wall Powerup, can aid you in your
             mission.
@@ -464,6 +466,12 @@ export default class levelVisualizer extends Component {
                 ></NodeToggleGrid>
               </div>
             </div>
+            <button
+              className="standard-button-options loadGridButton"
+              onClick={() => getCurrentLevelDialogue()} // loads current grid
+            >
+              Next Dialogue
+            </button>
 
             <button
               style={{ right: '12px', top: '558px' }}
