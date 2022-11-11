@@ -313,10 +313,13 @@ export default class levelVisualizer extends Component {
     );
   }
 
-  getDialogueMenu(shouldChange) {
+  getDialogueMenu(shouldChange, exit) {
+    if (exit) toggleDialogueMenu();
     let dialogueNextPageText = 'Next';
-    if (this.state.dialogueLineNumber === currentDialogueLineNumberEnd)
+    if (this.state.dialogueLineNumber === currentDialogueLineNumberEnd - 1) {
       dialogueNextPageText = 'Exit';
+      exit = true;
+    }
 
     return (
       <>
@@ -364,7 +367,7 @@ export default class levelVisualizer extends Component {
               style={{ right: '12px', top: '558px' }}
               className="optionsMenuButton"
               onClick={() => {
-                this.getDialogueMenu(true);
+                this.getDialogueMenu(true, exit);
               }}
             >
               {dialogueNextPageText}
@@ -665,7 +668,9 @@ export default class levelVisualizer extends Component {
           ? this.getTutorialMenu()
           : null}
 
-        {this.state.showDialogueMenu ? this.getDialogueMenu(false) : null}
+        {this.state.showDialogueMenu
+          ? this.getDialogueMenu(false, false)
+          : null}
 
         <div className="topButtonsContainerOutline"> </div>
 
