@@ -314,7 +314,10 @@ export default class levelVisualizer extends Component {
   }
 
   getDialogueMenu(shouldChange, exit) {
-    if (exit) toggleDialogueMenu();
+    if (exit) {
+      toggleDialogueMenu();
+      this.toggleDialogueMenu();
+    }
     let dialogueNextPageText = 'Next';
     if (this.state.dialogueLineNumber === currentDialogueLineNumberEnd - 1) {
       dialogueNextPageText = 'Exit';
