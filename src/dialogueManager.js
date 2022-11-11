@@ -1,10 +1,16 @@
+import { getCurrentUserName } from './currentUserDataHandling';
+
 const { numLevels } = require('./allLevelData');
 const { currentLevel } = require('./currentLevelHandling');
 
-const agentTwo = 'Jenkins';
+const agentTwo = 'Agent Jenkins';
 const dialogueArry = getAllLevelDialogue();
 
 let currentDialogueLineNumber = 0;
+
+export function setCurrentDialogueLineNumber(num) {
+  currentDialogueLineNumber = num;
+}
 
 function getAllLevelDialogue() {
   let levelDialogues = [];
@@ -22,10 +28,28 @@ function getCurrentLevelAllDialogue() {
   return currentLevelAllDialogue;
 }
 
+function parseCurrentDialogue(thingToParse) {
+  let speaker = thingToParse[0];
+  let dialogue = thingToParse[1];
+
+  if (speaker === 1) speaker = `Agent ${getCurrentUserName()}`;
+  else if (speaker === 2) speaker = agentTwo;
+  else if (speaker === null) speaker = '';
+  else {
+    setCurrentDialogueLineNumber(0);
+    getCurrentLevelDialogue();
+    return;
+  }
+
+  if (dialogue.includes('{userName}'))
+    dialogue = dialogue.replace('{userName}', getCurrentUserName());
+  currentDialogueLineNumber = currentDialogueLineNumber + 1;
+  console.log(speaker, dialogue);
+}
+
 export function getCurrentLevelDialogue() {
   let currentLevelAllDialogue = getCurrentLevelAllDialogue();
-  console.log(currentLevelAllDialogue[currentDialogueLineNumber]);
-  currentDialogueLineNumber = currentDialogueLineNumber + 1;
+  parseCurrentDialogue(currentLevelAllDialogue[currentDialogueLineNumber]);
 
   return;
 }

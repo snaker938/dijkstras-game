@@ -6,6 +6,7 @@
     [2, "There seems to be a bit of a problem with our security features."],
     [1, "What? What is wrong with them?"],
     [2, "Well, it seems like every other one is active?"],
-    [1, "I'll be there right away."]
+    [1, "I'll be there right away."],
+    [0, ""]
   ]
 }
