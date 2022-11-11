@@ -12,8 +12,8 @@ export function newLevelUnlocked() {
 
 // check if "numLevelsUnlocked" is in localStorage. If not, set it to 1. If it is, get it.
 if (localStorage.getItem('numLevelsUnlocked') === null) {
-  localStorage.setItem('numLevelsUnlocked', 1);
-  numLevelsUnlocked = 1;
+  localStorage.setItem('numLevelsUnlocked', 2);
+  numLevelsUnlocked = 2;
 } else {
   numLevelsUnlocked = Number(localStorage.getItem('numLevelsUnlocked'));
 }

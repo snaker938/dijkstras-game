@@ -16,6 +16,18 @@ export function setCurrentDialogueLineNumber(num) {
   currentDialogueLineNumber = num;
 }
 
+export function toggleDialogueMenu() {
+  hasShownDialogueMenu = !hasShownDialogueMenu;
+}
+
+export function setHasShownDialogueMenu(value) {
+  hasShownDialogueMenu = value;
+}
+
+export function getCurrentDialogueStatus() {
+  return hasShownDialogueMenu;
+}
+
 export function getCurrentDialogueLineNumerEnd() {
   let currentLevelAllDialogue = getCurrentLevelAllDialogue();
   let index = 0;
@@ -43,7 +55,7 @@ function getCurrentLevelAllDialogue() {
   return currentLevelAllDialogue;
 }
 
-function parseCurrentDialogue(thingToParse, shouldChange) {
+function parseCurrentDialogue(thingToParse) {
   let speaker = thingToParse[0];
   let dialogue = thingToParse[1];
 
@@ -52,8 +64,7 @@ function parseCurrentDialogue(thingToParse, shouldChange) {
   else if (speaker === null) speaker = '';
   else {
     setCurrentDialogueLineNumber(0);
-    getCurrentLevelDialogue();
-    return;
+    return false;
   }
 
   if (dialogue.includes('{userName}'))
@@ -62,33 +73,28 @@ function parseCurrentDialogue(thingToParse, shouldChange) {
   return [speaker, dialogue];
 }
 
-export function getCurrentLevelDialogue(shouldChange) {
+export function getCurrentLevelDialogue() {
   let currentLevelAllDialogue = getCurrentLevelAllDialogue();
 
-  if (shouldChange) {
-    currentDialogueLineNumber = currentDialogueLineNumber + 1;
+  let parsedDialogue = [];
+  for (let dialogue of currentLevelAllDialogue) {
+    parsedDialogue.push(parseCurrentDialogue(dialogue));
   }
 
-  let results = parseCurrentDialogue(
-    currentLevelAllDialogue[currentDialogueLineNumber],
-    shouldChange
-  );
+  // console.log(parsedDialogue);
+  return parsedDialogue;
+
+  // if (shouldChange) {
+  //   currentDialogueLineNumber = currentDialogueLineNumber + 1;
+  // }
+
+  // let results = parseCurrentDialogue(
+  //   currentLevelAllDialogue[currentDialogueLineNumber],
+  //   shouldChange
+  // );
 
   // console.log(currentDialogueLineNumber, results);
-
-  return results;
-}
-
-export function toggleDialogueMenu() {
-  hasShownDialogueMenu = !hasShownDialogueMenu;
-}
-
-export function setHasShownDialogueMenu(value) {
-  hasShownDialogueMenu = value;
-}
-
-export function getCurrentDialogueStatus() {
-  return hasShownDialogueMenu;
+  // return results;
 }
 
 export { agentTwo, hasShownDialogueMenu, currentDialogueLineNumberEnd };

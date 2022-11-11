@@ -303,22 +303,6 @@ export default class levelVisualizer extends Component {
     setHasShownDialogueMenu(true);
   }
 
-  displayNextDialogueLine(shouldChange) {
-    if (shouldChange)
-      this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 1 });
-    let results = getCurrentLevelDialogue(shouldChange);
-    // console.log(results);
-    if (results[0] === '') {
-      return <p className="tutorialText">{results[1]}</p>;
-    }
-
-    return (
-      <p className="tutorialText">
-        {results[0]}: {results[1]}
-      </p>
-    );
-  }
-
   getDialogueNextButton(dialogueLineNumber) {
     let dialogueNextPageText = 'Next';
     if (dialogueLineNumber === currentDialogueLineNumberEnd - 1) {
@@ -350,15 +334,51 @@ export default class levelVisualizer extends Component {
     }
   }
 
+  getDialogueBlocks(currentDialogueLineNumber) {
+    let dialogueBlocks = [];
+    for (let i = 0; i < currentDialogueLineNumberEnd; i++) {
+      let dialogue;
+      if (!getCurrentLevelDialogue()[i][0]) {
+        dialogue = (
+          <p className="dialogueBlockTextOther">
+            {getCurrentLevelDialogue()[i][1]}
+          </p>
+        );
+      } else {
+        dialogue = (
+          <p className="dialogueBlockText">
+            {getCurrentLevelDialogue()[i][0]}: {getCurrentLevelDialogue()[i][1]}
+          </p>
+        );
+      }
+
+      dialogueBlocks.push(
+        <div
+          key={i}
+          className="dialogueBlock"
+          style={{
+            display: i <= currentDialogueLineNumber ? 'flex' : 'none',
+          }}
+        >
+          {dialogue}
+        </div>
+      );
+    }
+    return dialogueBlocks;
+  }
+
   getDialogueMenu(shouldChange) {
-    // if (exit) {
-    //   toggleDialogueMenu();
-    //   this.toggleDialogueMenu();
-    // }
+    if (shouldChange) {
+      this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 1 });
+    }
 
     let dialogueNextButton = this.getDialogueNextButton(
       this.state.dialogueLineNumber
     );
+
+    // let allDialogue = getCurrentLevelDialogue();
+
+    let dialogueBlocks = this.getDialogueBlocks(this.state.dialogueLineNumber);
 
     return (
       <>
@@ -385,22 +405,14 @@ export default class levelVisualizer extends Component {
             </p>
           </div>
 
-          <div
-            className="levelInfoContainer2"
-            style={
-              {
-                // display: 'flex',
-                // justifyContent: 'center',
-                // alignItems: 'center',
-              }
-            }
-          >
-            <div
+          <div className="levelInfoContainer2">
+            {dialogueBlocks}
+            {/* <div
               className="tutorialContainer"
               style={{ top: '25px', left: '20px' }}
             >
-              <span>{this.displayNextDialogueLine(shouldChange)}</span>
-            </div>
+              <span></span>
+            </div> */}
 
             {dialogueNextButton}
           </div>
