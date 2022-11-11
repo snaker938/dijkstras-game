@@ -105,7 +105,11 @@ export default class levelVisualizer extends Component {
 
   // If the Escape button is pressed, run the Show Options function
   handleKeyPress = (event) => {
-    if (event.key === 'Escape') {
+    if (
+      event.key === 'Escape' &&
+      !this.state.showTutorialMenu &&
+      !this.state.showDialogueMenu
+    ) {
       if (!this.state.showOptionsMenu) this.toggleOptionsMenu();
     }
   };
