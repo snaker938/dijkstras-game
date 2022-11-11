@@ -297,6 +297,11 @@ export default class levelVisualizer extends Component {
     this.setState({ showDialogueMenu: !this.state.showDialogueMenu });
   }
 
+  closeDialogueMenu() {
+    this.toggleDialogueMenu();
+    toggleDialogueMenu();
+  }
+
   displayNextDialogueLine(shouldChange) {
     if (shouldChange)
       this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 1 });
@@ -313,16 +318,46 @@ export default class levelVisualizer extends Component {
     );
   }
 
-  getDialogueMenu(shouldChange, exit) {
-    if (exit) {
-      toggleDialogueMenu();
-      this.toggleDialogueMenu();
-    }
+  getDialogueNextButton(dialogueLineNumber) {
     let dialogueNextPageText = 'Next';
-    if (this.state.dialogueLineNumber === currentDialogueLineNumberEnd - 1) {
+    if (dialogueLineNumber === currentDialogueLineNumberEnd - 1) {
       dialogueNextPageText = 'Exit';
-      exit = true;
+
+      return (
+        <button
+          style={{ right: '12px', top: '558px' }}
+          className="optionsMenuButton"
+          onClick={() => {
+            this.closeDialogueMenu();
+          }}
+        >
+          {dialogueNextPageText}
+        </button>
+      );
+    } else {
+      return (
+        <button
+          style={{ right: '12px', top: '558px' }}
+          className="optionsMenuButton"
+          onClick={() => {
+            this.getDialogueMenu(true);
+          }}
+        >
+          {dialogueNextPageText}
+        </button>
+      );
     }
+  }
+
+  getDialogueMenu(shouldChange) {
+    // if (exit) {
+    //   toggleDialogueMenu();
+    //   this.toggleDialogueMenu();
+    // }
+
+    let dialogueNextButton = this.getDialogueNextButton(
+      this.state.dialogueLineNumber
+    );
 
     return (
       <>
@@ -366,15 +401,7 @@ export default class levelVisualizer extends Component {
               <span>{this.displayNextDialogueLine(shouldChange)}</span>
             </div>
 
-            <button
-              style={{ right: '12px', top: '558px' }}
-              className="optionsMenuButton"
-              onClick={() => {
-                this.getDialogueMenu(true, exit);
-              }}
-            >
-              {dialogueNextPageText}
-            </button>
+            {dialogueNextButton}
           </div>
         </div>
       </>
@@ -671,9 +698,7 @@ export default class levelVisualizer extends Component {
           ? this.getTutorialMenu()
           : null}
 
-        {this.state.showDialogueMenu
-          ? this.getDialogueMenu(false, false)
-          : null}
+        {this.state.showDialogueMenu ? this.getDialogueMenu(false) : null}
 
         <div className="topButtonsContainerOutline"> </div>
 
