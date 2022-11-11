@@ -19,9 +19,11 @@ import {
 import {
   displayOutlineValue,
   getCurrentTutorialStatus,
+  getHasTutorialEnded,
   randomIntFromInterval,
   setDisplayOutlineValue,
   toggleHasShownTutorial,
+  toggleHasTutorialEnded,
   togglePlaneAnimation,
 } from '../actualLevelHandling';
 import {
@@ -30,7 +32,12 @@ import {
   toggleShowingOptionsMenu,
 } from '../optionsHandling.js';
 import NodeToggleGrid from './Node/NodeToggleGrid';
-import { getCurrentLevelDialogue } from '../dialogueManager';
+import {
+  currentDialogueLineNumberEnd,
+  getCurrentDialogueStatus,
+  getCurrentLevelDialogue,
+  toggleDialogueMenu,
+} from '../dialogueManager';
 
 // // Placeholders for start node coordinates. It gets the current level data
 let START_NODE_ROW;
@@ -90,6 +97,7 @@ export default class levelVisualizer extends Component {
       tutorialPage: 1,
       animatingPlane: false,
       showDialogueMenu: false,
+      dialogueLineNumber: 0,
     };
     reloadLevelData();
     NUM_WALLS_ACTIVE = 0;
@@ -281,14 +289,82 @@ export default class levelVisualizer extends Component {
     }
   }
 
+  toggleDialogueMenu() {
+    console.log('Toggling dialogue menu...');
+    this.setState({ showDialogueMenu: !this.state.showDialogueMenu });
+  }
+
+  getDialogueMenu() {
+    console.log('Trying to show dialogue menu...');
+    let dialogueNextPageText = 'Next';
+    if (this.state.dialogueLineNumber === currentDialogueLineNumberEnd)
+      dialogueNextPageText = 'Exit';
+
+    return (
+      <>
+        <div
+          onClick={() => {}}
+          style={{
+            // backgroundColor: 'rgb(187, 211, 223)',
+            position: 'absolute',
+            width: '100%',
+            height: '200vh',
+            background: '#1a1717',
+            opacity: '0.5',
+            backdropFilter: 'blur(100px)',
+            zIndex: '99',
+          }}
+        ></div>
+        <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
+          <div className="levelInfoContainer">
+            <p
+              style={{ left: '143px', opacity: '1' }}
+              className="levelNameToRender"
+            >
+              {LEVEL_NAME}
+            </p>
+          </div>
+
+          <div
+            className="levelInfoContainer2"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <div
+              className="tutorialContainer"
+              style={{ top: '25px', left: '20px' }}
+            >
+              <span>TEST</span>
+            </div>
+
+            <button
+              style={{ right: '12px', top: '558px' }}
+              className="optionsMenuButton"
+              onClick={() => {
+                this.nextDialogueLine();
+              }}
+            >
+              {dialogueNextPageText}
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   toggleTutorialMenu() {
     this.setState({ showTutorialMenu: !this.state.showTutorialMenu });
+    return;
   }
 
   nextPage() {
     if (this.state.tutorialPage < 3) {
       this.setState({ tutorialPage: this.state.tutorialPage + 1 });
     } else {
+      toggleHasTutorialEnded();
       this.toggleTutorialMenu();
     }
   }
@@ -513,6 +589,19 @@ export default class levelVisualizer extends Component {
       toggleHasShownTutorial();
     }
 
+    // console.log(
+    //   getCurrentDialogueStatus(),
+    //   getCurrentTutorialStatus(),
+    //   this.state.showDialogueMenu,
+    //   this.state.showTutorialMenu,
+    //   getHasTutorialEnded()
+    // );
+
+    if (!getCurrentDialogueStatus() && getHasTutorialEnded()) {
+      this.toggleDialogueMenu();
+      toggleDialogueMenu();
+    }
+
     let numRandomWallButton;
     let numRandomWallText;
 
@@ -561,6 +650,8 @@ export default class levelVisualizer extends Component {
         {this.state.showTutorialMenu && Number(currentLevel) === 1
           ? this.getTutorialMenu()
           : null}
+
+        {this.state.showDialogueMenu ? this.getDialogueMenu() : null}
 
         <div className="topButtonsContainerOutline"> </div>
 

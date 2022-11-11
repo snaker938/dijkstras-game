@@ -6,10 +6,25 @@ const { currentLevel } = require('./currentLevelHandling');
 const agentTwo = 'Agent Jenkins';
 const dialogueArry = getAllLevelDialogue();
 
+let hasShownDialogueMenu = false;
+
 let currentDialogueLineNumber = 0;
+
+let currentDialogueLineNumberEnd = getCurrentDialogueLineNumerEnd();
 
 export function setCurrentDialogueLineNumber(num) {
   currentDialogueLineNumber = num;
+}
+
+export function getCurrentDialogueLineNumerEnd() {
+  let currentLevelAllDialogue = getCurrentLevelAllDialogue();
+  let index = 0;
+  for (let element of currentLevelAllDialogue) {
+    if (element[0] === 0) {
+      return index;
+    }
+    index++;
+  }
 }
 
 function getAllLevelDialogue() {
@@ -54,4 +69,12 @@ export function getCurrentLevelDialogue() {
   return;
 }
 
-export { agentTwo };
+export function toggleDialogueMenu() {
+  hasShownDialogueMenu = !hasShownDialogueMenu;
+}
+
+export function getCurrentDialogueStatus() {
+  return hasShownDialogueMenu;
+}
+
+export { agentTwo, hasShownDialogueMenu, currentDialogueLineNumberEnd };
