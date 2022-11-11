@@ -83,6 +83,10 @@ export function toggleDialogueMenu() {
   hasShownDialogueMenu = !hasShownDialogueMenu;
 }
 
+export function setHasShownDialogueMenu(value) {
+  hasShownDialogueMenu = value;
+}
+
 export function getCurrentDialogueStatus() {
   return hasShownDialogueMenu;
 }

@@ -36,6 +36,7 @@ import {
   currentDialogueLineNumberEnd,
   getCurrentDialogueStatus,
   getCurrentLevelDialogue,
+  setHasShownDialogueMenu,
   toggleDialogueMenu,
 } from '../dialogueManager';
 
@@ -298,8 +299,8 @@ export default class levelVisualizer extends Component {
   }
 
   closeDialogueMenu() {
-    this.toggleDialogueMenu();
-    toggleDialogueMenu();
+    this.setState({ showDialogueMenu: false });
+    setHasShownDialogueMenu(true);
   }
 
   displayNextDialogueLine(shouldChange) {
