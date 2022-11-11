@@ -59,13 +59,16 @@ function parseCurrentDialogue(thingToParse, shouldChange) {
   if (dialogue.includes('{userName}'))
     dialogue = dialogue.replace('{userName}', getCurrentUserName());
 
-  if (shouldChange) currentDialogueLineNumber = currentDialogueLineNumber + 1;
-
   return [speaker, dialogue];
 }
 
 export function getCurrentLevelDialogue(shouldChange) {
   let currentLevelAllDialogue = getCurrentLevelAllDialogue();
+
+  if (shouldChange) {
+    currentDialogueLineNumber = currentDialogueLineNumber + 1;
+  }
+
   let results = parseCurrentDialogue(
     currentLevelAllDialogue[currentDialogueLineNumber],
     shouldChange

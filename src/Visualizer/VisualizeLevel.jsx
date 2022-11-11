@@ -295,6 +295,7 @@ export default class levelVisualizer extends Component {
 
   displayNextDialogueLine(shouldChange) {
     let results = getCurrentLevelDialogue(shouldChange);
+    console.log(results, shouldChange);
     // console.log(results);
     if (!results[0]) {
       return <p className="tutorialText">{results[1]}</p>;
