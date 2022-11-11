@@ -294,10 +294,11 @@ export default class levelVisualizer extends Component {
   }
 
   displayNextDialogueLine(shouldChange) {
+    if (shouldChange)
+      this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 1 });
     let results = getCurrentLevelDialogue(shouldChange);
-    console.log(results, shouldChange);
     // console.log(results);
-    if (!results[0]) {
+    if (results[0] === '') {
       return <p className="tutorialText">{results[1]}</p>;
     }
 
@@ -309,7 +310,6 @@ export default class levelVisualizer extends Component {
   }
 
   getDialogueMenu(shouldChange) {
-    console.log('Getting dialogue menu...');
     let dialogueNextPageText = 'Next';
     if (this.state.dialogueLineNumber === currentDialogueLineNumberEnd)
       dialogueNextPageText = 'Exit';

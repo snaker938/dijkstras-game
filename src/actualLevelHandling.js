@@ -8,7 +8,7 @@ let hasTutorialEnded = false;
 
 export function toggleHasTutorialEnded() {
   hasTutorialEnded = !hasTutorialEnded;
-  console.log('Tutorial Ended: ', hasTutorialEnded);
+  // console.log('Tutorial Ended: ', hasTutorialEnded);
 }
 
 export function getHasTutorialEnded() {
