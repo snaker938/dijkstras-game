@@ -290,12 +290,10 @@ export default class levelVisualizer extends Component {
   }
 
   toggleDialogueMenu() {
-    console.log('Toggling dialogue menu...');
     this.setState({ showDialogueMenu: !this.state.showDialogueMenu });
   }
 
   getDialogueMenu() {
-    console.log('Trying to show dialogue menu...');
     let dialogueNextPageText = 'Next';
     if (this.state.dialogueLineNumber === currentDialogueLineNumberEnd)
       dialogueNextPageText = 'Exit';
@@ -589,13 +587,7 @@ export default class levelVisualizer extends Component {
       toggleHasShownTutorial();
     }
 
-    // console.log(
-    //   getCurrentDialogueStatus(),
-    //   getCurrentTutorialStatus(),
-    //   this.state.showDialogueMenu,
-    //   this.state.showTutorialMenu,
-    //   getHasTutorialEnded()
-    // );
+    if (LEVEL_ID > 1) toggleHasTutorialEnded();
 
     if (!getCurrentDialogueStatus() && getHasTutorialEnded()) {
       this.toggleDialogueMenu();
