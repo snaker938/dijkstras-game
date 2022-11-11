@@ -43,7 +43,7 @@ function getCurrentLevelAllDialogue() {
   return currentLevelAllDialogue;
 }
 
-function parseCurrentDialogue(thingToParse) {
+function parseCurrentDialogue(thingToParse, shouldChange) {
   let speaker = thingToParse[0];
   let dialogue = thingToParse[1];
 
@@ -59,13 +59,16 @@ function parseCurrentDialogue(thingToParse) {
   if (dialogue.includes('{userName}'))
     dialogue = dialogue.replace('{userName}', getCurrentUserName());
 
+  if (shouldChange) currentDialogueLineNumber = currentDialogueLineNumber + 1;
+
   return [speaker, dialogue];
 }
 
-export function getCurrentLevelDialogue() {
+export function getCurrentLevelDialogue(shouldChange) {
   let currentLevelAllDialogue = getCurrentLevelAllDialogue();
   let results = parseCurrentDialogue(
-    currentLevelAllDialogue[currentDialogueLineNumber]
+    currentLevelAllDialogue[currentDialogueLineNumber],
+    shouldChange
   );
 
   // console.log(currentDialogueLineNumber, results);

@@ -293,9 +293,9 @@ export default class levelVisualizer extends Component {
     this.setState({ showDialogueMenu: !this.state.showDialogueMenu });
   }
 
-  displayNextDialogueLine() {
-    let results = getCurrentLevelDialogue();
-    console.log(results);
+  displayNextDialogueLine(shouldChange) {
+    let results = getCurrentLevelDialogue(shouldChange);
+    // console.log(results);
     if (!results[0]) {
       return <p className="tutorialText">{results[1]}</p>;
     }
@@ -307,7 +307,7 @@ export default class levelVisualizer extends Component {
     );
   }
 
-  getDialogueMenu() {
+  getDialogueMenu(shouldChange) {
     console.log('Getting dialogue menu...');
     let dialogueNextPageText = 'Next';
     if (this.state.dialogueLineNumber === currentDialogueLineNumberEnd)
@@ -352,14 +352,14 @@ export default class levelVisualizer extends Component {
               className="tutorialContainer"
               style={{ top: '25px', left: '20px' }}
             >
-              <span>{this.displayNextDialogueLine()}</span>
+              <span>{this.displayNextDialogueLine(shouldChange)}</span>
             </div>
 
             <button
               style={{ right: '12px', top: '558px' }}
               className="optionsMenuButton"
               onClick={() => {
-                this.getDialogueMenu();
+                this.getDialogueMenu(true);
               }}
             >
               {dialogueNextPageText}
@@ -660,7 +660,7 @@ export default class levelVisualizer extends Component {
           ? this.getTutorialMenu()
           : null}
 
-        {this.state.showDialogueMenu ? this.getDialogueMenu() : null}
+        {this.state.showDialogueMenu ? this.getDialogueMenu(false) : null}
 
         <div className="topButtonsContainerOutline"> </div>
 
