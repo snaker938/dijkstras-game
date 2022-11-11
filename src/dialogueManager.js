@@ -58,15 +58,19 @@ function parseCurrentDialogue(thingToParse) {
 
   if (dialogue.includes('{userName}'))
     dialogue = dialogue.replace('{userName}', getCurrentUserName());
-  currentDialogueLineNumber = currentDialogueLineNumber + 1;
-  console.log(speaker, dialogue);
+
+  return [speaker, dialogue];
 }
 
 export function getCurrentLevelDialogue() {
   let currentLevelAllDialogue = getCurrentLevelAllDialogue();
-  parseCurrentDialogue(currentLevelAllDialogue[currentDialogueLineNumber]);
+  let results = parseCurrentDialogue(
+    currentLevelAllDialogue[currentDialogueLineNumber]
+  );
 
-  return;
+  // console.log(currentDialogueLineNumber, results);
+
+  return results;
 }
 
 export function toggleDialogueMenu() {
