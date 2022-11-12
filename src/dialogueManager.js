@@ -3,7 +3,7 @@ import { getCurrentUserName } from './currentUserDataHandling';
 import { numLevels } from './allLevelData';
 import { currentLevel } from './currentLevelHandling';
 
-const agentTwo = 'Agent Jenkins';
+const agentTwo = '<Agent Jenkins>';
 const dialogueArry = getAllLevelDialogue();
 
 let hasShownDialogueMenu = false;
@@ -55,11 +55,18 @@ function getCurrentLevelAllDialogue() {
   return currentLevelAllDialogue;
 }
 
+export function getCurrentLevelSpeakerPosition() {
+  let currentLevelAllSpeakers = [];
+  for (let i = 0; i < dialogueArry[currentLevel - 1].length - 1; i++)
+    currentLevelAllSpeakers.push(dialogueArry[currentLevel - 1][i][2]);
+  return currentLevelAllSpeakers;
+}
+
 function parseCurrentDialogue(thingToParse) {
   let speaker = thingToParse[0];
   let dialogue = thingToParse[1];
 
-  if (speaker === 1) speaker = `Agent ${getCurrentUserName()}`;
+  if (speaker === 1) speaker = `<${getCurrentUserName()}>`;
   else if (speaker === 2) speaker = agentTwo;
   else if (speaker === null) speaker = '';
   else {

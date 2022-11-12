@@ -120,8 +120,46 @@
   opacity: 70%;
   backdrop-filter: blur(10px);
   border: 0;
-  /* filter: blur(0.1px); */
-  /* border-radius: 0; */
+}
+
+.dialogueBlock-left-side {
+  position: relative;
+  top: 15px;
+  left: 10px;
+
+  margin-bottom: 10px;
+  /* height: 30px; */
+  font-family: QTYPE;
+  /* width: 350px; */
+  text-align: left;
+  font-size: 16px;
+  /* width: fit-content; */
+
+  /* color: rgba(255, 255, 255, 1);
+  background: #696969;
+  opacity: 70%;
+  backdrop-filter: blur(10px);
+  border: 0; */
+}
+
+.dialogueBlock-right-side {
+  position: relative;
+  top: 15px;
+  right: 10px;
+
+  /* margin-bottom: 10px; */
+  /* height: 30px; */
+  font-family: QTYPE;
+  /* width: 350px; */
+  text-align: right;
+  font-size: 16px;
+  /* width: fit-content; */
+
+  /* color: rgba(255, 255, 255, 1); */
+  /* background: #696969; */
+  /* opacity: 70%; */
+  /* backdrop-filter: blur(10px); */
+  border: 0;
 }
 
 .dialogueBlockText {
@@ -132,6 +170,7 @@
   font-size: 20px;
   color: white;
   user-select: none;
+  margin-bottom: 5px;
 }
 
 .dialogueBlockTextOther {
@@ -139,5 +178,6 @@
   font-size: 20px;
   color: white;
   font-style: italic;
+  margin-bottom: 5px;
   user-select: none;
 }

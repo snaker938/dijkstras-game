@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { EnterHome } from '../Navigation';
 import Node from './Node/Node';
-import { resetAllNodes, startDijkstra } from './Visualizer';
+import { cloneVariable, resetAllNodes, startDijkstra } from './Visualizer';
 import './VisualizerLevel.css';
 import './VisualizerSandbox.css';
 import './VisualizerBoth.css';
@@ -36,6 +36,7 @@ import {
   currentDialogueLineNumberEnd,
   getCurrentDialogueStatus,
   getCurrentLevelDialogue,
+  getCurrentLevelSpeakerPosition,
   setHasShownDialogueMenu,
   toggleDialogueMenu,
 } from '../dialogueManager';
@@ -336,33 +337,57 @@ export default class levelVisualizer extends Component {
 
   getDialogueBlocks(currentDialogueLineNumber) {
     let dialogueBlocks = [];
+    let currentLevelSpeakerPosition = cloneVariable(
+      getCurrentLevelSpeakerPosition()
+    );
+    let currentLevelDialogue = cloneVariable(getCurrentLevelDialogue());
+
     for (let i = 0; i < currentDialogueLineNumberEnd; i++) {
       let dialogue;
-      if (!getCurrentLevelDialogue()[i][0]) {
+
+      // If the currentLevelDialogue[i][0] is null, then dialogue is given the className of "dialogueBlockTextOther". If the currentLevelSpeakerPosition[i] is 1, then dialogue is given the className of "dialogue-left-side". If it is 2, then dialogue is given the className of "dialogue-right-side".
+
+      // If the currentLevelDialogue[i][0] is not null, then dialogue is given the className of "dialogueBlockText". If the currentLevelSpeakerPosition[i] is 1, then dialogue is given the className of "dialogue-left-side". If it is 2, then dialogue is given the className of "dialogue-right-side".
+
+      // console.log(currentLevelDialogue);
+
+      if (currentLevelDialogue[i][0] === '') {
         dialogue = (
-          <p className="dialogueBlockTextOther">
-            {getCurrentLevelDialogue()[i][1]}
-          </p>
+          <div
+            className={
+              currentLevelSpeakerPosition[i] === 1
+                ? 'dialogueBlock-left-side'
+                : 'dialogueBlock-right-side'
+            }
+            style={{
+              display: i <= currentDialogueLineNumber ? 'inline' : 'none',
+            }}
+          >
+            <p className="dialogueBlockTextOther">
+              {currentLevelDialogue[i][1]}
+            </p>
+          </div>
         );
       } else {
         dialogue = (
-          <p className="dialogueBlockText">
-            {getCurrentLevelDialogue()[i][0]}: {getCurrentLevelDialogue()[i][1]}
-          </p>
+          <div
+            className={
+              currentLevelSpeakerPosition[i] === 1
+                ? 'dialogueBlock-left-side'
+                : 'dialogueBlock-right-side'
+            }
+            style={{
+              display: i <= currentDialogueLineNumber ? 'inline' : 'none',
+            }}
+          >
+            <p className="dialogueBlockText">
+              {currentLevelDialogue[i][0]} {currentLevelDialogue[i][1]}
+            </p>
+          </div>
         );
       }
 
-      dialogueBlocks.push(
-        <div
-          key={i}
-          className="dialogueBlock"
-          style={{
-            display: i <= currentDialogueLineNumber ? 'flex' : 'none',
-          }}
-        >
-          {dialogue}
-        </div>
-      );
+      dialogueBlocks.push(dialogue);
     }
     return dialogueBlocks;
   }

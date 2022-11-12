@@ -1,9 +1,12 @@
 {
   "dialogue": [
-    [2, "Goodmorning Agent {userName}."],
-    [1, "This is level three"],
-    [2, "There seems to be a bit of a problem with our security features."],
-    [1, "What's wrong with them?"],
-    [2, "Well, it seems like every other one is active?"]
+    [null, "*phone ringing*", 2],
+    [2, "Goodmorning Agent {userName}.", 1],
+    [null, "*you hear quite a commotion on the other end*", 2],
+    [2, "There seems to be a bit of a problem with our security features.", 1],
+    [1, "What? What is wrong with them?", 2],
+    [2, "Well, it seems like every other one is active?", 1],
+    [1, "I'll be there right away.", 2],
+    [0, ""]
   ]
 }
