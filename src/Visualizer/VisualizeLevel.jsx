@@ -136,11 +136,23 @@ export default class levelVisualizer extends Component {
     }
   };
 
+  loadBlankGrid() {
+    const json = require(`../Visualizer/templates/BLANK.json`);
+    const newGrid = json.grid;
+    this.setState({ grid: newGrid });
+  }
+
+  loadRealGrid() {
+    const newGrid = getCurrentLevelGrid();
+    this.setState({ grid: newGrid });
+  }
+
   //   Initialises grid
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress, false);
-    const grid = getCurrentLevelGrid();
-    this.setState({ grid });
+    this.loadBlankGrid();
+    // const grid = getCurrentLevelGrid();
+    // this.setState({ grid });
   }
 
   removeAllWalls() {
@@ -323,6 +335,8 @@ export default class levelVisualizer extends Component {
     setHasDialogueEnded(true);
     this.setState({ showDialogueMenu: false });
     setHasShownDialogueMenu(true);
+
+    if (currentLevel > 1) this.loadRealGrid();
   }
 
   getDialogueNextButton(dialogueLineNumber) {
@@ -535,6 +549,7 @@ export default class levelVisualizer extends Component {
     } else {
       toggleHasTutorialEnded();
       this.toggleTutorialMenu();
+      if (currentLevel === 1) this.loadRealGrid();
     }
   }
 
