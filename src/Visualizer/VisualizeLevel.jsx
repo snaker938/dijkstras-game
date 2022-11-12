@@ -519,7 +519,7 @@ export default class levelVisualizer extends Component {
           }}
         ></div>
         <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
-          <div className="levelInfoContainer">
+          <div className="dialogueBigContainer">
             <p
               style={{ left: '143px', opacity: '1' }}
               className="levelNameToRender"
@@ -528,7 +528,7 @@ export default class levelVisualizer extends Component {
             </p>
           </div>
 
-          <div className="levelInfoContainer2">
+          <div className="dialogueBigContainer2">
             {dialogueBlocks}
 
             {dialogueNextButton}

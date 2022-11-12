@@ -181,3 +181,31 @@
   margin-bottom: 5px;
   user-select: none;
 }
+
+.dialogueBigContainer {
+  height: 0;
+  width: 600px;
+  top: 20px;
+  left: 500px;
+  position: absolute;
+  border-bottom: 65px solid #1a1717;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  /* border-bottom: 105px solid #1a1717;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent; */
+  opacity: 80%;
+}
+
+.dialogueBigContainer2 {
+  width: 801px;
+  height: 611px;
+  top: 85px;
+  left: 500px;
+  position: absolute;
+  /* Position directly in centre */
+
+  background: #1a1717;
+  opacity: 80%;
+  backdrop-filter: blur(10px);
+}
