@@ -7,6 +7,7 @@ import VisualizeLevel from './Visualizer/VisualizeLevel';
 import VisualizeSandbox from './Visualizer/VisualizeSandbox';
 import {
   setCurrentDialogueLineNumber,
+  setHasDialogueEnded,
   setHasShownDialogueMenu,
 } from './dialogueManager';
 import { setHasTutorialEnded } from './actualLevelHandling';
@@ -54,6 +55,7 @@ function EnterHome(animatingPlane) {
   if (classes.contains('enabled') && !animatingPlane) {
     setHasShownDialogueMenu(false);
     setHasTutorialEnded(false);
+    setHasDialogueEnded(false);
     setCurrentDialogueLineNumber(0);
     ReactDOM.render(
       <React.StrictMode>

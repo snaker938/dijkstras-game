@@ -8,6 +8,8 @@ const dialogueArry = getAllLevelDialogue();
 
 let hasShownDialogueMenu = false;
 
+let hasDialogueEnded = false;
+
 let currentDialogueLineNumber = 0;
 
 let currentDialogueLineNumberEnd = getCurrentDialogueLineNumerEnd();
@@ -18,6 +20,14 @@ export function setCurrentDialogueLineNumber(num) {
 
 export function toggleDialogueMenu() {
   hasShownDialogueMenu = !hasShownDialogueMenu;
+}
+
+export function setHasDialogueEnded(value) {
+  hasDialogueEnded = value;
+}
+
+export function getHasDialogueEnded() {
+  return hasDialogueEnded;
 }
 
 export function setHasShownDialogueMenu(value) {

@@ -37,6 +37,8 @@ import {
   getCurrentDialogueStatus,
   getCurrentLevelDialogue,
   getCurrentLevelSpeakerPosition,
+  getHasDialogueEnded,
+  setHasDialogueEnded,
   setHasShownDialogueMenu,
   toggleDialogueMenu,
 } from '../dialogueManager';
@@ -113,6 +115,15 @@ export default class levelVisualizer extends Component {
       !this.state.showDialogueMenu
     ) {
       if (!this.state.showOptionsMenu) this.toggleOptionsMenu();
+    }
+
+    // If the Enter button is pressed, go to the Next page of the tutorial menu
+    if (
+      event.key === 'Enter' &&
+      this.state.showTutorialMenu &&
+      !(this.state.tutorialPage === 3)
+    ) {
+      this.nextPage();
     }
 
     // If the Enter button is pressed, run "this.getDialogueMenu(true)" only if the dialogue menu is open and not (dialogueLineNumber === currentDialogueLineNumberEnd - 1)
@@ -309,6 +320,7 @@ export default class levelVisualizer extends Component {
   }
 
   closeDialogueMenu() {
+    setHasDialogueEnded(true);
     this.setState({ showDialogueMenu: false });
     setHasShownDialogueMenu(true);
   }
@@ -699,12 +711,6 @@ export default class levelVisualizer extends Component {
                 ></NodeToggleGrid>
               </div>
             </div>
-            <button
-              className="standard-button-options loadGridButton"
-              onClick={() => getCurrentLevelDialogue()} // loads current grid
-            >
-              Next Dialogue
-            </button>
 
             <button
               style={{ right: '12px', top: '558px' }}
@@ -741,17 +747,21 @@ export default class levelVisualizer extends Component {
       />
     );
 
-    if (Number(currentLevel) === 1 && !getCurrentTutorialStatus()) {
+    if (!getCurrentDialogueStatus()) {
+      this.toggleDialogueMenu();
+      toggleDialogueMenu();
+    }
+
+    if (
+      Number(currentLevel) === 1 &&
+      !getCurrentTutorialStatus() &&
+      getHasDialogueEnded()
+    ) {
       this.toggleTutorialMenu();
       toggleHasShownTutorial();
     }
 
     if (LEVEL_ID > 1) toggleHasTutorialEnded();
-
-    if (!getCurrentDialogueStatus() && getHasTutorialEnded()) {
-      this.toggleDialogueMenu();
-      toggleDialogueMenu();
-    }
 
     let numRandomWallButton;
     let numRandomWallText;
