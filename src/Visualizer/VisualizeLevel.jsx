@@ -114,6 +114,15 @@ export default class levelVisualizer extends Component {
     ) {
       if (!this.state.showOptionsMenu) this.toggleOptionsMenu();
     }
+
+    // If the Enter button is pressed, run "this.getDialogueMenu(true)" only if the dialogue menu is open and not (dialogueLineNumber === currentDialogueLineNumberEnd - 1)
+    if (
+      event.key === 'Enter' &&
+      this.state.showDialogueMenu &&
+      this.state.dialogueLineNumber !== currentDialogueLineNumberEnd - 1
+    ) {
+      this.getDialogueMenu(true);
+    }
   };
 
   //   Initialises grid
@@ -337,6 +346,7 @@ export default class levelVisualizer extends Component {
 
   getDialogueBlocks(currentDialogueLineNumber) {
     let dialogueBlocks = [];
+    let enterText = '<hit enter>';
     let currentLevelSpeakerPosition = cloneVariable(
       getCurrentLevelSpeakerPosition()
     );
@@ -345,45 +355,109 @@ export default class levelVisualizer extends Component {
     for (let i = 0; i < currentDialogueLineNumberEnd; i++) {
       let dialogue;
 
-      // If the currentLevelDialogue[i][0] is null, then dialogue is given the className of "dialogueBlockTextOther". If the currentLevelSpeakerPosition[i] is 1, then dialogue is given the className of "dialogue-left-side". If it is 2, then dialogue is given the className of "dialogue-right-side".
+      // If the currentLevelDialogue[i][0] is "", then dialogue is given the className of "dialogueBlockTextOther". If the currentLevelSpeakerPosition[i] is 1, then dialogue is given the className of "dialogue-left-side". If it is 2, then dialogue is given the className of "dialogue-right-side".
 
-      // If the currentLevelDialogue[i][0] is not null, then dialogue is given the className of "dialogueBlockText". If the currentLevelSpeakerPosition[i] is 1, then dialogue is given the className of "dialogue-left-side". If it is 2, then dialogue is given the className of "dialogue-right-side".
+      // If the currentLevelDialogue[i][0] is not "", then dialogue is given the className of "dialogueBlockText". If the currentLevelSpeakerPosition[i] is 1, then dialogue is given the className of "dialogue-left-side". If it is 2, then dialogue is given the className of "dialogue-right-side".
 
-      // console.log(currentLevelDialogue);
+      // The text "<hit enter>" should only be displayed at the end of all the dialogue that is visible on the screen. This is done by checking if the i is equal to currentDialogueLineNumber. The text should have an opacity of 0.75.
 
       if (currentLevelDialogue[i][0] === '') {
         dialogue = (
-          <div
-            className={
-              currentLevelSpeakerPosition[i] === 1
-                ? 'dialogueBlock-left-side'
-                : 'dialogueBlock-right-side'
-            }
-            style={{
-              display: i <= currentDialogueLineNumber ? 'inline' : 'none',
-            }}
-          >
-            <p className="dialogueBlockTextOther">
-              {currentLevelDialogue[i][1]}
-            </p>
-          </div>
+          <>
+            <div
+              key={i}
+              className={
+                currentLevelSpeakerPosition[i] === 1
+                  ? 'dialogueBlock-left-side'
+                  : 'dialogueBlock-right-side'
+              }
+              style={{
+                display: i <= currentDialogueLineNumber ? 'inline' : 'none',
+              }}
+            >
+              <p style={{ opacity: '0.85' }} className="dialogueBlockTextOther">
+                {currentLevelDialogue[i][1]}
+              </p>
+            </div>
+
+            {i === currentDialogueLineNumber ? (
+              <div
+                key={i}
+                className={
+                  currentLevelSpeakerPosition[i] === 1
+                    ? 'dialogueBlock-left-side'
+                    : 'dialogueBlock-right-side'
+                }
+                style={{
+                  display: i <= currentDialogueLineNumber ? 'inline' : 'none',
+                }}
+              >
+                <p
+                  style={{
+                    opacity: '0.75',
+                    display:
+                      this.state.dialogueLineNumber ===
+                      currentDialogueLineNumberEnd - 1
+                        ? 'none'
+                        : null,
+                  }}
+                  className="dialogueBlockTextOther"
+                >
+                  {enterText}
+                </p>
+              </div>
+            ) : null}
+          </>
         );
       } else {
         dialogue = (
-          <div
-            className={
-              currentLevelSpeakerPosition[i] === 1
-                ? 'dialogueBlock-left-side'
-                : 'dialogueBlock-right-side'
-            }
-            style={{
-              display: i <= currentDialogueLineNumber ? 'inline' : 'none',
-            }}
-          >
-            <p className="dialogueBlockText">
-              {currentLevelDialogue[i][0]} {currentLevelDialogue[i][1]}
-            </p>
-          </div>
+          <>
+            <div
+              key={i}
+              className={
+                currentLevelSpeakerPosition[i] === 1
+                  ? 'dialogueBlock-left-side'
+                  : 'dialogueBlock-right-side'
+              }
+              style={{
+                display: i <= currentDialogueLineNumber ? 'inline' : 'none',
+              }}
+            >
+              <p className="dialogueBlockText">
+                <span style={{ opacity: '0.7' }}>
+                  {currentLevelDialogue[i][0]}
+                </span>{' '}
+                {currentLevelDialogue[i][1]}
+              </p>
+            </div>
+            {i === currentDialogueLineNumber ? (
+              <div
+                key={i}
+                className={
+                  currentLevelSpeakerPosition[i] === 1
+                    ? 'dialogueBlock-left-side'
+                    : 'dialogueBlock-right-side'
+                }
+                style={{
+                  display: i <= currentDialogueLineNumber ? 'inline' : 'none',
+                }}
+              >
+                <p
+                  style={{
+                    opacity: '0.75',
+                    display:
+                      this.state.dialogueLineNumber ===
+                      currentDialogueLineNumberEnd - 1
+                        ? 'none'
+                        : null,
+                  }}
+                  className="dialogueBlockTextOther"
+                >
+                  {enterText}
+                </p>
+              </div>
+            ) : null}
+          </>
         );
       }
 
@@ -400,8 +474,6 @@ export default class levelVisualizer extends Component {
     let dialogueNextButton = this.getDialogueNextButton(
       this.state.dialogueLineNumber
     );
-
-    // let allDialogue = getCurrentLevelDialogue();
 
     let dialogueBlocks = this.getDialogueBlocks(this.state.dialogueLineNumber);
 
@@ -432,12 +504,6 @@ export default class levelVisualizer extends Component {
 
           <div className="levelInfoContainer2">
             {dialogueBlocks}
-            {/* <div
-              className="tutorialContainer"
-              style={{ top: '25px', left: '20px' }}
-            >
-              <span></span>
-            </div> */}
 
             {dialogueNextButton}
           </div>
