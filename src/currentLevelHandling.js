@@ -15,7 +15,7 @@ import { cloneVariable } from './Visualizer/Visualizer';
 let currentLevel = 1;
 
 export function setCurrentLevel(newLevel) {
-  currentLevel = newLevel;
+  currentLevel = Number(cloneVariable(newLevel));
 }
 
 export function getCurrentLevelName() {

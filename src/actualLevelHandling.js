@@ -6,6 +6,10 @@ let hasShownTutorial = false;
 
 let hasTutorialEnded = false;
 
+export function setHasTutorialEnded(value) {
+  hasTutorialEnded = value;
+}
+
 export function toggleHasTutorialEnded() {
   if (hasTutorialEnded) return;
   else hasTutorialEnded = !hasTutorialEnded;

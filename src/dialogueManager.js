@@ -1,7 +1,7 @@
 import { getCurrentUserName } from './currentUserDataHandling';
 
-const { numLevels } = require('./allLevelData');
-const { currentLevel } = require('./currentLevelHandling');
+import { numLevels } from './allLevelData';
+import { currentLevel } from './currentLevelHandling';
 
 const agentTwo = 'Agent Jenkins';
 const dialogueArry = getAllLevelDialogue();
@@ -83,18 +83,6 @@ export function getCurrentLevelDialogue() {
 
   // console.log(parsedDialogue);
   return parsedDialogue;
-
-  // if (shouldChange) {
-  //   currentDialogueLineNumber = currentDialogueLineNumber + 1;
-  // }
-
-  // let results = parseCurrentDialogue(
-  //   currentLevelAllDialogue[currentDialogueLineNumber],
-  //   shouldChange
-  // );
-
-  // console.log(currentDialogueLineNumber, results);
-  // return results;
 }
 
 export { agentTwo, hasShownDialogueMenu, currentDialogueLineNumberEnd };

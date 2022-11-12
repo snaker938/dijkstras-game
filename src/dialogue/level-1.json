@@ -1,6 +1,7 @@
 {
   "dialogue": [
     [null, "*phone ringing*"],
+    [1, "This is level one"],
     [2, "Goodmorning Agent {userName}."],
     [null, "*you hear quite a commotion on the other end*"],
     [2, "There seems to be a bit of a problem with our security features."],

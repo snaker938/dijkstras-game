@@ -9,6 +9,7 @@ import {
   setCurrentDialogueLineNumber,
   setHasShownDialogueMenu,
 } from './dialogueManager';
+import { setHasTutorialEnded } from './actualLevelHandling';
 
 let inSandbox = false;
 
@@ -52,6 +53,7 @@ function EnterHome(animatingPlane) {
   const classes = button.classList;
   if (classes.contains('enabled') && !animatingPlane) {
     setHasShownDialogueMenu(false);
+    setHasTutorialEnded(false);
     setCurrentDialogueLineNumber(0);
     ReactDOM.render(
       <React.StrictMode>
