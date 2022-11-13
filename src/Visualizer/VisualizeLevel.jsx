@@ -559,7 +559,7 @@ export default class levelVisualizer extends Component {
     }
 
     if (shouldChange3) {
-      this.setState({ dialogueStartLoop: this.state.dialogueLineNumber });
+      this.setState({ dialogueStartLoop: this.state.dialogueLineNumber + 1 });
     }
 
     let dialogueNextButton = this.getDialogueNextButton(

@@ -120,7 +120,7 @@ function parseCurrentDialogue(thingToParse) {
   if (dialogue.includes('{userName}'))
     dialogue = dialogue.replace('{userName}', getCurrentUserName());
   if (dialogue.includes('{2}'))
-    dialogue = dialogue.replace('{agentTwo}', agentTwoShort);
+    dialogue = dialogue.replace('{2}', agentTwoShort);
 
   return [speaker, dialogue];
 }
