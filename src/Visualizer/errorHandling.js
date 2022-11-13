@@ -7,7 +7,6 @@ export function sendError(error) {
   resetAllNodes(newGrid);
 
   function getImportantNodes(grid) {
-    console.log(grid);
     let neededNodes = [];
     let unneededNodes = [];
     let importantNodes = [];

@@ -38,6 +38,7 @@ import {
   getCurrentLevelSpeakerPosition,
   getHasDialogueEnded,
   getSceneBreakerIndexes,
+  getSceneNextPageIndexes,
   setHasDialogueEnded,
   setHasShownDialogueMenu,
   toggleDialogueMenu,
@@ -133,10 +134,21 @@ export default class levelVisualizer extends Component {
       this.state.dialogueLineNumber !== getCurrentDialogueLineNumberEnd() - 1
     ) {
       let sceneBreakerIndexes = getSceneBreakerIndexes();
+      let sceneNextPageIndexes = getSceneNextPageIndexes();
+      console.log(
+        sceneBreakerIndexes,
+        sceneNextPageIndexes,
+        this.state.dialogueLineNumber
+      );
       if (
-        !sceneBreakerIndexes.includes(Number(this.state.dialogueLineNumber) + 1)
+        !sceneBreakerIndexes.includes(
+          Number(this.state.dialogueLineNumber) + 1
+        ) &&
+        !sceneNextPageIndexes.includes(
+          Number(this.state.dialogueLineNumber) + 1
+        )
       ) {
-        this.getDialogueMenu(true);
+        this.getDialogueMenu(true, false, false);
       }
     }
   };
@@ -290,7 +302,6 @@ export default class levelVisualizer extends Component {
           // This is the code to add random walls onto the grid. The grid is properly re-rendered every 45n i to prevent lag and once again at the end of the iternation
           for (let i = 0; i < Number(getCurrentLevelRandomWallNumber()); i++) {
             setTimeout(() => {
-              // console.log(RANDOM_WALL_NUMBER);
               let firstColumn =
                 (document.getElementById('plane').getBoundingClientRect().x +
                   520) /
@@ -346,6 +357,7 @@ export default class levelVisualizer extends Component {
 
   getDialogueNextButton(dialogueLineNumber) {
     let sceneBreakerIndexes = getSceneBreakerIndexes();
+    let sceneNextPageIndexes = getSceneNextPageIndexes();
 
     let dialogueNextPageText = 'Next';
     if (dialogueLineNumber === getCurrentDialogueLineNumberEnd() - 1) {
@@ -368,7 +380,20 @@ export default class levelVisualizer extends Component {
           style={{ right: '12px', top: '558px' }}
           className="optionsMenuButton"
           onClick={() => {
-            this.getDialogueMenu(false, true);
+            this.getDialogueMenu(false, true, false);
+          }}
+        >
+          {dialogueNextPageText}
+        </button>
+      );
+    } else if (sceneNextPageIndexes.includes(Number(dialogueLineNumber) + 1)) {
+      let dialogueNextPageText = 'Continue';
+      return (
+        <button
+          style={{ right: '12px', top: '558px' }}
+          className="optionsMenuButton"
+          onClick={() => {
+            this.getDialogueMenu(false, true, true);
           }}
         >
           {dialogueNextPageText}
@@ -377,20 +402,30 @@ export default class levelVisualizer extends Component {
     }
   }
 
-  getDialogueBlocks(currentDialogueLineNumber) {
+  getDialogueBlocks(currentDialogueLineNumber, moveToNextPage) {
     let dialogueBlocks = [];
     let enterText = '<hit enter>';
     let nextText = '<press next>';
     let exitText = '<press exit>';
+    let continueText = '<press continue>';
+
+    let dialogueBlockLoopStart = 0;
+
+    if (moveToNextPage) dialogueBlockLoopStart = currentDialogueLineNumber;
 
     let sceneBreakerIndexes = getSceneBreakerIndexes();
+    let nextSceneIndexes = getSceneNextPageIndexes();
 
     let currentLevelSpeakerPosition = cloneVariable(
       getCurrentLevelSpeakerPosition()
     );
     let currentLevelDialogue = cloneVariable(getCurrentLevelDialogue());
 
-    for (let i = 0; i < getCurrentDialogueLineNumberEnd(); i++) {
+    for (
+      let i = dialogueBlockLoopStart;
+      i < getCurrentDialogueLineNumberEnd();
+      i++
+    ) {
       let dialogue;
 
       let textToDisplay;
@@ -403,6 +438,10 @@ export default class levelVisualizer extends Component {
         getCurrentDialogueLineNumberEnd() - 1
       ) {
         textToDisplay = exitText;
+      } else if (
+        nextSceneIndexes.includes(Number(this.state.dialogueLineNumber) + 1)
+      ) {
+        textToDisplay = continueText;
       } else {
         textToDisplay = enterText;
       }
@@ -511,7 +550,7 @@ export default class levelVisualizer extends Component {
     return dialogueBlocks;
   }
 
-  getDialogueMenu(shouldChange1, shouldChange2) {
+  getDialogueMenu(shouldChange1, shouldChange2, shouldChange3) {
     if (shouldChange1) {
       this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 1 });
     } else if (shouldChange2) {
@@ -522,7 +561,10 @@ export default class levelVisualizer extends Component {
       this.state.dialogueLineNumber
     );
 
-    let dialogueBlocks = this.getDialogueBlocks(this.state.dialogueLineNumber);
+    let dialogueBlocks = this.getDialogueBlocks(
+      this.state.dialogueLineNumber,
+      shouldChange3
+    );
 
     return (
       <>
@@ -788,8 +830,6 @@ export default class levelVisualizer extends Component {
       toggleDialogueMenu();
     }
 
-    console.log(getCurrentTutorialStatus(), getHasDialogueEnded());
-
     if (
       Number(currentLevel) === 1 &&
       !getCurrentTutorialStatus() &&
@@ -851,7 +891,7 @@ export default class levelVisualizer extends Component {
           : null}
 
         {this.state.showDialogueMenu
-          ? this.getDialogueMenu(false, false)
+          ? this.getDialogueMenu(false, false, false)
           : null}
 
         <div className="topButtonsContainerOutline"> </div>

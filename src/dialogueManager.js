@@ -4,7 +4,11 @@ import { numLevels } from './allLevelData';
 import { currentLevel, getCurrentLevel } from './currentLevelHandling';
 
 const agentTwo = '<Agent Jenkins>';
-const dialogueArry = getAllLevelDialogue();
+const agentThree = '<Agent Pembroke>';
+
+const agentTwoShort = 'Agent Jenkins';
+
+let dialogueArry = getAllLevelDialogue();
 // let sceneBreaker =
 //   '<--------------------------------------------------------------------->';
 let sceneBreaker =
@@ -63,6 +67,16 @@ export function getSceneBreakerIndexes() {
   return indexes;
 }
 
+export function getSceneNextPageIndexes() {
+  let indexes = [];
+  let index = 0;
+  for (let element of getCurrentLevelAllDialogue()) {
+    if (element[0] === 1000) indexes.push(index);
+    index++;
+  }
+  return indexes;
+}
+
 function getAllLevelDialogue() {
   let levelDialogues = [];
   for (let i = 1; i <= numLevels; i++) {
@@ -92,17 +106,21 @@ function parseCurrentDialogue(thingToParse) {
 
   if (speaker === 1) speaker = `<${getCurrentUserName()}>`;
   else if (speaker === 2) speaker = agentTwo;
+  else if (speaker === 3) speaker = agentThree;
   else if (speaker === null) speaker = '';
   else if (speaker === 999) {
     speaker = '';
     dialogue = sceneBreaker;
+  } else if (speaker === 1000) {
+    speaker = '';
+    dialogue = '';
   } else {
-    // setCurrentDialogueLineNumber(0);
-    // return false;
   }
 
   if (dialogue.includes('{userName}'))
     dialogue = dialogue.replace('{userName}', getCurrentUserName());
+  if (dialogue.includes('{2}'))
+    dialogue = dialogue.replace('{agentTwo}', agentTwoShort);
 
   return [speaker, dialogue];
 }
@@ -110,17 +128,11 @@ function parseCurrentDialogue(thingToParse) {
 export function getCurrentLevelDialogue() {
   let currentLevelAllDialogue = getCurrentLevelAllDialogue();
 
-  // console.log(currentLevelAllDialogue);
-
   let parsedDialogue = [];
   for (let dialogue of currentLevelAllDialogue) {
     parsedDialogue.push(parseCurrentDialogue(dialogue));
   }
-  // console.log(parsedDialogue, currentDialogueLineNumberEnd);
 
-  // console.log(parsedDialogue);
-
-  // console.log(parsedDialogue);
   return parsedDialogue;
 }
 

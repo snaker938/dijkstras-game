@@ -18,6 +18,21 @@
       3
     ],
     [1, "What on earth is going on?", 2],
+    [3, "{userName}! Get inside quickly!", 1],
+    [1000, "", 3],
+    [null, "*you rush inside the building and into the control room*", 3],
+    [1, "I heard a loud explosion when I was on the phone with {2}", 2],
+    [
+      3,
+      "Indeed. That was the defense system going off. Or what was left of it..",
+      1
+    ],
+    [1, "What? Why?", 2],
+    [
+      3,
+      "At roughly 16:00, a missile was fired at our base, at the same time, somebody got access to our defense system, and managed to switch off half of it",
+      1
+    ],
     [0, ""]
   ]
 }

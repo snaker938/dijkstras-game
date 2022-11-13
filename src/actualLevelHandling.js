@@ -13,7 +13,6 @@ export function setHasTutorialEnded(value) {
 export function toggleHasTutorialEnded() {
   if (hasTutorialEnded) return;
   else hasTutorialEnded = !hasTutorialEnded;
-  // console.log('Tutorial Ended: ', hasTutorialEnded);
 }
 
 export function getHasTutorialEnded() {

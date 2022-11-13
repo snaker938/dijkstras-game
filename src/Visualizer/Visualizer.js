@@ -41,7 +41,6 @@ export function startDijkstra(
   numRows,
   numCols
 ) {
-  console.log(getCurrentPlaneAnimation());
   if (
     document.getElementById('homeButton').classList.contains('enabled') &&
     !getCurrentPlaneAnimation()
