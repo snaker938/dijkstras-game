@@ -10,7 +10,10 @@ import {
   setHasDialogueEnded,
   setHasShownDialogueMenu,
 } from './dialogueManager';
-import { setHasTutorialEnded } from './actualLevelHandling';
+import {
+  setHasShownTutorial,
+  setHasTutorialEnded,
+} from './actualLevelHandling';
 
 let inSandbox = false;
 
@@ -55,6 +58,7 @@ function EnterHome(animatingPlane) {
   if (classes.contains('enabled') && !animatingPlane) {
     setHasShownDialogueMenu(false);
     setHasTutorialEnded(false);
+    setHasShownTutorial();
     setHasDialogueEnded(false);
     setCurrentDialogueLineNumber(0);
     ReactDOM.render(

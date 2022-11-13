@@ -26,6 +26,10 @@ export function toggleHasShownTutorial() {
   hasShownTutorial = !hasShownTutorial;
 }
 
+export function setHasShownTutorial() {
+  hasShownTutorial = false;
+}
+
 export function getCurrentTutorialStatus() {
   return hasShownTutorial;
 }

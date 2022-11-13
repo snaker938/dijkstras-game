@@ -122,7 +122,7 @@
   border: 0;
 }
 
-.dialogueBlock-left-side {
+.dialogue-left-side {
   position: relative;
   top: 15px;
   left: 10px;
@@ -142,7 +142,27 @@
   border: 0; */
 }
 
-.dialogueBlock-right-side {
+.dialogue-centre {
+  position: relative;
+  top: 15px;
+  /* left: 10px; */
+
+  /* margin-bottom: 10px; */
+  /* height: 30px; */
+  font-family: QTYPE;
+  /* width: 350px; */
+  text-align: center;
+  font-size: 16px;
+  /* width: fit-content; */
+
+  /* color: rgba(255, 255, 255, 1); */
+  /* background: #696969; */
+  /* opacity: 70%; */
+  /* backdrop-filter: blur(10px); */
+  border: 0;
+}
+
+.dialogue-right-side {
   position: relative;
   top: 15px;
   right: 10px;

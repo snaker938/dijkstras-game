@@ -1,10 +1,14 @@
 import { getCurrentUserName } from './currentUserDataHandling';
 
 import { numLevels } from './allLevelData';
-import { currentLevel } from './currentLevelHandling';
+import { currentLevel, getCurrentLevel } from './currentLevelHandling';
 
 const agentTwo = '<Agent Jenkins>';
 const dialogueArry = getAllLevelDialogue();
+// let sceneBreaker =
+//   '<--------------------------------------------------------------------->';
+let sceneBreaker =
+  '<------------------------------------------------------------------------------------------------------------------------------------------>';
 
 let hasShownDialogueMenu = false;
 
@@ -12,7 +16,7 @@ let hasDialogueEnded = false;
 
 let currentDialogueLineNumber = 0;
 
-let currentDialogueLineNumberEnd = getCurrentDialogueLineNumerEnd();
+// let currentDialogueLineNumberEnd = getCurrentDialogueLineNumerEnd();
 
 export function setCurrentDialogueLineNumber(num) {
   currentDialogueLineNumber = num;
@@ -38,7 +42,7 @@ export function getCurrentDialogueStatus() {
   return hasShownDialogueMenu;
 }
 
-export function getCurrentDialogueLineNumerEnd() {
+export function getCurrentDialogueLineNumberEnd() {
   let currentLevelAllDialogue = getCurrentLevelAllDialogue();
   let index = 0;
   for (let element of currentLevelAllDialogue) {
@@ -47,6 +51,16 @@ export function getCurrentDialogueLineNumerEnd() {
     }
     index++;
   }
+}
+
+export function getSceneBreakerIndexes() {
+  let indexes = [];
+  let index = 0;
+  for (let element of getCurrentLevelAllDialogue()) {
+    if (element[0] === 999) indexes.push(index);
+    index++;
+  }
+  return indexes;
 }
 
 function getAllLevelDialogue() {
@@ -79,9 +93,12 @@ function parseCurrentDialogue(thingToParse) {
   if (speaker === 1) speaker = `<${getCurrentUserName()}>`;
   else if (speaker === 2) speaker = agentTwo;
   else if (speaker === null) speaker = '';
-  else {
-    setCurrentDialogueLineNumber(0);
-    return false;
+  else if (speaker === 999) {
+    speaker = '';
+    dialogue = sceneBreaker;
+  } else {
+    // setCurrentDialogueLineNumber(0);
+    // return false;
   }
 
   if (dialogue.includes('{userName}'))
@@ -93,13 +110,18 @@ function parseCurrentDialogue(thingToParse) {
 export function getCurrentLevelDialogue() {
   let currentLevelAllDialogue = getCurrentLevelAllDialogue();
 
+  // console.log(currentLevelAllDialogue);
+
   let parsedDialogue = [];
   for (let dialogue of currentLevelAllDialogue) {
     parsedDialogue.push(parseCurrentDialogue(dialogue));
   }
+  // console.log(parsedDialogue, currentDialogueLineNumberEnd);
+
+  // console.log(parsedDialogue);
 
   // console.log(parsedDialogue);
   return parsedDialogue;
 }
 
-export { agentTwo, hasShownDialogueMenu, currentDialogueLineNumberEnd };
+export { agentTwo, hasShownDialogueMenu };

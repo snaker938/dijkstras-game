@@ -1,12 +1,16 @@
 {
   "dialogue": [
     [null, "*phone ringing*", 2],
-    [2, "Goodmorning Agent {userName}.", 1],
+    [1, "Hello?", 2],
+    [2, "Goodmorning Agent {userName}!", 1],
     [null, "*you hear quite a commotion on the other end*", 2],
-    [2, "There seems to be a bit of a problem with our security features.", 1],
-    [1, "What? What is wrong with them?", 2],
-    [2, "Well, it seems like every other one is active?", 1],
-    [1, "I'll be there right away.", 2],
+    [2, "There seems to be a bit of a problem with our defense system..", 1],
+    [1, "Huh? What on earth is wrong with it?", 2],
+    [2, "We don't know, but it seems like every other one is active?", 1],
+    [1, "I thought that system was state of the art?", 2],
+    [2, "It is, and we're dealing with it, just get her-", 1],
+    [null, "*you hear a loud explosion and the line goes dead*", 2],
+    [1, "What on earth was that? I'm going to check it out..", 2],
     [0, ""]
   ]
 }

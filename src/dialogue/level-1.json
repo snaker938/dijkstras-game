@@ -11,6 +11,13 @@
     [2, "It is, and we're dealing with it, just get her-", 1],
     [null, "*you hear a loud explosion and the line goes dead*", 2],
     [1, "What on earth was that? I'm going to check it out..", 2],
+    [999, "", 3],
+    [
+      null,
+      "*you arrive at the base, people are running frantically around*",
+      3
+    ],
+    [1, "What on earth is going on?", 2],
     [0, ""]
   ]
 }

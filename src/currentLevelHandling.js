@@ -18,6 +18,10 @@ export function setCurrentLevel(newLevel) {
   currentLevel = Number(cloneVariable(newLevel));
 }
 
+export function getCurrentLevel() {
+  return currentLevel;
+}
+
 export function getCurrentLevelName() {
   return cloneVariable(allLevelNames[currentLevel - 1]);
 }

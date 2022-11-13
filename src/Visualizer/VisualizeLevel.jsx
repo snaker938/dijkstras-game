@@ -19,7 +19,6 @@ import {
 import {
   displayOutlineValue,
   getCurrentTutorialStatus,
-  getHasTutorialEnded,
   randomIntFromInterval,
   setDisplayOutlineValue,
   toggleHasShownTutorial,
@@ -33,11 +32,12 @@ import {
 } from '../optionsHandling.js';
 import NodeToggleGrid from './Node/NodeToggleGrid';
 import {
-  currentDialogueLineNumberEnd,
+  getCurrentDialogueLineNumberEnd,
   getCurrentDialogueStatus,
   getCurrentLevelDialogue,
   getCurrentLevelSpeakerPosition,
   getHasDialogueEnded,
+  getSceneBreakerIndexes,
   setHasDialogueEnded,
   setHasShownDialogueMenu,
   toggleDialogueMenu,
@@ -130,9 +130,14 @@ export default class levelVisualizer extends Component {
     if (
       event.key === 'Enter' &&
       this.state.showDialogueMenu &&
-      this.state.dialogueLineNumber !== currentDialogueLineNumberEnd - 1
+      this.state.dialogueLineNumber !== getCurrentDialogueLineNumberEnd() - 1
     ) {
-      this.getDialogueMenu(true);
+      let sceneBreakerIndexes = getSceneBreakerIndexes();
+      if (
+        !sceneBreakerIndexes.includes(Number(this.state.dialogueLineNumber) + 1)
+      ) {
+        this.getDialogueMenu(true);
+      }
     }
   };
 
@@ -340,8 +345,10 @@ export default class levelVisualizer extends Component {
   }
 
   getDialogueNextButton(dialogueLineNumber) {
+    let sceneBreakerIndexes = getSceneBreakerIndexes();
+
     let dialogueNextPageText = 'Next';
-    if (dialogueLineNumber === currentDialogueLineNumberEnd - 1) {
+    if (dialogueLineNumber === getCurrentDialogueLineNumberEnd() - 1) {
       dialogueNextPageText = 'Exit';
 
       return (
@@ -355,13 +362,13 @@ export default class levelVisualizer extends Component {
           {dialogueNextPageText}
         </button>
       );
-    } else {
+    } else if (sceneBreakerIndexes.includes(Number(dialogueLineNumber) + 1)) {
       return (
         <button
           style={{ right: '12px', top: '558px' }}
           className="optionsMenuButton"
           onClick={() => {
-            this.getDialogueMenu(true);
+            this.getDialogueMenu(false, true);
           }}
         >
           {dialogueNextPageText}
@@ -373,13 +380,32 @@ export default class levelVisualizer extends Component {
   getDialogueBlocks(currentDialogueLineNumber) {
     let dialogueBlocks = [];
     let enterText = '<hit enter>';
+    let nextText = '<press next>';
+    let exitText = '<press exit>';
+
+    let sceneBreakerIndexes = getSceneBreakerIndexes();
+
     let currentLevelSpeakerPosition = cloneVariable(
       getCurrentLevelSpeakerPosition()
     );
     let currentLevelDialogue = cloneVariable(getCurrentLevelDialogue());
 
-    for (let i = 0; i < currentDialogueLineNumberEnd; i++) {
+    for (let i = 0; i < getCurrentDialogueLineNumberEnd(); i++) {
       let dialogue;
+
+      let textToDisplay;
+      if (
+        sceneBreakerIndexes.includes(Number(this.state.dialogueLineNumber) + 1)
+      ) {
+        textToDisplay = nextText;
+      } else if (
+        Number(this.state.dialogueLineNumber) ===
+        getCurrentDialogueLineNumberEnd() - 1
+      ) {
+        textToDisplay = exitText;
+      } else {
+        textToDisplay = enterText;
+      }
 
       // If the currentLevelDialogue[i][0] is "", then dialogue is given the className of "dialogueBlockTextOther". If the currentLevelSpeakerPosition[i] is 1, then dialogue is given the className of "dialogue-left-side". If it is 2, then dialogue is given the className of "dialogue-right-side".
 
@@ -387,16 +413,21 @@ export default class levelVisualizer extends Component {
 
       // The text "<hit enter>" should only be displayed at the end of all the dialogue that is visible on the screen. This is done by checking if the i is equal to currentDialogueLineNumber. The text should have an opacity of 0.75.
 
+      let dialogueBlockPosition;
+      if (currentLevelSpeakerPosition[i] === 1) {
+        dialogueBlockPosition = 'dialogue-left-side';
+      } else if (currentLevelSpeakerPosition[i] === 2) {
+        dialogueBlockPosition = 'dialogue-right-side';
+      } else {
+        dialogueBlockPosition = 'dialogue-centre';
+      }
+
       if (currentLevelDialogue[i][0] === '') {
         dialogue = (
           <>
             <div
-              key={i}
-              className={
-                currentLevelSpeakerPosition[i] === 1
-                  ? 'dialogueBlock-left-side'
-                  : 'dialogueBlock-right-side'
-              }
+              key={i + 'dialogueBlock'}
+              className={dialogueBlockPosition}
               style={{
                 display: i <= currentDialogueLineNumber ? 'inline' : 'none',
               }}
@@ -408,12 +439,8 @@ export default class levelVisualizer extends Component {
 
             {i === currentDialogueLineNumber ? (
               <div
-                key={i}
-                className={
-                  currentLevelSpeakerPosition[i] === 1
-                    ? 'dialogueBlock-left-side'
-                    : 'dialogueBlock-right-side'
-                }
+                key={i + 'dialogueBlock2'}
+                className={dialogueBlockPosition}
                 style={{
                   display: i <= currentDialogueLineNumber ? 'inline' : 'none',
                 }}
@@ -423,13 +450,13 @@ export default class levelVisualizer extends Component {
                     opacity: '0.75',
                     display:
                       this.state.dialogueLineNumber ===
-                      currentDialogueLineNumberEnd - 1
+                      getCurrentDialogueLineNumberEnd() - 1
                         ? 'none'
                         : null,
                   }}
                   className="dialogueBlockTextOther"
                 >
-                  {enterText}
+                  {textToDisplay}
                 </p>
               </div>
             ) : null}
@@ -439,12 +466,8 @@ export default class levelVisualizer extends Component {
         dialogue = (
           <>
             <div
-              key={i}
-              className={
-                currentLevelSpeakerPosition[i] === 1
-                  ? 'dialogueBlock-left-side'
-                  : 'dialogueBlock-right-side'
-              }
+              key={i + 'dialogueBlock3'}
+              className={dialogueBlockPosition}
               style={{
                 display: i <= currentDialogueLineNumber ? 'inline' : 'none',
               }}
@@ -458,12 +481,8 @@ export default class levelVisualizer extends Component {
             </div>
             {i === currentDialogueLineNumber ? (
               <div
-                key={i}
-                className={
-                  currentLevelSpeakerPosition[i] === 1
-                    ? 'dialogueBlock-left-side'
-                    : 'dialogueBlock-right-side'
-                }
+                key={i + 'dialogueBlock4'}
+                className={dialogueBlockPosition}
                 style={{
                   display: i <= currentDialogueLineNumber ? 'inline' : 'none',
                 }}
@@ -473,13 +492,13 @@ export default class levelVisualizer extends Component {
                     opacity: '0.75',
                     display:
                       this.state.dialogueLineNumber ===
-                      currentDialogueLineNumberEnd - 1
+                      getCurrentDialogueLineNumberEnd - 1
                         ? 'none'
                         : null,
                   }}
                   className="dialogueBlockTextOther"
                 >
-                  {enterText}
+                  {textToDisplay}
                 </p>
               </div>
             ) : null}
@@ -492,9 +511,11 @@ export default class levelVisualizer extends Component {
     return dialogueBlocks;
   }
 
-  getDialogueMenu(shouldChange) {
-    if (shouldChange) {
+  getDialogueMenu(shouldChange1, shouldChange2) {
+    if (shouldChange1) {
       this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 1 });
+    } else if (shouldChange2) {
+      this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 2 });
     }
 
     let dialogueNextButton = this.getDialogueNextButton(
@@ -767,6 +788,8 @@ export default class levelVisualizer extends Component {
       toggleDialogueMenu();
     }
 
+    console.log(getCurrentTutorialStatus(), getHasDialogueEnded());
+
     if (
       Number(currentLevel) === 1 &&
       !getCurrentTutorialStatus() &&
@@ -827,7 +850,9 @@ export default class levelVisualizer extends Component {
           ? this.getTutorialMenu()
           : null}
 
-        {this.state.showDialogueMenu ? this.getDialogueMenu(false) : null}
+        {this.state.showDialogueMenu
+          ? this.getDialogueMenu(false, false)
+          : null}
 
         <div className="topButtonsContainerOutline"> </div>
 
