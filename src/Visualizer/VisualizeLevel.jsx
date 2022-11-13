@@ -103,6 +103,7 @@ export default class levelVisualizer extends Component {
       animatingPlane: false,
       showDialogueMenu: false,
       dialogueLineNumber: 0,
+      dialogueStartLoop: 0,
     };
     reloadLevelData();
     NUM_WALLS_ACTIVE = 0;
@@ -402,16 +403,16 @@ export default class levelVisualizer extends Component {
     }
   }
 
-  getDialogueBlocks(currentDialogueLineNumber, moveToNextPage) {
+  getDialogueBlocks(currentDialogueLineNumber) {
     let dialogueBlocks = [];
     let enterText = '<hit enter>';
     let nextText = '<press next>';
     let exitText = '<press exit>';
     let continueText = '<press continue>';
 
-    let dialogueBlockLoopStart = 0;
+    // let dialogueBlockLoopStart = 0;
 
-    if (moveToNextPage) dialogueBlockLoopStart = currentDialogueLineNumber;
+    // if (moveToNextPage) dialogueBlockLoopStart = currentDialogueLineNumber;
 
     let sceneBreakerIndexes = getSceneBreakerIndexes();
     let nextSceneIndexes = getSceneNextPageIndexes();
@@ -422,7 +423,7 @@ export default class levelVisualizer extends Component {
     let currentLevelDialogue = cloneVariable(getCurrentLevelDialogue());
 
     for (
-      let i = dialogueBlockLoopStart;
+      let i = this.state.dialogueStartLoop;
       i < getCurrentDialogueLineNumberEnd();
       i++
     ) {
@@ -557,14 +558,15 @@ export default class levelVisualizer extends Component {
       this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 2 });
     }
 
+    if (shouldChange3) {
+      this.setState({ dialogueStartLoop: this.state.dialogueLineNumber });
+    }
+
     let dialogueNextButton = this.getDialogueNextButton(
       this.state.dialogueLineNumber
     );
 
-    let dialogueBlocks = this.getDialogueBlocks(
-      this.state.dialogueLineNumber,
-      shouldChange3
-    );
+    let dialogueBlocks = this.getDialogueBlocks(this.state.dialogueLineNumber);
 
     return (
       <>
