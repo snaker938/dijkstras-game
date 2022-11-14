@@ -333,7 +333,7 @@ export default class sandboxVisualizer extends Component {
 
             let node = this.state.grid[row][column]; // selects the node with the row and column specified above
             let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
-            let unWallable = isEnd || isStart; // if the node is a start or end node, it cannot be changed
+            let unWallable = isEnd || isStart || node.isPermanentWall; // if the node is a start or end node, it cannot be changed
 
             let grid = this.state.grid;
             // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
@@ -379,7 +379,7 @@ export default class sandboxVisualizer extends Component {
         document.getElementById('loadLevelInput').value
       }.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
 
-      let level = document.getElementById('loadLevelInput').value;
+      let level = Number(document.getElementById('loadLevelInput').value);
 
       START_NODE_ROW = allLevelNodeCoords[level - 1][0][1];
       START_NODE_COL = allLevelNodeCoords[level - 1][0][0];

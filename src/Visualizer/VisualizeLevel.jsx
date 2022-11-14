@@ -314,27 +314,29 @@ export default class levelVisualizer extends Component {
               let node = this.state.grid[row][column]; // selects the node with the row and column specified above
               let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
               let unWallable = isEnd || isStart || node.isPermanentWall; // if the node is a start or end node, or permanent, it cannot be changed
+              if (!node.isPermanentWall) {
+                let grid = this.state.grid;
+                // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
+                if (!unWallable) {
+                  const newNode = {
+                    ...node,
+                    isWall: !isWall,
+                  };
 
-              let grid = this.state.grid;
-              // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
-              if (!unWallable) {
-                const newNode = {
-                  ...node,
-                  isWall: !isWall,
-                };
-
-                // Places the new node into the grid
-                grid[row][column] = newNode;
-                // Changes the overall state of the grid which re-renders it.
+                  // Places the new node into the grid
+                  grid[row][column] = newNode;
+                  // Changes the overall state of the grid which re-renders it.
+                }
+                if (
+                  i % 45 === 0 ||
+                  i === Number(getCurrentLevelRandomWallNumber()) - 1
+                )
+                  this.setState({ grid: grid });
               }
-              if (
-                i % 45 === 0 ||
-                i === Number(getCurrentLevelRandomWallNumber()) - 1
-              )
-                this.setState({ grid: grid });
             }, i * 10);
           }
           NUM_WALLS_ACTIVE = 10;
+
         }
       }
     }

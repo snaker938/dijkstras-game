@@ -39,8 +39,8 @@ export function animateAllNodes(
       document.getElementById(
         `node-${node.row}-${node.col}`
       ).className = `${getCurrentDisplayOutlineClass()} node-visited`;
-      document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-        visitedNodesInOrder[i].distance;
+      // document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
+      //   visitedNodesInOrder[i].distance;
     }, 6 * i); // used to be 6
   }
 }
@@ -88,8 +88,8 @@ export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
         document.getElementById(
           `node-${node.row}-${node.col}`
         ).innerHTML = `&nbsp`; // Set the html content to empty
-        document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-          nodesInShortestPathOrder[i].distance;
+        // document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
+        //   nodesInShortestPathOrder[i].distance;
         if (i === nodesInShortestPathOrder.length - 1) {
           document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
             nodesInShortestPathOrder[i].distance;

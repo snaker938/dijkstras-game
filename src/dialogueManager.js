@@ -27,8 +27,7 @@ const agentEightShort = 'Director Finch';
 const mrSmithShort = 'Mr Smith';
 
 let dialogueArry = getAllLevelDialogue();
-// let sceneBreaker =
-//   '<--------------------------------------------------------------------->';
+
 let sceneBreaker =
   '<------------------------------------------------------------------------------------------------------------------------------------------>';
 
