@@ -30,9 +30,9 @@
     [
       4,
       "I am 50% confident that there is a 75% chance that this could work!",
-      2
+      1
     ],
-    [3, "What? That doesn't make se-", 1],
+    [3, "What? That doesn't make se-", 2],
     [null, "*alarm sirens start blaring*", 3],
     [4, "Only one way to find out! Everyone back inside!", 1],
     [1000, "", 3],

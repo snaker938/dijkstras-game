@@ -7,7 +7,7 @@
     [
       3,
       "If they can create a missile so advanced it can bypass our ant-missile defence system, then I am sure they can track some moving mini-vans..",
-      2
+      1
     ],
     [4, "Yeah.. You're probably right..", 2],
     [999, "", 3],
@@ -20,23 +20,23 @@
     [
       5,
       "Well, perhaps if we focussed on what we knew already worked, rather than trying to build diagonal rows of walls, perahaps we would be having this conversation inside the old base...",
-      2
+      1
     ],
-    [4, "Well put Sir...", 1],
+    [4, "Well put Sir...", 2],
     [
       5,
       "Now. As you all know, we are working around the clock to try to find out who is behind these attacks",
-      2
+      1
     ],
     [
       5,
       "I am assured by the research team that they are extremely close to finding who these people are, but until then, we must all stay on high alert, and get ready to place walls at any second should a mi-",
-      2
+      1
     ],
     [1000, "", 3],
     [null, "*the familiar sirens begin to play again*", 3],
-    [5, "Nevermind...", 2],
-    [1, "Here I go again...", 1],
+    [5, "Nevermind...", 1],
+    [1, "Here I go again...", 2],
     [0, ""]
   ]
 }

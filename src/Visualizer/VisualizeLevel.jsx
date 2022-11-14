@@ -213,30 +213,33 @@ export default class levelVisualizer extends Component {
 
   // When a node is clicked, unless it is the start or end node, it gets toggled between a wall and not-wall
   toggleWall(row, col, isWall, unWallable) {
-    resetAllNodes(this.state.grid);
-    const { grid } = this.state;
-    let node = grid[row][col];
-    if (!node.isPermanentWall) {
-      // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall and the active walls is not 0.
-      if (
-        (!unWallable &&
-          NUM_WALLS_ACTIVE < NUM_WALLS_TOTAL &&
-          NUM_WALLS_ACTIVE > 0) ||
-        (isWall && NUM_WALLS_ACTIVE > 0) ||
-        (!isWall && NUM_WALLS_ACTIVE === 0)
-      ) {
-        // If it isnt a wall currently, increase the number of active walls by one, else decrease them
-        if (!unWallable && !isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
-        else if (!unWallable && isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE - 1;
-        // Creates a temporary node with the new property of isWall set to the opposite of its current state.
-        const newNode = {
-          ...node,
-          isWall: !isWall,
-        };
-        //   Places the new node into the grid
-        grid[row][col] = newNode;
-        //   Changes the overall state of the grid which re-renders it.
-        this.setState({ grid: grid });
+    if (document.getElementById('homeButton').classList.contains('enabled')) {
+      resetAllNodes(this.state.grid);
+      const { grid } = this.state;
+      let node = grid[row][col];
+      if (!node.isPermanentWall) {
+        // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall and the active walls is not 0.
+        if (
+          (!unWallable &&
+            NUM_WALLS_ACTIVE < NUM_WALLS_TOTAL &&
+            NUM_WALLS_ACTIVE > 0) ||
+          (isWall && NUM_WALLS_ACTIVE > 0) ||
+          (!isWall && NUM_WALLS_ACTIVE === 0)
+        ) {
+          // If it isnt a wall currently, increase the number of active walls by one, else decrease them
+          if (!unWallable && !isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
+          else if (!unWallable && isWall)
+            NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE - 1;
+          // Creates a temporary node with the new property of isWall set to the opposite of its current state.
+          const newNode = {
+            ...node,
+            isWall: !isWall,
+          };
+          //   Places the new node into the grid
+          grid[row][col] = newNode;
+          //   Changes the overall state of the grid which re-renders it.
+          this.setState({ grid: grid });
+        }
       }
     }
   }
@@ -336,7 +339,6 @@ export default class levelVisualizer extends Component {
             }, i * 10);
           }
           NUM_WALLS_ACTIVE = 10;
-
         }
       }
     }
