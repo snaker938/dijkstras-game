@@ -11,7 +11,7 @@
   "wallsForOneStar": 7,
   "description": "We have arrived at our second base safeuly - but our enemy know where we are! You must defend us!",
   "wallsForTwoStar": 5,
-  "difficulty": "Very Easy",
+  "difficulty": "Medium",
   "wallsForThreeStar": 3,
   "endDistance": 60,
   "grid": [

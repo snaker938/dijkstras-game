@@ -1,12 +1,46 @@
 {
   "dialogue": [
-    [null, "*phone ringing*", 2],
-    [2, "Goodmorning Agent {userName}.", 1],
-    [null, "*you hear quite a commotion on the other end*", 2],
-    [2, "There seems to be a bit of a problem with our security features.", 1],
-    [1, "What? What is wrong with them?", 2],
-    [2, "Well, it seems like every other one is active?", 1],
-    [1, "I'll be there right away.", 2],
+    [6, "We have a GPS location of {20}..", 2],
+    [1, "Where was he hiding?", 1],
+    [6, "In a small farm near the South Coast..", 2],
+    [4, "You've got to be joking!", 1],
+    [
+      6,
+      "Of course I'm joking! He is in a high-security underground bunker in Middlesbrough..",
+      2
+    ],
+    [4, "And I thought my jokes were bad..", 1],
+    [8, "We will send in our best agents for this mission..", 2],
+    [7, "I'll start rounding them up!", 1],
+    [
+      8,
+      "This is one of the most crucial missions we have ever done. We need to bring {20} back here for questioning, so we can figure out what is really going on here, and the reason behind these attacks..",
+      1
+    ],
+    [null, "*the sound of sirens start blaring again*", 3],
+    [4, "Hmm, thats very strange..", 1],
+    [1000, "", 3],
+    [3, "What is it?", 2],
+    [
+      4,
+      "Well, the system is saying that the intended target is the underground bunker in Middlesbrough. The missile seems to be of the digging variety..",
+      1
+    ],
+    [1, "What? Why would they be attacking their own base?", 2],
+    [
+      8,
+      "My guess is that the secrets that {20} hold are so valuable, he is willing to die to make sure that the information he has does not get leaked...",
+      1
+    ],
+    [
+      1,
+      "Surely you are not implying that we actually have to protect this bunker from the missle, and capture {20} at the same time?",
+      1
+    ],
+    [5, "I think that is exactly what the Director is suggesting...", 2],
+    [4, "I don't think we are winning this one...", 1],
+    [1, "Just gets the walls ready, would you..", 2],
+    [4, "On it Boss...", 1],
     [0, ""]
   ]
 }

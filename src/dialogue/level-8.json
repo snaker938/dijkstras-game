@@ -1,12 +1,44 @@
 {
   "dialogue": [
-    [null, "*phone ringing*", 2],
-    [2, "Goodmorning Agent {userName}.", 1],
-    [null, "*you hear quite a commotion on the other end*", 2],
-    [2, "There seems to be a bit of a problem with our security features.", 1],
-    [1, "What? What is wrong with them?", 2],
-    [2, "Well, it seems like every other one is active?", 1],
-    [1, "I'll be there right away.", 2],
+    [5, "Excellent work as always, {userName}", 2],
+    [7, "Indeed it was. Now, onto our attack plans..", 1],
+    [
+      7,
+      "I will be leading our counter-attack, so if you have any questions or hear any new information, let me know..",
+      1
+    ],
+    [
+      7,
+      "We will be following a similar stragety to the one we used back in '98 to take over the Algul base..",
+      1
+    ],
+    [
+      7,
+      "Our attack plan is quite simple, our foot agents will circle the base, and use machines that emmit high frequency waves that should distrupt their electronics.. ",
+      1
+    ],
+    [
+      7,
+      "This should give us the opportunity to launch our own missiles and this just hopefully cause a lot of damage to their operations..",
+      1
+    ],
+    [
+      5,
+      "We are also aware that this would give the enemy a perfect opportunity to launch a surprise counter-attack on us, so stay on high alert!",
+      2
+    ],
+    [7, "Lets begin!", 1],
+    [999, "", 3],
+    [
+      null,
+      "*the attack seems to be going smoothly, and it's obvious that the enemy was not expecting it, however, you feel that things are almost going too well...*",
+      3
+    ],
+    [4, "This is going very well!", 2],
+    [1, "I just feel like there could be an-", 1],
+    [null, "*the sound of sirens start again*", 3],
+    [3, "Oh great. Just when I thought we had the upper hand...", 2],
+    [1, "I'll get the walls ready...", 1],
     [0, ""]
   ]
 }

@@ -1,12 +1,57 @@
 {
   "dialogue": [
-    [null, "*phone ringing*", 2],
-    [2, "Goodmorning Agent {userName}.", 1],
-    [null, "*you hear quite a commotion on the other end*", 2],
-    [2, "There seems to be a bit of a problem with our security features.", 1],
-    [1, "What? What is wrong with them?", 2],
-    [2, "Well, it seems like every other one is active?", 1],
-    [1, "I'll be there right away.", 2],
+    [8, "It's been a while {20}.", 2],
+    [
+      20,
+      "Indeed it has. Well. You have me now, what would you like to discuss?",
+      1
+    ],
+    [8, "Why are you doing this?", 2],
+    [
+      20,
+      "Ahh yes, the big question. I don't think I can tell you that just yet...",
+      1
+    ],
+    [8, "So there IS something bigger than just destroying our bases..", 2],
+    [20, "Of course there is!", 1],
+    [
+      8,
+      "We will find out what it is eventually, so why not just tell us now?",
+      2
+    ],
+    [
+      20,
+      "Of course you will find out eventually. I'm counting on it! In fact, I think quite a lot of people will found out eventually!",
+      1
+    ],
+    [8, "What do you mean by that?", 2],
+    [20, "...", 1],
+    [8, "WHAT DO Y-", 2],
+    [
+      null,
+      "*the sound of sirens echo throghout the interrogation room and {3} bursts into the room*",
+      3
+    ],
+    [3, "Sir, we have to go now!", 1],
+    [8, "We will finish this later..", 2],
+    [20, "Im counting on it!", 1],
+    [1000, "", 3],
+    [null, "*{8} and {3} go back into the control room*", 3],
+    [8, "Whats happening?", 2],
+    [
+      4,
+      "Another missile has been sent! The target, the interrogation block. However, this time, it is not being targetted at the specific cell {20} is in..",
+      1
+    ],
+    [1, "Perhaps {20} didn't want to die after all?", 2],
+    [5, "Which meant that he knew we'd save him...", 1],
+    [3, "We had no choice..", 2],
+    [
+      1,
+      "Forget about him, there is missile is nearly here, lets get the walls ready!",
+      1
+    ],
+    [5, "You heard the Agent! Get to it!", 2],
     [0, ""]
   ]
 }

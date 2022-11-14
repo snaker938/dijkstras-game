@@ -6,7 +6,7 @@
   "lives": 3,
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 0],
-  "difficulty": "Very Easy",
+  "difficulty": "Easy",
   "description": "Our main base has been wiped out, we are on the move to a temporary one. Hold them off untill reinforcements arrive!",
   "wallsAllowed": 10,
   "wallsForNoStar": 10,

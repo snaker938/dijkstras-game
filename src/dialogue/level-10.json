@@ -1,12 +1,35 @@
 {
   "dialogue": [
-    [null, "*phone ringing*", 2],
-    [2, "Goodmorning Agent {userName}.", 1],
-    [null, "*you hear quite a commotion on the other end*", 2],
-    [2, "There seems to be a bit of a problem with our security features.", 1],
-    [1, "What? What is wrong with them?", 2],
-    [2, "Well, it seems like every other one is active?", 1],
-    [1, "I'll be there right away.", 2],
+    [5, "I don't know how we managed to survive that attack!", 2],
+    [1, "Don't worry! I am 100% confident in my abilities!", 1],
+    [null, "*you're only 15% sure..*", 1],
+    [
+      7,
+      "Well done everybody! We have some great news! We managed to recover loads of half-burnt documents that should potentially give a name to the head of this whole operation!",
+      1
+    ],
+    [
+      6,
+      "However, because they are half-burnt, I will need some time with my research department to use our algorithms to re-create the missing parts and piece them all togeter..",
+      1
+    ],
+    [4, "That could take hours!", 2],
+    [6, "Well what else would you be doing?", 1],
+    [4, "Well...", 2],
+    [
+      6,
+      "In the mean time, we must make sure that the enemy do not cut off our power supply..",
+      1
+    ],
+    [1, "Why not? Don't we have backup generators?", 2],
+    [
+      6,
+      "We do, but they won't supply us with enough power to do this specific task. We need all the power we can get!",
+      1
+    ],
+    [1, "Alright..", 2],
+    [null, "*the familiar sirens start blaring again*", 3],
+    [1, "Great. Just when I finally got comfortable..", 1],
     [0, ""]
   ]
 }

@@ -369,15 +369,26 @@ export default class sandboxVisualizer extends Component {
 
   // This function is purely for testing the grid templates. No animating or anything is done here
   loadTestGrid() {
-    this.removeAllWalls(); // removes all existing walls
-    const json = require(`../Visualizer/templates/NO-PATH.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
-    // let level = 1;
-    // START_NODE_ROW = allLevelNodeCoords[level - 1][0][1];
-    // START_NODE_COL = allLevelNodeCoords[level - 1][0][0];
-    // END_NODE_ROW = allLevelNodeCoords[level - 1][1][1];
-    // END_NODE_COL = allLevelNodeCoords[level - 1][1][0];
-    let newGrid = json.grid; // this gets the actual grid template
-    this.setState({ grid: newGrid }); // sets the current state of the grid to the new grid.
+    // If the value of loadLevelInput is not between 1 and 15, then nothing will happen. If it is, then the grid will be loaded with the corresponding grid template
+    if (
+      document.getElementById('loadLevelInput').value >= 1 &&
+      document.getElementById('loadLevelInput').value <= 15
+    ) {
+      this.removeAllWalls(); // removes all existing walls
+      const json = require(`../levels/level${
+        document.getElementById('loadLevelInput').value
+      }.json`); // stores the contents of the json file to a variable. The grid template can therefore be accessed.
+
+      let level = document.getElementById('loadLevelInput').value;
+
+      START_NODE_ROW = allLevelNodeCoords[level - 1][0][1];
+      START_NODE_COL = allLevelNodeCoords[level - 1][0][0];
+      END_NODE_ROW = allLevelNodeCoords[level - 1][1][1];
+      END_NODE_COL = allLevelNodeCoords[level - 1][1][0];
+      let newGrid = json.grid; // this gets the actual grid template
+
+      this.setState({ grid: newGrid }); // sets the current state of the grid to the new grid.
+    }
   }
 
   toggleOptionsMenu() {
@@ -454,6 +465,25 @@ export default class sandboxVisualizer extends Component {
             <div style={{ zIndex: '100' }} className="optionsMenuDevelopment">
               <p className="developmentOptionsText">Development Options</p>
               <div>
+                <div>
+                  <p style={{ top: '80px' }} className="endDistanceOptions">
+                    Load Level Name:
+                  </p>
+                  <input
+                    type="text"
+                    id="loadLevelInput"
+                    className="usernameInput"
+                    style={{
+                      top: '70px',
+                      zIndex: '1',
+                      width: '35px',
+                      right: '150px',
+                    }}
+                    maxLength={22}
+                    spellCheck="false"
+                    defaultValue={''}
+                  ></input>
+                </div>
                 <button
                   className="standard-button-options saveGridButton"
                   onClick={() => saveGrid(this.state.grid)} // outputs the current grid so that it can be saved

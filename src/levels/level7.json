@@ -11,7 +11,7 @@
   "wallsForOneStar": 7,
   "wallsForTwoStar": 5,
   "description": "We have a GPS location on our enemy, we are sending some agents to check it out - you must make sure the enemy doesn't destroy our communication system!",
-  "difficulty": "Very Easy",
+  "difficulty": "Hard",
   "wallsForThreeStar": 3,
   "endDistance": 60,
   "grid": [

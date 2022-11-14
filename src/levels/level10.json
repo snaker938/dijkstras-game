@@ -10,9 +10,9 @@
   "wallsForNoStar": 10,
   "wallsForOneStar": 7,
   "wallsForTwoStar": 5,
-  "difficulty": "Very Easy",
+  "difficulty": "Tough",
   "wallsForThreeStar": 3,
-  "description": "While we run the records obtained during our attack of the enemy base through our algorithms, we must stop the enemy cutting off our power supply!",
+  "description": "While we run the records obtained during our attack of the enemy base through our algorithms, we must stop the enemy from cutting off our power supply!",
   "endDistance": 60,
   "grid": [
     [

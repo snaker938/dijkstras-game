@@ -1,12 +1,62 @@
 {
   "dialogue": [
-    [null, "*phone ringing*", 2],
-    [2, "Goodmorning Agent {userName}.", 1],
-    [null, "*you hear quite a commotion on the other end*", 2],
-    [2, "There seems to be a bit of a problem with our security features.", 1],
-    [1, "What? What is wrong with them?", 2],
-    [2, "Well, it seems like every other one is active?", 1],
-    [1, "I'll be there right away.", 2],
+    [
+      null,
+      "*everyone is sitting, staring at the monitor, waiting to see the name the algorithm comes up with*",
+      3
+    ],
+    [6, "10 seconds left!", 2],
+    [null, "*1.5 hours later*", 3],
+    [6, "Ahh! Finally!", 2],
+    [5, "Well? What is the name?", 1],
+    [6, "{20}.", 2],
+    [1, "Who on earth is that?", 1],
+    [5, "For once I have no idea..", 2],
+    [8, "I do.", 1],
+    [null, "*murmured whispering*", 3],
+    [
+      5,
+      "{8}, I didn't realise you were here.. Do you know who this {20} is?",
+      1
+    ],
+    [
+      8,
+      "He was former Offier here at the Agency. One of the best I have ever seen..",
+      1
+    ],
+    [3, "What happened to him?", 2],
+    [
+      8,
+      "He had to be let go due to his out-of-date methods and practices..",
+      1
+    ],
+    [4, "That would explain the missiles!", 2],
+    [1000, "", 3],
+    [8, "Indeed. But I think he is planning something bigger..", 1],
+    [1, "Something bigger than firing missiles at us?", 2],
+    [
+      8,
+      "Well, with us out of the picture, he would be free to do whatever he liked to London..",
+      1
+    ],
+    [1, "Oh.", 2],
+    [
+      6,
+      "My team and I are already looking into the possible whereabouts of our guy. It's going to take some time though, there is a lot of data to sort through..",
+      1
+    ],
+    [1, "When is it going to take a short amount of time for once!", 2],
+    [null, "*the sound of sirens suddenly fill the room*", 3],
+    [1, "Let me guess, the target is the research centre?", 2],
+    [4, "You got it!", 1],
+    [1, "And a huge self-destruct distance?", 2],
+    [
+      4,
+      "Only {endDistance} this time, I guess they couldn't afford to make another big missile!",
+      1
+    ],
+    [1, "Wasn't funny!", 2],
+    [4, "I'll get the walls...", 1],
     [0, ""]
   ]
 }

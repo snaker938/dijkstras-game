@@ -30,8 +30,89 @@
     [1, "What? Why?", 2],
     [
       3,
-      "At roughly 16:00, a missile was fired at our base, at the same time, somebody got access to our defense system, and managed to switch off half of it",
+      "At roughly 16:00, a missile was fired from an unkown location. The target: our base. At the same time, somebody got access to our defense system, and managed to switch off half of it",
       1
+    ],
+    [1, "Do we know who did this?", 2],
+    [
+      3,
+      "Our team is looking into it, but in the mean time, if another one comes, we are ready..",
+      1
+    ],
+    [1, "How so?", 2],
+    [
+      3,
+      "Well, as a last resort, we got our best computer scientists to try and 'hack' the missile's AI",
+      1
+    ],
+    [1, "And?", 2],
+    [
+      3,
+      "We managed to get access into the missile's pathfinding AI, but that's all we can do. The rest of it's software would take days to crack, by which time it would reach its indended target",
+      1
+    ],
+    [1, "Tell me more..", 2],
+    [1000, "", 3],
+    [
+      3,
+      "It turns out the missile uses a modified version of the well-known Dijktra algorithm",
+      1
+    ],
+    [1, "Dijkstra's shortest path algorithm, I'm familiar with it", 2],
+    [
+      3,
+      "Although we cannot modify the missile's algorithm, it allows us to see the intended path in real-time",
+      1
+    ],
+    [
+      1,
+      "That implies that the missile will always find the intended target no matter what.. That can't be good right?",
+      2
+    ],
+    [3, "We also found out another thing..", 1],
+    [1, "A way to stop the missile?", 2],
+    [
+      3,
+      "Sort of. It seems that every missile is fitted with some 'self-destruct' code.",
+      1
+    ],
+    [1, "Go on..", 2],
+    [
+      3,
+      "It turns out that after the missile has travelled a pre-set certain distance, it will run the self-destruct code. Luckily for us, we can see this distance",
+      1
+    ],
+    [
+      1,
+      "So we can place obstacles in the way to make the missile take a path long enough for it to self-destruct!",
+      2
+    ],
+    [3, "Precisely", 1],
+    [1, "But why can't we just block the missile's path altogether?", 2],
+    [
+      3,
+      "I was just coming on to this. If the missile's software detects that there is no path to the target, it alerts the enemy and they will probably fix the backdoor we used to gain access to the system, and we're doomed",
+      1
+    ],
+    [1000, "", 3],
+    [1, "So all I have to do is place obstacles in the way of the missile?", 2],
+    [
+      3,
+      "Correct. And another thing, we only a few obstacles in total, so use them wisely",
+      1
+    ],
+    [null, "*suddenly, loud sirens start blaring*", 3],
+    [4, "{3}, {userName}, we have a missile incoming!", 1],
+    [3, "Info on the missile please..", 2],
+    [
+      4,
+      "Heading right for us. Self-destruct distance set to {endDistance}!",
+      1
+    ],
+    [
+      3,
+      "{userName}, it's all up to you now. And remember, do NOT block the path!",
+      2
     ],
     [0, ""]
   ]

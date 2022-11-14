@@ -1,16 +1,46 @@
 {
   "dialogue": [
-    [null, "*phone ringing*", 2],
-    [1, "Hello?", 2],
-    [2, "Goodmorning Agent {userName}!", 1],
-    [null, "*you hear quite a commotion on the other end*", 2],
-    [2, "There seems to be a bit of a problem with our defense system..", 1],
-    [1, "Huh? What on earth is wrong with it?", 2],
-    [2, "We don't know, but it seems like every other one is active?", 1],
-    [1, "I thought that system was state of the art?", 2],
-    [2, "It is, and we're dealing with it, just get her-", 1],
-    [null, "*you hear a loud explosion and the line goes dead*", 2],
-    [1, "What on earth was that? I'm going to check it out..", 2],
+    [null, "*everyone around you is applauding*", 3],
+    [3, "That was perfectly handled!", 2],
+    [
+      4,
+      "Indeed. It was lucky that our surveillance system picked up the missile",
+      1
+    ],
+    [1, "What do you mean by that?", 2],
+    [
+      4,
+      "It seems that this time the enemy tried to use some sort of cloaking tech to hide the missile from our sensors..",
+      1
+    ],
+    [3, "We can still access the pathfinding system right?", 2],
+    [
+      4,
+      "Yes, I believe that as long as they don't realise that we can see the missile's path, we should be alright",
+      1
+    ],
+    [1, "Have we figured out who is behind these attacks?", 2],
+    [
+      3,
+      "We are still looking. Whoever they are, they are very good at hiding..",
+      1
+    ],
+    [
+      4,
+      "In the mean time, I'll look into their cloaking system, to see if-",
+      2
+    ],
+    [null, "*the screen goes black*", 3],
+    [4, "What just happened??", 1],
+    [null, "*loud sirens start blaring*", 3],
+    [3, "Speak to me {4}..", 2],
+    [
+      4,
+      "Another missile. This one targetting our surveillance system, hence the black screen. End distance has been set to {endDistance}!",
+      1
+    ],
+    [3, "It's your time to shine Agent {userName}!", 2],
+    [1, "I'll do my best!", 1],
     [0, ""]
   ]
 }

@@ -10,6 +10,7 @@ import {
   getLevelDifficulty,
   getLevelAllowedWalls,
   getLevelLives,
+  getLevelEndDistance,
 } from '../../allLevelData';
 import { EnterLevel, EnterHomeFromMenu } from '../../Navigation';
 import './campaignScreen.css';
@@ -90,7 +91,7 @@ export default class CampaignScreen extends Component {
   getLevelInfo(id) {
     let numRandomWallPresses = getLevelRandomWallPresses(id);
     let powerupMessage = 'None';
-    if (numRandomWallPresses > 0) powerupMessage = numRandomWallPresses;
+    if (numRandomWallPresses > 0) powerupMessage = 'Active';
     return (
       <div style={{ position: 'absolute', top: '40px' }}>
         <div>
@@ -104,7 +105,7 @@ export default class CampaignScreen extends Component {
             style={{ top: '350px', left: '620px' }}
           >
             <span>
-              <div className="levelInfoTag">Powerups</div>
+              <div className="levelInfoTag">Random Walls</div>
               <p className="infoText"> {powerupMessage}</p>
             </span>
           </div>
@@ -126,8 +127,8 @@ export default class CampaignScreen extends Component {
             style={{ top: '470px', left: '620px' }}
           >
             <span>
-              <div className="levelInfoTag">Lives</div>
-              <span className="infoText">{getLevelLives(id)}</span>
+              <div className="levelInfoTag">End Distance</div>
+              <span className="infoText">{getLevelEndDistance(id)}</span>
             </span>
           </div>
         </div>

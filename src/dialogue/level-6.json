@@ -1,12 +1,45 @@
 {
   "dialogue": [
-    [null, "*phone ringing*", 2],
-    [2, "Goodmorning Agent {userName}.", 1],
-    [null, "*you hear quite a commotion on the other end*", 2],
-    [2, "There seems to be a bit of a problem with our security features.", 1],
-    [1, "What? What is wrong with them?", 2],
-    [2, "Well, it seems like every other one is active?", 1],
-    [1, "I'll be there right away.", 2],
+    [5, "Splendid work {userName}!", 2],
+    [1, "All in a days work..", 1],
+    [
+      5,
+      "Now we have a bit of time, I would like to pass over to {6} - the head of the research department",
+      2
+    ],
+    [
+      6,
+      "Hello everyone! I would like to give you all an update on where we are at with locating our enemy.",
+      1
+    ],
+    [
+      6,
+      "We crawled through hours of telephone calls that happened near our base, and we found an interesting one..",
+      1
+    ],
+    [
+      6,
+      "It happened right after the first missile unsuccessfully tried to destroy our base. It seems to be somebody confirming to another individual that the missile did indeed reach our base..",
+      1
+    ],
+    [
+      6,
+      "Currently, our computers are searching through hundreds of thousands of IP addresses which could potentially hold the location of the enemy's base. We are then using our satellites to determine whether the IP could indeed be the enemy..",
+      1
+    ],
+    [
+      6,
+      "We are roughly half way through the list, and nothing so far. It is imperative that the enemy do not destroy our GPS system, or all our work will be lost..",
+      1
+    ],
+    [
+      1,
+      "When we found out who these people are, I will be very interested to know why they decided to attack us..",
+      2
+    ],
+    [null, "*the room becomes filled with the sound of sirens*", 3],
+    [4, "These people don't stop do they?", 2],
+    [3, "At least they waited untill {6} had finished speaking...", 1],
     [0, ""]
   ]
 }

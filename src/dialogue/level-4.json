@@ -1,25 +1,47 @@
 {
   "dialogue": [
-    [null, "*phone ringing*", 2],
-    [1, "Hello?", 2],
-    [2, "Goodmorning Agent {userName}!", 1],
-    [null, "*you hear quite a commotion on the other end*", 2],
-    [2, "There seems to be a bit of a problem with our defense system..", 1],
-    [1, "Huh? What on earth is wrong with it?", 2],
-    [2, "We don't know, but it seems like every other one is active?", 1],
-    [1, "I thought that system was state of the art?", 2],
-    [2, "It is, and we're dealing with it, just get her-", 1],
-    [null, "*you hear a loud explosion and the line goes dead*", 2],
-    [1, "What on earth was that? I'm going to check it out..", 2],
-    [999, "", 3],
     [
       null,
-      "*you arrive at the base, people are running frantically around*",
+      "*you, and the other agents look at the North side of the base - ruined*",
       3
     ],
-    [1, "Hello? What is going on?", 2],
-    [1, "Hello? What is going on?", 2],
-    [1, "Hello? What is going on?", 2],
+    [1, "I couldn't stop them all, there were just too many", 2],
+    [3, "It's not your fault..", 1],
+    [4, "I don't know what happened, it should have worked", 2],
+    [
+      3,
+      "It doesn't matter now, what is important is that we get to the secondary base",
+      1
+    ],
+    [1, "I didn't know we had two bases?", 2],
+    [
+      3,
+      "The director had it built when there were threats to attack us... I guess those threats were true",
+      1
+    ],
+    [null, "*you see the transport vehicles begin to arrive*", 3],
+    [3, "Right, off we go", 2],
+    [
+      4,
+      "I will bring my laptop, so if there is another attack, we can try and prevent it",
+      1
+    ],
+    [1, "This time, can you leve the missile prevention to me?", 2],
+    [4, "Affirmative!", 1],
+    [1000, "", 3],
+    [null, "*you all board the minivan and head to the temporary base*", 3],
+    [1, "Any info on our mysterious attackers?", 1],
+    [
+      3,
+      "Unfortunately not, however, the leader of our research team ensures us that they have some solid leads",
+      2
+    ],
+    [null, "*suddenly, a loud siren blasts from Leonard's laptop*", 3],
+    [3, "Can you turn that thing off??", 1],
+    [4, "It's another missile alert!", 2],
+    [1, "They already destroyed our base?", 1],
+    [4, "The target isn't our base, its us... End distance is set at 60!", 2],
+    [1, "Stop the car, let me handle this...", 1],
     [0, ""]
   ]
 }

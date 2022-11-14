@@ -7,6 +7,7 @@ import './VisualizerSandbox.css';
 import './VisualizerBoth.css';
 import {
   currentLevel,
+  getCurrentLevelEndDistance,
   getCurrentLevelGrid,
   getCurrentLevelID,
   getCurrentLevelLives,
@@ -136,11 +137,6 @@ export default class levelVisualizer extends Component {
     ) {
       let sceneBreakerIndexes = getSceneBreakerIndexes();
       let sceneNextPageIndexes = getSceneNextPageIndexes();
-      console.log(
-        sceneBreakerIndexes,
-        sceneNextPageIndexes,
-        this.state.dialogueLineNumber
-      );
       if (
         !sceneBreakerIndexes.includes(
           Number(this.state.dialogueLineNumber) + 1
@@ -513,7 +509,16 @@ export default class levelVisualizer extends Component {
               }}
             >
               <p className="dialogueBlockText">
-                <span style={{ opacity: '0.7' }}>
+                {/* If currentLevelDialogue[i][0] equals '<Mr Smith>', set the color of the text to a very light red */}
+                <span
+                  style={{
+                    opacity: '0.7',
+                    color:
+                      currentLevelDialogue[i][0] === '<Mr Smith>'
+                        ? '#ffcccc'
+                        : null,
+                  }}
+                >
                   {currentLevelDialogue[i][0]}
                 </span>{' '}
                 {currentLevelDialogue[i][1]}
@@ -903,7 +908,10 @@ export default class levelVisualizer extends Component {
           <p className="numWallsActiveMessage">
             {NUM_WALLS_ACTIVE} out of {NUM_WALLS_TOTAL} walls used
           </p>
-          {numRandomWallText}
+          <p className="currentEndDistanceMessage">
+            End Distance: {getCurrentLevelEndDistance()}
+          </p>
+          {/* {numRandomWallText} */}
           <button
             style={{ right: '100px', top: '16px', padding: '5px' }}
             className="standard-button"

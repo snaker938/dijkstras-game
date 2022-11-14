@@ -10,7 +10,7 @@
   "wallsForNoStar": 10,
   "wallsForOneStar": 7,
   "wallsForTwoStar": 5,
-  "difficulty": "Very Easy",
+  "difficulty": "Very Hard",
   "description": "While we attack the enemy, you must make sure that the enemy doesn't launch a surprise attack on us!",
   "wallsForThreeStar": 3,
   "endDistance": 60,

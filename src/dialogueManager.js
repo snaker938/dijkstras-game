@@ -1,12 +1,30 @@
 import { getCurrentUserName } from './currentUserDataHandling';
 
 import { numLevels } from './allLevelData';
-import { currentLevel, getCurrentLevel } from './currentLevelHandling';
+import {
+  currentLevel,
+  getCurrentLevel,
+  getCurrentLevelEndDistance,
+} from './currentLevelHandling';
 
 const agentTwo = '<Agent Jenkins>';
 const agentThree = '<Agent Pembroke>';
+const agentFour = '<Agent Leonard>';
+const agentFive = '<Officer Harold>';
+const agentSix = '<Agent Rick>';
+const agentSeven = '<Commander Reese>';
+const agentEight = '<Director Finch>';
+const mrSmith = '<Mr Smith>';
 
+const agentThreeShort = 'Agent Pembroke';
 const agentTwoShort = 'Agent Jenkins';
+const agentFourShort = 'Agent Leonard';
+const agentFiveShort = 'Officer Harold';
+const agentSixShort = 'Agent Rick';
+const agentSevenShort = 'Command Reese';
+const agentEightShort = 'Director Finch';
+
+const mrSmithShort = 'Mr Smith';
 
 let dialogueArry = getAllLevelDialogue();
 // let sceneBreaker =
@@ -107,6 +125,12 @@ function parseCurrentDialogue(thingToParse) {
   if (speaker === 1) speaker = `<${getCurrentUserName()}>`;
   else if (speaker === 2) speaker = agentTwo;
   else if (speaker === 3) speaker = agentThree;
+  else if (speaker === 4) speaker = agentFour;
+  else if (speaker === 5) speaker = agentFive;
+  else if (speaker === 6) speaker = agentSix;
+  else if (speaker === 7) speaker = agentSeven;
+  else if (speaker === 8) speaker = agentEight;
+  else if (speaker === 20) speaker = mrSmith;
   else if (speaker === null) speaker = '';
   else if (speaker === 999) {
     speaker = '';
@@ -119,8 +143,24 @@ function parseCurrentDialogue(thingToParse) {
 
   if (dialogue.includes('{userName}'))
     dialogue = dialogue.replace('{userName}', getCurrentUserName());
+  if (dialogue.includes('{endDistance}'))
+    dialogue = dialogue.replace('{endDistance}', getCurrentLevelEndDistance());
   if (dialogue.includes('{2}'))
     dialogue = dialogue.replace('{2}', agentTwoShort);
+  if (dialogue.includes('{3}'))
+    dialogue = dialogue.replace('{3}', agentThreeShort);
+  if (dialogue.includes('{4}'))
+    dialogue = dialogue.replace('{4}', agentFourShort);
+  if (dialogue.includes('{5}'))
+    dialogue = dialogue.replace('{5}', agentFiveShort);
+  if (dialogue.includes('{6}'))
+    dialogue = dialogue.replace('{6}', agentSixShort);
+  if (dialogue.includes('{7}'))
+    dialogue = dialogue.replace('{7}', agentSevenShort);
+  if (dialogue.includes('{8}'))
+    dialogue = dialogue.replace('{8}', agentEightShort);
+  if (dialogue.includes('{20}'))
+    dialogue = dialogue.replace('{20}', mrSmithShort);
 
   return [speaker, dialogue];
 }

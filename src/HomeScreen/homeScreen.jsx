@@ -185,7 +185,7 @@ export default class HomeScreen extends Component {
             this.clearAllLocalStorageData();
           }}
         >
-          Medals
+          Data
         </button>
 
         <button
