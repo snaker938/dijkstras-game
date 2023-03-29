@@ -23,7 +23,7 @@
       "*alarm bells suddenly start ringing, except, they are playing a different sound than the usual one*",
       3
     ],
-    [1, "I havn't heard this alarm before? Is there another missile?", 2],
+    [1, "I haven't heard this alarm before? Is there another missile?", 2],
     [
       4,
       "This is our unidentified object alarm. It means there is something coming towards us that our scanners do not recognise...",
@@ -56,7 +56,7 @@
     [3, "{endDistance}?!", 2],
     [
       4,
-      "It's strange that they made such an improvement with the missile's range, but still havn't fixed this backdoor? Oh well..",
+      "It's strange that they made such an improvement with the missile's range, but still haven't fixed this backdoor? Oh well..",
       1
     ],
     [1, "I need a lot of walls...", 2],

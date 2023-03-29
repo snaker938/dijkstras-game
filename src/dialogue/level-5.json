@@ -19,7 +19,7 @@
     [4, "I like the previous base better", 1],
     [
       5,
-      "Well, perhaps if we focussed on what we knew already worked, rather than trying to build diagonal rows of walls, perahaps we would be having this conversation inside the old base...",
+      "Well, perhaps if we focussed on what we knew already worked, rather than trying to build diagonal rows of walls, perhaps we would be having this conversation inside the old base...",
       1
     ],
     [4, "Well put Sir...", 2],
@@ -35,7 +35,7 @@
     ],
     [1000, "", 3],
     [null, "*the familiar sirens begin to play again*", 3],
-    [5, "Nevermind...", 1],
+    [5, "Never mind...", 1],
     [1, "Here I go again...", 2],
     [0, ""]
   ]

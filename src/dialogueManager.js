@@ -1,11 +1,9 @@
-import { getCurrentUserName } from './currentUserDataHandling';
-
 import { numLevels } from './allLevelData';
 import {
   currentLevel,
-  getCurrentLevel,
   getCurrentLevelEndDistance,
 } from './currentLevelHandling';
+import { getCurrentUserName } from './currentUserDataHandling';
 
 const agentTwo = '<Agent Jenkins>';
 const agentThree = '<Agent Pembroke>';
@@ -26,26 +24,16 @@ const agentEightShort = 'Director Finch';
 
 const mrSmithShort = 'Mr Smith';
 
-let dialogueArry = getAllLevelDialogue();
-
 let sceneBreaker =
   '<------------------------------------------------------------------------------------------------------------------------------------------>';
+
+const dialogueArry = getAllLevelDialogue();
+
+let currentDialogueLineNumber = 0;
 
 let hasShownDialogueMenu = false;
 
 let hasDialogueEnded = false;
-
-let currentDialogueLineNumber = 0;
-
-// let currentDialogueLineNumberEnd = getCurrentDialogueLineNumerEnd();
-
-export function setCurrentDialogueLineNumber(num) {
-  currentDialogueLineNumber = num;
-}
-
-export function toggleDialogueMenu() {
-  hasShownDialogueMenu = !hasShownDialogueMenu;
-}
 
 export function setHasDialogueEnded(value) {
   hasDialogueEnded = value;
@@ -55,13 +43,7 @@ export function getHasDialogueEnded() {
   return hasDialogueEnded;
 }
 
-export function setHasShownDialogueMenu(value) {
-  hasShownDialogueMenu = value;
-}
-
-export function getCurrentDialogueStatus() {
-  return hasShownDialogueMenu;
-}
+// let currentDialogueLineNumberEnd = getCurrentDialogueLineNumerEnd();
 
 export function getCurrentDialogueLineNumberEnd() {
   let currentLevelAllDialogue = getCurrentLevelAllDialogue();
@@ -74,6 +56,16 @@ export function getCurrentDialogueLineNumberEnd() {
   }
 }
 
+export function getSceneNextPageIndexes() {
+  let indexes = [];
+  let index = 0;
+  for (let element of getCurrentLevelAllDialogue()) {
+    if (element[0] === 1000) indexes.push(index);
+    index++;
+  }
+  return indexes;
+}
+
 export function getSceneBreakerIndexes() {
   let indexes = [];
   let index = 0;
@@ -84,14 +76,23 @@ export function getSceneBreakerIndexes() {
   return indexes;
 }
 
-export function getSceneNextPageIndexes() {
-  let indexes = [];
-  let index = 0;
-  for (let element of getCurrentLevelAllDialogue()) {
-    if (element[0] === 1000) indexes.push(index);
-    index++;
-  }
-  return indexes;
+export function getCurrentLevelSpeakerPosition() {
+  let currentLevelAllSpeakers = [];
+  for (let i = 0; i < dialogueArry[currentLevel - 1].length - 1; i++)
+    currentLevelAllSpeakers.push(dialogueArry[currentLevel - 1][i][2]);
+  return currentLevelAllSpeakers;
+}
+
+export function toggleDialogueMenu() {
+  hasShownDialogueMenu = !hasShownDialogueMenu;
+}
+
+export function setHasShownDialogueMenu(value) {
+  hasShownDialogueMenu = value;
+}
+
+export function getCurrentDialogueStatus() {
+  return hasShownDialogueMenu;
 }
 
 function getAllLevelDialogue() {
@@ -103,18 +104,15 @@ function getAllLevelDialogue() {
   return levelDialogues;
 }
 
+export function setCurrentDialogueLineNumber(num) {
+  currentDialogueLineNumber = num;
+}
+
 function getCurrentLevelAllDialogue() {
   let currentLevelAllDialogue = [];
   for (let i = 0; i < dialogueArry[currentLevel - 1].length; i++)
     currentLevelAllDialogue.push(dialogueArry[currentLevel - 1][i]);
   return currentLevelAllDialogue;
-}
-
-export function getCurrentLevelSpeakerPosition() {
-  let currentLevelAllSpeakers = [];
-  for (let i = 0; i < dialogueArry[currentLevel - 1].length - 1; i++)
-    currentLevelAllSpeakers.push(dialogueArry[currentLevel - 1][i][2]);
-  return currentLevelAllSpeakers;
 }
 
 function parseCurrentDialogue(thingToParse) {
@@ -160,6 +158,8 @@ function parseCurrentDialogue(thingToParse) {
     dialogue = dialogue.replace('{8}', agentEightShort);
   if (dialogue.includes('{20}'))
     dialogue = dialogue.replace('{20}', mrSmithShort);
+
+  //   if (shouldChange) currentDialogueLineNumber = currentDialogueLineNumber + 1;
 
   return [speaker, dialogue];
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import testingImagePath from '../../assets/mainbackground.png';
 import {
   allLevelNames,
   numLevels,
@@ -9,12 +8,12 @@ import {
   getLevelRandomWallPresses,
   getLevelDifficulty,
   getLevelAllowedWalls,
-  getLevelLives,
   getLevelEndDistance,
 } from '../../allLevelData';
-import { EnterLevel, EnterHomeFromMenu } from '../../Navigation';
-import './campaignScreen.css';
+import backgroundImagePath from '../../assets/mainbackground.png';
+import { EnterHomeFromMenu, EnterLevel } from '../../Navigation';
 import { numLevelsUnlocked } from '../../currentUserDataHandling';
+import './campaignScreen.css';
 
 export default class CampaignScreen extends Component {
   constructor() {
@@ -22,19 +21,16 @@ export default class CampaignScreen extends Component {
     this.state = {
       levelClicked: numLevelsUnlocked,
     };
-    this.numLevels = numLevels;
-    this.allLevelNames = allLevelNames;
-    this.allLevelsIds = allLevelIDs;
   }
 
-  getButtonsUsingForLoop = (numLevels) => {
+  getLevelButtons = (numLevels) => {
     const buttons = [];
     let levelName;
 
     for (let i = 1; i <= numLevels; i++) {
       let lastLevelUnlocked;
       let locked = false;
-      levelName = this.allLevelNames[i - 1];
+      levelName = allLevelNames[i - 1];
       if (i === numLevelsUnlocked) {
         lastLevelUnlocked = true;
       } else {
@@ -44,6 +40,7 @@ export default class CampaignScreen extends Component {
         levelName = 'Locked';
         locked = true;
       }
+
       buttons.push(
         <button
           className={
@@ -59,12 +56,11 @@ export default class CampaignScreen extends Component {
         >
           <span>
             <div style={{ position: 'absolute', marginLeft: '8px' }}>
-              {this.allLevelsIds[i - 1]}{' '}
+              {allLevelIDs[i - 1]}{' '}
             </div>
             <span
               style={
                 i < 10 ? { marginLeft: '3.4rem' } : { marginLeft: '3.5rem' }
-                // { marginLeft: '3rem' }
               }
             >
               {levelName}
@@ -73,7 +69,6 @@ export default class CampaignScreen extends Component {
         </button>
       );
     }
-
     return buttons;
   };
 
@@ -92,8 +87,9 @@ export default class CampaignScreen extends Component {
     let numRandomWallPresses = getLevelRandomWallPresses(id);
     let powerupMessage = 'None';
     if (numRandomWallPresses > 0) powerupMessage = 'Active';
+
     return (
-      <div style={{ position: 'absolute', top: '40px' }}>
+      <div style={{ position: 'absolute', top: '50px' }}>
         <div>
           <div className="levelDescriptionContainer">
             <p className="levelDescription">{getLevelDescription(id)}</p>
@@ -102,7 +98,7 @@ export default class CampaignScreen extends Component {
         <div>
           <div
             className="infoContainer"
-            style={{ top: '350px', left: '620px' }}
+            style={{ top: '225px', left: '620px' }}
           >
             <span>
               <div className="levelInfoTag">Random Walls</div>
@@ -113,7 +109,7 @@ export default class CampaignScreen extends Component {
         <div>
           <div
             className="infoContainer"
-            style={{ top: '410px', left: '620px' }}
+            style={{ top: '325px', left: '620px' }}
           >
             <span>
               <div className="levelInfoTag">Allowed Walls</div>
@@ -124,7 +120,7 @@ export default class CampaignScreen extends Component {
         <div>
           <div
             className="infoContainer"
-            style={{ top: '470px', left: '620px' }}
+            style={{ top: '425px', left: '620px' }}
           >
             <span>
               <div className="levelInfoTag">End Distance</div>
@@ -135,7 +131,7 @@ export default class CampaignScreen extends Component {
         <div>
           <div
             className="infoContainer"
-            style={{ top: '530px', left: '620px' }}
+            style={{ top: '525px', left: '620px' }}
           >
             <span>
               <div className="levelInfoTag">Difficulty</div>
@@ -159,13 +155,13 @@ export default class CampaignScreen extends Component {
           }}
         ></div>
         <div className="imgbox">
-          <img alt="test" className="center-fit" src={testingImagePath}></img>
+          <img
+            alt="test"
+            className="center-fit"
+            src={backgroundImagePath}
+          ></img>
         </div>
-        {/* <img
-          style={{ position: 'absolute', left: '520px', top: '20px' }}
-          src={campaignText}
-          alt="capaigntext"
-        /> */}
+
         <div>
           <div style={{ position: 'absolute', left: '53px' }}>
             <div>
@@ -174,11 +170,10 @@ export default class CampaignScreen extends Component {
               <p className="selectStageText">Select Stage</p>
             </div>
             <div style={{ position: 'absolute', top: '65px', left: '51px' }}>
-              {this.getButtonsUsingForLoop(numLevels)}{' '}
+              {this.getLevelButtons(numLevels)}
             </div>
             <div style={{ position: 'absolute', left: '-110px' }}>
               <div className="levelInfoContainer">
-                {/* <div className="levelNameToRenderContainer"></div> */}
                 <p className="levelNameToRender">
                   {getLevelName(this.state.levelClicked - 1)}
                 </p>
@@ -187,6 +182,7 @@ export default class CampaignScreen extends Component {
               {this.getLevelInfo(this.state.levelClicked - 1)}
             </div>
           </div>
+
           <button
             id="startLevelButton"
             onClick={() =>
@@ -209,16 +205,3 @@ export default class CampaignScreen extends Component {
     );
   }
 }
-
-// width: 100%;
-//   height: 100%;
-//   position: relative;
-//   margin: 0 auto;
-//   background-color: white;
-//   background-image: linear-gradient(to bottom, black, black),
-//     linear-gradient(to bottom left, transparent 50%, black 50%),
-//     linear-gradient(to bottom right, transparent 50%, black 50%),
-//     linear-gradient(to bottom, black, black);
-//   background-position: 350px 67px, 560px 66px, 296px 66px, 296px 130px;
-//   background-size: 210px 63px, 56px 64px, 56px 64px, 320px 398px;
-//   background-repeat: no-repeat;

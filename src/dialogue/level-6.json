@@ -1,7 +1,7 @@
 {
   "dialogue": [
     [5, "Splendid work {userName}!", 2],
-    [1, "All in a days work..", 1],
+    [1, "All in a day's work..", 1],
     [
       5,
       "Now we have a bit of time, I would like to pass over to {6} - the head of the research department",
@@ -29,7 +29,7 @@
     ],
     [
       6,
-      "We are roughly half way through the list, and nothing so far. It is imperative that the enemy do not destroy our GPS system, or all our work will be lost..",
+      "We are roughly half-way through the list, and nothing so far. It is imperative that the enemy do not destroy our GPS system, or all our work will be lost..",
       1
     ],
     [
@@ -39,7 +39,7 @@
     ],
     [null, "*the room becomes filled with the sound of sirens*", 3],
     [4, "These people don't stop do they?", 2],
-    [3, "At least they waited untill {6} had finished speaking...", 1],
+    [3, "At least they waited until {6} had finished speaking...", 1],
     [0, ""]
   ]
 }

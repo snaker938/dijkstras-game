@@ -2,14 +2,14 @@
   "dialogue": [
     [null, "*phone ringing*", 2],
     [1, "Hello?", 2],
-    [2, "Goodmorning Agent {userName}!", 1],
+    [2, "Good morning Agent {userName}!", 1],
     [null, "*you hear quite a commotion on the other end*", 2],
     [2, "There seems to be a bit of a problem with our defense system..", 1],
     [1, "Huh? What on earth is wrong with it?", 2],
     [2, "We don't know, but it seems like every other one is active?", 1],
     [1, "I thought that system was state of the art?", 2],
     [2, "It is, and we're dealing with it, just get her-", 1],
-    [null, "*you hear a loud explosion and the line goes dead*", 2],
+    [null, "*you hear a loud explosion, and the line goes dead*", 2],
     [1, "What on earth was that? I'm going to check it out..", 2],
     [999, "", 3],
     [
@@ -24,19 +24,19 @@
     [1, "I heard a loud explosion when I was on the phone with {2}", 2],
     [
       3,
-      "Indeed. That was the defense system going off. Or what was left of it..",
+      "Indeed. That was the defence system going off. Or what was left of it..",
       1
     ],
     [1, "What? Why?", 2],
     [
       3,
-      "At roughly 16:00, a missile was fired from an unkown location. The target: our base. At the same time, somebody got access to our defense system, and managed to switch off half of it",
+      "At roughly 16:00, a missile was fired from an unknown location. The target: our base. At the same time, somebody got access to our defence system, and managed to switch off half of it",
       1
     ],
     [1, "Do we know who did this?", 2],
     [
       3,
-      "Our team is looking into it, but in the mean time, if another one comes, we are ready..",
+      "Our team is looking into it, but in the meantime, if another one comes, we are ready..",
       1
     ],
     [1, "How so?", 2],
@@ -48,14 +48,14 @@
     [1, "And?", 2],
     [
       3,
-      "We managed to get access into the missile's pathfinding AI, but that's all we can do. The rest of it's software would take days to crack, by which time it would reach its indended target",
+      "We managed to get access into the missile's pathfinding AI, but that's all we can do. The rest of its software would take days to crack, by which time it would reach its intended target",
       1
     ],
     [1, "Tell me more..", 2],
     [1000, "", 3],
     [
       3,
-      "It turns out the missile uses a modified version of the well-known Dijktra algorithm",
+      "It turns out the missile uses a modified version of the well-known Dijkstra algorithm",
       1
     ],
     [1, "Dijkstra's shortest path algorithm, I'm familiar with it", 2],

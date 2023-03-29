@@ -1,37 +1,21 @@
 import React, { Component } from 'react';
-import { EnterHome } from '../Navigation';
-import Node from './Node/Node';
-import { cloneVariable, resetAllNodes, startDijkstra } from './Visualizer';
-import './VisualizerLevel.css';
-import './VisualizerSandbox.css';
-import './VisualizerBoth.css';
+import {
+  getCurrentTutorialStatus,
+  getHasTutorialEnded,
+  randomIntFromInterval,
+  toggleHasShownTutorial,
+  toggleHasTutorialEnded,
+} from '../actualLeveHandling';
 import {
   currentLevel,
   getCurrentLevelEndDistance,
   getCurrentLevelGrid,
   getCurrentLevelID,
-  getCurrentLevelLives,
   getCurrentLevelName,
   getCurrentLevelNodeCoords,
-  getCurrentLevelRandomWallNumber,
   getCurrentLevelRandomWallPresses,
   getCurrentLevelWallsAllowed,
 } from '../currentLevelHandling';
-import {
-  displayOutlineValue,
-  getCurrentTutorialStatus,
-  randomIntFromInterval,
-  setDisplayOutlineValue,
-  toggleHasShownTutorial,
-  toggleHasTutorialEnded,
-  togglePlaneAnimation,
-} from '../actualLevelHandling';
-import {
-  gridOutlineToggled,
-  toggleGridOutline,
-  toggleShowingOptionsMenu,
-} from '../optionsHandling.js';
-import NodeToggleGrid from './Node/NodeToggleGrid';
 import {
   getCurrentDialogueLineNumberEnd,
   getCurrentDialogueStatus,
@@ -44,8 +28,22 @@ import {
   setHasShownDialogueMenu,
   toggleDialogueMenu,
 } from '../dialogueManager';
+import { EnterHome } from '../Navigation';
+import {
+  getHasGridBeenReset,
+  getToggleWallOnClick,
+  gridOutlineToggled,
+  setGridOutlineToggled,
+  setHasGridBeenReset,
+  setToggleWallOnClick,
+} from '../optionsHandling';
+import Node from './Node/Node';
+import NodeToggleGrid from './Node/NodeToggleGrid';
+import NodeToggleOnClick from './Node/NodeToggleOnClick';
+import './VisualizeLevel.css';
+import { cloneVariable, resetAllNodes, startDijkstra } from './Visualizer';
 
-// // Placeholders for start node coordinates. It gets the current level data
+// Placeholders for start node coordinates. It gets the current level data
 let START_NODE_ROW;
 let START_NODE_COL;
 
@@ -62,12 +60,11 @@ let NUM_WALLS_ACTIVE;
 
 // Wall Presses
 let NUM_RANDOM_WALL_PRESSES;
-let RANDOM_WALL_NUMBER = getCurrentLevelRandomWallNumber();
+let RANDOM_WALL_NUMBER;
 
 // Other level constants
 let LEVEL_NAME;
 let LEVEL_ID;
-let LIVES;
 
 // reloads all level data
 export function reloadLevelData() {
@@ -89,8 +86,6 @@ export function reloadLevelData() {
   // Other level constants
   LEVEL_NAME = getCurrentLevelName();
   LEVEL_ID = getCurrentLevelID();
-  LIVES = getCurrentLevelLives();
-  // 0,1,2,3 star ---
 }
 
 export default class levelVisualizer extends Component {
@@ -98,7 +93,7 @@ export default class levelVisualizer extends Component {
     super();
     this.state = {
       grid: [],
-      showOptionsMenu: false,
+      showOptionsMenu: false, // is the options menu showing
       showTutorialMenu: false,
       tutorialPage: 1,
       animatingPlane: false,
@@ -106,6 +101,7 @@ export default class levelVisualizer extends Component {
       dialogueLineNumber: 0,
       dialogueStartLoop: 0,
     };
+
     reloadLevelData();
     NUM_WALLS_ACTIVE = 0;
   }
@@ -137,6 +133,7 @@ export default class levelVisualizer extends Component {
     ) {
       let sceneBreakerIndexes = getSceneBreakerIndexes();
       let sceneNextPageIndexes = getSceneNextPageIndexes();
+
       if (
         !sceneBreakerIndexes.includes(
           Number(this.state.dialogueLineNumber) + 1
@@ -150,6 +147,11 @@ export default class levelVisualizer extends Component {
     }
   };
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress, false);
+    this.loadBlankGrid();
+  }
+
   loadBlankGrid() {
     const json = require(`../Visualizer/templates/BLANK.json`);
     const newGrid = json.grid;
@@ -161,196 +163,13 @@ export default class levelVisualizer extends Component {
     this.setState({ grid: newGrid });
   }
 
-  //   Initialises grid
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyPress, false);
-    this.loadBlankGrid();
-    // const grid = getCurrentLevelGrid();
-    // this.setState({ grid });
-  }
-
-  removeAllWalls() {
-    let grid = [];
-    this.setState({ grid: grid });
-    grid = getCurrentLevelGrid();
-    this.setState({ grid: grid });
-    NUM_WALLS_ACTIVE = 0;
-  }
-
-  toggleGrid() {
-    toggleGridOutline();
-
-    let node = document.getElementById(`node-toggleGrid`);
-    if (node.classList.contains(`node-toggledGrid-true`))
-      document.getElementById(`node-toggleGrid`).className = `node-toggleGrid`;
-    else
-      document.getElementById(
-        `node-toggleGrid`
-      ).className = `node-toggleGrid node-toggledGrid-true`;
-    let grid = this.state.grid;
-
-    for (const row of grid) {
-      for (const node of row) {
-        let nodeElement = document.getElementById(
-          `node-${node.row}-${node.col}`
-        );
-        if (displayOutlineValue) {
-          nodeElement.classList.remove('nodeOutline');
-          nodeElement.classList.add('nodeNoOutline');
-        } else {
-          nodeElement.classList.remove('nodeNoOutline');
-          nodeElement.classList.add('nodeOutline');
-        }
-      }
-    }
-
-    if (displayOutlineValue) {
-      setDisplayOutlineValue(false);
-    } else {
-      setDisplayOutlineValue(true);
-    }
-  }
-
-  // When a node is clicked, unless it is the start or end node, it gets toggled between a wall and not-wall
-  toggleWall(row, col, isWall, unWallable) {
-    if (document.getElementById('homeButton').classList.contains('enabled')) {
-      resetAllNodes(this.state.grid);
-      const { grid } = this.state;
-      let node = grid[row][col];
-      if (!node.isPermanentWall) {
-        // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall and the active walls is not 0.
-        if (
-          (!unWallable &&
-            NUM_WALLS_ACTIVE < NUM_WALLS_TOTAL &&
-            NUM_WALLS_ACTIVE > 0) ||
-          (isWall && NUM_WALLS_ACTIVE > 0) ||
-          (!isWall && NUM_WALLS_ACTIVE === 0)
-        ) {
-          // If it isnt a wall currently, increase the number of active walls by one, else decrease them
-          if (!unWallable && !isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
-          else if (!unWallable && isWall)
-            NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE - 1;
-          // Creates a temporary node with the new property of isWall set to the opposite of its current state.
-          const newNode = {
-            ...node,
-            isWall: !isWall,
-          };
-          //   Places the new node into the grid
-          grid[row][col] = newNode;
-          //   Changes the overall state of the grid which re-renders it.
-          this.setState({ grid: grid });
-        }
-      }
-    }
-  }
-
-  // Animate plane and place random walls on the grid
-  startToAnimatePlane() {
-    if (document.getElementById('homeButton').classList.contains('enabled')) {
-      if (NUM_RANDOM_WALL_PRESSES > 0) {
-        // This function only runs if the animation is not already playing
-        if (!this.state.animatingPlane) {
-          togglePlaneAnimation();
-          NUM_RANDOM_WALL_PRESSES--;
-          resetAllNodes(this.state.grid);
-          // Set the animation running to true, which prevents further animations from playing
-          this.setState({ animatingPlane: true });
-
-          // Changed the display from "none" to "block" so it becomes visible again
-          document.getElementById('plane').style.display = 'block';
-
-          // Play "plane_sound_effect.mp3" then stop it after 6.3 seconds
-          let audio = new Audio(
-            require(`.././assets/Animated/plane_sound_effect.mp3`).default
-          );
-          audio.play();
-          setTimeout(() => {
-            audio.pause();
-          }, 6300);
-
-          this.setState({ animatingPlane: true });
-
-          // Set the interval of the animation to play every 0.1 seconds. This animation is not the plane moving across the screen, but the animation of the turbines spinning. Animate the turbines of the plane. This is done by changing the source path of the image to each of the 4 animation frames.
-          let x = 1;
-          const animateTubines = setInterval(() => {
-            if (this.state.animatingPlane) {
-              document.getElementById('plane').src =
-                require(`.././assets/Animated/${x}.png`).default;
-              x++;
-              if (4 === x) {
-                x = 1;
-              }
-            } else {
-              clearInterval(animateTubines);
-            }
-          }, 100);
-
-          // This is the code to move the plane across the screen. The plane starts from outside of the screen and move by a certain number of pixels each loop. At the very end of the animation, set animating plane variable to false, so the animation can be played again. The animation can only be played again a few seconds after the plane has reached the other side
-          for (let i = 1; i < 800; i++) {
-            setTimeout(() => {
-              document.getElementById('plane').style.left = `${
-                -450 + i * 3.4
-              }px`;
-              if (i === 799) {
-                this.setState({ animatingPlane: false });
-                togglePlaneAnimation();
-              }
-            }, 10 * i);
-          }
-
-          // getCurrentLevelRandomWallNumber()
-          // This is the code to add random walls onto the grid. The grid is properly re-rendered every 45n i to prevent lag and once again at the end of the iternation
-          for (let i = 0; i < Number(getCurrentLevelRandomWallNumber()); i++) {
-            setTimeout(() => {
-              let firstColumn =
-                (document.getElementById('plane').getBoundingClientRect().x +
-                  520) /
-                27.5;
-
-              // Generates a random row and column number
-              let row = Math.floor(Math.random() * NUM_ROWS);
-              let column = randomIntFromInterval(
-                Math.floor(firstColumn),
-                Math.ceil(firstColumn)
-              );
-
-              let node = this.state.grid[row][column]; // selects the node with the row and column specified above
-              let { isEnd, isStart, isWall } = node; // finds out the current properties of the randomly selected node
-              let unWallable = isEnd || isStart || node.isPermanentWall; // if the node is a start or end node, or permanent, it cannot be changed
-              if (!node.isPermanentWall) {
-                let grid = this.state.grid;
-                // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
-                if (!unWallable) {
-                  const newNode = {
-                    ...node,
-                    isWall: !isWall,
-                  };
-
-                  // Places the new node into the grid
-                  grid[row][column] = newNode;
-                  // Changes the overall state of the grid which re-renders it.
-                }
-                if (
-                  i % 45 === 0 ||
-                  i === Number(getCurrentLevelRandomWallNumber()) - 1
-                )
-                  this.setState({ grid: grid });
-              }
-            }, i * 10);
-          }
-          NUM_WALLS_ACTIVE = 10;
-        }
-      }
-    }
-  }
-
   toggleDialogueMenu() {
     this.setState({ showDialogueMenu: !this.state.showDialogueMenu });
   }
 
   closeDialogueMenu() {
-    setHasDialogueEnded(true);
     this.setState({ showDialogueMenu: false });
+    setHasDialogueEnded(true);
     setHasShownDialogueMenu(true);
 
     if (currentLevel > 1) this.loadRealGrid();
@@ -406,15 +225,14 @@ export default class levelVisualizer extends Component {
   getDialogueBlocks(currentDialogueLineNumber) {
     let dialogueBlocks = [];
     let enterText = '<hit enter>';
+
     let nextText = '<press next>';
     let exitText = '<press exit>';
+
     let continueText = '<press continue>';
 
-    // let dialogueBlockLoopStart = 0;
-
-    // if (moveToNextPage) dialogueBlockLoopStart = currentDialogueLineNumber;
-
     let sceneBreakerIndexes = getSceneBreakerIndexes();
+
     let nextSceneIndexes = getSceneNextPageIndexes();
 
     let currentLevelSpeakerPosition = cloneVariable(
@@ -466,7 +284,7 @@ export default class levelVisualizer extends Component {
         dialogue = (
           <>
             <div
-              key={i + 'dialogueBlock'}
+              key={i}
               className={dialogueBlockPosition}
               style={{
                 display: i <= currentDialogueLineNumber ? 'inline' : 'none',
@@ -479,7 +297,7 @@ export default class levelVisualizer extends Component {
 
             {i === currentDialogueLineNumber ? (
               <div
-                key={i + 'dialogueBlock2'}
+                key={i}
                 className={dialogueBlockPosition}
                 style={{
                   display: i <= currentDialogueLineNumber ? 'inline' : 'none',
@@ -506,14 +324,13 @@ export default class levelVisualizer extends Component {
         dialogue = (
           <>
             <div
-              key={i + 'dialogueBlock3'}
+              key={i}
               className={dialogueBlockPosition}
               style={{
                 display: i <= currentDialogueLineNumber ? 'inline' : 'none',
               }}
             >
               <p className="dialogueBlockText">
-                {/* If currentLevelDialogue[i][0] equals '<Mr Smith>', set the color of the text to a very light red */}
                 <span
                   style={{
                     opacity: '0.7',
@@ -530,7 +347,7 @@ export default class levelVisualizer extends Component {
             </div>
             {i === currentDialogueLineNumber ? (
               <div
-                key={i + 'dialogueBlock4'}
+                key={i}
                 className={dialogueBlockPosition}
                 style={{
                   display: i <= currentDialogueLineNumber ? 'inline' : 'none',
@@ -541,7 +358,7 @@ export default class levelVisualizer extends Component {
                     opacity: '0.75',
                     display:
                       this.state.dialogueLineNumber ===
-                      getCurrentDialogueLineNumberEnd - 1
+                      getCurrentDialogueLineNumberEnd() - 1
                         ? 'none'
                         : null,
                   }}
@@ -560,6 +377,21 @@ export default class levelVisualizer extends Component {
     return dialogueBlocks;
   }
 
+  getSkipAllDialogueButton() {
+    return (
+      <button
+        style={{ left: '10px', top: '16px', zIndex: '1000' }}
+        id="skipAllDialogueButton"
+        className="optionsMenuButton"
+        onClick={() => {
+          this.closeDialogueMenu();
+        }}
+      >
+        Skip...
+      </button>
+    );
+  }
+
   getDialogueMenu(shouldChange1, shouldChange2, shouldChange3) {
     if (shouldChange1) {
       this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 1 });
@@ -575,6 +407,8 @@ export default class levelVisualizer extends Component {
       this.state.dialogueLineNumber
     );
 
+    let skipAllDialogueButton = this.getSkipAllDialogueButton();
+
     let dialogueBlocks = this.getDialogueBlocks(this.state.dialogueLineNumber);
 
     return (
@@ -582,7 +416,6 @@ export default class levelVisualizer extends Component {
         <div
           onClick={() => {}}
           style={{
-            // backgroundColor: 'rgb(187, 211, 223)',
             position: 'absolute',
             width: '100%',
             height: '200vh',
@@ -592,6 +425,7 @@ export default class levelVisualizer extends Component {
             zIndex: '99',
           }}
         ></div>
+        {skipAllDialogueButton}
         <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
           <div className="dialogueBigContainer">
             <p
@@ -612,23 +446,23 @@ export default class levelVisualizer extends Component {
     );
   }
 
-  toggleTutorialMenu() {
-    this.setState({ showTutorialMenu: !this.state.showTutorialMenu });
-    return;
-  }
-
   nextPage() {
     if (this.state.tutorialPage < 3) {
       this.setState({ tutorialPage: this.state.tutorialPage + 1 });
     } else {
       toggleHasTutorialEnded();
       this.toggleTutorialMenu();
+
       if (currentLevel === 1) this.loadRealGrid();
     }
   }
 
   previousPage() {
     this.setState({ tutorialPage: this.state.tutorialPage - 1 });
+  }
+
+  toggleTutorialMenu() {
+    this.setState({ showTutorialMenu: !this.state.showTutorialMenu });
   }
 
   getTutorialMenu() {
@@ -692,7 +526,6 @@ export default class levelVisualizer extends Component {
         <div
           onClick={() => {}}
           style={{
-            // backgroundColor: 'rgb(187, 211, 223)',
             position: 'absolute',
             width: '100%',
             height: '200vh',
@@ -752,14 +585,228 @@ export default class levelVisualizer extends Component {
     );
   }
 
-  toggleOptionsMenu() {
-    toggleShowingOptionsMenu();
-    this.setState({ showOptionsMenu: !this.state.showOptionsMenu });
+  // Removes all added walls by the user
+  removeAllWalls() {
+    let grid = [];
+    this.setState({ grid: grid });
+    grid = getCurrentLevelGrid();
+    this.setState({ grid: grid });
+    NUM_WALLS_ACTIVE = 0;
   }
-  saveOptions() {
-    toggleShowingOptionsMenu();
 
-    this.toggleOptionsMenu();
+  toggleGrid() {
+    let node = document.getElementById(`node-toggleGrid`);
+    if (node.classList.contains(`node-toggledGrid-true`))
+      document.getElementById(`node-toggleGrid`).className = `node-toggleGrid`;
+    else
+      document.getElementById(
+        `node-toggleGrid`
+      ).className = `node-toggleGrid node-toggledGrid-true`;
+    let grid = this.state.grid;
+
+    for (const row of grid) {
+      for (const node of row) {
+        let nodeElement = document.getElementById(
+          `node-${node.row}-${node.col}`
+        );
+        if (gridOutlineToggled) {
+          nodeElement.classList.remove('nodeOutline');
+          nodeElement.classList.add('nodeNoOutline');
+        } else {
+          nodeElement.classList.remove('nodeNoOutline');
+          nodeElement.classList.add('nodeOutline');
+        }
+      }
+    }
+
+    if (gridOutlineToggled) {
+      setGridOutlineToggled(false);
+    } else {
+      setGridOutlineToggled(true);
+    }
+  }
+
+  // Animate plane and place random walls on the grid
+  startToAnimatePlane() {
+    if (document.getElementById('homeButton').classList.contains('enabled')) {
+      if (NUM_RANDOM_WALL_PRESSES > 0) {
+        document.getElementById('homeButton').classList.remove('enabled');
+        NUM_RANDOM_WALL_PRESSES--; // removes a random wall press
+
+        NUM_WALLS_ACTIVE = 10;
+
+        resetAllNodes(this.state.grid);
+        if (!this.state.animatingPlane) {
+          this.setState({ animatingPlane: true });
+
+          // Change the display from "none" to "block" so it becomes visible again
+          document.getElementById('plane').style.display = 'block';
+
+          // Play "plane_sound_effect.mp3" then stop it
+          let audio = new Audio(
+            require(`.././assets/Animated/plane_sound_effect.mp3`).default
+          );
+          audio.play();
+          setTimeout(() => {
+            audio.pause();
+          }, 6300);
+
+          // Set the interval of the animation to play every 0.1 seconds. This animation is not the plane moving across the screen, but the animation of the turbines spinning. Animate the turbines of the plane. This is done by changing the source path of the image to each of the 4 animation frames.
+          let x = 1;
+          const animateTubines = setInterval(() => {
+            if (this.state.animatingPlane) {
+              document.getElementById('plane').src =
+                require(`.././assets/Animated/${x}.png`).default;
+              x++;
+              if (4 === x) {
+                x = 1;
+              }
+            } else {
+              clearInterval(animateTubines);
+            }
+          }, 100);
+
+          // This is the code to move the plane across the screen. The plane starts from outside of the screen and move by a certain number of pixels each loop. At the very end of the animation, set animating plane variable to false, so the animation can be played again. The animation can only be played again a few seconds after the plane has reached the other side
+          for (let i = 1; i < 800; i++) {
+            setTimeout(() => {
+              document.getElementById('plane').style.left = `${
+                -450 + i * 3.4
+              }px`;
+              if (i === 799) {
+                this.setState({ animatingPlane: false });
+                document.getElementById('homeButton').classList.add('enabled');
+              }
+            }, 10 * i);
+          }
+
+          // This is the code to add random walls onto the grid. The grid is properly re-rendered every 45n i to prevent lag and once again at the end of the iteration
+
+          let randomWallsAdded = [];
+
+          for (let i = 0; i < RANDOM_WALL_NUMBER; i++) {
+            setTimeout(() => {
+              for (let node of randomWallsAdded) {
+                console.log('testing');
+                document
+                  .getElementById(`node-${node.row}-${node.col}`)
+                  .classList.add('node-unwallable');
+              }
+
+              let column =
+                (document.getElementById('plane').getBoundingClientRect().x +
+                  520) /
+                27.5;
+
+              column = randomIntFromInterval(
+                Math.floor(column),
+                Math.ceil(column)
+              );
+
+              let grid = this.state.grid;
+
+              if (column <= 50) {
+                // Generates a random row and column number
+                let row = Math.floor(Math.random() * NUM_ROWS);
+
+                let node = grid[row][column]; // selects the node with the row and column specified above
+                let { isEnd, isStart } = node; // finds out the current properties of the randomly selected node
+                let unWallable = isEnd || isStart || node.isPermanentWall; // if the node is a start or end node, it cannot be changed
+
+                // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
+                if (!unWallable && randomWallsAdded.indexOf(node) === -1) {
+                  // Choose a random number between 1 and 2. If the number is 1, then the node will be added to randomWallsAdded array
+                  if (Math.floor(Math.random() * 2) === 1)
+                    randomWallsAdded.push(node);
+
+                  const newNode = {
+                    ...node,
+                    isWall: true,
+                  };
+
+                  // Places the new node into the grid
+                  grid[row][column] = newNode;
+                }
+              }
+              if (i % 45 === 0 || i === 400 - 1 || column === 51)
+                this.setState({ grid: grid });
+
+              if (i === 400 - 1) {
+                for (let node of randomWallsAdded) {
+                  document
+                    .getElementById(`node-${node.row}-${node.col}`)
+                    .classList.add('node-unwallable');
+                }
+              }
+            }, i * 10);
+          }
+        }
+      }
+    }
+  }
+
+  // When a node is clicked, it will toggle the wall property of the node
+  toggleWall(row, col, isWall, unWallable) {
+    if (document.getElementById('homeButton').classList.contains('enabled')) {
+      if (
+        document
+          .getElementById(`node-${row}-${col}`)
+          .classList.contains('node-unwallable')
+      )
+        return;
+
+      if (!getHasGridBeenReset() && !getToggleWallOnClick()) {
+        resetAllNodes(this.state.grid);
+        setHasGridBeenReset(true);
+        return;
+      } else {
+        resetAllNodes(this.state.grid);
+        setHasGridBeenReset(true);
+      }
+
+      const { grid } = this.state;
+      let node = grid[row][col];
+      if (!node.isPermanentWall && !unWallable) {
+        // Makes sure the target node is not a perm wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall and the active walls is not 0.
+        if (
+          (NUM_WALLS_ACTIVE < NUM_WALLS_TOTAL && NUM_WALLS_ACTIVE > 0) ||
+          (isWall && NUM_WALLS_ACTIVE > 0) ||
+          (!isWall && NUM_WALLS_ACTIVE === 0)
+        ) {
+          // If it isnt a wall currently, increase the number of active walls by one, else decrease them
+          if (!isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE + 1;
+          else if (isWall) NUM_WALLS_ACTIVE = NUM_WALLS_ACTIVE - 1;
+
+          // Creates a temporary node with the new property of isWall set to the opposite of its current state.
+          const newNode = {
+            ...node,
+            isWall: !isWall,
+          };
+          //   Places the new node into the grid
+          grid[row][col] = newNode;
+          //   Changes the overall state of the grid which re-renders it.
+          this.setState({ grid: grid });
+        }
+      }
+    }
+  }
+
+  toggleOnClick() {
+    setToggleWallOnClick(!getToggleWallOnClick());
+
+    let node = document.getElementById(`node-toggleOnClick`);
+
+    if (node.classList.contains(`node-onclick-true`))
+      document.getElementById(
+        `node-toggleOnClick`
+      ).className = `node-onclick-false`;
+    else
+      document.getElementById(
+        `node-toggleOnClick`
+      ).className = `node-onclick-true`;
+  }
+
+  toggleOptionsMenu() {
+    this.setState({ showOptionsMenu: !this.state.showOptionsMenu });
   }
 
   getOptionsMenu() {
@@ -768,7 +815,6 @@ export default class levelVisualizer extends Component {
         <div
           onClick={() => {}}
           style={{
-            // backgroundColor: 'rgb(187, 211, 223)',
             position: 'absolute',
             width: '100%',
             height: '200vh',
@@ -779,17 +825,17 @@ export default class levelVisualizer extends Component {
           }}
         ></div>
         <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
-          <div className="levelInfoContainer">
+          <div className="mainInfoContainer">
             <p
               style={{ left: '143px', opacity: '1' }}
-              className="levelNameToRender"
+              className="mainTextToRender"
             >
               Settings
             </p>
           </div>
-          <div className="levelInfoContainer2">
+          <div className="mainInfoContainer2">
             <div
-              style={{ right: '220px' }}
+              style={{ right: '445px' }}
               className="toggle-grid-holder text-info"
             >
               Toggle Grid Outline
@@ -801,11 +847,24 @@ export default class levelVisualizer extends Component {
               </div>
             </div>
 
+            <div
+              style={{ right: '10px' }}
+              className="toggle-onclick-holder text-info"
+            >
+              Toggle Wall On Click
+              <div>
+                <NodeToggleOnClick
+                  currentState={getToggleWallOnClick()}
+                  onClick={() => this.toggleOnClick()}
+                ></NodeToggleOnClick>
+              </div>
+            </div>
+
             <button
               style={{ right: '12px', top: '558px' }}
               className="optionsMenuButton"
               onClick={() => {
-                this.saveOptions();
+                this.toggleOptionsMenu();
               }}
             >
               Save
@@ -823,6 +882,22 @@ export default class levelVisualizer extends Component {
 
     let plane = null;
 
+    if (
+      Number(currentLevel) === 1 &&
+      !getCurrentTutorialStatus() &&
+      getHasDialogueEnded()
+    ) {
+      this.toggleTutorialMenu();
+      toggleHasShownTutorial();
+    }
+
+    if (LEVEL_ID > 1) toggleHasTutorialEnded();
+
+    if (!getCurrentDialogueStatus()) {
+      this.toggleDialogueMenu();
+      toggleDialogueMenu();
+    }
+
     plane = (
       <img
         className="plane"
@@ -836,24 +911,7 @@ export default class levelVisualizer extends Component {
       />
     );
 
-    if (!getCurrentDialogueStatus()) {
-      this.toggleDialogueMenu();
-      toggleDialogueMenu();
-    }
-
-    if (
-      Number(currentLevel) === 1 &&
-      !getCurrentTutorialStatus() &&
-      getHasDialogueEnded()
-    ) {
-      this.toggleTutorialMenu();
-      toggleHasShownTutorial();
-    }
-
-    if (LEVEL_ID > 1) toggleHasTutorialEnded();
-
     let numRandomWallButton;
-    let numRandomWallText;
 
     if (getCurrentLevelRandomWallPresses() !== 0) {
       if (NUM_RANDOM_WALL_PRESSES > 0) {
@@ -882,40 +940,37 @@ export default class levelVisualizer extends Component {
           </button>
         );
       }
-      numRandomWallText = (
-        <p className="numRandomWallText">
-          {NUM_RANDOM_WALL_PRESSES} random wall presses left
-        </p>
-      );
     } else {
-      numRandomWallText = null;
       numRandomWallButton = null;
     }
 
     return (
       <>
         {this.state.showOptionsMenu ? this.getOptionsMenu() : null}
-        {plane}
-
-        {this.state.showTutorialMenu && Number(currentLevel) === 1
-          ? this.getTutorialMenu()
-          : null}
 
         {this.state.showDialogueMenu
           ? this.getDialogueMenu(false, false, false)
           : null}
 
+        {this.state.showTutorialMenu && Number(currentLevel) === 1
+          ? this.getTutorialMenu()
+          : null}
+
+        {plane}
+
         <div className="topButtonsContainerOutline"> </div>
 
         <div className="topButtonsContainer">
           {numRandomWallButton}
+
           <p className="numWallsActiveMessage">
             {NUM_WALLS_ACTIVE} out of {NUM_WALLS_TOTAL} walls used
           </p>
+
           <p className="currentEndDistanceMessage">
             End Distance: {getCurrentLevelEndDistance()}
           </p>
-          {/* {numRandomWallText} */}
+
           <button
             style={{ right: '100px', top: '16px', padding: '5px' }}
             className="standard-button"
@@ -923,6 +978,7 @@ export default class levelVisualizer extends Component {
           >
             Settings
           </button>
+
           <button
             style={{ right: '10px', top: '16px', padding: '5px' }}
             className="standard-button home-button enabled"
@@ -931,6 +987,7 @@ export default class levelVisualizer extends Component {
           >
             Home
           </button>
+
           <button
             className="button-82-pushable"
             onClick={() =>

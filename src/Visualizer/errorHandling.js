@@ -4,6 +4,7 @@ import { resetAllNodes } from './Visualizer';
 // This function is called when there is an error, and it needs to be animated on the grid.
 export function sendError(error) {
   const newGrid = loadGridMessage(error); // loads the grid template ie. the error message
+
   resetAllNodes(newGrid);
 
   function getImportantNodes(grid) {
@@ -28,6 +29,7 @@ export function sendError(error) {
   let neededNodesResult = result[0];
   let unneededNodesResult = result[1];
   let importantNodesResult = result[2];
+
   animateNoProperPath(
     neededNodesResult,
     unneededNodesResult,
@@ -36,8 +38,11 @@ export function sendError(error) {
 }
 
 function loadGridMessage(error) {
-  // this.removeAllWalls(); // removes all current walls so they dont get in the way
-  const json = require(`./templates/${error}.json`); // gets the contents of the json file so the grid can be accessed.
+  // gets the contents of the json file so the grid can be accessed.
+  const json = require(`./templates/${error}.json`);
+
   let newGrid = json.grid;
-  return newGrid; // returns the new grid, ie. the grid template that needs to be animated
+
+  // returns the new grid, ie. the grid template that needs to be animated
+  return newGrid;
 }

@@ -2,18 +2,12 @@
   "levelID": 2,
   "levelName": "Symmetrical Surveillance",
   "randomWallPressesAllowed": 1,
-  "randomWallNumber": 400,
-  "lives": 3,
-  "startNodeCoords": [0, 0],
-  "endNodeCoords": [50, 25],
   "difficulty": "Very Easy",
   "description": "The enemy is targetting our surveillance system! You must stop them at once - otherwise our eyes and ears will be wiped out!",
+  "startNodeCoords": [0, 0],
+  "endNodeCoords": [50, 25],
   "wallsAllowed": 10,
-  "wallsForNoStar": 10,
-  "wallsForOneStar": 7,
-  "wallsForTwoStar": 5,
-  "wallsForThreeStar": 3,
-  "endDistance": 60,
+  "endDistance": 135,
   "grid": [
     [
       {

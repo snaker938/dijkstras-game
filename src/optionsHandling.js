@@ -1,19 +1,55 @@
 let permanentWallToggled = false;
 
-let gridOutlineToggled = false;
+let gridOutlineToggled = true;
 
-let showingOptionsMenu = false;
+let hasGridBeenReset = true;
 
-export function toggleShowingOptionsMenu() {
-  showingOptionsMenu = !showingOptionsMenu;
+let toggleWallOnClick = false;
+
+export function getToggleWallOnClick() {
+  return toggleWallOnClick;
+}
+
+export function setToggleWallOnClick(value) {
+  toggleWallOnClick = value;
+}
+
+export function getHasGridBeenReset() {
+  return hasGridBeenReset;
+}
+
+export function setHasGridBeenReset(value) {
+  hasGridBeenReset = value;
 }
 
 export function togglePermanentWall() {
   permanentWallToggled = !permanentWallToggled;
 }
 
-export function toggleGridOutline() {
-  gridOutlineToggled = !gridOutlineToggled;
+export function isPermanentWallToggled() {
+  return permanentWallToggled;
 }
 
-export { permanentWallToggled, gridOutlineToggled, showingOptionsMenu };
+export function setGridOutlineToggled(value) {
+  gridOutlineToggled = value;
+}
+
+export function isGridOutlineToggled() {
+  return gridOutlineToggled;
+}
+
+export function getCurrentDisplayOutlineClass() {
+  if (gridOutlineToggled) {
+    return 'nodeOutline';
+  }
+  return 'nodeNoOutline';
+}
+
+export function getDisplayOutlineClass(displayOutline) {
+  if (displayOutline) {
+    return 'nodeOutline';
+  }
+  return 'nodeNoOutline';
+}
+
+export { permanentWallToggled, gridOutlineToggled };

@@ -1,32 +1,35 @@
-// import { resetAllNodes } from '../Visualizer/Visualizer';
-import { getDisplayOutlineClass } from '../actualLevelHandling';
+import { getCurrentDisplayOutlineClass } from '../optionsHandling';
 
-export function dijkstra(grid, startNode, endNode, NUM_ROWSS, NUM_COLUMNSS) {
-  const NUM_ROWS = NUM_ROWSS;
-  const NUM_COLUMNS = NUM_COLUMNSS;
-
-  // resets all distances and previous nodes to starting values
+export function dijkstra(grid, startNode, endNode, NUM_ROWS, NUM_COLUMNS) {
   resetAllNodes(grid);
 
-  let otherVisitedNodes = []; // basically a list of visitied nodes in the order they were visited. Doesnt include walls
+  // This is a list of every single node in the grid
+  let allUnvisitedNodes = getAllNodes(grid);
+
+  // This is a list of visitied nodes in the order they were visited. Doesnt include walls
+  let visitedNodes = [];
+
   let currentNode = startNode;
-  let allUnvisitedNodes = getAllNodes(grid); // allUnvisitedNodes is a list of every single node in the grid
 
-  startNode.distance = 0;
+  currentNode.distance = 0;
 
-  otherVisitedNodes.push(currentNode); // adds the current node to the list of visitedNodes
+  // Adds the start node to the visited nodes list
+  visitedNodes.push(currentNode);
 
   while (allUnvisitedNodes.length !== 0) {
-    sortNodesByDistance(allUnvisitedNodes); // every iteration, the allUnvisitedNodes are sorted by distance
-    currentNode = allUnvisitedNodes.shift(); // removes the first (closest) node from allUnvisitedNodes, sets to current node
+    // sorts the allUnvisitedNodes list by distance
+    sortNodesByDistance(allUnvisitedNodes);
 
+    // removes the first (closest) node from allUnvisitedNodes, sets to current node
+    currentNode = allUnvisitedNodes.shift();
+
+    // exit the while loop if the current node is the EndNode
     if (currentNode.isEnd) {
-      // exit the while loop if the current node is the EndNode
       break;
     }
 
+    // if the current node is a wall, skip through one iteration, stay in the while loop
     if (currentNode.isWall) {
-      // if the current node is a wall, skip through one iteration, stay in the while loop
       continue;
     }
 
@@ -35,44 +38,47 @@ export function dijkstra(grid, startNode, endNode, NUM_ROWSS, NUM_COLUMNSS) {
 
     if (!currentNode.isWall) {
       // if the current node is not a wall, add it to the list of visitedNodes
-      otherVisitedNodes.unshift(currentNode);
+      visitedNodes.unshift(currentNode);
       continue;
     }
   }
 
   // Once the end node has been reached, these lines are run. These lines also run if the end node is not found.
-  sortNodesByDistance(otherVisitedNodes); // does a final sort of all the visitedNodes
+  sortNodesByDistance(visitedNodes); // does a final sort of all the visitedNodes
 
-  // If the endnode has not been reached (ie. it has a distance of Infinity, which is the default value), set the shortest path to just the start node.
+  // If the endnode has not been reached (ie. it has a distance of Infinity, which is the default value), set the shortest path to be the visited nodes, and return false
   if (endNode.distance === Infinity) {
-    otherVisitedNodes = otherVisitedNodes.filter(
-      (node) => node.distance !== Infinity
-    );
-    // TODO-- special animation if no path is found
-    return [otherVisitedNodes, getAllNodes(grid), false];
+    visitedNodes = visitedNodes.filter((node) => node.distance !== Infinity);
+    return [visitedNodes, null, false];
   }
 
   // If there is a shortest path to the end node: get it
-  let shortestNodePathOrder = getShortestPathNodeOrder(endNode, startNode);
+  let shortestNodePathOrder = getShortestPathNodeOrder(endNode);
+
   // The shortest path, and all the visited nodes in order are returned
-  return [shortestNodePathOrder, otherVisitedNodes, true];
+  return [shortestNodePathOrder, visitedNodes, true];
 }
 
-// This function updates all the neighbours of the current node
-function updateAllNeighboursOfNode(grid2, currentNode, NUM_ROWS, NUM_COLUMNS) {
-  let grid = grid2;
-  let neighboursOfNode = []; // holds all the neighbours of the current node. The maximum neighbours is 4. The minimum could be zero. It does not matter if this is left empty at the end of this function
-  const { col, row } = currentNode; // gets the row and column of the current node
+// This function updates the distances of all the neighbours of the current node
+function updateAllNeighboursOfNode(grid, currentNode, NUM_ROWS, NUM_COLUMNS) {
+  // holds all the neighbours of the current node. The maximum neighbours is 4. The minimum could be zero. It does not matter if this is left empty at the end of this function
+  let neighboursOfNode = [];
+
+  // gets the row and column of the current node
+  const { col, row } = currentNode;
 
   if (row > 0 && grid[row - 1][col].distance > currentNode.distance)
     // If the row is bigger than 0 (ie. not zero), then the current node has a top neighbour. If this top neighbour has a bigger distance that the current node distance (ie. it has infinity usually), then this code is run. This means that the algorithm does not add neighbours more than once.
     neighboursOfNode.unshift(grid[row - 1][col]); // top neighbour
+
   if (row < NUM_ROWS - 1 && grid[row + 1][col].distance > currentNode.distance)
     // If the row is smaller than the total number of rows (index is 1- total number), then the current node has a bottom neighbour. If this bottom neighbour has a bigger distance that the current node distance (ie. it has infinity usually), then this code is run. This means that the algorithm does not add neighbours more than once.
     neighboursOfNode.unshift(grid[row + 1][col]); // bottom neighbour
+
   if (col > 0 && grid[row][col - 1].distance > currentNode.distance)
     // If the column is bigger than 0, then the current node has a left neighbour. If this left neighbour has a bigger distance that the current node distance (ie. it has infinity usually), then this code is run. This means that the algorithm does not add neighbours more than once.
     neighboursOfNode.unshift(grid[row][col - 1]); // left neighbour
+
   if (
     col < NUM_COLUMNS - 1 &&
     grid[row][col + 1].distance > currentNode.distance
@@ -106,7 +112,7 @@ function changeDistancesOfNeighbours(
 }
 
 // This function will only work once every node up untill the end node has been updated. This function will infact never be called if the end node is not accessible.
-function getShortestPathNodeOrder(endNode, startNode) {
+function getShortestPathNodeOrder(endNode) {
   let shortestNodePathOrder = [];
   let currentNode = endNode;
 
@@ -118,9 +124,9 @@ function getShortestPathNodeOrder(endNode, startNode) {
     currentNode = currentNode.previousNode;
   }
 
-  shortestNodePathOrder.shift(); //removes start node from being animated
-  shortestNodePathOrder.pop(); //removes ends node from being animated
-  // shortestNodePathOrder.unshift(startNode); // The startNode is never added above, which is why we add it now, at the beginning of the shortest path, so we can change its class
+  shortestNodePathOrder.shift(); //removes start node to stop it from being animated
+  shortestNodePathOrder.pop(); //removes ends node to stop it from being animated
+
   return shortestNodePathOrder;
 }
 
@@ -145,12 +151,13 @@ function getAllNodes(grid) {
 function resetAllNodes(grid) {
   for (const row of grid) {
     for (const node of row) {
-      let displayOutline = false;
+      let needClassAdded = false;
       if (
-        document.getElementById(`node-0-0`).classList.contains('nodeOutline')
-      ) {
-        displayOutline = true;
-      }
+        document
+          .getElementById(`node-${node.row}-${node.col}`)
+          .classList.contains('node-unwallable')
+      )
+        needClassAdded = true;
       let specialClass = '';
       if (node.isPermanentWall) specialClass = 'node-wall node-permanent-wall';
       if (node.isWall && !node.isPermanentWall) specialClass = 'node-wall';
@@ -160,10 +167,14 @@ function resetAllNodes(grid) {
       node.previousNode = null;
       document.getElementById(
         `node-${node.row}-${node.col}`
-      ).className = `${getDisplayOutlineClass(displayOutline)} ${specialClass}`;
+      ).className = `${getCurrentDisplayOutlineClass()} ${specialClass}`;
       document.getElementById(
         `node-${node.row}-${node.col}`
       ).innerHTML = `&nbsp`;
+      if (needClassAdded)
+        document
+          .getElementById(`node-${node.row}-${node.col}`)
+          .classList.add('node-unwallable');
     }
   }
 }

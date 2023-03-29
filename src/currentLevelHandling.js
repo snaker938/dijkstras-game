@@ -1,25 +1,29 @@
 import {
-  allLevelGrids,
-  allLevelLives,
+  allLevelIDs,
+  allLevelNames,
   allLevelsAllowedWalls,
   allLevelsRandomWallPresses,
-  allLevelStars,
-  allLevelNames,
   allLevelNodeCoords,
-  allLevelIDs,
-  allLevelRandomWallNumber,
   allLevelEndDistances,
+  allLevelGrids,
 } from './allLevelData';
+
 import { cloneVariable } from './Visualizer/Visualizer';
 
 let currentLevel = 1;
 
+// Set the current level
 export function setCurrentLevel(newLevel) {
   currentLevel = Number(cloneVariable(newLevel));
 }
 
+// Returns up-to-date current level
 export function getCurrentLevel() {
   return currentLevel;
+}
+
+export function getCurrentLevelID() {
+  return cloneVariable(allLevelIDs[currentLevel - 1]);
 }
 
 export function getCurrentLevelName() {
@@ -34,49 +38,21 @@ export function getCurrentLevelRandomWallPresses() {
   return cloneVariable(allLevelsRandomWallPresses[currentLevel - 1]);
 }
 
-export function getCurrentLevelGrid() {
-  return cloneVariable(allLevelGrids[currentLevel - 1]);
-}
-
-export function getCurrentLevelStars() {
-  return cloneVariable(allLevelStars[currentLevel - 1]);
-}
-
-export function getCurrentLevelLives() {
-  return cloneVariable(allLevelLives[currentLevel - 1]);
-}
-
-// Start col, start row     end col, end row
+// Returns [[start col, start row], [end col, end row]] in that order
 export function getCurrentLevelNodeCoords() {
   return cloneVariable(allLevelNodeCoords[currentLevel - 1]);
 }
 
-export function getCurrentLevelID() {
-  return cloneVariable(allLevelIDs[currentLevel - 1]);
+export function getCurrentLevelEndNodeCoords() {
+  return [getCurrentLevelNodeCoords()[1][1], getCurrentLevelNodeCoords()[1][0]];
 }
 
 export function getCurrentLevelEndDistance() {
   return cloneVariable(allLevelEndDistances[currentLevel - 1]);
 }
 
-export function getCurrentLevelRandomWallNumber() {
-  return cloneVariable(allLevelRandomWallNumber[currentLevel - 1]);
-}
-
-export function getAllCurrentLevelData() {
-  return [
-    getCurrentLevelID(),
-    getCurrentLevelName(),
-    getCurrentLevelRandomWallPresses(),
-    getCurrentLevelRandomWallNumber(),
-    getCurrentLevelLives(),
-    getCurrentLevelNodeCoords(),
-    getCurrentLevelWallsAllowed(),
-    getCurrentLevelStars(),
-    getCurrentLevelGrid(),
-    getCurrentLevelEndDistance(),
-    currentLevel,
-  ];
+export function getCurrentLevelGrid() {
+  return cloneVariable(allLevelGrids[currentLevel - 1]);
 }
 
 export { currentLevel };

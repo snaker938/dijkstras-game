@@ -29,18 +29,18 @@
     [8, "WHAT DO Y-", 2],
     [
       null,
-      "*the sound of sirens echo throghout the interrogation room and {3} bursts into the room*",
+      "*the sound of sirens echo throughout the interrogation room and {3} bursts into the room*",
       3
     ],
     [3, "Sir, we have to go now!", 1],
     [8, "We will finish this later..", 2],
-    [20, "Im counting on it!", 1],
+    [20, "I'm counting on it!", 1],
     [1000, "", 3],
     [null, "*{8} and {3} go back into the control room*", 3],
-    [8, "Whats happening?", 2],
+    [8, "What's happening?", 2],
     [
       4,
-      "Another missile has been sent! The target, the interrogation block. However, this time, it is not being targetted at the specific cell {20} is in..",
+      "Another missile has been sent! The target, the interrogation block. However, this time, it is not being targeted at the specific cell {20} is in..",
       1
     ],
     [1, "Perhaps {20} didn't want to die after all?", 2],

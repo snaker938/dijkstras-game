@@ -1,68 +1,13 @@
-.mainBodyHome {
-  /* background: rgb(34, 33, 33); */
-  background: radial-gradient(rgb(97, 92, 92), rgb(8, 8, 8));
-  justify-content: center;
-  /* align-self: auto; */
-  align-items: center;
-  display: flex;
-  min-height: 98vh;
-}
-
-/* body {
-  background: radial-gradient(rgb(97, 92, 92), rgb(8, 8, 8));
-  min-height: 98vh;
-} */
-
-.titleText {
-  font-family: ADUMA;
-  font-size: 120px;
-  position: absolute;
-  bottom: 480px;
-  right: 190px;
-  color: rgb(202, 64, 14);
-
-  text-shadow: -8px -4px 0 #000, 1px -4px 0 #000, -1px 1px 0 #000,
-    2px 2px 0 #000;
-
-  opacity: 85%;
-  user-select: none;
-}
-
-@font-face {
-  font-family: 'TITLE';
-  src: local('TITLE'), url(.././assets/Fonts/TitleFont.otf) format('opentype');
-}
-
-@font-face {
-  font-family: 'ADUMA';
-  src: local('ADUMA'), url(.././assets/Fonts/Adumu.ttf) format('truetype');
-}
-
 .imgbox {
   display: grid;
-  /* height: 100%;
-  width: 100%; */
 }
 
-/*
 .center-fit {
-  max-width: 100%;
-  max-height: 100vh;
-  margin-top: -10px;
-  opacity: 70%;
-  border: 0px;
-}
-margin: auto
-*/
-.center-fit {
-  /* max-width: 100%; */
   width: 178.3vh;
   max-height: 100vh;
-  /* margin: auto; */
   position: absolute;
   border: 0px;
   margin-right: 0px;
-  /* margin-top: -10px; */
   object-fit: fill;
 
   animation-duration: 8s;
@@ -81,15 +26,46 @@ margin: auto
   }
 }
 
-* {
-  margin: 0;
-  padding: 0;
+@font-face {
+  font-family: 'ADUMA';
+  src: local('ADUMA'), url(../assets/Fonts/Adumu.ttf) format('truetype');
 }
 
-.tempButton {
-  position: fixed;
-  top: 50%;
+.titleText {
+  font-family: ADUMA;
+  font-size: 120px;
+  position: absolute;
+  bottom: 480px;
+  right: 190px;
+  color: rgb(202, 64, 14);
+
+  text-shadow: -8px -4px 0 #000, 1px -4px 0 #000, -1px 1px 0 #000,
+    2px 2px 0 #000;
+
+  opacity: 85%;
 }
+
+.dividerButton {
+  font-family: 'QTYPEBOLD';
+  font-size: 40px;
+  position: absolute;
+  bottom: 9px;
+  background-color: transparent;
+  border: 0;
+  text-decoration: none;
+  text-shadow: 0px 1px 2px #000000;
+  opacity: 100%;
+  /* color: rgb(124, 124, 120); */
+  /* color: rgb(203, 203, 203); */
+  color: rgb(180, 180, 180);
+  margin-left: 32px;
+}
+
+@font-face {
+  font-family: 'QTYPEBOLD';
+  src: local('QTYPEBOLD'), url(../assets/Fonts/boldText.otf) format('opentype');
+}
+
 .bottomSector {
   height: 0;
   width: 981px;
@@ -102,9 +78,52 @@ margin: auto
   opacity: 80%;
 }
 
-/* ::-webkit-scrollbar {
-  width: 0px;
-} */
+* {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+.dividerButton {
+  font-family: 'QTYPEBOLD';
+  font-size: 40px;
+  position: absolute;
+  bottom: 9px;
+  background-color: transparent;
+  border: 0;
+  text-decoration: none;
+  text-shadow: 0px 1px 2px #000000;
+  opacity: 100%;
+  /* color: rgb(124, 124, 120); */
+  /* color: rgb(203, 203, 203); */
+  color: rgb(180, 180, 180);
+  margin-left: 32px;
+}
+
+.campaignStartButton {
+  left: 165px;
+}
+
+.sandboxStartButton {
+  left: 445px;
+}
+
+.creditsButton {
+  left: 697px;
+}
+
+.dataButton {
+  left: 920px;
+}
+
+.dividerButton:hover {
+  /* color: rgb(124, 124, 120); */
+  color: rgb(216, 216, 216);
+}
 
 .welcomeBackText {
   position: absolute;
@@ -142,102 +161,149 @@ margin: auto
   outline: none;
 }
 
-body {
-  overflow-x: hidden;
-
-  /* background-color: rgb(187, 211, 223); */
-  /* background-color: rgb(190, 214, 221); */
-  /* background-color: lightcoral; */
-  /* background-color: rgb(190, 58, 58); */
-  /* background-color: lightgreen; */
+@font-face {
+  font-family: 'QTYPE';
+  src: local('QTYPE'), url(../assets/Fonts/standardText.otf) format('opentype');
 }
 
-/* ---------------- BUTTONS ---------------------*/
-.buttonMain {
-  color: #1cc49d;
-  bottom: 00px;
-  position: relative;
-  background-color: #1b2f31;
-  border-radius: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 3em;
-  width: 8em;
-  font-size: large;
-  font-weight: 600;
-  margin-left: calc(13.4%);
-  margin-right: 20px;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently */
+.mainInfoContainer {
+  height: 0;
+  width: 400px;
+  top: 20px;
+  left: 600px;
+  position: absolute;
+  border-bottom: 65px solid #1a1717;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  /* border-bottom: 105px solid #1a1717;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent; */
+  opacity: 80%;
 }
 
-.buttonMain:hover {
-  color: #fff;
+p {
+  user-select: none;
 }
 
-.buttonMain .buttonMainspan {
-  align-items: center;
-  background: #0e0e10;
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  /* transition: background 0.5s ease; */
-  width: 100%;
+.mainTextToRender {
+  font-family: 'QTYPE';
+  font-weight: 900;
+  font-size: 32.76px;
+  margin-top: 12px;
+  color: white;
+  text-align: center;
+  user-select: none;
 }
 
-.buttonMain:hover {
-  background: transparent;
+.mainInfoContainer2 {
+  width: 601px;
+  height: 611px;
+  top: 85px;
+  left: 600px;
+  position: absolute;
+  background: #1a1717;
+  opacity: 80%;
+  backdrop-filter: blur(10px);
 }
 
-/* ------------------------------------------------------------- */
+.dataDescription {
+  font-family: 'QTYPE';
+  color: white;
+  text-align: center;
+  font-size: 20px;
+}
 
-.dividerButton {
-  font-family: 'QTYPEBOLD';
+.dataDescriptionContainer {
+  width: 560px;
+  height: 75px;
+  top: 50px;
+  left: 20px;
+  position: absolute;
+  background: #696969;
+  opacity: 90%;
+  backdrop-filter: blur(10px);
+}
+
+.dataContainer {
+  width: 563px;
+  height: 35px;
+  position: absolute;
+  background: #696969;
+  opacity: 70%;
+  backdrop-filter: blur(10px);
+}
+
+.dataInfoTag {
+  font-family: 'QTYPE';
+  color: white;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 35px;
+  position: absolute;
+}
+
+.dataText {
+  font-family: 'QTYPE';
+  color: white;
+  position: absolute;
+  left: 250px;
+  text-align: center;
+  font-size: 20px;
+  line-height: 35px;
+}
+
+.deleteDataButton {
+  bottom: 120px;
+  left: 235px;
+  position: absolute;
+}
+
+.dataMenuButton {
+  font-family: QTYPEBOLD;
   font-size: 40px;
   position: absolute;
-  bottom: 9px;
   background-color: transparent;
   border: 0;
   text-decoration: none;
   text-shadow: 0px 1px 2px #000000;
   opacity: 100%;
-  /* color: rgb(124, 124, 120); */
-  /* color: rgb(203, 203, 203); */
   color: rgb(180, 180, 180);
-  margin-left: 32px;
 }
 
-.campaignStartButton {
-  left: 165px;
-}
-
-.sandboxStartButton {
-  left: 445px;
-}
-
-.creditsButton {
-  left: 697px;
-}
-
-.medalsButton {
-  left: 920px;
-}
-
-.dividerButton:hover {
-  /* color: rgb(124, 124, 120); */
+.dataMenuButton:hover {
   color: rgb(216, 216, 216);
 }
 
-@font-face {
-  font-family: 'QTYPEBOLD';
-  src: local('QTYPEBOLD'),
-    url(../../src/assets/Fonts/boldText.otf) format('opentype');
+.standard-button-data {
+  padding: 10px;
+  font-family: QTYPE;
+  font-size: 20px;
+  font-weight: bold;
+  border: 3.5px solid rgb(43, 43, 43);
+  opacity: 0.8;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.standard-button-data:hover {
+  background-color: rgb(163, 163, 163);
+}
+
+.creditsMenuButton {
+  font-family: QTYPEBOLD;
+  font-size: 40px;
+  position: absolute;
+  background-color: transparent;
+  border: 0;
+  text-decoration: none;
+  text-shadow: 0px 1px 2px #000000;
+  opacity: 100%;
+  color: rgb(180, 180, 180);
+}
+
+.creditsMenuButton:hover {
+  color: rgb(216, 216, 216);
 }
 
 .creditsDescription {
@@ -283,7 +349,6 @@ body {
 .creditsText {
   font-family: 'QTYPE';
   color: white;
-  /* margin-left: 120px; */
   position: absolute;
   left: 250px;
   text-align: center;

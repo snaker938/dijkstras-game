@@ -2,18 +2,12 @@
   "levelID": 1,
   "levelName": "Every Other One",
   "randomWallPressesAllowed": 0,
-  "randomWallNumber": 400,
-  "lives": 3,
   "difficulty": "Very Easy",
   "description": "Seems like there is a problem with our defences. Only every other one is active!",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 10,
-  "wallsForNoStar": 10,
-  "wallsForOneStar": 7,
-  "wallsForTwoStar": 5,
-  "wallsForThreeStar": 3,
-  "endDistance": 87,
+  "endDistance": 160,
   "grid": [
     [
       {

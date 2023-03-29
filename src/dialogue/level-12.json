@@ -18,7 +18,7 @@
       1
     ],
     [null, "*the sound of sirens start blaring again*", 3],
-    [4, "Hmm, thats very strange..", 1],
+    [4, "Hmm, that's very strange..", 1],
     [1000, "", 3],
     [3, "What is it?", 2],
     [
@@ -34,7 +34,7 @@
     ],
     [
       1,
-      "Surely you are not implying that we actually have to protect this bunker from the missle, and capture {20} at the same time?",
+      "Surely you are not implying that we actually have to protect this bunker from the missile, and capture {20} at the same time?",
       1
     ],
     [5, "I think that is exactly what the Director is suggesting...", 2],

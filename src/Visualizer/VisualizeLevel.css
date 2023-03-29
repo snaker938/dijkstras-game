@@ -1,0 +1,163 @@
+.numWallsActiveMessage {
+  position: absolute;
+  font-family: 'QTYPE';
+  top: 19px;
+  right: 270px;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  padding: 3px;
+  border: 2px solid rgb(175, 175, 175);
+  text-shadow: -1px -1px 0 #000, 0px -1px 0 #000, -1px 1px 0 #000,
+    0px 0px 0 #000;
+}
+
+.numRandomWallText {
+  position: absolute;
+  font-family: 'QTYPE';
+  top: 19px;
+  left: 235px;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  padding: 3px;
+  border: 2px solid rgb(175, 175, 175);
+  text-shadow: -1px -1px 0 #000, 0px -1px 0 #000, -1px 1px 0 #000,
+    0px 0px 0 #000;
+}
+
+.currentEndDistanceMessage {
+  position: absolute;
+  font-family: 'QTYPE';
+  top: 19px;
+  left: 323px;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  padding: 3px;
+  border: 2px solid rgb(175, 175, 175);
+  text-shadow: -1px -1px 0 #000, 0px -1px 0 #000, -1px 1px 0 #000,
+    0px 0px 0 #000;
+  user-select: none;
+}
+
+.standard-button-disabled {
+  font-family: QTYPE;
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  border: 3px solid rgb(43, 43, 43);
+  opacity: 0.8;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.tutorialContainer {
+  width: 563px;
+
+  background: #696969;
+  opacity: 70%;
+  backdrop-filter: blur(10px);
+
+  /* Centre all items inside this div */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tutorialText {
+  font-family: 'QTYPE';
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  line-height: 35px;
+  user-select: none;
+}
+
+.dialogueBlock {
+  position: relative;
+  top: 30px;
+  left: 50px;
+  display: flex;
+  margin-bottom: 10px;
+  font-family: QTYPE;
+  text-align: left;
+  font-size: 16px;
+  width: fit-content;
+
+  color: rgba(255, 255, 255, 1);
+  background: #696969;
+  opacity: 70%;
+  backdrop-filter: blur(10px);
+  border: 0;
+}
+
+.dialogueBlockText {
+  font-family: QTYPE;
+  font-size: 20px;
+  color: white;
+  user-select: none;
+  margin-bottom: 5px;
+}
+
+.dialogueBlockTextOther {
+  font-family: QTYPE;
+  font-size: 20px;
+  color: white;
+  font-style: italic;
+  user-select: none;
+  margin-bottom: 5px;
+}
+
+.dialogue-left-side {
+  position: relative;
+  top: 15px;
+  left: 10px;
+  margin-bottom: 10px;
+  font-family: QTYPE;
+  text-align: left;
+  font-size: 16px;
+}
+
+.dialogue-right-side {
+  position: relative;
+  top: 15px;
+  right: 10px;
+  font-family: QTYPE;
+  text-align: right;
+  font-size: 16px;
+  border: 0;
+}
+
+.dialogue-centre {
+  position: relative;
+  top: 15px;
+  font-family: QTYPE;
+  text-align: center;
+  font-size: 16px;
+  border: 0;
+}
+
+.dialogueBigContainer {
+  height: 0;
+  width: 600px;
+  top: 20px;
+  left: 500px;
+  position: absolute;
+  border-bottom: 65px solid #1a1717;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  opacity: 80%;
+}
+
+.dialogueBigContainer2 {
+  width: 801px;
+  height: 611px;
+  top: 85px;
+  left: 500px;
+  position: absolute;
+
+  background: #1a1717;
+  opacity: 80%;
+  backdrop-filter: blur(10px);
+}

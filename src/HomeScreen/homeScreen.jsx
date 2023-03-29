@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
-import { EnterSandbox, EnterCampaign } from '../Navigation';
+import { getCurrentUserName } from '../currentUserDataHandling';
+import { setCurrentUserName } from '../currentUserDataHandling';
+import { EnterCampaign, EnterSandbox } from '../Navigation';
+import backgroundImagePath from './../assets/mainbackground.png';
 import './homeScreen.css';
-import testingImagePath from '.././assets/mainbackground.png';
-import {
-  getCurrentUserName,
-  setCurrentUserName,
-} from '../currentUserDataHandling';
 
 export default class HomeScreen extends Component {
   constructor() {
     super();
-    this.state = { rerender: [], showCreditsMenu: false };
+    this.state = { showDataMenu: false, showCreditsMenu: false };
+  }
+
+  toggleDataMenu() {
+    this.setState({ showDataMenu: !this.state.showDataMenu });
+  }
+
+  toggleCreditsMenu() {
+    this.setState({ showCreditsMenu: !this.state.showCreditsMenu });
   }
 
   // This function sets the inputted username, and checks it, and then takes the user to their desired location
   preEnterGame(where) {
     let userNameEntered = document.getElementById('usernameInput').value;
     // Makes sure the username entered is valid.
-    if (checkUsername(userNameEntered)) {
+    if (this.checkUsername(userNameEntered)) {
       setCurrentUserName(document.getElementById('usernameInput').value);
       if (where === 'campaign') {
         EnterCampaign();
@@ -27,8 +33,41 @@ export default class HomeScreen extends Component {
     }
   }
 
-  toggleCreditsMenu() {
-    this.setState({ showCreditsMenu: !this.state.showCreditsMenu });
+  // Changes the color of the input box text to the default colour (from red), if the user clicks the box before it changes automatically
+  changeColor() {
+    if (document.getElementById('usernameInput').style.color === 'red') {
+      document.getElementById('usernameInput').value = '';
+    }
+    document.getElementById('usernameInput').style.color = 'white';
+  }
+
+  // This function will alert the user that the username they entered is not allowed
+  checkUsername(userNameEntered) {
+    if (
+      userNameEntered === '' ||
+      userNameEntered === 'ERROR: INVALID INPUT' ||
+      userNameEntered.includes(' ') ||
+      userNameEntered.match(/[!#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/)
+    ) {
+      document.getElementById('usernameInput').value = 'ERROR: INVALID INPUT';
+      document.getElementById('usernameInput').style.color = 'red';
+
+      // Change the box style/value default after a set amount of time
+      setTimeout(() => {
+        if (document.getElementById('usernameInput')) {
+          if (
+            document.getElementById('usernameInput').value ===
+            'ERROR: INVALID INPUT'
+          ) {
+            document.getElementById('usernameInput').value = '';
+            document.getElementById('usernameInput').style.color = 'white';
+          }
+        }
+      }, 3000);
+      return false;
+    } else {
+      return true;
+    }
   }
 
   getCreditsMenu() {
@@ -48,7 +87,7 @@ export default class HomeScreen extends Component {
           }}
         ></div>
         <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
-          <div className="levelInfoContainer">
+          <div className="mainInfoContainer">
             <p
               style={{
                 left: '143px',
@@ -56,12 +95,12 @@ export default class HomeScreen extends Component {
                 marginTop: '12px',
                 fontSize: '35px',
               }}
-              className="levelNameToRender"
+              className="mainTextToRender"
             >
               Credits
             </p>
           </div>
-          <div className="levelInfoContainer2">
+          <div className="mainInfoContainer2">
             <div>
               <div className="creditsDescriptionContainer">
                 <p className="creditsDescription">
@@ -87,7 +126,7 @@ export default class HomeScreen extends Component {
             <div>
               <div
                 className="creditsContainer"
-                style={{ top: '310px', left: '20px' }}
+                style={{ top: '300px', left: '20px' }}
               >
                 <span>
                   <div className="creditsInfoTag">Plane Sprite Art</div>
@@ -98,7 +137,7 @@ export default class HomeScreen extends Component {
             <div>
               <div
                 className="creditsContainer"
-                style={{ top: '420px', left: '20px' }}
+                style={{ top: '400px', left: '20px' }}
               >
                 <span>
                   <div className="creditsInfoTag">Plane Sound Effect</div>
@@ -106,10 +145,21 @@ export default class HomeScreen extends Component {
                 </span>
               </div>
             </div>
+            <div>
+              <div
+                className="creditsContainer"
+                style={{ top: '500px', left: '20px' }}
+              >
+                <span>
+                  <div className="creditsInfoTag">Start Button</div>
+                  <span className="creditsText">freefrontend.com (free)</span>
+                </span>
+              </div>
+            </div>
 
             <button
               style={{ right: '12px', top: '558px' }}
-              className="optionsMenuButton"
+              className="creditsMenuButton"
               onClick={() => {
                 this.toggleCreditsMenu();
               }}
@@ -122,16 +172,99 @@ export default class HomeScreen extends Component {
     );
   }
 
-  // Changes the color of the input box text to the default colour (from red), if the user clicks the box before it changes automatically
-  changeColor() {
-    if (document.getElementById('usernameInput').style.color === 'red') {
-      document.getElementById('usernameInput').value = '';
-    }
-    document.getElementById('usernameInput').style.color = 'white';
+  getDataMenu() {
+    return (
+      <>
+        <div
+          onClick={() => {}}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '200vh',
+            background: '#1a1717',
+            opacity: '0.5',
+            backdropFilter: 'blur(100px)',
+            zIndex: '99',
+          }}
+        ></div>
+
+        <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
+          <div className="mainInfoContainer">
+            <p
+              style={{
+                left: '143px',
+                opacity: '1',
+                marginTop: '12px',
+                fontSize: '35px',
+              }}
+              className="mainTextToRender"
+            >
+              Data Handling
+            </p>
+          </div>
+          <div className="mainInfoContainer2">
+            <div>
+              <div className="dataDescriptionContainer">
+                <p className="dataDescription">
+                  A small amount of data is stored locally, to provide you with
+                  a better experience. All the data stored is listed below.
+                  Please click the "Delete All Data" button, to remove all your
+                  data.
+                </p>
+              </div>
+              <div>
+                <div
+                  className="dataContainer"
+                  style={{ top: '200px', left: '20px' }}
+                >
+                  <span>
+                    <div className="dataInfoTag">Username</div>
+                    <p style={{ left: '350px' }} className="dataText">
+                      {getCurrentUserName()}
+                    </p>
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  className="dataContainer"
+                  style={{ top: '310px', left: '20px' }}
+                >
+                  <span>
+                    <div className="dataInfoTag">Number Of Levels Unlocked</div>
+                    <p style={{ left: '350px' }} className="dataText">
+                      Temp Number
+                    </p>
+                  </span>
+                </div>
+              </div>
+
+              <button
+                className="standard-button-data deleteDataButton"
+                onClick={() => this.clearAllLocalStorageData()}
+              >
+                Delete Data
+              </button>
+
+              <button
+                style={{ right: '12px', top: '558px' }}
+                className="dataMenuButton"
+                onClick={() => {
+                  this.toggleDataMenu();
+                }}
+              >
+                Exit
+              </button>
+            </div>
+          </div>
+        </div>
+      </>
+    );
   }
 
   // This function clears all local storage data
   clearAllLocalStorageData() {
+    this.toggleDataMenu();
     localStorage.clear();
   }
 
@@ -139,19 +272,26 @@ export default class HomeScreen extends Component {
     return (
       <>
         {this.state.showCreditsMenu ? this.getCreditsMenu() : null}
+        {this.state.showDataMenu ? this.getDataMenu() : null}
         <div
           style={{
             backgroundColor: 'rgb(187, 211, 223)',
             position: 'absolute',
+            left: '0px',
             width: '100%',
             height: '100vh',
           }}
         ></div>
         <div className="imgbox">
-          <img alt="test" className="center-fit" src={testingImagePath}></img>
+          <img
+            alt="test"
+            className="center-fit"
+            src={backgroundImagePath}
+          ></img>
         </div>
         <div className="titleText">DIJKTRA'S GAME</div>
         <div className="bottomSector"></div>
+
         <div>
           <p className="welcomeBackText">Welcome Back, </p>
           <input
@@ -160,29 +300,35 @@ export default class HomeScreen extends Component {
             className="usernameInput"
             maxLength={22}
             spellCheck="false"
-            onClick={() => this.changeColor()}
-            defaultValue={getCurrentUserName()}
+            onClick={() => {
+              this.changeColor();
+            }}
+            defaultValue={'Player'}
           ></input>
         </div>
 
         <button
           className="dividerButton campaignStartButton"
-          onClick={() => this.preEnterGame('campaign')}
+          onClick={() => {
+            this.preEnterGame('campaign');
+          }}
         >
           Campaign
         </button>
 
         <button
           className="dividerButton sandboxStartButton"
-          onClick={() => this.preEnterGame('sandbox')}
+          onClick={() => {
+            this.preEnterGame('sandbox');
+          }}
         >
           Sandbox
         </button>
 
         <button
-          className="dividerButton medalsButton"
+          className="dividerButton dataButton"
           onClick={() => {
-            this.clearAllLocalStorageData();
+            this.toggleDataMenu();
           }}
         >
           Data
@@ -198,32 +344,5 @@ export default class HomeScreen extends Component {
         </button>
       </>
     );
-  }
-}
-
-// This function will alert the user that the username they entered is not allowed
-function checkUsername(userNameEntered) {
-  if (
-    userNameEntered === '' ||
-    userNameEntered === 'ERROR: INVALID INPUT' ||
-    userNameEntered.includes(' ') ||
-    userNameEntered.match(/[!#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/)
-  ) {
-    document.getElementById('usernameInput').value = 'ERROR: INVALID INPUT';
-    document.getElementById('usernameInput').style.color = 'red';
-
-    // Change the box style/value default after a set amount of time
-    setTimeout(() => {
-      if (
-        document.getElementById('usernameInput').value ===
-        'ERROR: INVALID INPUT'
-      ) {
-        document.getElementById('usernameInput').value = '';
-        document.getElementById('usernameInput').style.color = 'white';
-      }
-    }, 3000);
-    return false;
-  } else {
-    return true;
   }
 }

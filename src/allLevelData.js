@@ -1,18 +1,26 @@
 // This whole file will get the data for every single level that there is.
 
 const numLevels = 15; // The total number of levels in the game
-const allLevelNames = getAllLevelNames();
-const allLevelGrids = getAllLevelGrids();
-const allLevelsAllowedWalls = getAllLevelAllowedWalls();
-const allLevelsRandomWallPresses = getAllLevelRandomWallPresses();
-const allLevelStars = getAllStars();
-const allLevelLives = getAllLives();
-const allLevelNodeCoords = getAllSpecialNodeCoords();
+
 const allLevelIDs = getAllLevelIDs();
-const allLevelRandomWallNumber = getAllLevelRandomWallNumber();
+const allLevelNames = getAllLevelNames();
+const allLevelsRandomWallPresses = getAllLevelRandomWallPresses();
 const allLevelDifficulties = getAllLevelDifficulties();
 const allLevelDescriptions = getAllLevelDescriptions();
+const allLevelNodeCoords = getAllSpecialNodeCoords();
+const allLevelsAllowedWalls = getAllLevelAllowedWalls();
 const allLevelEndDistances = getAllLevelEndDistances();
+const allLevelGrids = getAllLevelGrids();
+
+// This function gets the id of each level
+function getAllLevelIDs() {
+  let allLevelIDs = [];
+  for (let i = 1; i <= numLevels; i++) {
+    let level = require(`./levels/level${i}`);
+    allLevelIDs.push(level.levelID);
+  }
+  return allLevelIDs;
+}
 
 // This function gets the names of every single level and stores it in an array
 function getAllLevelNames() {
@@ -24,13 +32,14 @@ function getAllLevelNames() {
   return levelNames;
 }
 
-function getAllLevelEndDistances() {
-  let levelEndDistances = [];
+// This function gets every number of random wall presses
+function getAllLevelRandomWallPresses() {
+  let levelRandomWallPresses = [];
   for (let i = 1; i <= numLevels; i++) {
     let level = require(`./levels/level${i}`);
-    levelEndDistances.push(level.endDistance);
+    levelRandomWallPresses.push(level.randomWallPressesAllowed);
   }
-  return levelEndDistances;
+  return levelRandomWallPresses;
 }
 
 // This function gets the difficulty of every single level and stores it in an array
@@ -53,52 +62,6 @@ function getAllLevelDescriptions() {
   return levelDescriptions;
 }
 
-// This function gets all the level grids
-function getAllLevelGrids() {
-  let levelGrids = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
-    levelGrids.push(level.grid);
-  }
-  return levelGrids;
-}
-
-// This function gets every number of allowed walls per level
-function getAllLevelAllowedWalls() {
-  let levelAllowedWalls = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
-    levelAllowedWalls.push(level.wallsAllowed);
-  }
-  return levelAllowedWalls;
-}
-
-// This function gets every number of random wall presses
-function getAllLevelRandomWallPresses() {
-  let levelRandomWallPresses = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
-    levelRandomWallPresses.push(level.randomWallPressesAllowed);
-  }
-  return levelRandomWallPresses;
-}
-
-// This function gets the number of walls for each star for each level
-function getAllStars() {
-  let allLevelStars = [];
-
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
-    let levelStars = [];
-    levelStars.push(level.wallsForNoStar);
-    levelStars.push(level.wallsForOneStar);
-    levelStars.push(level.wallsForTwoStar);
-    levelStars.push(level.wallsForThreeStar);
-    allLevelStars.push(levelStars);
-  }
-  return allLevelStars;
-}
-
 // This function gets the coords of the start and end node for each level
 function getAllSpecialNodeCoords() {
   let allLevelCoords = [];
@@ -113,58 +76,41 @@ function getAllSpecialNodeCoords() {
   return allLevelCoords;
 }
 
-// This function gets the number of lives allowed for each level
-function getAllLives() {
-  let levelAllLives = [];
+// This function gets every number of allowed walls per level
+function getAllLevelAllowedWalls() {
+  let levelAllowedWalls = [];
   for (let i = 1; i <= numLevels; i++) {
     let level = require(`./levels/level${i}`);
-    levelAllLives.push(level.lives);
+    levelAllowedWalls.push(level.wallsAllowed);
   }
-  return levelAllLives;
+  return levelAllowedWalls;
 }
 
-// This function gets the id of each level
-function getAllLevelIDs() {
-  let allLevelIDs = [];
+function getAllLevelEndDistances() {
+  let levelEndDistances = [];
   for (let i = 1; i <= numLevels; i++) {
     let level = require(`./levels/level${i}`);
-    allLevelIDs.push(level.levelID);
+    levelEndDistances.push(level.endDistance);
   }
-  return allLevelIDs;
+  return levelEndDistances;
 }
 
-// This function gets the number of walls randomWalls should place
-function getAllLevelRandomWallNumber() {
-  let allLevelRandomWallNumber = [];
+// This function gets all the level grids
+function getAllLevelGrids() {
+  let levelGrids = [];
   for (let i = 1; i <= numLevels; i++) {
     let level = require(`./levels/level${i}`);
-    allLevelRandomWallNumber.push(level.randomWallNumber);
+    levelGrids.push(level.grid);
   }
-  return allLevelRandomWallNumber;
+  return levelGrids;
 }
 
 export function getLevelName(id) {
   return allLevelNames[id];
 }
 
-export function getLevelAllowedWalls(id) {
-  return allLevelsAllowedWalls[id];
-}
-
 export function getLevelRandomWallPresses(id) {
   return allLevelsRandomWallPresses[id];
-}
-
-export function getLevelRandomWallNumber(id) {
-  return allLevelRandomWallNumber[id];
-}
-
-export function getLevelStars(id) {
-  return allLevelStars[id];
-}
-
-export function getLevelLives(id) {
-  return allLevelLives[id];
 }
 
 export function getLevelDifficulty(id) {
@@ -175,6 +121,10 @@ export function getLevelDescription(id) {
   return allLevelDescriptions[id];
 }
 
+export function getLevelAllowedWalls(id) {
+  return allLevelsAllowedWalls[id];
+}
+
 export function getLevelEndDistance(id) {
   return allLevelEndDistances[id];
 }
@@ -182,16 +132,13 @@ export function getLevelEndDistance(id) {
 // Export all the level data as global variables
 export {
   numLevels,
-  allLevelNames,
-  allLevelGrids,
-  allLevelsAllowedWalls,
-  allLevelsRandomWallPresses,
-  allLevelStars,
-  allLevelLives,
-  allLevelNodeCoords,
   allLevelIDs,
-  allLevelRandomWallNumber,
-  allLevelDescriptions,
+  allLevelNames,
+  allLevelsRandomWallPresses,
   allLevelDifficulties,
+  allLevelDescriptions,
+  allLevelNodeCoords,
+  allLevelsAllowedWalls,
   allLevelEndDistances,
+  allLevelGrids,
 };

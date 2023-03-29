@@ -9,7 +9,7 @@
     [1, "What?", 2],
     [
       4,
-      "It's to do with the way the missile determines what is an obsticale, and what isn't. I think there may be a way to confuse it!",
+      "It's to do with the way the missile determines what is an obstacle, and what isn't. I think there may be a way to confuse it!",
       1
     ],
     [3, "That is excellent news! What do we have to do?", 2],
@@ -51,7 +51,7 @@
       "*the missile approaches the three walled rows, and carries on towards the base*",
       3
     ],
-    [3, "Is that suppose to happen?", 2],
+    [3, "Is that supposed to happen?", 2],
     [4, "{userName}, it's all up to you...", 1],
     [1, "When is it not...", 2],
     [0, ""]

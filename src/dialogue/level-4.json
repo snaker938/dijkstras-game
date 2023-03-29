@@ -26,7 +26,7 @@
       "I will bring my laptop, so if there is another attack, we can try and prevent it",
       1
     ],
-    [1, "This time, can you leve the missile prevention to me?", 2],
+    [1, "This time, can you leave the missile prevention to me?", 2],
     [4, "Affirmative!", 1],
     [1000, "", 3],
     [null, "*you all board the minivan and head to the temporary base*", 3],
@@ -40,7 +40,7 @@
     [3, "Can you turn that thing off??", 1],
     [4, "It's another missile alert!", 2],
     [1, "They already destroyed our base?", 1],
-    [4, "The target isn't our base, its us... End distance is set at 60!", 2],
+    [4, "The target isn't our base, it's us... End distance is set at 60!", 2],
     [1, "Stop the car, let me handle this...", 1],
     [0, ""]
   ]

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { getCurrentDisplayOutlineClass } from '../../actualLevelHandling';
-
+import { getCurrentDisplayOutlineClass } from '../../optionsHandling';
 import './Node.css';
 
 export default class Node extends Component {
@@ -16,7 +15,8 @@ export default class Node extends Component {
       onMouseDown,
       onMouseEnter,
       onMouseUp,
-    } = this.props; // defines the properties of the node
+    } = this.props; // defines the properties of the
+
     const specialNode = getSpecialNode();
 
     // Checks whether the node is special. ie. is it a wall, a start or end node. If so, give them special css classes
@@ -38,7 +38,7 @@ export default class Node extends Component {
         onMouseUp={() => onMouseUp()}
       >
         &nbsp;
-      </div> // returns the node that contains the node class, and a special class if applicable. You can also access the node at a specific position due to each id being unique to a particular node.
+      </div> // returns the node that contains the node class, and a special class if applicable. You can also access the node at a specific position due to each ID being unique to a particular node.
     );
   }
 }

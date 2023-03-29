@@ -1,0 +1,367 @@
+.topButtonsContainer {
+  height: 70px;
+  width: 1280px;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  background: #1a1717;
+  opacity: 80%;
+  backdrop-filter: blur(10px);
+}
+
+.topButtonsContainerOutline {
+  height: 0px;
+  width: 1080px;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  border-bottom: 70px solid #615e5e;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+
+  opacity: 80%;
+}
+
+.grid {
+  position: absolute;
+  left: 0px;
+  top: 70px;
+  background: rgb(101, 97, 97);
+  background: linear-gradient(
+    90deg,
+    rgba(101, 97, 97, 1) 0%,
+    rgba(82, 77, 77, 1) 50%,
+    rgb(103, 97, 97) 75%,
+    rgb(84, 81, 81) 100%
+  );
+}
+
+.standard-button {
+  font-family: QTYPE;
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  border: 3px solid rgb(43, 43, 43);
+  opacity: 0.8;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.standard-button:hover {
+  background-color: rgb(163, 163, 163);
+}
+
+.plane {
+  z-index: 3;
+  position: absolute;
+  top: 150px;
+  left: -450px;
+  transform: rotate(90deg);
+}
+
+/* CSS */
+.button-82-pushable {
+  z-index: 2;
+  position: absolute;
+  left: 580px;
+  top: 14px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: filter 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-82-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25);
+  will-change: transform;
+  transform: translateY(2px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.button-82-edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    to left,
+    hsl(340deg 100% 16%) 0%,
+    hsl(340deg 100% 32%) 8%,
+    hsl(340deg 100% 32%) 92%,
+    hsl(340deg 100% 16%) 100%
+  );
+}
+
+.button-82-front {
+  display: block;
+  position: relative;
+  padding: 12px 27px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: white;
+  background: hsl(345deg 100% 47%);
+  will-change: transform;
+  transform: translateY(-4px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+@media (min-width: 768px) {
+  .button-82-front {
+    font-size: 1.25rem;
+    padding: 12px 42px;
+  }
+}
+
+.button-82-pushable:hover {
+  filter: brightness(110%);
+}
+
+.button-82-pushable:hover .button-82-front {
+  transform: translateY(-6px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+.button-82-pushable:active .button-82-front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+.button-82-pushable:hover .button-82-shadow {
+  transform: translateY(4px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+.button-82-pushable:active .button-82-shadow {
+  transform: translateY(1px);
+  transition: transform 34ms;
+}
+
+.button-82-pushable:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.optionsMenuDevelopment {
+  width: 381px;
+  height: 300px;
+
+  right: 110px;
+  bottom: 120px;
+
+  position: absolute;
+  border: 2px solid rgb(175, 175, 175);
+}
+
+.developmentOptionsText {
+  font-family: 'QYTPE';
+  position: absolute;
+  font-weight: 900;
+  font-size: 30px;
+  z-index: inherit;
+  left: 48px;
+  color: white;
+  top: 5px;
+  white-space: nowrap;
+  border-bottom: 3px solid white;
+  border-radius: 8px;
+  padding-bottom: 3px;
+  user-select: none;
+}
+
+.standard-button-options {
+  padding: 10px;
+  font-family: QTYPE;
+  font-size: 20px;
+  font-weight: bold;
+  border: 3.5px solid rgb(43, 43, 43);
+  opacity: 0.8;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.loadGridButton {
+  top: 140px;
+  right: 20px;
+  position: absolute;
+}
+
+.saveGridButton {
+  top: 140px;
+  left: 20px;
+  position: absolute;
+}
+
+.saveUserGridButton {
+  top: 400px;
+  right: 20px;
+  position: absolute;
+}
+
+.endDistanceOptions {
+  position: absolute;
+  font-family: 'QTYPE';
+  bottom: 25px;
+  left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 0px -1px 0 #000, -1px 1px 0 #000,
+    0px 0px 0 #000;
+  user-select: none;
+}
+
+.optionsMenuButton {
+  font-family: QTYPEBOLD;
+  font-size: 40px;
+  position: absolute;
+  background-color: transparent;
+  border: 0;
+  text-decoration: none;
+  text-shadow: 0px 1px 2px #000000;
+  opacity: 100%;
+  color: rgb(180, 180, 180);
+}
+
+.optionsMenuButton:hover {
+  color: rgb(216, 216, 216);
+}
+
+.standard-button-options:hover {
+  background-color: rgb(163, 163, 163);
+}
+
+.toggle-permanent-holder {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  opacity: 80%;
+  z-index: 1;
+}
+
+.text-info {
+  font-family: QTYPE;
+  border: 2px solid rgb(175, 175, 175);
+  opacity: 0.8;
+  border-radius: 10px;
+  padding: 1%;
+  color: #fff;
+  text-align: center;
+  transition: all 0.75s;
+}
+
+body {
+  text-align: center;
+}
+
+.toggle-permanent-holder {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  opacity: 80%;
+  z-index: 1;
+}
+
+.toggle-grid-holder {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  opacity: 80%;
+  z-index: 1;
+}
+
+.toggle-onclick-holder {
+  position: absolute;
+  top: 60px;
+  right: 205px;
+  opacity: 80%;
+  z-index: 1;
+}
+
+.endDistanceOptions {
+  position: absolute;
+  font-family: 'QTYPE';
+  bottom: 25px;
+  left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 0px -1px 0 #000, -1px 1px 0 #000,
+    0px 0px 0 #000;
+  user-select: none;
+}
+
+.gridSmaller {
+  position: relative;
+  left: 251px;
+  background: rgb(101, 97, 97);
+  background: linear-gradient(
+    90deg,
+    rgba(101, 97, 97, 1) 0%,
+    rgba(82, 77, 77, 1) 50%,
+    rgb(103, 97, 97) 75%,
+    rgb(84, 81, 81) 100%
+  );
+}
+
+.wrapperDiv {
+  width: 1280px;
+  position: absolute;
+  right: -225.7px;
+  top: 77px;
+  transform: scale(0.45);
+}
+
+.outerSmallerGridContainer {
+  width: 100%;
+  height: 100%;
+}
+
+/* User Level Buttons */
+
+.userLevelButtonsClicked {
+  border: 2px solid rgb(175, 175, 175);
+  display: block;
+  margin-bottom: 7px;
+  font-family: QTYPE;
+  width: 520px;
+  text-align: left;
+  height: 33px;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(255, 255, 255, 1);
+  position: relative;
+  top: 10px;
+  left: 11px;
+}
+
+.userLevelButtons {
+  position: relative;
+  top: 10px;
+  left: 11px;
+  display: block;
+  margin-bottom: 10px;
+  height: 30px;
+  font-family: QTYPE;
+  width: 520px;
+  text-align: left;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 1);
+  border: 0;
+}
+
+.userLevelButtons:hover {
+  opacity: 65%;
+}
