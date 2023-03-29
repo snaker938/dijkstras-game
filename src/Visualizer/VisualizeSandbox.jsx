@@ -1005,6 +1005,12 @@ export default class sandboxVisualizer extends Component {
       this.setState({
         grid: json.grid,
       });
+
+      // Change the coordinates of the start and end nodes
+      START_NODE_ROW = json.startNodeCoords[1];
+      START_NODE_COL = json.startNodeCoords[0];
+      END_NODE_ROW = json.endNodeCoords[1];
+      END_NODE_COL = json.endNodeCoords[0];
     } else if (
       document.getElementById('loadLevelInput').value === 'NO-PATH-SANDBOX'
     ) {
