@@ -633,8 +633,6 @@ export default class levelVisualizer extends Component {
         document.getElementById('homeButton').classList.remove('enabled');
         NUM_RANDOM_WALL_PRESSES--; // removes a random wall press
 
-        NUM_WALLS_ACTIVE = 10;
-
         resetAllNodes(this.state.grid);
         if (!this.state.animatingPlane) {
           this.setState({ animatingPlane: true });
@@ -686,7 +684,6 @@ export default class levelVisualizer extends Component {
           for (let i = 0; i < RANDOM_WALL_NUMBER; i++) {
             setTimeout(() => {
               for (let node of randomWallsAdded) {
-                console.log('testing');
                 document
                   .getElementById(`node-${node.row}-${node.col}`)
                   .classList.add('node-unwallable');
@@ -715,16 +712,18 @@ export default class levelVisualizer extends Component {
                 // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
                 if (!unWallable && randomWallsAdded.indexOf(node) === -1) {
                   // Choose a random number between 1 and 2. If the number is 1, then the node will be added to randomWallsAdded array
-                  if (Math.floor(Math.random() * 2) === 1)
+                  if (Math.floor(Math.random() * 2) === 1) {
                     randomWallsAdded.push(node);
 
-                  const newNode = {
-                    ...node,
-                    isWall: true,
-                  };
+                    const newNode = {
+                      ...node,
+                      isWall: true,
+                      isPermanentWall: true,
+                    };
 
-                  // Places the new node into the grid
-                  grid[row][column] = newNode;
+                    // Places the new node into the grid
+                    grid[row][column] = newNode;
+                  }
                 }
               }
               if (i % 45 === 0 || i === 400 - 1 || column === 51)
