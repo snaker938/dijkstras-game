@@ -154,6 +154,7 @@ export default class CampaignScreen extends Component {
             height: '100vh',
           }}
         ></div>
+
         <div className="imgbox">
           <img
             alt="test"
@@ -161,6 +162,18 @@ export default class CampaignScreen extends Component {
             src={backgroundImagePath}
           ></img>
         </div>
+        <div
+          onClick={() => {}}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '200vh',
+            background: '#1a1717',
+            opacity: '0.3',
+            backdropFilter: 'blur(100px)',
+            zIndex: '0',
+          }}
+        ></div>
 
         <div>
           <div style={{ position: 'absolute', left: '53px' }}>

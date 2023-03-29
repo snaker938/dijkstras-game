@@ -746,7 +746,7 @@ export default class sandboxVisualizer extends Component {
                   </div>
 
                   <div className="toggle-onclick-holder text-info">
-                    Toggle Wall On Click
+                    Toggle Wall After Animation
                     <div>
                       <NodeToggleOnClick
                         currentState={getToggleWallOnClick()}

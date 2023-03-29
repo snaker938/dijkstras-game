@@ -4,6 +4,7 @@ import { setCurrentUserName } from '../currentUserDataHandling';
 import { EnterCampaign, EnterSandbox } from '../Navigation';
 import backgroundImagePath from './../assets/mainbackground.png';
 import './homeScreen.css';
+import { numLevelsUnlocked } from '../currentUserDataHandling';
 
 export default class HomeScreen extends Component {
   constructor() {
@@ -233,7 +234,7 @@ export default class HomeScreen extends Component {
                   <span>
                     <div className="dataInfoTag">Number Of Levels Unlocked</div>
                     <p style={{ left: '350px' }} className="dataText">
-                      Temp Number
+                      {numLevelsUnlocked}
                     </p>
                   </span>
                 </div>

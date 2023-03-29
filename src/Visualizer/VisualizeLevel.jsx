@@ -850,7 +850,7 @@ export default class levelVisualizer extends Component {
               style={{ right: '10px' }}
               className="toggle-onclick-holder text-info"
             >
-              Toggle Wall On Click
+              Toggle Wall After Animation
               <div>
                 <NodeToggleOnClick
                   currentState={getToggleWallOnClick()}
