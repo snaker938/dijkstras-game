@@ -398,16 +398,18 @@ export default class sandboxVisualizer extends Component {
   }
 
   nextOptionsMenuPage(next) {
-    if (next) {
-      this.setState({ optionsPage: 2 });
-    } else {
-      this.setState({
-        defaultUserLevelInput: '',
-        lastAddedUserLevel: '',
-        levelClicked: -1,
-        renamingUserLevel: false,
-      });
-      this.setState({ optionsPage: 1 });
+    if (document.getElementById('homeButton').classList.contains('enabled')) {
+      if (next) {
+        this.setState({ optionsPage: 2 });
+      } else {
+        this.setState({
+          defaultUserLevelInput: '',
+          lastAddedUserLevel: '',
+          levelClicked: -1,
+          renamingUserLevel: false,
+        });
+        this.setState({ optionsPage: 1 });
+      }
     }
   }
 
@@ -991,72 +993,78 @@ export default class sandboxVisualizer extends Component {
 
   // This function is purely for testing the grid templates
   loadTestGrid() {
-    // If the value of loadLevelInput is not between 1 and 15 (or is not a special grid template), then nothing will happen. If it is, then the grid will be loaded with the corresponding grid template
-    if (
-      document.getElementById('loadLevelInput').value >= 1 &&
-      document.getElementById('loadLevelInput').value <= 15
-    ) {
-      this.removeAllWalls(); // removes all existing walls
+    if (document.getElementById('homeButton').classList.contains('enabled')) {
+      // If the value of loadLevelInput is not between 1 and 15 (or is not a special grid template), then nothing will happen. If it is, then the grid will be loaded with the corresponding grid template
+      if (
+        document.getElementById('loadLevelInput').value >= 1 &&
+        document.getElementById('loadLevelInput').value <= 15
+      ) {
+        this.removeAllWalls(); // removes all existing walls
 
-      const json = require(`../levels/level${
-        document.getElementById('loadLevelInput').value
-      }.json`);
+        const json = require(`../levels/level${
+          document.getElementById('loadLevelInput').value
+        }.json`);
 
-      this.setState({
-        grid: json.grid,
-      });
+        this.setState({
+          grid: json.grid,
+        });
 
-      // Change the coordinates of the start and end nodes
-      START_NODE_ROW = json.startNodeCoords[1];
-      START_NODE_COL = json.startNodeCoords[0];
-      END_NODE_ROW = json.endNodeCoords[1];
-      END_NODE_COL = json.endNodeCoords[0];
-    } else if (
-      document.getElementById('loadLevelInput').value === 'NO-PATH-SANDBOX'
-    ) {
-      this.removeAllWalls(); // removes all existing walls
+        // Change the coordinates of the start and end nodes
+        START_NODE_ROW = json.startNodeCoords[1];
+        START_NODE_COL = json.startNodeCoords[0];
+        END_NODE_ROW = json.endNodeCoords[1];
+        END_NODE_COL = json.endNodeCoords[0];
+      } else if (
+        document.getElementById('loadLevelInput').value === 'NO-PATH-SANDBOX'
+      ) {
+        this.removeAllWalls(); // removes all existing walls
 
-      const json = require(`./templates/NO-PATH-SANDBOX.json`);
+        const json = require(`./templates/NO-PATH-SANDBOX.json`);
 
-      this.setState({
-        grid: json.grid,
-      });
-    } else if (document.getElementById('loadLevelInput').value === 'NO-PATH') {
-      this.removeAllWalls(); // removes all existing walls
+        this.setState({
+          grid: json.grid,
+        });
+      } else if (
+        document.getElementById('loadLevelInput').value === 'NO-PATH'
+      ) {
+        this.removeAllWalls(); // removes all existing walls
 
-      const json = require(`./templates/NO-PATH.json`);
+        const json = require(`./templates/NO-PATH.json`);
 
-      this.setState({
-        grid: json.grid,
-      });
-    } else if (document.getElementById('loadLevelInput').value === 'VICTORY') {
-      this.removeAllWalls(); // removes all existing walls
+        this.setState({
+          grid: json.grid,
+        });
+      } else if (
+        document.getElementById('loadLevelInput').value === 'VICTORY'
+      ) {
+        this.removeAllWalls(); // removes all existing walls
 
-      const json = require(`./templates/VICTORY.json`);
+        const json = require(`./templates/VICTORY.json`);
 
-      this.setState({
-        grid: json.grid,
-      });
-    } else if (
-      document.getElementById('loadLevelInput').value === 'MISSION-FAILED'
-    ) {
-      this.removeAllWalls(); // removes all existing walls
+        this.setState({
+          grid: json.grid,
+        });
+      } else if (
+        document.getElementById('loadLevelInput').value === 'MISSION-FAILED'
+      ) {
+        this.removeAllWalls(); // removes all existing walls
 
-      const json = require(`./templates/MISSION-FAILED.json`);
+        const json = require(`./templates/MISSION-FAILED.json`);
 
-      this.setState({
-        grid: json.grid,
-      });
-    } else if (
-      document.getElementById('loadLevelInput').value === 'GAME-COMPLETE'
-    ) {
-      this.removeAllWalls(); // removes all existing walls
+        this.setState({
+          grid: json.grid,
+        });
+      } else if (
+        document.getElementById('loadLevelInput').value === 'GAME-COMPLETE'
+      ) {
+        this.removeAllWalls(); // removes all existing walls
 
-      const json = require(`./templates/GAME-COMPLETE.json`);
+        const json = require(`./templates/GAME-COMPLETE.json`);
 
-      this.setState({
-        grid: json.grid,
-      });
+        this.setState({
+          grid: json.grid,
+        });
+      }
     }
   }
 
