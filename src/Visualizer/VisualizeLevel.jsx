@@ -213,7 +213,7 @@ export default class levelVisualizer extends Component {
           style={{ right: '12px', top: '558px' }}
           className="optionsMenuButton"
           onClick={() => {
-            this.getDialogueMenu(false, true, true);
+            this.getDialogueMenu(false, false, true);
           }}
         >
           {dialogueNextPageText}
@@ -239,6 +239,12 @@ export default class levelVisualizer extends Component {
       getCurrentLevelSpeakerPosition()
     );
     let currentLevelDialogue = cloneVariable(getCurrentLevelDialogue());
+
+    console.log(
+      currentLevelDialogue,
+      currentDialogueLineNumber,
+      this.state.dialogueStartLoop
+    );
 
     for (
       let i = this.state.dialogueStartLoop;
@@ -397,11 +403,20 @@ export default class levelVisualizer extends Component {
       this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 1 });
     } else if (shouldChange2) {
       this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 2 });
+    } else if (shouldChange3) {
+      this.setState({
+        dialogueLineNumber: this.state.dialogueLineNumber + 3,
+        dialogueStartLoop: this.state.dialogueLineNumber,
+      });
     }
 
-    if (shouldChange3) {
-      this.setState({ dialogueStartLoop: this.state.dialogueLineNumber + 1 });
-    }
+    console.log(shouldChange1, shouldChange2, shouldChange3);
+
+    // console.log(
+    //   this.state.dialogueLineNumber,
+    //   this.state.dialogueStartLoop,
+    //   getCurrentLevelDialogue()
+    // );
 
     let dialogueNextButton = this.getDialogueNextButton(
       this.state.dialogueLineNumber
