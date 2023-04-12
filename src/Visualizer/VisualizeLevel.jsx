@@ -404,13 +404,12 @@ export default class levelVisualizer extends Component {
     } else if (shouldChange2) {
       this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 2 });
     } else if (shouldChange3) {
+      console.log(this.state.dialogueLineNumber, shouldChange3);
       this.setState({
-        dialogueLineNumber: this.state.dialogueLineNumber + 3,
-        dialogueStartLoop: this.state.dialogueLineNumber,
+        dialogueLineNumber: this.state.dialogueLineNumber + 2,
+        dialogueStartLoop: this.state.dialogueLineNumber + 2,
       });
     }
-
-    console.log(shouldChange1, shouldChange2, shouldChange3);
 
     // console.log(
     //   this.state.dialogueLineNumber,

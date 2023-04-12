@@ -304,7 +304,7 @@ export default class HomeScreen extends Component {
             onClick={() => {
               this.changeColor();
             }}
-            defaultValue={'Player'}
+            defaultValue={getCurrentUserName()}
           ></input>
         </div>
 
