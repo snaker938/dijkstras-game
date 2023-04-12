@@ -618,8 +618,10 @@ export default class sandboxVisualizer extends Component {
             document.getElementById('saveLevelInput').value ===
             'ERROR: INVALID INPUT'
           ) {
+            console.log('changing value');
             document.getElementById('saveLevelInput').value = '';
             document.getElementById('saveLevelInput').style.color = 'white';
+            this.setState({ defaultUserLevelInput: '' });
           }
         }
       }, 3000);
@@ -694,6 +696,7 @@ export default class sandboxVisualizer extends Component {
     function changeColor() {
       if (document.getElementById('saveLevelInput').style.color === 'red') {
         document.getElementById('saveLevelInput').value = '';
+        this.setState({ defaultUserLevelInput: '' });
       } else if (
         document.getElementById('saveLevelInput').style.color === 'green'
       ) {
@@ -927,7 +930,9 @@ export default class sandboxVisualizer extends Component {
                     ) : null}
 
                     {this.state.defaultUserLevelInput !== '' &&
-                    !this.state.renamingUserLevel ? (
+                    !this.state.renamingUserLevel &&
+                    this.state.levelClicked === -1 &&
+                    document.getElementById('saveLevelInput').value !== '' ? (
                       <>
                         <button
                           className="standard-button-options saveUserGridButton"
