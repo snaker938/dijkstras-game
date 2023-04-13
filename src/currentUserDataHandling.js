@@ -62,7 +62,7 @@ if (localStorage.getItem('numLevelsUnlocked') === null) {
   numLevelsUnlocked = 1;
 } else {
   numLevelsUnlocked = Number(localStorage.getItem('numLevelsUnlocked'));
-  numLevelsUnlocked = 7;
+  numLevelsUnlocked = 11;
 }
 
 // check if "userName" is in localStorage. If not, set it to the input. If it is, retrieve it

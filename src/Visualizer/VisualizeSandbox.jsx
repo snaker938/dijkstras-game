@@ -618,7 +618,6 @@ export default class sandboxVisualizer extends Component {
             document.getElementById('saveLevelInput').value ===
             'ERROR: INVALID INPUT'
           ) {
-            console.log('changing value');
             document.getElementById('saveLevelInput').value = '';
             document.getElementById('saveLevelInput').style.color = 'white';
             this.setState({ defaultUserLevelInput: '' });

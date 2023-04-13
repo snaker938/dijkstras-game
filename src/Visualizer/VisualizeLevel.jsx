@@ -213,7 +213,7 @@ export default class levelVisualizer extends Component {
           style={{ right: '12px', top: '558px' }}
           className="optionsMenuButton"
           onClick={() => {
-            this.getDialogueMenu(false, false, true);
+            this.getDialogueMenu(false, true, true);
           }}
         >
           {dialogueNextPageText}
@@ -239,12 +239,6 @@ export default class levelVisualizer extends Component {
       getCurrentLevelSpeakerPosition()
     );
     let currentLevelDialogue = cloneVariable(getCurrentLevelDialogue());
-
-    console.log(
-      currentLevelDialogue,
-      currentDialogueLineNumber,
-      this.state.dialogueStartLoop
-    );
 
     for (
       let i = this.state.dialogueStartLoop;
@@ -290,7 +284,7 @@ export default class levelVisualizer extends Component {
         dialogue = (
           <>
             <div
-              key={i}
+              key={i + 'dialogueBlock'}
               className={dialogueBlockPosition}
               style={{
                 display: i <= currentDialogueLineNumber ? 'inline' : 'none',
@@ -303,7 +297,7 @@ export default class levelVisualizer extends Component {
 
             {i === currentDialogueLineNumber ? (
               <div
-                key={i}
+                key={i + 'dialogueBlock2'}
                 className={dialogueBlockPosition}
                 style={{
                   display: i <= currentDialogueLineNumber ? 'inline' : 'none',
@@ -330,7 +324,7 @@ export default class levelVisualizer extends Component {
         dialogue = (
           <>
             <div
-              key={i}
+              key={i + 'dialogueBlock3'}
               className={dialogueBlockPosition}
               style={{
                 display: i <= currentDialogueLineNumber ? 'inline' : 'none',
@@ -353,7 +347,7 @@ export default class levelVisualizer extends Component {
             </div>
             {i === currentDialogueLineNumber ? (
               <div
-                key={i}
+                key={i + 'dialogueBlock4'}
                 className={dialogueBlockPosition}
                 style={{
                   display: i <= currentDialogueLineNumber ? 'inline' : 'none',
@@ -403,12 +397,10 @@ export default class levelVisualizer extends Component {
       this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 1 });
     } else if (shouldChange2) {
       this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 2 });
-    } else if (shouldChange3) {
-      console.log(this.state.dialogueLineNumber, shouldChange3);
-      this.setState({
-        dialogueLineNumber: this.state.dialogueLineNumber + 2,
-        dialogueStartLoop: this.state.dialogueLineNumber + 2,
-      });
+    }
+
+    if (shouldChange3) {
+      this.setState({ dialogueStartLoop: this.state.dialogueLineNumber + 1 });
     }
 
     // console.log(
