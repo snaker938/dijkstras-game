@@ -2,8 +2,9 @@ const path = require('path');
 
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
-const height = 600;
-const width = 800;
+
+const height = 700;
+const width = 1400;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling
 if (require('electron-squirrel-startup')) {
@@ -32,7 +33,13 @@ function createWindow() {
   if (isDev) {
     win.webContents.openDevTools({ mode: 'detach' });
   }
-  win.maximize();
+  // win.maximize();
+
+  // on window resize, output the new window size in the console
+  win.on('resize', () => {
+    const size = win.getSize();
+    console.log(`Size: ${size}`);
+  });
 }
 
 // This method will be called when Electron has finished
@@ -56,6 +63,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.

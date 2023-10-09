@@ -5,11 +5,7 @@ import CampaignScreen from './HomeScreen/CampaignScreen/campaignScreen';
 import VisualizeSandbox from './Visualizer/VisualizeSandbox';
 import VisualizeLevel from './Visualizer/VisualizeLevel';
 import { setCurrentLevel } from './currentLevelHandling';
-import {
-  setHasShownTutorial,
-  setTutorialHasEnded,
-  toggleHasShownTutorial,
-} from './actualLeveHandling';
+import { setHasShownTutorial, setTutorialHasEnded } from './actualLeveHandling';
 import {
   setCurrentDialogueLineNumber,
   setHasDialogueEnded,

@@ -281,6 +281,7 @@ export default class HomeScreen extends Component {
             left: '0px',
             width: '100%',
             height: '100vh',
+            // zIndex: '1000000',
           }}
         ></div>
         <div className="imgbox">

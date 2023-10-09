@@ -23,7 +23,6 @@ import NodeToggleGrid from './Node/NodeToggleGrid';
 import { EnterHome } from '../Navigation';
 import NodeToggleOnClick from './Node/NodeToggleOnClick';
 import ScrollableBox from './Components/ScrollableBox';
-import { allLevelGrids, allLevelNames, numLevels } from '../allLevelData';
 import NodeSmaller from './Node/SmallerNode';
 import {
   deleteUserLevel,
@@ -679,6 +678,7 @@ export default class sandboxVisualizer extends Component {
           [END_NODE_ROW, END_NODE_COL],
         ],
       ];
+
       if (this.checkLevelInput(saveLevelInput)) {
         this.setState({ defaultUserLevelInput: '' });
         saveUserLevels(userLevel);

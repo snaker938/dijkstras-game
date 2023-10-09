@@ -106,6 +106,7 @@ function getAllLevelDialogue() {
 
 export function setCurrentDialogueLineNumber(num) {
   currentDialogueLineNumber = num;
+  return currentDialogueLineNumber;
 }
 
 function getCurrentLevelAllDialogue() {

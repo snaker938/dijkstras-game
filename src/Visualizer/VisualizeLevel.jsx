@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   getCurrentTutorialStatus,
-  getHasTutorialEnded,
   randomIntFromInterval,
   toggleHasShownTutorial,
   toggleHasTutorialEnded,
