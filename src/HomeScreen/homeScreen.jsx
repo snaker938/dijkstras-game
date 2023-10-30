@@ -79,15 +79,15 @@ export default class HomeScreen extends Component {
           style={{
             // backgroundColor: 'rgb(187, 211, 223)',
             position: 'absolute',
-            width: '100%',
-            height: '200vh',
+            width: '150%',
+            height: '100%',
             background: '#1a1717',
             opacity: '0.5',
             backdropFilter: 'blur(100px)',
             zIndex: '99',
           }}
         ></div>
-        <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
+        <div className="outerCreditsDiv">
           <div className="mainInfoContainer">
             <p
               style={{
@@ -180,8 +180,8 @@ export default class HomeScreen extends Component {
           onClick={() => {}}
           style={{
             position: 'absolute',
-            width: '100%',
-            height: '200vh',
+            width: '150%',
+            height: '100%',
             background: '#1a1717',
             opacity: '0.5',
             backdropFilter: 'blur(100px)',
@@ -189,7 +189,7 @@ export default class HomeScreen extends Component {
           }}
         ></div>
 
-        <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
+        <div className="outerDataDiv">
           <div className="mainInfoContainer">
             <p
               style={{
@@ -279,8 +279,8 @@ export default class HomeScreen extends Component {
             backgroundColor: 'rgb(187, 211, 223)',
             position: 'absolute',
             left: '0px',
-            width: '100%',
-            height: '100vh',
+            width: '150%',
+            height: '100%',
             // zIndex: '1000000',
           }}
         ></div>
@@ -292,7 +292,6 @@ export default class HomeScreen extends Component {
           ></img>
         </div>
         <div className="titleText">DIJKTRA'S GAME</div>
-        <div className="bottomSector"></div>
 
         <div>
           <p className="welcomeBackText">Welcome Back, </p>
@@ -309,41 +308,43 @@ export default class HomeScreen extends Component {
           ></input>
         </div>
 
-        <button
-          className="dividerButton campaignStartButton"
-          onClick={() => {
-            this.preEnterGame('campaign');
-          }}
-        >
-          Campaign
-        </button>
+        <div className="bottomSector">
+          <button
+            className="dividerButton campaignStartButton"
+            onClick={() => {
+              this.preEnterGame('campaign');
+            }}
+          >
+            Campaign
+          </button>
 
-        <button
-          className="dividerButton sandboxStartButton"
-          onClick={() => {
-            this.preEnterGame('sandbox');
-          }}
-        >
-          Sandbox
-        </button>
+          <button
+            className="dividerButton sandboxStartButton"
+            onClick={() => {
+              this.preEnterGame('sandbox');
+            }}
+          >
+            Sandbox
+          </button>
 
-        <button
-          className="dividerButton dataButton"
-          onClick={() => {
-            this.toggleDataMenu();
-          }}
-        >
-          Data
-        </button>
+          <button
+            className="dividerButton dataButton"
+            onClick={() => {
+              this.toggleDataMenu();
+            }}
+          >
+            Data
+          </button>
 
-        <button
-          className="dividerButton creditsButton"
-          onClick={() => {
-            this.toggleCreditsMenu();
-          }}
-        >
-          Credits
-        </button>
+          <button
+            className="dividerButton creditsButton"
+            onClick={() => {
+              this.toggleCreditsMenu();
+            }}
+          >
+            Credits
+          </button>
+        </div>
       </>
     );
   }

@@ -50,6 +50,13 @@
   opacity: 65%;
 }
 
+.positioningLevelInfoClass {
+  position: absolute;
+  top: 5%;
+  left: 13%;
+  transform: scale(1.14);
+}
+
 .levelContainer {
   height: 0;
   width: 201px;
@@ -65,7 +72,7 @@
 .levelContainer2 {
   width: 381px;
   height: 611px;
-  top: 85px;
+  top: 84.3px;
   left: 85px;
   position: absolute;
   background: #1a1717;
@@ -103,7 +110,7 @@
 .levelInfoContainer2 {
   width: 600px;
   height: 611px;
-  top: 85px;
+  top: 84.7px;
   left: 600px;
   position: absolute;
   background: #1a1717;
@@ -139,13 +146,10 @@
 }
 
 .startLevel {
-  bottom: 25px;
-  left: 861px;
 }
 
 .backButton {
-  bottom: 25px;
-  right: 610px;
+  left: 5%;
 }
 
 .levelDescription {

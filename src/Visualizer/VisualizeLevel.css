@@ -138,12 +138,21 @@
   border: 0;
 }
 
+.dialogueMenuPositionClass {
+  position: absolute;
+  top: 4%;
+  left: -20%;
+  transform: scale(1.2);
+}
+
 .dialogueBigContainer {
+  position: absolute;
   height: 0;
   width: 600px;
+  /* top: 40%; */
   top: 20px;
   left: 500px;
-  position: absolute;
+  /* left: 25%; */
   border-bottom: 65px solid #1a1717;
   border-left: 100px solid transparent;
   border-right: 100px solid transparent;

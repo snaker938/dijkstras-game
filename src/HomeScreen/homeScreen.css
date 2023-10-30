@@ -31,12 +31,32 @@
   src: local('ADUMA'), url(../assets/Fonts/Adumu.ttf) format('truetype');
 }
 
+.outerCreditsDiv {
+  position: absolute;
+  z-index: 1000;
+  top: 8%;
+}
+
+.outerDataDiv {
+  position: absolute;
+  z-index: 1000;
+  top: 8%;
+
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
+}
+
 .titleText {
   font-family: ADUMA;
   font-size: 120px;
   position: absolute;
-  bottom: 480px;
-  right: 190px;
+  /* centre img */
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* bottom: 480px;
+  right: 190px; */
   color: rgb(202, 64, 14);
 
   text-shadow: -8px -4px 0 #000, 1px -4px 0 #000, -1px 1px 0 #000,
@@ -68,10 +88,14 @@
 
 .bottomSector {
   height: 0;
-  width: 981px;
-  top: 643px;
-  left: 0px;
+  /* width: 981px; */
+  width: 70%;
+  /* top: 643px; */
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%, 0);
   position: absolute;
+
   border-bottom: 75px solid #1a1717;
   border-left: 150px solid transparent;
   border-right: 150px solid transparent;
@@ -91,36 +115,20 @@ button:focus {
 .dividerButton {
   font-family: 'QTYPEBOLD';
   font-size: 40px;
-  position: absolute;
-  bottom: 9px;
   background-color: transparent;
   border: 0;
   text-decoration: none;
   text-shadow: 0px 1px 2px #000000;
   opacity: 100%;
-  /* color: rgb(124, 124, 120); */
-  /* color: rgb(203, 203, 203); */
   color: rgb(180, 180, 180);
-  margin-left: 32px;
+
+  /* Spread out all buttons */
+  position: relative;
+  /* margin-left: 8%; */
+  margin-top: 1.8%;
 }
 
-.campaignStartButton {
-  left: 165px;
-}
-
-.sandboxStartButton {
-  left: 445px;
-}
-
-.creditsButton {
-  left: 697px;
-}
-
-.dataButton {
-  left: 920px;
-}
-
-.dividerButton:hover {
+# .dividerButton:hover {
   /* color: rgb(124, 124, 120); */
   color: rgb(216, 216, 216);
 }
@@ -181,6 +189,17 @@ button:focus {
   opacity: 80%;
 }
 
+.mainInfoContainer2 {
+  width: 601px;
+  height: 611px;
+  top: 85px;
+  left: 600px;
+  position: absolute;
+  background: #1a1717;
+  opacity: 80%;
+  backdrop-filter: blur(10px);
+}
+
 p {
   user-select: none;
 }
@@ -193,17 +212,6 @@ p {
   color: white;
   text-align: center;
   user-select: none;
-}
-
-.mainInfoContainer2 {
-  width: 601px;
-  height: 611px;
-  top: 85px;
-  left: 600px;
-  position: absolute;
-  background: #1a1717;
-  opacity: 80%;
-  backdrop-filter: blur(10px);
 }
 
 .dataDescription {

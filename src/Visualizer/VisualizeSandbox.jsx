@@ -310,7 +310,6 @@ export default class sandboxVisualizer extends Component {
       }
 
       // If the error animation has shown, then the grid need to be reset to its default state
-
       if (!unWallable) {
         let node = this.state.grid[row][col];
         let grid = this.state.grid;
@@ -464,6 +463,9 @@ export default class sandboxVisualizer extends Component {
   }
 
   loadUserGrid(id) {
+    resetAllNodes(this.state.grid);
+    setHasGridBeenReset(true);
+
     this.setState({ grid: getSpecificUserLevel(id)[1] });
     this.setState({ levelClicked: -1 });
     this.setState({ renamingUserLevel: false });
@@ -1115,7 +1117,6 @@ export default class sandboxVisualizer extends Component {
         ></div>
 
         {plane}
-
         <div className="topButtonsContainerOutline"></div>
         <div className="topButtonsContainer">
           <button

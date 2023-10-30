@@ -150,8 +150,8 @@ export default class CampaignScreen extends Component {
           style={{
             backgroundColor: 'rgb(187, 211, 223)',
             position: 'absolute',
-            width: '100%',
-            height: '100vh',
+            width: '150%',
+            height: '100%',
           }}
         ></div>
 
@@ -166,8 +166,8 @@ export default class CampaignScreen extends Component {
           onClick={() => {}}
           style={{
             position: 'absolute',
-            width: '100%',
-            height: '200vh',
+            width: '150%',
+            height: '100%',
             background: '#1a1717',
             opacity: '0.3',
             backdropFilter: 'blur(100px)',
@@ -175,44 +175,44 @@ export default class CampaignScreen extends Component {
           }}
         ></div>
 
-        <div>
-          <div style={{ position: 'absolute', left: '53px' }}>
-            <div>
-              <div className="levelContainer"></div>
-              <div className="levelContainer2"></div>
-              <p className="selectStageText">Select Stage</p>
-            </div>
-            <div style={{ position: 'absolute', top: '65px', left: '51px' }}>
-              {this.getLevelButtons(numLevels)}
-            </div>
-            <div style={{ position: 'absolute', left: '-110px' }}>
-              <div className="levelInfoContainer">
-                <p className="levelNameToRender">
-                  {getLevelName(this.state.levelClicked - 1)}
-                </p>
-              </div>
-              <div className="levelInfoContainer2"></div>
-              {this.getLevelInfo(this.state.levelClicked - 1)}
-            </div>
+        <div className="positioningLevelInfoClass">
+          <div>
+            <div className="levelContainer"></div>
+            <div className="levelContainer2"></div>
+            <p className="selectStageText">Select Stage</p>
           </div>
-
-          <button
-            id="startLevelButton"
-            onClick={() =>
-              EnterLevel(
-                document.getElementsByClassName('levelButtonClicked').item(0).id
-              )
-            }
-            className="campaignScreenButton startLevel"
-          >
-            Start Game
-          </button>
-          <button
-            className="campaignScreenButton backButton"
-            onClick={() => EnterHomeFromMenu()}
-          >
-            Back
-          </button>
+          <div style={{ position: 'absolute', top: '65px', left: '51px' }}>
+            {this.getLevelButtons(numLevels)}
+          </div>
+          <div style={{ position: 'absolute', left: '-110px' }}>
+            <div className="levelInfoContainer">
+              <p className="levelNameToRender">
+                {getLevelName(this.state.levelClicked - 1)}
+              </p>
+            </div>
+            <div className="levelInfoContainer2">
+              <button
+                id="startLevelButton"
+                onClick={() =>
+                  EnterLevel(
+                    document
+                      .getElementsByClassName('levelButtonClicked')
+                      .item(0).id
+                  )
+                }
+                className="campaignScreenButton startLevel"
+              >
+                Start Game
+              </button>
+              <button
+                className="campaignScreenButton backButton"
+                onClick={() => EnterHomeFromMenu()}
+              >
+                Back
+              </button>
+            </div>
+            {this.getLevelInfo(this.state.levelClicked - 1)}
+          </div>
         </div>
       </>
     );

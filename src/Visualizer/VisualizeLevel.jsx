@@ -431,7 +431,10 @@ export default class levelVisualizer extends Component {
           }}
         ></div>
         {skipAllDialogueButton}
-        <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
+        <div
+          className="dialogueMenuPositionClass"
+          style={{ position: 'absolute', zIndex: '100' }}
+        >
           <div className="dialogueBigContainer">
             <p
               style={{ left: '143px', opacity: '1' }}

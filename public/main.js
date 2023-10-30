@@ -33,13 +33,13 @@ function createWindow() {
   if (isDev) {
     win.webContents.openDevTools({ mode: 'detach' });
   }
-  // win.maximize();
+  win.maximize();
 
   // on window resize, output the new window size in the console
-  win.on('resize', () => {
-    const size = win.getSize();
-    console.log(`Size: ${size}`);
-  });
+  // win.on('resize', () => {
+  //   const size = win.getSize();
+  //   console.log(`Size: ${size}`);
+  // });
 }
 
 // This method will be called when Electron has finished

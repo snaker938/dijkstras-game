@@ -1,6 +1,7 @@
 .topButtonsContainer {
   height: 70px;
-  width: 1280px;
+  /* width: 1280px; */
+  width: 100%;
   top: 0px;
   left: 0px;
   position: absolute;
@@ -9,11 +10,18 @@
   backdrop-filter: blur(10px);
 }
 
+.gridResizeClass {
+  /* position: absolute; */
+  /* transform: scale(1); */
+}
+
 .topButtonsContainerOutline {
   height: 0px;
-  width: 1080px;
+  /* width: 1080px; */
+  width: 70%;
+  left: 8%;
   top: 0px;
-  left: 0px;
+  /* left: 0px; */
   position: absolute;
   border-bottom: 70px solid #615e5e;
   border-left: 100px solid transparent;
@@ -24,8 +32,12 @@
 
 .grid {
   position: absolute;
-  left: 0px;
-  top: 70px;
+  transform: scale(1.2156, 1.26);
+  /* transform: scaleY(1.23); */
+  /* transform: scaleZ(3); */
+  left: 8.9%;
+  /* top: 70px; */
+  top: 17.5%;
   background: rgb(101, 97, 97);
   background: linear-gradient(
     90deg,
@@ -63,8 +75,10 @@
 .button-82-pushable {
   z-index: 2;
   position: absolute;
-  left: 580px;
+  /* left: 580px; */
+  left: 45%;
   top: 14px;
+  width: 225px;
   border: none;
   background: transparent;
   padding: 0;
