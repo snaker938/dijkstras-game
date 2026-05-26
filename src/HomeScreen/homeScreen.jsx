@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { getCurrentUserName } from '../currentUserDataHandling';
-import { setCurrentUserName } from '../currentUserDataHandling';
+import {
+  getCurrentUserName,
+  numLevelsUnlocked,
+  setCurrentUserName,
+} from '../currentUserDataHandling';
 import { EnterCampaign, EnterSandbox } from '../Navigation';
 import backgroundImagePath from './../assets/mainbackground.png';
 import './homeScreen.css';
-import { numLevelsUnlocked } from '../currentUserDataHandling';
+
+const INVALID_USERNAME_PATTERN = /[!#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
 
 export default class HomeScreen extends Component {
   constructor() {
     super();
     this.state = { showDataMenu: false, showCreditsMenu: false };
+    this.usernameInputRef = React.createRef();
   }
 
   toggleDataMenu() {
@@ -22,10 +27,18 @@ export default class HomeScreen extends Component {
 
   // This function sets the inputted username, and checks it, and then takes the user to their desired location
   preEnterGame(where) {
-    let userNameEntered = document.getElementById('usernameInput').value;
+    const usernameInput = this.usernameInputRef.current;
+
+    if (!usernameInput) {
+      return;
+    }
+
+    const userNameEntered = usernameInput.value;
+
     // Makes sure the username entered is valid.
     if (this.checkUsername(userNameEntered)) {
-      setCurrentUserName(document.getElementById('usernameInput').value);
+      setCurrentUserName(userNameEntered);
+
       if (where === 'campaign') {
         EnterCampaign();
       } else {
@@ -36,77 +49,60 @@ export default class HomeScreen extends Component {
 
   // Changes the color of the input box text to the default colour (from red), if the user clicks the box before it changes automatically
   changeColor() {
-    if (document.getElementById('usernameInput').style.color === 'red') {
-      document.getElementById('usernameInput').value = '';
+    const usernameInput = this.usernameInputRef.current;
+
+    if (!usernameInput) {
+      return;
     }
-    document.getElementById('usernameInput').style.color = 'white';
+
+    if (usernameInput.style.color === 'red') {
+      usernameInput.value = '';
+    }
+
+    usernameInput.style.color = 'white';
   }
 
   // This function will alert the user that the username they entered is not allowed
   checkUsername(userNameEntered) {
+    const usernameInput = this.usernameInputRef.current;
+
     if (
       userNameEntered === '' ||
       userNameEntered === 'ERROR: INVALID INPUT' ||
       userNameEntered.includes(' ') ||
-      userNameEntered.match(/[!#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/)
+      INVALID_USERNAME_PATTERN.test(userNameEntered)
     ) {
-      document.getElementById('usernameInput').value = 'ERROR: INVALID INPUT';
-      document.getElementById('usernameInput').style.color = 'red';
+      if (usernameInput) {
+        usernameInput.value = 'ERROR: INVALID INPUT';
+        usernameInput.style.color = 'red';
+      }
 
       // Change the box style/value default after a set amount of time
       setTimeout(() => {
-        if (document.getElementById('usernameInput')) {
-          if (
-            document.getElementById('usernameInput').value ===
-            'ERROR: INVALID INPUT'
-          ) {
-            document.getElementById('usernameInput').value = '';
-            document.getElementById('usernameInput').style.color = 'white';
-          }
+        const input = this.usernameInputRef.current;
+
+        if (input && input.value === 'ERROR: INVALID INPUT') {
+          input.value = '';
+          input.style.color = 'white';
         }
       }, 3000);
+
       return false;
-    } else {
-      return true;
     }
+
+    return true;
   }
 
   getCreditsMenu() {
     return (
       <>
-        <div
-          onClick={() => {}}
-          style={{
-            // backgroundColor: 'rgb(187, 211, 223)',
-            position: 'absolute',
-            top: '0',
-            right: '0',
-            bottom: '0',
-            left: '0',
-            width: '100%',
-            height: '100%',
-            background: '#1a1717',
-            opacity: '0.5',
-            backdropFilter: 'blur(100px)',
-            zIndex: '99',
-          }}
-        ></div>
+        <div className="homeModalBackdrop"></div>
         <div className="outerCreditsDiv">
           <div className="mainInfoContainer">
-            <p
-              style={{
-                left: '143px',
-                opacity: '1',
-                marginTop: '12px',
-                fontSize: '35px',
-              }}
-              className="mainTextToRender"
-            >
-              Credits
-            </p>
+            <p className="mainTextToRender">Credits</p>
           </div>
           <div className="mainInfoContainer2">
-            <div>
+            <div className="homeModalContent creditsModalContent">
               <div className="creditsDescriptionContainer">
                 <p className="creditsDescription">
                   This game was written entirely in ReactJS, HTML and CSS. This
@@ -114,37 +110,38 @@ export default class HomeScreen extends Component {
                   would also like to credit a few other people below.
                 </p>
               </div>
-            </div>
-            <div className="creditsRows">
-              <div className="creditsContainer">
-                <div className="creditsInfoTag">Background Game Art</div>
-                <p className="creditsText">
-                  vivekart on Fiverr (commissioned)
-                </p>
+              <div className="creditsRows">
+                <div className="creditsContainer">
+                  <div className="creditsInfoTag">Background Game Art</div>
+                  <p className="creditsText">
+                    vivekart on Fiverr (commissioned)
+                  </p>
+                </div>
+                <div className="creditsContainer">
+                  <div className="creditsInfoTag">Plane Sprite Art</div>
+                  <span className="creditsText">UnLucky Studio (free)</span>
+                </div>
+                <div className="creditsContainer">
+                  <div className="creditsInfoTag">Plane Sound Effect</div>
+                  <span className="creditsText">soundjay.com (free)</span>
+                </div>
+                <div className="creditsContainer">
+                  <div className="creditsInfoTag">Start Button</div>
+                  <span className="creditsText">freefrontend.com (free)</span>
+                </div>
               </div>
-              <div className="creditsContainer">
-                <div className="creditsInfoTag">Plane Sprite Art</div>
-                <span className="creditsText">UnLucky Studio (free)</span>
-              </div>
-              <div className="creditsContainer">
-                <div className="creditsInfoTag">Plane Sound Effect</div>
-                <span className="creditsText">soundjay.com (free)</span>
-              </div>
-              <div className="creditsContainer">
-                <div className="creditsInfoTag">Start Button</div>
-                <span className="creditsText">freefrontend.com (free)</span>
-              </div>
-            </div>
 
-            <button
-              style={{ right: '12px', top: '558px' }}
-              className="creditsMenuButton"
-              onClick={() => {
-                this.toggleCreditsMenu();
-              }}
-            >
-              Exit
-            </button>
+              <div className="homeModalFooter creditsModalFooter">
+                <button
+                  className="creditsMenuButton"
+                  onClick={() => {
+                    this.toggleCreditsMenu();
+                  }}
+                >
+                  Exit
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </>
@@ -154,39 +151,14 @@ export default class HomeScreen extends Component {
   getDataMenu() {
     return (
       <>
-        <div
-          onClick={() => {}}
-          style={{
-            position: 'absolute',
-            top: '0',
-            right: '0',
-            bottom: '0',
-            left: '0',
-            width: '100%',
-            height: '100%',
-            background: '#1a1717',
-            opacity: '0.5',
-            backdropFilter: 'blur(100px)',
-            zIndex: '99',
-          }}
-        ></div>
+        <div className="homeModalBackdrop"></div>
 
         <div className="outerDataDiv">
           <div className="mainInfoContainer">
-            <p
-              style={{
-                left: '143px',
-                opacity: '1',
-                marginTop: '12px',
-                fontSize: '35px',
-              }}
-              className="mainTextToRender"
-            >
-              Data Handling
-            </p>
+            <p className="mainTextToRender">Data Handling</p>
           </div>
           <div className="mainInfoContainer2">
-            <div>
+            <div className="homeModalContent dataModalContent">
               <div className="dataDescriptionContainer">
                 <p className="dataDescription">
                   A small amount of data is stored locally, to provide you with
@@ -210,22 +182,23 @@ export default class HomeScreen extends Component {
                 </div>
               </div>
 
-              <button
-                className="standard-button-data deleteDataButton"
-                onClick={() => this.clearAllLocalStorageData()}
-              >
-                Delete Data
-              </button>
+              <div className="homeModalFooter dataModalFooter">
+                <button
+                  className="standard-button-data deleteDataButton"
+                  onClick={() => this.clearAllLocalStorageData()}
+                >
+                  Delete Data
+                </button>
 
-              <button
-                style={{ right: '12px', top: '558px' }}
-                className="dataMenuButton"
-                onClick={() => {
-                  this.toggleDataMenu();
-                }}
-              >
-                Exit
-              </button>
+                <button
+                  className="dataMenuButton"
+                  onClick={() => {
+                    this.toggleDataMenu();
+                  }}
+                >
+                  Exit
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -256,10 +229,10 @@ export default class HomeScreen extends Component {
         ></div>
         <div className="imgbox">
           <img
-            alt="test"
+            alt="Dijkstra's game background"
             className="center-fit"
             src={backgroundImagePath}
-          ></img>
+          />
         </div>
         <div className="titleText">DIJKTRA'S GAME</div>
 
@@ -268,14 +241,15 @@ export default class HomeScreen extends Component {
           <input
             type="text"
             id="usernameInput"
+            ref={this.usernameInputRef}
             className="usernameInput"
             maxLength={22}
-            spellCheck="false"
+            spellCheck={false}
             onClick={() => {
               this.changeColor();
             }}
             defaultValue={getCurrentUserName()}
-          ></input>
+          />
         </div>
 
         <div className="bottomSector">

@@ -27,6 +27,9 @@ const mrSmithShort = 'Mr Smith';
 let sceneBreaker =
   '<------------------------------------------------------------------------------------------------------------------------------------------>';
 
+const dialogueModules = import.meta.glob('./dialogue/level-*.json', {
+  eager: true,
+});
 const dialogueArry = getAllLevelDialogue();
 
 let currentDialogueLineNumber = 0;
@@ -96,12 +99,14 @@ export function getCurrentDialogueStatus() {
 }
 
 function getAllLevelDialogue() {
-  let levelDialogues = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./dialogue/level-${i}`);
-    levelDialogues.push(level.dialogue);
-  }
-  return levelDialogues;
+  return Object.entries(dialogueModules)
+    .sort(([firstPath], [secondPath]) => {
+      const firstLevel = Number(firstPath.match(/level-(\d+)\.json$/)[1]);
+      const secondLevel = Number(secondPath.match(/level-(\d+)\.json$/)[1]);
+      return firstLevel - secondLevel;
+    })
+    .slice(0, numLevels)
+    .map(([, module]) => (module.default ?? module).dialogue);
 }
 
 export function setCurrentDialogueLineNumber(num) {

@@ -1,6 +1,8 @@
 import { animateNoProperPath } from './Animations';
 import { resetAllNodes } from './Visualizer';
 
+const templateModules = import.meta.glob('./templates/*.json', { eager: true });
+
 // This function is called when there is an error, and it needs to be animated on the grid.
 export function sendError(error) {
   const newGrid = loadGridMessage(error); // loads the grid template ie. the error message
@@ -38,11 +40,12 @@ export function sendError(error) {
 }
 
 function loadGridMessage(error) {
-  // gets the contents of the json file so the grid can be accessed.
-  const json = require(`./templates/${error}.json`);
+  const template = templateModules[`./templates/${error}.json`];
 
-  let newGrid = json.grid;
+  if (!template) {
+    throw new Error(`Unknown grid template: ${error}`);
+  }
 
   // returns the new grid, ie. the grid template that needs to be animated
-  return newGrid;
+  return JSON.parse(JSON.stringify((template.default ?? template).grid));
 }

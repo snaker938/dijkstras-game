@@ -4,8 +4,9 @@ import {
   randomIntFromInterval,
   setCurrentEndDistance,
 } from '../actualLeveHandling';
+import { getLevelData, numLevels } from '../allLevelData';
 import Node from './Node/Node';
-import { resetAllNodes, startDijkstra } from './Visualizer';
+import { cloneVariable, resetAllNodes, startDijkstra } from './Visualizer';
 import NodeChangeWallType from './Node/NodeChangeWallType';
 import './VisualizeSandbox.css';
 import {
@@ -24,6 +25,11 @@ import { EnterHome } from '../Navigation';
 import NodeToggleOnClick from './Node/NodeToggleOnClick';
 import ScrollableBox from './Components/ScrollableBox';
 import NodeSmaller from './Node/SmallerNode';
+import planeFrame1 from '../assets/Animated/1.png';
+import planeFrame2 from '../assets/Animated/2.png';
+import planeFrame3 from '../assets/Animated/3.png';
+import planeFrame4 from '../assets/Animated/4.png';
+import planeSoundEffect from '../assets/Animated/plane_sound_effect.mp3';
 import {
   deleteUserLevel,
   getSpecificUserLevel,
@@ -31,6 +37,7 @@ import {
   renameUserLevel,
   saveUserLevels,
 } from '../currentUserDataHandling';
+import { getPlaneTravelBounds, getVisualizerLayout } from './visualizerLayout';
 
 // Placeholders for start node coordinates
 let START_NODE_ROW = 0;
@@ -41,12 +48,16 @@ let END_NODE_COL = 50;
 // Specifies the number of rows and columns
 const NUM_ROWS = 26;
 const NUM_COLUMNS = 51;
-const NODE_WIDTH = 25.1;
-const NODE_HEIGHT = 25;
-const GRID_MARGIN = 24;
-const GRID_TOP_GAP = 18;
-const MAX_GRID_SCALE = 1.2156;
-const MIN_GRID_SCALE = 0.25;
+const PLANE_FRAMES = [planeFrame1, planeFrame2, planeFrame3, planeFrame4];
+const templateModules = import.meta.glob('./templates/*.json', { eager: true });
+
+function getTemplateGrid(templateName) {
+  const template = templateModules[`./templates/${templateName}.json`];
+
+  if (!template) return null;
+
+  return cloneVariable((template.default ?? template).grid);
+}
 
 // The maximum number of walls that can be placed randomly on the grid
 let RANDOM_WALL_NUMBER = 400;
@@ -66,12 +77,23 @@ export default class sandboxVisualizer extends Component {
       renamingUserLevel: false,
       gridScale: 1,
       gridTop: 88,
-      gridLeft: GRID_MARGIN,
+      gridLeft: 24,
+      gridWidth: 1281,
+      gridHeight: 650,
+      nodeWidth: 25.1,
+      nodeHeight: 25,
+      nodeFontSize: 12,
       dragging: [false, null, null], // 0: is-dragging ; 1: node-being-dragged ; 2: end/previous node
       //sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occurred on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging all together. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to create an illusion like the user is actual dragging the node around.
     };
 
     this.visualizerRef = React.createRef();
+    this.planeRef = React.createRef();
+    this.activeTimeouts = new Set();
+    this.layoutFrameId = null;
+    this.planeFrameId = null;
+    this.activePlaneAudio = null;
+    this.isUnmounted = false;
   }
 
   // If the Escape button is pressed, run the Show Options function
@@ -82,67 +104,113 @@ export default class sandboxVisualizer extends Component {
   };
 
   componentDidMount() {
+    this.isUnmounted = false;
     document.addEventListener('keydown', this.handleKeyPress, false);
     window.addEventListener('resize', this.updateVisualizerLayout);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', this.updateVisualizerLayout);
+    }
     const grid = initialiseGrid();
     this.setState({ grid });
     this.updateVisualizerLayout();
+    [100, 300, 800, 1600].forEach((delay) => {
+      this.setManagedTimeout(this.updateVisualizerLayout, delay);
+    });
   }
 
   componentWillUnmount() {
+    this.isUnmounted = true;
     document.removeEventListener('keydown', this.handleKeyPress, false);
     window.removeEventListener('resize', this.updateVisualizerLayout);
+    if (window.visualViewport) {
+      window.visualViewport.removeEventListener(
+        'resize',
+        this.updateVisualizerLayout
+      );
+    }
+    this.clearManagedTimers();
+    this.stopPlaneAudio();
+    if (this.layoutFrameId) window.cancelAnimationFrame(this.layoutFrameId);
+    if (this.planeFrameId) window.cancelAnimationFrame(this.planeFrameId);
   }
 
+  setManagedTimeout = (callback, delay) => {
+    const timeoutId = window.setTimeout(() => {
+      this.activeTimeouts.delete(timeoutId);
+      if (!this.isUnmounted) callback();
+    }, delay);
+
+    this.activeTimeouts.add(timeoutId);
+    return timeoutId;
+  };
+
+  clearManagedTimers = () => {
+    for (const timeoutId of this.activeTimeouts) {
+      window.clearTimeout(timeoutId);
+    }
+    this.activeTimeouts.clear();
+  };
+
+  stopPlaneAudio = () => {
+    if (!this.activePlaneAudio) return;
+
+    this.activePlaneAudio.pause();
+    this.activePlaneAudio.currentTime = 0;
+    this.activePlaneAudio = null;
+  };
+
   updateVisualizerLayout = () => {
-    window.requestAnimationFrame(() => {
-      if (!this.visualizerRef.current) return;
+    if (this.layoutFrameId) window.cancelAnimationFrame(this.layoutFrameId);
+
+    this.layoutFrameId = window.requestAnimationFrame(() => {
+      this.layoutFrameId = null;
+      if (this.isUnmounted || !this.visualizerRef.current) return;
 
       const topbar =
         this.visualizerRef.current &&
         this.visualizerRef.current.querySelector('.topButtonsContainer');
       const topbarHeight = topbar ? topbar.getBoundingClientRect().height : 70;
-      const baseWidth = NUM_COLUMNS * NODE_WIDTH;
-      const baseHeight = NUM_ROWS * NODE_HEIGHT;
-      const availableWidth = Math.max(
-        window.innerWidth - GRID_MARGIN * 2,
-        baseWidth * MIN_GRID_SCALE
-      );
-      const availableHeight = Math.max(
-        window.innerHeight - topbarHeight - GRID_TOP_GAP - GRID_MARGIN,
-        baseHeight * MIN_GRID_SCALE
-      );
-      const gridScale = Math.max(
-        MIN_GRID_SCALE,
-        Math.min(
-          MAX_GRID_SCALE,
-          availableWidth / baseWidth,
-          availableHeight / baseHeight
-        )
-      );
-      const nextGridScale = Number(gridScale.toFixed(4));
-      const nextGridTop = Math.ceil(topbarHeight + GRID_TOP_GAP);
-      const nextGridLeft = Math.max(
-        GRID_MARGIN,
-        Math.floor((window.innerWidth - baseWidth * nextGridScale) / 2)
-      );
+      const {
+        gridScale: nextGridScale,
+        gridTop: nextGridTop,
+        gridLeft: nextGridLeft,
+        gridWidth: nextGridWidth,
+        gridHeight: nextGridHeight,
+        nodeWidth: nextNodeWidth,
+        nodeHeight: nextNodeHeight,
+        nodeFontSize: nextNodeFontSize,
+      } = getVisualizerLayout({
+        rows: NUM_ROWS,
+        columns: NUM_COLUMNS,
+        topbarHeight,
+      });
 
       if (
         nextGridScale !== this.state.gridScale ||
         nextGridTop !== this.state.gridTop ||
-        nextGridLeft !== this.state.gridLeft
+        nextGridLeft !== this.state.gridLeft ||
+        nextGridWidth !== this.state.gridWidth ||
+        nextGridHeight !== this.state.gridHeight ||
+        nextNodeWidth !== this.state.nodeWidth ||
+        nextNodeHeight !== this.state.nodeHeight ||
+        nextNodeFontSize !== this.state.nodeFontSize
       ) {
         this.setState({
           gridScale: nextGridScale,
           gridTop: nextGridTop,
           gridLeft: nextGridLeft,
+          gridWidth: nextGridWidth,
+          gridHeight: nextGridHeight,
+          nodeWidth: nextNodeWidth,
+          nodeHeight: nextNodeHeight,
+          nodeFontSize: nextNodeFontSize,
         });
       }
     });
   };
 
   getPlaneWallColumn() {
-    const planeElement = document.getElementById('plane');
+    const planeElement = this.planeRef.current;
     const gridElement =
       this.visualizerRef.current &&
       this.visualizerRef.current.querySelector('.visualizer-grid');
@@ -167,90 +235,129 @@ export default class sandboxVisualizer extends Component {
     this.setState({ showOptionsMenu: !this.state.showOptionsMenu });
   }
 
-  // Animate plane and place random walls on the grid
-  startToAnimatePlane() {
-    if (document.getElementById('homeButton').classList.contains('enabled')) {
-      document.getElementById('homeButton').classList.remove('enabled');
-      resetAllNodes(this.state.grid);
-      if (!this.state.animatingPlane) {
-        this.setState({ animatingPlane: true });
+  setHomeButtonEnabled(enabled) {
+    const homeButton = document.getElementById('homeButton');
+    if (!homeButton) return;
 
-        // Change the display from "none" to "block" so it becomes visible again
-        document.getElementById('plane').style.display = 'block';
+    homeButton.classList.toggle('enabled', enabled);
+  }
 
-        // Play "plane_sound_effect.mp3" then stop it
-        let audio = new Audio(
-          require(`.././assets/Animated/plane_sound_effect.mp3`).default
-        );
-        audio.play();
-        setTimeout(() => {
-          audio.pause();
-        }, 6300);
+  finishPlaneAnimation = () => {
+    if (this.planeFrameId) {
+      window.cancelAnimationFrame(this.planeFrameId);
+      this.planeFrameId = null;
+    }
 
-        // Set the interval of the animation to play every 0.1 seconds. This animation is not the plane moving across the screen, but the animation of the turbines spinning. Animate the turbines of the plane. This is done by changing the source path of the image to each of the 4 animation frames.
-        let x = 1;
-        const animateTubines = setInterval(() => {
-          if (this.state.animatingPlane) {
-            document.getElementById('plane').src =
-              require(`.././assets/Animated/${x}.png`).default;
-            x++;
-            if (4 === x) {
-              x = 1;
-            }
-          } else {
-            clearInterval(animateTubines);
-          }
-        }, 100);
+    this.stopPlaneAudio();
+    const planeElement = this.planeRef.current;
+    if (planeElement) planeElement.style.display = 'none';
 
-        // This is the code to move the plane across the screen. The plane starts from outside of the screen and move by a certain number of pixels each loop. At the very end of the animation, set animating plane variable to false, so the animation can be played again. The animation can only be played again a few seconds after the plane has reached the other side
-        for (let i = 1; i < 800; i++) {
-          setTimeout(() => {
-            document.getElementById('plane').style.left = `${-450 + i * 3.4}px`;
-            if (i === 799) {
-              this.setState({ animatingPlane: false });
-              document.getElementById('homeButton').classList.add('enabled');
-            }
-          }, 10 * i);
-        }
+    if (!this.isUnmounted) {
+      this.setState({ animatingPlane: false });
+      this.setHomeButtonEnabled(true);
+    }
+  };
 
-        // This is the code to add random walls onto the grid. The grid is properly re-rendered every 45n i to prevent lag and once again at the end of the iteration
+  startPlaneRun(onWallTick) {
+    const planeElement = this.planeRef.current;
+    const gridElement =
+      this.visualizerRef.current &&
+      this.visualizerRef.current.querySelector('.visualizer-grid');
+    const travelBounds = getPlaneTravelBounds(gridElement, planeElement);
 
-        for (let i = 0; i < RANDOM_WALL_NUMBER; i++) {
-          // let grid = this.state.grid;
-          setTimeout(() => {
-            let column = this.getPlaneWallColumn();
+    if (!planeElement || !travelBounds) {
+      this.finishPlaneAnimation();
+      return;
+    }
 
-            let grid = this.state.grid;
+    const duration = 6500;
+    let startTime = null;
+    let lastWallTick = -1;
+    let frameIndex = 0;
+    let lastTurbineFrameTime = 0;
 
-            if (column !== null && column >= 0 && column < NUM_COLUMNS) {
-              // Generates a random row and column number
-              let row = Math.floor(Math.random() * NUM_ROWS);
+    planeElement.style.display = 'block';
+    planeElement.style.left = `${travelBounds.startX}px`;
+    planeElement.src = PLANE_FRAMES[0];
 
-              let node = grid[row][column]; // selects the node with the row and column specified above
-              let { isEnd, isStart } = node; // finds out the current properties of the randomly selected node
-              let unWallable = isEnd || isStart || node.isPermanentWall; // if the node is a start or end node, it cannot be changed
+    this.activePlaneAudio = new Audio(planeSoundEffect);
+    const playPromise = this.activePlaneAudio.play();
+    if (playPromise) playPromise.catch(() => {});
+    this.setManagedTimeout(this.stopPlaneAudio, 6300);
 
-              // Makes sure the target node is not a wall, and max number of active walls hasnt been reached. Will continue if you are turning a wall into a non wall.
-              if (!unWallable) {
-                const newNode = {
-                  ...node,
-                  isWall: true,
-                };
+    const step = (timestamp) => {
+      if (this.isUnmounted) return;
 
-                // Places the new node into the grid
-                grid[row][column] = newNode;
-              }
-            }
-            if (
-              i % 45 === 0 ||
-              i === RANDOM_WALL_NUMBER - 1 ||
-              column === NUM_COLUMNS
-            )
-              this.setState({ grid: grid });
-          }, i * 10);
-        }
+      if (startTime === null) startTime = timestamp;
+
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const currentLeft =
+        travelBounds.startX +
+        (travelBounds.endX - travelBounds.startX) * progress;
+      planeElement.style.left = `${currentLeft}px`;
+
+      if (timestamp - lastTurbineFrameTime >= 100) {
+        frameIndex = (frameIndex + 1) % PLANE_FRAMES.length;
+        planeElement.src = PLANE_FRAMES[frameIndex];
+        lastTurbineFrameTime = timestamp;
+      }
+
+      const nextWallTick = Math.min(
+        RANDOM_WALL_NUMBER - 1,
+        Math.floor(progress * RANDOM_WALL_NUMBER)
+      );
+      for (let tick = lastWallTick + 1; tick <= nextWallTick; tick++) {
+        onWallTick(tick);
+      }
+      lastWallTick = nextWallTick;
+
+      if (progress < 1) {
+        this.planeFrameId = window.requestAnimationFrame(step);
+      } else {
+        this.finishPlaneAnimation();
+      }
+    };
+
+    this.planeFrameId = window.requestAnimationFrame(step);
+  }
+
+  addRandomPlaneWall(tick) {
+    const column = this.getPlaneWallColumn();
+    const grid = this.state.grid;
+
+    if (column !== null && column >= 0 && column < NUM_COLUMNS) {
+      const row = Math.floor(Math.random() * NUM_ROWS);
+      const node = grid[row][column];
+      const unWallable = node.isEnd || node.isStart || node.isPermanentWall;
+
+      if (!unWallable) {
+        grid[row][column] = {
+          ...node,
+          isWall: true,
+        };
       }
     }
+
+    if (tick % 45 === 0 || tick === RANDOM_WALL_NUMBER - 1) {
+      this.setState({ grid });
+    }
+  }
+
+  // Animate plane and place random walls on the grid
+  startToAnimatePlane() {
+    const homeButton = document.getElementById('homeButton');
+    if (
+      !homeButton ||
+      !homeButton.classList.contains('enabled') ||
+      this.state.animatingPlane
+    ) {
+      return;
+    }
+
+    this.setHomeButtonEnabled(false);
+    resetAllNodes(this.state.grid);
+    this.setState({ animatingPlane: true });
+    this.startPlaneRun((tick) => this.addRandomPlaneWall(tick));
   }
 
   dragWallStart() {
@@ -696,7 +803,7 @@ export default class sandboxVisualizer extends Component {
       document.getElementById('saveLevelInput').style.color = 'red';
 
       // Change the box style/value default after a set amount of time
-      setTimeout(() => {
+      this.setManagedTimeout(() => {
         if (document.getElementById('saveLevelInput')) {
           if (
             document.getElementById('saveLevelInput').value ===
@@ -731,7 +838,6 @@ export default class sandboxVisualizer extends Component {
     if (this.state.optionsPage === 1) {
       optionsMenuPageButton = (
         <button
-          style={{ left: '12px', top: '558px' }}
           className="optionsMenuButton"
           onClick={() => {
             this.nextOptionsMenuPage(true);
@@ -743,7 +849,6 @@ export default class sandboxVisualizer extends Component {
     } else {
       optionsMenuPageButton = (
         <button
-          style={{ left: '12px', top: '558px' }}
           className="optionsMenuButton"
           onClick={() => {
             this.nextOptionsMenuPage(false);
@@ -801,10 +906,7 @@ export default class sandboxVisualizer extends Component {
         ></div>
         <div className="visualizer-modal-shell visualizer-options-shell">
           <div className="mainInfoContainer">
-            <p
-              style={{ left: '143px', opacity: '1' }}
-              className="mainTextToRender"
-            >
+            <p className="mainTextToRender">
               Settings
             </p>
           </div>
@@ -813,10 +915,7 @@ export default class sandboxVisualizer extends Component {
             {this.state.optionsPage === 1 ? (
               <>
                 <div>
-                  <div
-                    style={{ right: '10px' }}
-                    className="toggle-grid-holder text-info"
-                  >
+                  <div className="toggle-grid-holder text-info">
                     Toggle Grid Outline
                     <div>
                       <NodeToggleGrid
@@ -846,7 +945,6 @@ export default class sandboxVisualizer extends Component {
                     </div>
                   </div>
                   <div
-                    style={{ zIndex: '100' }}
                     className="optionsMenuDevelopment"
                   >
                     <p className="developmentOptionsText">
@@ -855,7 +953,6 @@ export default class sandboxVisualizer extends Component {
                     <div>
                       <div>
                         <p
-                          style={{ top: '80px' }}
                           className="endDistanceOptions"
                         >
                           Load Level Name:
@@ -863,13 +960,7 @@ export default class sandboxVisualizer extends Component {
                         <input
                           type="text"
                           id="loadLevelInput"
-                          className="usernameInput"
-                          style={{
-                            top: '70px',
-                            zIndex: '1',
-                            width: '35px',
-                            right: '150px',
-                          }}
+                          className="usernameInput visualizer-small-input"
                           maxLength={22}
                           spellCheck="false"
                           defaultValue={''}
@@ -893,13 +984,7 @@ export default class sandboxVisualizer extends Component {
                         <input
                           type="text"
                           id="endDistanceInput"
-                          className="usernameInput"
-                          style={{
-                            bottom: '20px',
-                            zIndex: '1',
-                            width: '35px',
-                            right: '150px',
-                          }}
+                          className="usernameInput visualizer-small-input"
                           maxLength={22}
                           spellCheck="false"
                           defaultValue={getActualCurrentEndDistance()}
@@ -919,8 +1004,7 @@ export default class sandboxVisualizer extends Component {
                   <div>
                     <p
                       id="saveCurrentGridText"
-                      style={{ top: '350px', fontSize: '25px' }}
-                      className="endDistanceOptions"
+                      className="endDistanceOptions save-current-grid-text"
                     >
                       Save Current Grid:
                     </p>
@@ -928,13 +1012,7 @@ export default class sandboxVisualizer extends Component {
                     <input
                       type="text"
                       id="saveLevelInput"
-                      className="usernameInput"
-                      style={{
-                        top: '345px',
-                        zIndex: '1',
-                        width: '350px',
-                        right: '10px',
-                      }}
+                      className="usernameInput save-level-input"
                       maxLength={250}
                       spellCheck="false"
                       defaultValue={this.state.defaultUserLevelInput}
@@ -982,7 +1060,6 @@ export default class sandboxVisualizer extends Component {
                           </div>
                         </div>
                         <button
-                          style={{ right: '12px', top: '558px' }}
                           className="optionsMenuButton"
                           id="loadUserGridButton"
                           onClick={() => {
@@ -1035,7 +1112,6 @@ export default class sandboxVisualizer extends Component {
             {this.state.optionsPage === 1 ? (
               <>
                 <button
-                  style={{ right: '12px', top: '558px' }}
                   className="optionsMenuButton"
                   onClick={() => {
                     this.saveOptions();
@@ -1065,75 +1141,34 @@ export default class sandboxVisualizer extends Component {
   loadTestGrid() {
     if (document.getElementById('homeButton').classList.contains('enabled')) {
       // If the value of loadLevelInput is not between 1 and 15 (or is not a special grid template), then nothing will happen. If it is, then the grid will be loaded with the corresponding grid template
+      const loadLevelInput = document.getElementById('loadLevelInput').value.trim();
+      const levelNumber = Number(loadLevelInput);
+
       if (
-        document.getElementById('loadLevelInput').value >= 1 &&
-        document.getElementById('loadLevelInput').value <= 15
+        Number.isInteger(levelNumber) &&
+        levelNumber >= 1 &&
+        levelNumber <= numLevels
       ) {
         this.removeAllWalls(); // removes all existing walls
 
-        const json = require(`../levels/level${
-          document.getElementById('loadLevelInput').value
-        }.json`);
+        const level = getLevelData(levelNumber);
 
         this.setState({
-          grid: json.grid,
+          grid: cloneVariable(level.grid),
         });
 
         // Change the coordinates of the start and end nodes
-        START_NODE_ROW = json.startNodeCoords[1];
-        START_NODE_COL = json.startNodeCoords[0];
-        END_NODE_ROW = json.endNodeCoords[1];
-        END_NODE_COL = json.endNodeCoords[0];
-      } else if (
-        document.getElementById('loadLevelInput').value === 'NO-PATH-SANDBOX'
-      ) {
-        this.removeAllWalls(); // removes all existing walls
+        START_NODE_ROW = level.startNodeCoords[1];
+        START_NODE_COL = level.startNodeCoords[0];
+        END_NODE_ROW = level.endNodeCoords[1];
+        END_NODE_COL = level.endNodeCoords[0];
+      } else {
+        const templateGrid = getTemplateGrid(loadLevelInput);
 
-        const json = require(`./templates/NO-PATH-SANDBOX.json`);
-
-        this.setState({
-          grid: json.grid,
-        });
-      } else if (
-        document.getElementById('loadLevelInput').value === 'NO-PATH'
-      ) {
-        this.removeAllWalls(); // removes all existing walls
-
-        const json = require(`./templates/NO-PATH.json`);
-
-        this.setState({
-          grid: json.grid,
-        });
-      } else if (
-        document.getElementById('loadLevelInput').value === 'VICTORY'
-      ) {
-        this.removeAllWalls(); // removes all existing walls
-
-        const json = require(`./templates/VICTORY.json`);
-
-        this.setState({
-          grid: json.grid,
-        });
-      } else if (
-        document.getElementById('loadLevelInput').value === 'MISSION-FAILED'
-      ) {
-        this.removeAllWalls(); // removes all existing walls
-
-        const json = require(`./templates/MISSION-FAILED.json`);
-
-        this.setState({
-          grid: json.grid,
-        });
-      } else if (
-        document.getElementById('loadLevelInput').value === 'GAME-COMPLETE'
-      ) {
-        this.removeAllWalls(); // removes all existing walls
-
-        const json = require(`./templates/GAME-COMPLETE.json`);
-
-        this.setState({
-          grid: json.grid,
-        });
+        if (templateGrid) {
+          this.removeAllWalls(); // removes all existing walls
+          this.setState({ grid: templateGrid });
+        }
       }
     }
   }
@@ -1149,7 +1184,7 @@ export default class sandboxVisualizer extends Component {
   render() {
     const { grid } = this.state;
 
-    let src = require(`.././assets/Animated/1.png`).default;
+    let src = planeFrame1;
 
     let plane = null;
 
@@ -1162,7 +1197,8 @@ export default class sandboxVisualizer extends Component {
         key={`planes`}
         height={500}
         width={350}
-        style={{ left: `-450px`, display: 'none' }}
+        ref={this.planeRef}
+        style={{ display: 'none' }}
       />
     );
 
@@ -1174,6 +1210,11 @@ export default class sandboxVisualizer extends Component {
           '--visualizer-grid-scale': String(this.state.gridScale),
           '--visualizer-grid-top': `${this.state.gridTop}px`,
           '--visualizer-grid-left': `${this.state.gridLeft}px`,
+          '--visualizer-grid-width': `${this.state.gridWidth}px`,
+          '--visualizer-grid-height': `${this.state.gridHeight}px`,
+          '--visualizer-node-width': `${this.state.nodeWidth}px`,
+          '--visualizer-node-height': `${this.state.nodeHeight}px`,
+          '--visualizer-node-font-size': `${this.state.nodeFontSize}px`,
         }}
       >
         {this.state.showOptionsMenu ? this.getOptionsMenu() : null}
@@ -1233,52 +1274,60 @@ export default class sandboxVisualizer extends Component {
           </button>
         </div>
 
-        <div
-          className="grid visualizer-grid"
-          /*  creates the div that holds the rows*/
-        >
-          {/* Loops through the grid variable */}
-          {grid.map((row, rowID) => {
-            return (
-              <div
-                key={
-                  rowID
-                } /* Creates a div for each row, and assigns a key to it*/
-              >
-                {row.map((node, nodeID) => {
-                  // Destructures the node object and assigns it to variables
-                  const { row, col, isEnd, isStart, isWall, isPermanentWall } =
-                    node;
-                  let unWallable = isEnd || isStart; // checks to see if the node is an End or start node
+        <div className="visualizer-grid-viewport">
+          <div
+            className="grid visualizer-grid"
+            /*  creates the div that holds the rows*/
+          >
+            {/* Loops through the grid variable */}
+            {grid.map((row, rowID) => {
+              return (
+                <div
+                  key={
+                    rowID
+                  } /* Creates a div for each row, and assigns a key to it*/
+                >
+                  {row.map((node, nodeID) => {
+                    // Destructures the node object and assigns it to variables
+                    const {
+                      row,
+                      col,
+                      isEnd,
+                      isStart,
+                      isWall,
+                      isPermanentWall,
+                    } = node;
+                    let unWallable = isEnd || isStart; // checks to see if the node is an End or start node
 
-                  return (
-                    // Creates the node object inside each row div. Each node is a div that is returned in Node.jsx
-                    <Node
-                      col={col}
-                      row={row}
-                      isStart={isStart}
-                      isEnd={isEnd}
-                      isWall={isWall}
-                      isPermanentWall={isPermanentWall}
-                      key={nodeID}
-                      onClick={(row, col) => {
-                        this.toggleWall(
-                          row,
-                          col,
-                          isWall,
-                          unWallable,
-                          isPermanentWall
-                        );
-                      }}
-                      onMouseUp={() => this.dragStop()}
-                      onMouseDown={(row, col) => this.dragStart(row, col)}
-                      onMouseEnter={(row, col) => this.dragNode(row, col)}
-                    ></Node>
-                  );
-                })}
-              </div>
-            );
-          })}
+                    return (
+                      // Creates the node object inside each row div. Each node is a div that is returned in Node.jsx
+                      <Node
+                        col={col}
+                        row={row}
+                        isStart={isStart}
+                        isEnd={isEnd}
+                        isWall={isWall}
+                        isPermanentWall={isPermanentWall}
+                        key={nodeID}
+                        onClick={(row, col) => {
+                          this.toggleWall(
+                            row,
+                            col,
+                            isWall,
+                            unWallable,
+                            isPermanentWall
+                          );
+                        }}
+                        onMouseUp={() => this.dragStop()}
+                        onMouseDown={(row, col) => this.dragStart(row, col)}
+                        onMouseEnter={(row, col) => this.dragNode(row, col)}
+                      ></Node>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
@@ -1325,6 +1374,5 @@ const createNode = (col, row, isStart = false, isEnd = false) => {
 
 // This function sends the current state of the grid to the console. You can then copy this string and paste it into a json file to easily load the grid.
 function saveGrid(grid) {
-  const jsonString = JSON.stringify(grid);
-  console.log(jsonString);
+  return JSON.stringify(grid);
 }

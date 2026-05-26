@@ -1,7 +1,7 @@
 const path = require('path');
 
 const { app, BrowserWindow } = require('electron');
-const isDev = require('electron-is-dev');
+const isDev = !app.isPackaged || process.env.ELECTRON_IS_DEV === '1';
 
 const height = 900;
 const width = 1440;
@@ -23,7 +23,9 @@ function createWindow() {
     autoHideMenuBar: true,
     show: false,
     webPreferences: {
-      nodeIntegration: true,
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: true,
     },
   });
 
@@ -32,16 +34,13 @@ function createWindow() {
     win.show();
   });
 
-  // and load the index.html of the app.
-  // win.loadFile("index.html");
-  win.loadURL(
-    isDev
-      ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '../build/index.html')}`
-  );
-
-  // Open the DevTools.
   if (isDev) {
+    win.loadURL('http://localhost:3000');
+  } else {
+    win.loadFile(path.join(__dirname, '../build/index.html'));
+  }
+
+  if (isDev && process.env.OPEN_DEVTOOLS === '1') {
     win.webContents.openDevTools({ mode: 'detach' });
   }
 

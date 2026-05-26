@@ -21,7 +21,27 @@ export default class CampaignScreen extends Component {
     this.state = {
       levelClicked: numLevelsUnlocked,
     };
+    this.selectedLevelButtonRef = React.createRef();
   }
+
+  componentDidMount() {
+    this.scrollSelectedLevelIntoView();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.levelClicked !== this.state.levelClicked) {
+      this.scrollSelectedLevelIntoView();
+    }
+  }
+
+  scrollSelectedLevelIntoView = () => {
+    if (!this.selectedLevelButtonRef.current) return;
+
+    this.selectedLevelButtonRef.current.scrollIntoView({
+      block: 'nearest',
+      inline: 'nearest',
+    });
+  };
 
   getLevelButtons = (numLevels) => {
     const buttons = [];
@@ -39,6 +59,7 @@ export default class CampaignScreen extends Component {
 
       buttons.push(
         <button
+          type="button"
           className={
             selected
               ? 'levelButtonClicked'
@@ -46,7 +67,10 @@ export default class CampaignScreen extends Component {
               ? 'levelButtonLocked'
               : 'levelButtons'
           }
+          disabled={locked}
+          aria-pressed={selected}
           id={i}
+          ref={selected ? this.selectedLevelButtonRef : null}
           onClick={() => this.showLevelInfo(i)}
           key={i}
         >

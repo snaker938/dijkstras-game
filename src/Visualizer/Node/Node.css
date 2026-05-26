@@ -14,10 +14,10 @@
 
 .nodeOutline,
 .nodeNoOutline {
-  width: 25.1px;
-  height: 25px;
-  line-height: 25px;
-  font-size: 12px;
+  width: var(--visualizer-node-width, 25.1px);
+  height: var(--visualizer-node-height, 25px);
+  line-height: var(--visualizer-node-height, 25px);
+  font-size: var(--visualizer-node-font-size, 12px);
 }
 
 .nodeOutline {

@@ -1,6 +1,15 @@
 // This whole file will get the data for every single level that there is.
 
-const numLevels = 15; // The total number of levels in the game
+const levelModules = import.meta.glob('./levels/level*.json', { eager: true });
+const levels = Object.entries(levelModules)
+  .sort(([firstPath], [secondPath]) => {
+    const firstLevel = Number(firstPath.match(/level(\d+)\.json$/)[1]);
+    const secondLevel = Number(secondPath.match(/level(\d+)\.json$/)[1]);
+    return firstLevel - secondLevel;
+  })
+  .map(([, module]) => module.default ?? module);
+
+const numLevels = levels.length; // The total number of levels in the game
 
 const allLevelIDs = getAllLevelIDs();
 const allLevelNames = getAllLevelNames();
@@ -14,95 +23,57 @@ const allLevelGrids = getAllLevelGrids();
 
 // This function gets the id of each level
 function getAllLevelIDs() {
-  let allLevelIDs = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
-    allLevelIDs.push(level.levelID);
-  }
-  return allLevelIDs;
+  return levels.map((level) => level.levelID);
 }
 
 // This function gets the names of every single level and stores it in an array
 function getAllLevelNames() {
-  let levelNames = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
-    levelNames.push(level.levelName);
-  }
-  return levelNames;
+  return levels.map((level) => level.levelName);
 }
 
 // This function gets every number of random wall presses
 function getAllLevelRandomWallPresses() {
-  let levelRandomWallPresses = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
-    levelRandomWallPresses.push(level.randomWallPressesAllowed);
-  }
-  return levelRandomWallPresses;
+  return levels.map((level) => level.randomWallPressesAllowed);
 }
 
 // This function gets the difficulty of every single level and stores it in an array
 function getAllLevelDifficulties() {
-  let levelDifficulties = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
-    levelDifficulties.push(level.difficulty);
-  }
-  return levelDifficulties;
+  return levels.map((level) => level.difficulty);
 }
 
 // This function gets the description of every single level and stores it in an array
 function getAllLevelDescriptions() {
-  let levelDescriptions = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
-    levelDescriptions.push(level.description);
-  }
-  return levelDescriptions;
+  return levels.map((level) => level.description);
 }
 
 // This function gets the coords of the start and end node for each level
 function getAllSpecialNodeCoords() {
-  let allLevelCoords = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
+  const allLevelCoords = [];
+  for (const level of levels) {
     let levelSpecialNodeCoords = [];
     levelSpecialNodeCoords.push(level.startNodeCoords);
     levelSpecialNodeCoords.push(level.endNodeCoords);
     allLevelCoords.push(levelSpecialNodeCoords);
   }
-  allLevelCoords.push();
   return allLevelCoords;
 }
 
 // This function gets every number of allowed walls per level
 function getAllLevelAllowedWalls() {
-  let levelAllowedWalls = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
-    levelAllowedWalls.push(level.wallsAllowed);
-  }
-  return levelAllowedWalls;
+  return levels.map((level) => level.wallsAllowed);
 }
 
 function getAllLevelEndDistances() {
-  let levelEndDistances = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
-    levelEndDistances.push(level.endDistance);
-  }
-  return levelEndDistances;
+  return levels.map((level) => level.endDistance);
 }
 
 // This function gets all the level grids
 function getAllLevelGrids() {
-  let levelGrids = [];
-  for (let i = 1; i <= numLevels; i++) {
-    let level = require(`./levels/level${i}`);
-    levelGrids.push(level.grid);
-  }
-  return levelGrids;
+  return levels.map((level) => level.grid);
+}
+
+export function getLevelData(levelNumber) {
+  return levels[Number(levelNumber) - 1];
 }
 
 export function getLevelName(id) {

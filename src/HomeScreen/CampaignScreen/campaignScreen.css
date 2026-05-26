@@ -4,8 +4,12 @@
   right: 0;
   bottom: 0;
   left: 0;
+  width: 100vw;
+  height: 100dvh;
   min-width: 320px;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background-color: rgb(187, 211, 223);
 }
 
@@ -46,19 +50,19 @@
 }
 
 .positioningLevelInfoClass {
-  --campaign-header-height: clamp(54px, 8.5vh, 65px);
+  --campaign-header-height: clamp(54px, 8dvh, 66px);
   --campaign-panel-bg: rgba(26, 23, 23, 0.8);
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(300px, 381px) minmax(420px, 600px);
-  gap: clamp(18px, 3vw, 48px);
+  grid-template-columns: minmax(330px, 0.78fr) minmax(520px, 1.22fr);
+  gap: clamp(20px, 3.2vw, 56px);
   align-items: stretch;
   justify-content: center;
-  width: min(1120px, calc(100vw - 48px));
-  height: min(700px, calc(100vh - 88px));
-  min-height: 540px;
-  margin: clamp(14px, 5vh, 48px) auto 24px;
+  width: min(1280px, calc(100vw - clamp(24px, 5vw, 72px)));
+  height: clamp(560px, calc(100dvh - clamp(24px, 8dvh, 90px)), 760px);
+  min-height: 0;
+  margin: clamp(10px, 3.6dvh, 42px) auto;
 }
 
 .campaignStagePanel,
@@ -116,13 +120,17 @@
 
 .levelButtonList {
   position: absolute;
-  top: calc(var(--campaign-header-height) + clamp(8px, 1.5vh, 18px));
-  right: clamp(14px, 5%, 34px);
-  bottom: clamp(10px, 1.6vh, 20px);
-  left: clamp(14px, 5%, 34px);
+  top: calc(var(--campaign-header-height) + clamp(10px, 1.7dvh, 18px));
+  right: clamp(14px, 5%, 32px);
+  bottom: clamp(10px, 1.7dvh, 20px);
+  left: clamp(14px, 5%, 32px);
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5px, 0.75dvh, 8px);
   overflow-y: auto;
   padding-right: 4px;
+  scrollbar-gutter: stable;
 }
 
 .levelButtonClicked,
@@ -132,15 +140,17 @@
   top: auto;
   left: auto;
   display: block;
+  flex: 0 0 auto;
   box-sizing: border-box;
   width: 100%;
-  height: clamp(28px, 4vh, 33px);
-  margin-bottom: clamp(4px, 0.65vh, 8px);
+  height: clamp(31px, 4.4dvh, 38px);
+  min-height: 31px;
+  margin-bottom: 0;
   overflow: hidden;
   color: rgba(255, 255, 255, 1);
   font-family: QTYPE;
-  font-size: clamp(14px, 1.55vw, 16px);
-  line-height: clamp(28px, 4vh, 33px);
+  font-size: clamp(15px, 1.55vw, 18px);
+  line-height: clamp(31px, 4.4dvh, 38px);
   text-align: left;
   white-space: nowrap;
 }
@@ -156,6 +166,11 @@
   border: 2px solid rgb(0, 0, 0);
 }
 
+.levelButtonLocked:disabled {
+  color: rgba(255, 255, 255, 0.8);
+  opacity: 1;
+}
+
 .levelButtons {
   background: rgba(0, 0, 0, 0.6);
   border: 0;
@@ -168,13 +183,14 @@
 
 .levelButtonContent {
   display: grid;
-  grid-template-columns: 2.8rem minmax(0, 1fr);
+  grid-template-columns: clamp(2.5rem, 5vw, 3.2rem) minmax(0, 1fr);
   align-items: center;
+  height: 100%;
   min-width: 0;
 }
 
 .levelButtonId {
-  padding-left: 8px;
+  padding-left: clamp(8px, 1.1vw, 12px);
 }
 
 .levelButtonName {
@@ -203,6 +219,7 @@
 .levelInfoContainer2 {
   display: flex;
   flex-direction: column;
+  min-height: 0;
   padding: clamp(18px, 2.7vh, 28px) clamp(18px, 2.3vw, 36px)
     clamp(12px, 2vh, 22px);
 }
@@ -210,6 +227,7 @@
 .levelInfoBody {
   display: flex;
   flex: 1;
+  flex-basis: 0;
   flex-direction: column;
   gap: clamp(18px, 3vh, 34px);
   min-height: 0;
@@ -228,6 +246,7 @@
 .levelDescriptionContainer {
   position: static;
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
@@ -242,12 +261,14 @@
 .levelInfoRows {
   display: flex;
   flex: 1;
+  flex-basis: 0;
   flex-direction: column;
-  gap: clamp(12px, 2vh, 26px);
+  gap: clamp(9px, 1.8dvh, 22px);
   justify-content: space-evenly;
   min-height: 0;
   overflow-y: auto;
   padding-right: 4px;
+  scrollbar-gutter: stable;
 }
 
 .infoContainer {
@@ -257,7 +278,8 @@
   align-items: center;
   box-sizing: border-box;
   width: 100%;
-  height: clamp(32px, 4.8vh, 38px);
+  min-height: clamp(34px, 4.9dvh, 42px);
+  padding: 0 clamp(6px, 1vw, 10px);
   background: rgba(26, 23, 23, 0.8);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -285,6 +307,7 @@
 
 .campaignActionRow {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
@@ -320,8 +343,8 @@
 
 @media (max-height: 680px) and (min-width: 901px) {
   .positioningLevelInfoClass {
-    height: calc(100vh - 56px);
-    min-height: 500px;
+    height: calc(100dvh - 32px);
+    min-height: 0;
     margin-top: 12px;
   }
 
@@ -335,38 +358,57 @@
   }
 
   .levelInfoBody {
-    gap: 14px;
+    gap: 12px;
   }
 
   .levelDescriptionContainer {
-    min-height: 58px;
+    min-height: 54px;
   }
 }
 
 @media (max-width: 900px) {
   .positioningLevelInfoClass {
+    --campaign-header-height: clamp(48px, 7.6dvh, 58px);
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    width: calc(100vw - 24px);
+    gap: clamp(12px, 2.2dvh, 18px);
+    width: min(760px, calc(100vw - 20px));
     height: auto;
     min-height: 0;
-    margin-top: 16px;
-    padding-bottom: 24px;
+    margin-top: clamp(8px, 2dvh, 18px);
+    padding-bottom: clamp(16px, 3dvh, 28px);
   }
 
   .campaignStagePanel {
-    min-height: 360px;
-    height: min(56vh, 520px);
+    height: clamp(280px, 44dvh, 430px);
+    min-height: 0;
   }
 
   .campaignDetailsPanel {
-    min-height: 360px;
-    height: min(54vh, 500px);
+    height: clamp(390px, 52dvh, 510px);
+    min-height: 0;
   }
 
   .levelInfoContainer2 {
-    padding: 16px;
+    padding: clamp(12px, 2.5vw, 18px);
+  }
+
+  .levelInfoBody {
+    gap: clamp(10px, 1.8dvh, 16px);
+  }
+
+  .levelDescriptionContainer {
+    min-height: clamp(54px, 8dvh, 72px);
+    padding: 8px 12px;
+  }
+
+  .levelInfoRows {
+    gap: clamp(7px, 1.2dvh, 12px);
+    justify-content: space-evenly;
+  }
+
+  .infoContainer {
+    min-height: clamp(38px, 5.8dvh, 48px);
   }
 
   .selectStageText {
@@ -378,31 +420,40 @@
   }
 
   .campaignScreenButton {
-    font-size: clamp(26px, 8vw, 36px);
+    font-size: clamp(26px, 7.4vw, 36px);
   }
 }
 
 @media (max-width: 520px) {
   .positioningLevelInfoClass {
-    gap: 14px;
-    width: calc(100vw - 16px);
+    gap: 10px;
+    width: calc(100vw - 12px);
     margin-top: 8px;
+    padding-bottom: 18px;
   }
 
   .campaignStagePanel {
-    min-height: 340px;
+    height: clamp(238px, 37dvh, 330px);
+    min-height: 0;
   }
 
   .campaignDetailsPanel {
-    min-height: 560px;
+    height: clamp(354px, 55dvh, 450px);
+    min-height: 0;
+  }
+
+  .levelButtonList {
+    right: 12px;
+    left: 12px;
+    gap: 5px;
   }
 
   .levelInfoBody {
-    gap: 12px;
+    gap: 9px;
   }
 
   .levelInfoRows {
-    gap: 8px;
+    gap: 7px;
     justify-content: flex-start;
   }
 
@@ -410,7 +461,7 @@
     grid-template-columns: 1fr;
     gap: 4px;
     height: auto;
-    min-height: 52px;
+    min-height: 48px;
     padding: 8px 10px;
     text-align: center;
   }
@@ -427,7 +478,13 @@
 
   .campaignActionRow {
     flex-wrap: wrap;
+    gap: 8px 14px;
     justify-content: center;
+    padding-top: 8px;
+  }
+
+  .campaignScreenButton {
+    font-size: clamp(24px, 7.2vw, 32px);
   }
 
   .startLevel {
@@ -436,5 +493,34 @@
 
   .backButton {
     order: 0;
+  }
+}
+
+@media (max-width: 520px) and (max-height: 680px) {
+  .positioningLevelInfoClass {
+    gap: 8px;
+    padding-bottom: 8px;
+  }
+
+  .campaignStagePanel {
+    height: 228px;
+  }
+
+  .campaignDetailsPanel {
+    height: 340px;
+  }
+
+  .levelDescription {
+    font-size: clamp(14px, 4.2vw, 16px);
+    line-height: 1.18;
+  }
+
+  .levelDescriptionContainer {
+    min-height: 48px;
+  }
+
+  .infoContainer {
+    min-height: 44px;
+    padding: 6px 10px;
   }
 }
