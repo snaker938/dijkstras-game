@@ -1,7 +1,9 @@
 const path = require('path');
 
 const { app, BrowserWindow } = require('electron');
-const isDev = !app.isPackaged || process.env.ELECTRON_IS_DEV === '1';
+const isDev =
+  process.env.ELECTRON_IS_DEV === '1' ||
+  (process.env.ELECTRON_IS_DEV !== '0' && !app.isPackaged);
 
 const height = 900;
 const width = 1440;
