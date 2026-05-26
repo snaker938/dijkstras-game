@@ -1,5 +1,11 @@
 import { sendError } from './errorHandling';
-import { getCurrentDisplayOutlineClass } from '../optionsHandling';
+import {
+  getCurrentDisplayOutlineClass,
+  getMissileTrailLength,
+  getSandboxEndExplosionToggled,
+  getUseCampaignMissileTrailInSandbox,
+  shouldShowNodeNumbers,
+} from '../optionsHandling';
 import { cloneVariable } from './Visualizer';
 import {
   newLevelUnlocked,
@@ -10,6 +16,86 @@ import {
   getCurrentLevelEndNodeCoords,
 } from '../currentLevelHandling';
 import { inSandbox } from '../Navigation';
+
+function getNodeElement(node) {
+  return document.getElementById(`node-${node.row}-${node.col}`);
+}
+
+function setNodeClass(node, className) {
+  const nodeElement = getNodeElement(node);
+  if (nodeElement) nodeElement.className = className;
+}
+
+function setNodeText(node, text) {
+  if (!node) return;
+  const nodeElement = getNodeElement(node);
+  if (nodeElement) nodeElement.innerHTML = text;
+}
+
+function setNodeDistance(node) {
+  setNodeText(node, shouldShowNodeNumbers(inSandbox) ? node.distance : `&nbsp`);
+}
+
+function enableHomeButton() {
+  const homeButton = document.getElementById('homeButton');
+  if (homeButton) homeButton.classList.add('enabled');
+}
+
+function shouldUseMissileTrail() {
+  return !inSandbox || getUseCampaignMissileTrailInSandbox();
+}
+
+function getActualEndNode(fallbackNode) {
+  if (!inSandbox) {
+    const [row, col] = getCurrentLevelEndNodeCoords();
+    return { row, col, distance: fallbackNode?.distance };
+  }
+
+  const nodeElement = document.querySelector('.node-end');
+  if (!nodeElement) return fallbackNode;
+
+  const [, row, col] = nodeElement.id.split('-');
+  return {
+    row: Number(row),
+    col: Number(col),
+    distance: fallbackNode?.distance,
+  };
+}
+
+function finishMissileAtEnd(fallbackNode, displayedDistance) {
+  const endNode = getActualEndNode(fallbackNode);
+  if (!endNode) {
+    enableHomeButton();
+    return;
+  }
+
+  setNodeText(
+    endNode,
+    shouldShowNodeNumbers(inSandbox) ? displayedDistance : `&nbsp`
+  );
+
+  if (inSandbox && !getSandboxEndExplosionToggled()) {
+    enableHomeButton();
+    return;
+  }
+
+  const endNodeElement = getNodeElement(endNode);
+  if (!endNodeElement) {
+    if (inSandbox) enableHomeButton();
+    return;
+  }
+
+  endNodeElement.className = `${getCurrentDisplayOutlineClass()} node-exploded`;
+
+  const handleAnimationEnd = function () {
+    if (!inSandbox) sendError('MISSION-FAILED');
+    else enableHomeButton();
+
+    endNodeElement.removeEventListener('animationend', handleAnimationEnd);
+  };
+
+  endNodeElement.addEventListener('animationend', handleAnimationEnd);
+}
 
 export function animateAllNodes(
   visitedNodesInOrder,
@@ -35,24 +121,19 @@ export function animateAllNodes(
     setTimeout(() => {
       // This animates all the visited nodes, excluding the start node
       const node = visitedNodesInOrder[i];
-      document.getElementById(
-        `node-${node.row}-${node.col}`
-      ).className = `${getCurrentDisplayOutlineClass()} node-visited`;
-
-      if (!inSandbox) {
-        document.getElementById(
-          `node-${node.row}-${node.col}`
-        ).innerHTML = `&nbsp`; // Set the html content to empty
-      } else {
-        document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-          node.distance;
-      }
+      setNodeClass(node, `${getCurrentDisplayOutlineClass()} node-visited`);
+      setNodeDistance(node);
     }, 6 * i);
   }
 }
 
 // This function animates the shortest path. It also adds the distance to the nodes. It is called AFTER all the other nodes have been animated.
 export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
+  if (nodesInShortestPathOrder.length === 0) {
+    finishMissileAtEnd(null, 1);
+    return;
+  }
+
   let endIndex = Infinity; // endIndex is Infinity if the distance is never > specified end distance
 
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
@@ -74,7 +155,9 @@ export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
   if (endIndex < Infinity) loopLength = endIndex;
   else loopLength = nodesInShortestPathOrder.length;
 
-  let nodesToAnimate = [];
+  const nodesToAnimate = [];
+  const missileTrailLength = getMissileTrailLength();
+  const useMissileTrail = shouldUseMissileTrail();
 
   for (let i = 0; i < loopLength; i++) {
     setTimeout(() => {
@@ -86,124 +169,88 @@ export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
         // End trail
         endTrail(endIndex, nodesInShortestPathOrder);
       } else if (i < endIndex) {
-        // Actually animate the shortest path as a block of 5 nodes if not in Sandbox
-        if (!inSandbox) {
-          if (i < 5) {
-            // Animate the first 5 nodes. The node at the front of the array is the head of the missile
+        if (useMissileTrail) {
+          if (i < missileTrailLength) {
+            // Animate the first nodes. The node at the front of the array is the head of the missile.
             if (i === 0) {
               // Animate the head of the missile
               const node = nodesInShortestPathOrder[i];
               nodesToAnimate.push(node);
-              document.getElementById(
-                `node-${node.row}-${node.col}`
-              ).className = `${getCurrentDisplayOutlineClass()} node-missile-head`;
+              setNodeClass(
+                node,
+                `${getCurrentDisplayOutlineClass()} node-missile-head`
+              );
             } else {
               // Animate the rest of the nodes, and remove the previous head
               const node = nodesInShortestPathOrder[i];
               nodesToAnimate.push(node);
-              document.getElementById(
-                `node-${node.row}-${node.col}`
-              ).className = `${getCurrentDisplayOutlineClass()} node-missile-head`;
+              setNodeClass(
+                node,
+                `${getCurrentDisplayOutlineClass()} node-missile-head`
+              );
 
               const nodeToUnAnimateHead = nodesToAnimate[i - 1];
-              document.getElementById(
-                `node-${nodeToUnAnimateHead.row}-${nodeToUnAnimateHead.col}`
-              ).className = `${getCurrentDisplayOutlineClass()} node-shortest-path`;
+              setNodeClass(
+                nodeToUnAnimateHead,
+                `${getCurrentDisplayOutlineClass()} node-shortest-path`
+              );
             }
           } else {
             // Remove the first node in the array and unanimate it, and add the next node to the end of the array. Then animate the rest array
             const nodeToUnAnimate = nodesToAnimate.shift();
-            document.getElementById(
-              `node-${nodeToUnAnimate.row}-${nodeToUnAnimate.col}`
-            ).className = `${getCurrentDisplayOutlineClass()} node-visited-static`;
+            setNodeClass(
+              nodeToUnAnimate,
+              `${getCurrentDisplayOutlineClass()} node-visited-static`
+            );
 
             const node = nodesInShortestPathOrder[i];
             nodesToAnimate.push(node);
             for (let nodeToAnimate of nodesToAnimate) {
-              document.getElementById(
-                `node-${nodeToAnimate.row}-${nodeToAnimate.col}`
-              ).className = `${getCurrentDisplayOutlineClass()} node-shortest-path`;
+              setNodeClass(
+                nodeToAnimate,
+                `${getCurrentDisplayOutlineClass()} node-shortest-path`
+              );
             }
 
-            // Remove the previous head
-            const nodeToUnAnimateHead = nodesToAnimate[3];
-            document.getElementById(
-              `node-${nodeToUnAnimateHead.row}-${nodeToUnAnimateHead.col}`
-            ).className = `${getCurrentDisplayOutlineClass()} node-shortest-path`;
-
             // The last node in the array should have `node-missile-head` class, so add it back
-            const nodeToAnimateHead = nodesToAnimate[4];
-            document.getElementById(
-              `node-${nodeToAnimateHead.row}-${nodeToAnimateHead.col}`
-            ).className = `${getCurrentDisplayOutlineClass()} node-missile-head`;
+            const nodeToAnimateHead = nodesToAnimate[nodesToAnimate.length - 1];
+            setNodeClass(
+              nodeToAnimateHead,
+              `${getCurrentDisplayOutlineClass()} node-missile-head`
+            );
           }
         } else {
           // Animate the shortest path as a single path if in Sandbox
           const node = nodesInShortestPathOrder[i];
-          document.getElementById(
-            `node-${node.row}-${node.col}`
-          ).className = `${getCurrentDisplayOutlineClass()} node-shortest-path`;
+          setNodeClass(node, `${getCurrentDisplayOutlineClass()} node-shortest-path`);
         }
 
         const node = nodesInShortestPathOrder[i];
 
-        // If in sandbox, add the distance to the nodes, else set the html content to empty
-        if (!inSandbox) {
-          document.getElementById(
-            `node-${node.row}-${node.col}`
-          ).innerHTML = `&nbsp`;
-        } else {
-          document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-            nodesInShortestPathOrder[i].distance;
-        }
+        setNodeDistance(node);
 
-        // If not in sandbox, unanimate the last 5 nodes sequentially if the animation has finished
-        if (!inSandbox) {
+        if (useMissileTrail) {
           if (i === nodesInShortestPathOrder.length - 1) {
-            for (let count = 1; count < 6; count++) {
+            const remainingTrailLength = nodesToAnimate.length;
+            for (let count = 1; count <= remainingTrailLength; count++) {
               setTimeout(() => {
                 const nodeToUnAnimate = nodesToAnimate.shift();
-                document.getElementById(
-                  `node-${nodeToUnAnimate.row}-${nodeToUnAnimate.col}`
-                ).className = `${getCurrentDisplayOutlineClass()} node-visited-static`;
-
-                if (count === 5) {
-                  let endNodeCoordRow = getCurrentLevelEndNodeCoords()[0];
-                  let endNodeCoordCol = getCurrentLevelEndNodeCoords()[1];
-
-                  const endNode = document.getElementById(
-                    `node-${endNodeCoordRow}-${endNodeCoordCol}`
+                if (nodeToUnAnimate) {
+                  setNodeClass(
+                    nodeToUnAnimate,
+                    `${getCurrentDisplayOutlineClass()} node-visited-static`
                   );
+                }
 
-                  endNode.className = `${getCurrentDisplayOutlineClass()} node-exploded`;
-
-                  const handleAnimationEnd = function () {
-                    sendError('MISSION-FAILED');
-                    endNode.removeEventListener(
-                      'animationend',
-                      handleAnimationEnd
-                    );
-                  };
-
-                  endNode.addEventListener('animationend', handleAnimationEnd);
+                if (count === remainingTrailLength) {
+                  finishMissileAtEnd(node, loopLength + 1);
                 }
               }, 250 * count);
             }
-
-            let endNodeCoordRow = getCurrentLevelEndNodeCoords()[0];
-            let endNodeCoordCol = getCurrentLevelEndNodeCoords()[1];
-
-            document.getElementById(
-              `node-${endNodeCoordRow}-${endNodeCoordCol}`
-            ).innerHTML = loopLength + 1;
-
-            document.getElementById('homeButton').classList.add('enabled');
           }
         } else {
           if (i === nodesInShortestPathOrder.length - 1) {
-            document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-              nodesInShortestPathOrder[i].distance;
-            document.getElementById('homeButton').classList.add('enabled');
+            finishMissileAtEnd(node, nodesInShortestPathOrder[i].distance);
           }
         }
       }
@@ -219,36 +266,23 @@ export function endTrail(endIndex, nodesInShortestPathOrder) {
     if (x === endIndex - 1) {
       // If, and only if, the current node is the "head" of the missile, give it a special class
       const node = nodesInShortestPathOrder[x];
-      document.getElementById(
-        `node-${node.row}-${node.col}`
-      ).className = `${getCurrentDisplayOutlineClass()} node-ended-head`;
-      document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-        nodesInShortestPathOrder[x].distance;
+      setNodeClass(node, `${getCurrentDisplayOutlineClass()} node-ended-head`);
+      setNodeDistance(node);
 
       if (endIndex === 1 && x === endIndex - 1) {
         if (getCurrentLevel() === 15 && !inSandbox) sendError('GAME-COMPLETE');
         else if (!inSandbox) {
           sendError('VICTORY');
           if (getCurrentLevel() === numLevelsUnlocked) newLevelUnlocked();
-        } else document.getElementById('homeButton').classList.add('enabled');
+        } else enableHomeButton();
       }
     } else {
       setTimeout(() => {
         // Used [count - 2 - x] for the index as the setTimout reverses the for loop, so instead from starting from endIndex, going to 0, it starts from 0 to endIndex. The count - 2 - x, reverses this reversal, so the nodes are selected from the top down, like it should be.
         const node = nodesInShortestPathOrder[counter - 2 - x];
 
-        if (!inSandbox) {
-          document.getElementById(
-            `node-${node.row}-${node.col}`
-          ).innerHTML = `&nbsp`; // Set the html content to empty
-        } else {
-          document.getElementById(`node-${node.row}-${node.col}`).innerHTML =
-            node.distance;
-        }
-
-        document.getElementById(
-          `node-${node.row}-${node.col}`
-        ).className = `${getCurrentDisplayOutlineClass()} node-ended-body`;
+        setNodeDistance(node);
+        setNodeClass(node, `${getCurrentDisplayOutlineClass()} node-ended-body`);
 
         if (x === endIndex - 2) {
           if (getCurrentLevel() === 15 && !inSandbox)
@@ -256,7 +290,7 @@ export function endTrail(endIndex, nodesInShortestPathOrder) {
           else if (!inSandbox) {
             sendError('VICTORY');
             if (getCurrentLevel() === numLevelsUnlocked) newLevelUnlocked();
-          } else document.getElementById('homeButton').classList.add('enabled');
+          } else enableHomeButton();
         } // add the removed class. Animation has finished.
       }, 10 * x);
     }

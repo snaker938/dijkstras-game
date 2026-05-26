@@ -283,8 +283,8 @@
   left: 0;
   z-index: 1;
   box-sizing: border-box;
-  overflow: auto;
-  padding-bottom: 24px;
+  overflow: hidden;
+  padding-bottom: 0;
 }
 
 .visualize-level-screen .visualizer-grid {
@@ -293,7 +293,7 @@
   left: auto;
   width: var(--visualizer-grid-width, 1280.1px);
   height: var(--visualizer-grid-height, 650px);
-  margin-left: var(--visualizer-grid-left);
+  margin-left: 0;
   background: rgb(101, 97, 97);
   background: linear-gradient(
     90deg,
@@ -340,7 +340,7 @@
   }
 
   .visualize-level-screen .visualizer-grid-viewport {
-    padding-bottom: 18px;
+    padding-bottom: 0;
   }
 
   .visualize-level-screen .topbar-message {
@@ -372,17 +372,21 @@
 
 .visualize-level-screen .visualizer-modal-shell {
   position: fixed;
-  top: clamp(78px, 11vh, 118px);
+  top: 50%;
   left: 50%;
   z-index: 100;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   width: min(880px, calc(100vw - 32px));
-  max-height: min(760px, calc(100vh - 108px));
+  max-width: calc(100vw - 32px);
+  max-height: min(1120px, calc(100vh - 32px));
+  max-height: min(1120px, calc(100dvh - 32px));
+  min-height: 0;
+  overflow: hidden;
   color: white;
   font-family: QTYPE, sans-serif;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
 }
 
 .visualize-level-screen .mainInfoContainer,
@@ -391,6 +395,7 @@
   position: relative;
   top: auto;
   left: auto;
+  flex: 0 0 auto;
   box-sizing: border-box;
   width: 100%;
   height: auto;
@@ -412,12 +417,16 @@
   box-sizing: border-box;
   width: 100%;
   height: auto;
-  max-height: min(620px, calc(100vh - 192px));
+  max-height: min(980px, calc(100vh - 128px));
+  max-height: min(980px, calc(100dvh - 128px));
+  min-height: 0;
   padding: clamp(18px, 3vw, 30px);
   overflow: auto;
+  overflow-x: hidden;
   background: rgba(26, 23, 23, 0.86);
   opacity: 1;
   backdrop-filter: blur(10px);
+  overscroll-behavior: contain;
 }
 
 .visualize-level-screen .mainTextToRender,
@@ -499,9 +508,9 @@
 }
 
 .visualize-level-screen .dialogueMenuPositionClass {
-  top: clamp(78px, 11vh, 118px);
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
 }
 
 .visualize-level-screen .dialogueBigContainer2 {
@@ -556,17 +565,87 @@
   overflow-wrap: anywhere;
 }
 
+.visualize-level-screen .visualizer-option-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.visualize-level-screen .visualizer-option-toggle,
+.visualize-level-screen .visualizer-number-input {
+  box-sizing: border-box;
+  min-width: 74px;
+  min-height: 34px;
+  border: 2px solid rgb(175, 175, 175);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  font: inherit;
+  text-align: center;
+}
+
+.visualize-level-screen .visualizer-option-toggle {
+  cursor: pointer;
+}
+
+.visualize-level-screen .visualizer-option-toggle.is-active {
+  background: rgb(38, 115, 148);
+}
+
+.visualize-level-screen .visualizer-number-input {
+  width: 86px;
+}
+
+.visualize-level-screen .visualizer-dialogue-shell {
+  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100vh;
+  height: 100dvh;
+  max-height: none;
+  padding: clamp(10px, 2vh, 18px) clamp(10px, 2vw, 24px);
+  transform: none;
+}
+
+.visualize-level-screen .visualizer-dialogue-shell .dialogueBigContainer {
+  flex: 0 0 auto;
+}
+
+.visualize-level-screen .visualizer-dialogue-shell .dialogueBigContainer2 {
+  flex: 1 1 auto;
+  max-height: none;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  justify-content: flex-end;
+}
+
+.visualize-level-screen
+  .visualizer-dialogue-shell
+  .dialogueBigContainer2::-webkit-scrollbar {
+  display: none;
+}
+
 @media (max-width: 760px) {
   .visualize-level-screen .visualizer-modal-shell {
-    top: 72px;
+    top: 50%;
     width: calc(100vw - 20px);
-    max-height: calc(100vh - 84px);
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+    max-height: calc(100dvh - 20px);
   }
 
   .visualize-level-screen .mainInfoContainer2,
   .visualize-level-screen .levelInfoContainer2,
   .visualize-level-screen .dialogueBigContainer2 {
-    max-height: calc(100vh - 160px);
+    max-height: calc(100vh - 112px);
+    max-height: calc(100dvh - 112px);
     padding: 14px;
   }
 
@@ -586,5 +665,26 @@
   .visualize-level-screen .visualizer-dialogue-shell .optionsMenuButton,
   .visualize-level-screen .visualizer-options-shell .optionsMenuButton {
     width: 100%;
+  }
+
+  .visualize-level-screen .visualizer-option-row {
+    grid-template-columns: 1fr;
+  }
+
+  .visualize-level-screen .visualizer-dialogue-shell {
+    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    max-width: none;
+    height: 100vh;
+    height: 100dvh;
+    max-height: none;
+    padding: 8px;
+    transform: none;
+  }
+
+  .visualize-level-screen .visualizer-dialogue-shell .dialogueBigContainer2 {
+    max-height: none;
   }
 }

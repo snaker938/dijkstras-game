@@ -30,3 +30,10 @@
   width: 8px;
   height: 8px;
 }
+
+#userLevelsContainer {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+}

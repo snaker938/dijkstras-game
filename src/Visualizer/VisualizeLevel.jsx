@@ -30,10 +30,14 @@ import {
 import { EnterHome } from '../Navigation';
 import {
   getHasGridBeenReset,
+  getMissileTrailLength,
+  getShowCampaignNodeNumbers,
   getToggleWallOnClick,
   gridOutlineToggled,
   setGridOutlineToggled,
   setHasGridBeenReset,
+  setMissileTrailLength,
+  setShowCampaignNodeNumbers,
   setToggleWallOnClick,
 } from '../optionsHandling';
 import Node from './Node/Node';
@@ -98,6 +102,12 @@ function reloadLevelData() {
 export default class levelVisualizer extends Component {
   constructor() {
     super();
+    const initialLayout = getVisualizerLayout({
+      rows: NUM_ROWS,
+      columns: NUM_COLUMNS,
+      topbarHeight: 70,
+    });
+
     this.state = {
       grid: [],
       showOptionsMenu: false, // is the options menu showing
@@ -107,21 +117,20 @@ export default class levelVisualizer extends Component {
       showDialogueMenu: false,
       dialogueLineNumber: 0,
       dialogueStartLoop: 0,
-      gridScale: 1,
-      gridTop: 88,
-      gridLeft: 24,
-      gridWidth: 1281,
-      gridHeight: 650,
-      nodeWidth: 25.1,
-      nodeHeight: 25,
-      nodeFontSize: 12,
+      dialogueNeedsPageBreak: false,
+      dialogueOverflowNextLine: null,
+      ...initialLayout,
+      settingsRefresh: 0,
     };
 
     this.visualizerRef = React.createRef();
+    this.dialogueBodyRef = React.createRef();
     this.planeRef = React.createRef();
     this.activeTimeouts = new Set();
     this.layoutFrameId = null;
+    this.dialogueFrameId = null;
     this.planeFrameId = null;
+    this.topbarResizeObserver = null;
     this.activePlaneAudio = null;
     this.isUnmounted = false;
     reloadLevelData();
@@ -147,25 +156,9 @@ export default class levelVisualizer extends Component {
       this.nextPage();
     }
 
-    // If the Enter button is pressed, run "this.getDialogueMenu(true)" only if the dialogue menu is open and not (dialogueLineNumber === currentDialogueLineNumberEnd - 1)
-    if (
-      event.key === 'Enter' &&
-      this.state.showDialogueMenu &&
-      this.state.dialogueLineNumber !== getCurrentDialogueLineNumberEnd() - 1
-    ) {
-      let sceneBreakerIndexes = getSceneBreakerIndexes();
-      let sceneNextPageIndexes = getSceneNextPageIndexes();
-
-      if (
-        !sceneBreakerIndexes.includes(
-          Number(this.state.dialogueLineNumber) + 1
-        ) &&
-        !sceneNextPageIndexes.includes(
-          Number(this.state.dialogueLineNumber) + 1
-        )
-      ) {
-        this.getDialogueMenu(true, false, false);
-      }
+    if (event.key === 'Enter' && this.state.showDialogueMenu) {
+      event.preventDefault();
+      this.advanceDialogueLine();
     }
   };
 
@@ -181,6 +174,7 @@ export default class levelVisualizer extends Component {
     [100, 300, 800, 1600].forEach((delay) => {
       this.setManagedTimeout(this.updateVisualizerLayout, delay);
     });
+    this.observeTopbarLayout();
     this.syncIntroMenus();
   }
 
@@ -193,6 +187,16 @@ export default class levelVisualizer extends Component {
       prevState.showOptionsMenu !== this.state.showOptionsMenu
     ) {
       this.updateVisualizerLayout();
+    }
+
+    if (
+      this.state.showDialogueMenu &&
+      (prevState.showDialogueMenu !== this.state.showDialogueMenu ||
+        prevState.dialogueLineNumber !== this.state.dialogueLineNumber ||
+        prevState.dialogueStartLoop !== this.state.dialogueStartLoop ||
+        prevState.dialogueNeedsPageBreak !== this.state.dialogueNeedsPageBreak)
+    ) {
+      this.scheduleDialogueMeasurement();
     }
   }
 
@@ -208,9 +212,27 @@ export default class levelVisualizer extends Component {
     }
     this.clearManagedTimers();
     this.stopPlaneAudio();
+    if (this.topbarResizeObserver) {
+      this.topbarResizeObserver.disconnect();
+      this.topbarResizeObserver = null;
+    }
     if (this.layoutFrameId) window.cancelAnimationFrame(this.layoutFrameId);
+    if (this.dialogueFrameId) window.cancelAnimationFrame(this.dialogueFrameId);
     if (this.planeFrameId) window.cancelAnimationFrame(this.planeFrameId);
   }
+
+  observeTopbarLayout = () => {
+    if (!window.ResizeObserver || !this.visualizerRef.current) return;
+
+    const topbar = this.visualizerRef.current.querySelector(
+      '.topButtonsContainer'
+    );
+
+    if (!topbar) return;
+
+    this.topbarResizeObserver = new ResizeObserver(this.updateVisualizerLayout);
+    this.topbarResizeObserver.observe(topbar);
+  };
 
   setManagedTimeout = (callback, delay) => {
     const timeoutId = window.setTimeout(() => {
@@ -304,6 +326,20 @@ export default class levelVisualizer extends Component {
           nodeFontSize: nextNodeFontSize,
         });
       }
+
+      if (this.state.showDialogueMenu) {
+        if (this.state.dialogueNeedsPageBreak) {
+          this.setState(
+            {
+              dialogueNeedsPageBreak: false,
+              dialogueOverflowNextLine: null,
+            },
+            this.scheduleDialogueMeasurement
+          );
+        } else {
+          this.scheduleDialogueMeasurement();
+        }
+      }
     });
   };
 
@@ -344,21 +380,130 @@ export default class levelVisualizer extends Component {
   }
 
   closeDialogueMenu() {
-    this.setState({ showDialogueMenu: false });
+    this.setState({
+      showDialogueMenu: false,
+      dialogueNeedsPageBreak: false,
+      dialogueOverflowNextLine: null,
+    });
     setHasDialogueEnded(true);
     setHasShownDialogueMenu(true);
 
     if (currentLevel > 1) this.loadRealGrid();
   }
 
+  getDialogueMarkerIndexes() {
+    return new Set([...getSceneBreakerIndexes(), ...getSceneNextPageIndexes()]);
+  }
+
+  isDialogueMarkerIndex(index) {
+    return this.getDialogueMarkerIndexes().has(Number(index));
+  }
+
+  getLastDialogueLineIndex() {
+    for (let i = getCurrentDialogueLineNumberEnd() - 1; i >= 0; i--) {
+      if (!this.isDialogueMarkerIndex(i)) return i;
+    }
+
+    return 0;
+  }
+
+  getNextDialogueLineIndex(index) {
+    const finalIndex = getCurrentDialogueLineNumberEnd();
+    let nextIndex = Number(index) + 1;
+
+    while (nextIndex < finalIndex && this.isDialogueMarkerIndex(nextIndex)) {
+      nextIndex++;
+    }
+
+    return Math.min(nextIndex, finalIndex);
+  }
+
+  advanceDialogueLine = () => {
+    if (this.state.dialogueNeedsPageBreak) {
+      this.advanceDialoguePage();
+      return;
+    }
+
+    if (this.state.dialogueLineNumber >= this.getLastDialogueLineIndex()) {
+      return;
+    }
+
+    const nextIndex = this.getNextDialogueLineIndex(
+      this.state.dialogueLineNumber
+    );
+
+    if (nextIndex < getCurrentDialogueLineNumberEnd()) {
+      this.setState({ dialogueLineNumber: nextIndex });
+    }
+  };
+
+  advanceDialoguePage = () => {
+    const nextIndex =
+      this.state.dialogueOverflowNextLine ??
+      this.getNextDialogueLineIndex(this.state.dialogueLineNumber);
+
+    if (nextIndex >= getCurrentDialogueLineNumberEnd()) return;
+
+    this.setState({
+      dialogueStartLoop: nextIndex,
+      dialogueLineNumber: nextIndex,
+      dialogueNeedsPageBreak: false,
+      dialogueOverflowNextLine: null,
+    });
+  };
+
+  scrollDialogueToBottom = () => {
+    const dialogueBody = this.dialogueBodyRef.current;
+    if (!dialogueBody) return;
+    dialogueBody.scrollTo({
+      top: dialogueBody.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
+
+  scheduleDialogueMeasurement = () => {
+    if (this.dialogueFrameId) window.cancelAnimationFrame(this.dialogueFrameId);
+
+    this.dialogueFrameId = window.requestAnimationFrame(() => {
+      this.dialogueFrameId = null;
+      this.measureDialoguePage();
+    });
+  };
+
+  measureDialoguePage = () => {
+    const dialogueBody = this.dialogueBodyRef.current;
+    if (!dialogueBody || !this.state.showDialogueMenu) return;
+
+    const hasOverflow =
+      dialogueBody.scrollHeight > dialogueBody.clientHeight + 2;
+
+    if (
+      hasOverflow &&
+      this.state.dialogueLineNumber > this.state.dialogueStartLoop
+    ) {
+      const overflowLine = this.state.dialogueLineNumber;
+
+      this.setState({
+        dialogueLineNumber: this.getPreviousDialogueLineIndex(overflowLine),
+        dialogueNeedsPageBreak: true,
+        dialogueOverflowNextLine: overflowLine,
+      });
+      return;
+    }
+
+    this.scrollDialogueToBottom();
+  };
+
+  getPreviousDialogueLineIndex(index) {
+    for (let i = Number(index) - 1; i >= this.state.dialogueStartLoop; i--) {
+      if (!this.isDialogueMarkerIndex(i)) return i;
+    }
+
+    return this.state.dialogueStartLoop;
+  }
+
   getDialogueNextButton(dialogueLineNumber) {
-    let sceneBreakerIndexes = getSceneBreakerIndexes();
-    let sceneNextPageIndexes = getSceneNextPageIndexes();
-
-    let dialogueNextPageText = 'Next';
-    if (dialogueLineNumber === getCurrentDialogueLineNumberEnd() - 1) {
-      dialogueNextPageText = 'Exit';
-
+    if (dialogueLineNumber >= this.getLastDialogueLineIndex()) {
       return (
         <button
           className="optionsMenuButton"
@@ -366,47 +511,32 @@ export default class levelVisualizer extends Component {
             this.closeDialogueMenu();
           }}
         >
-          {dialogueNextPageText}
-        </button>
-      );
-    } else if (sceneBreakerIndexes.includes(Number(dialogueLineNumber) + 1)) {
-      return (
-        <button
-          className="optionsMenuButton"
-          onClick={() => {
-            this.getDialogueMenu(false, true, false);
-          }}
-        >
-          {dialogueNextPageText}
-        </button>
-      );
-    } else if (sceneNextPageIndexes.includes(Number(dialogueLineNumber) + 1)) {
-      let dialogueNextPageText = 'Continue';
-      return (
-        <button
-          className="optionsMenuButton"
-          onClick={() => {
-            this.getDialogueMenu(false, true, true);
-          }}
-        >
-          {dialogueNextPageText}
+          Exit
         </button>
       );
     }
+
+    if (this.state.dialogueNeedsPageBreak) {
+      return (
+        <button
+          className="optionsMenuButton"
+          onClick={() => {
+            this.advanceDialoguePage();
+          }}
+        >
+          Continue
+        </button>
+      );
+    }
+
+    return null;
   }
 
   getDialogueBlocks(currentDialogueLineNumber) {
     let dialogueBlocks = [];
     let enterText = '<hit enter>';
-
-    let nextText = '<press next>';
-    let exitText = '<press exit>';
-
     let continueText = '<press continue>';
-
-    let sceneBreakerIndexes = getSceneBreakerIndexes();
-
-    let nextSceneIndexes = getSceneNextPageIndexes();
+    let markerIndexes = this.getDialogueMarkerIndexes();
 
     let currentLevelSpeakerPosition = cloneVariable(
       getCurrentLevelSpeakerPosition()
@@ -418,25 +548,13 @@ export default class levelVisualizer extends Component {
       i < getCurrentDialogueLineNumberEnd();
       i++
     ) {
+      if (markerIndexes.has(i)) continue;
+
       let dialogue;
 
-      let textToDisplay;
-      if (
-        sceneBreakerIndexes.includes(Number(this.state.dialogueLineNumber) + 1)
-      ) {
-        textToDisplay = nextText;
-      } else if (
-        Number(this.state.dialogueLineNumber) ===
-        getCurrentDialogueLineNumberEnd() - 1
-      ) {
-        textToDisplay = exitText;
-      } else if (
-        nextSceneIndexes.includes(Number(this.state.dialogueLineNumber) + 1)
-      ) {
-        textToDisplay = continueText;
-      } else {
-        textToDisplay = enterText;
-      }
+      let textToDisplay = this.state.dialogueNeedsPageBreak
+        ? continueText
+        : enterText;
 
       // If the currentLevelDialogue[i][0] is "", then dialogue is given the className of "dialogueBlockTextOther". If the currentLevelSpeakerPosition[i] is 1, then dialogue is given the className of "dialogue-left-side". If it is 2, then dialogue is given the className of "dialogue-right-side".
 
@@ -479,7 +597,7 @@ export default class levelVisualizer extends Component {
                     opacity: '0.75',
                     display:
                       this.state.dialogueLineNumber ===
-                      getCurrentDialogueLineNumberEnd() - 1
+                      this.getLastDialogueLineIndex()
                         ? 'none'
                         : null,
                   }}
@@ -527,7 +645,7 @@ export default class levelVisualizer extends Component {
                     opacity: '0.75',
                     display:
                       this.state.dialogueLineNumber ===
-                      getCurrentDialogueLineNumberEnd() - 1
+                      this.getLastDialogueLineIndex()
                         ? 'none'
                         : null,
                   }}
@@ -560,23 +678,7 @@ export default class levelVisualizer extends Component {
     );
   }
 
-  getDialogueMenu(shouldChange1, shouldChange2, shouldChange3) {
-    if (shouldChange1) {
-      this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 1 });
-    } else if (shouldChange2) {
-      this.setState({ dialogueLineNumber: this.state.dialogueLineNumber + 2 });
-    }
-
-    if (shouldChange3) {
-      this.setState({ dialogueStartLoop: this.state.dialogueLineNumber + 1 });
-    }
-
-    // console.log(
-    //   this.state.dialogueLineNumber,
-    //   this.state.dialogueStartLoop,
-    //   getCurrentLevelDialogue()
-    // );
-
+  getDialogueMenu() {
     let dialogueNextButton = this.getDialogueNextButton(
       this.state.dialogueLineNumber
     );
@@ -601,7 +703,7 @@ export default class levelVisualizer extends Component {
             </p>
           </div>
 
-          <div className="dialogueBigContainer2">
+          <div className="dialogueBigContainer2" ref={this.dialogueBodyRef}>
             {dialogueBlocks}
 
             {dialogueNextButton}
@@ -973,6 +1075,22 @@ export default class levelVisualizer extends Component {
       ).className = `node-onclick-true`;
   }
 
+  refreshSettings = () => {
+    this.setState(({ settingsRefresh }) => ({
+      settingsRefresh: settingsRefresh + 1,
+    }));
+  };
+
+  toggleCampaignNodeNumbers = () => {
+    setShowCampaignNodeNumbers(!getShowCampaignNodeNumbers());
+    this.refreshSettings();
+  };
+
+  updateMissileTrailLength = (event) => {
+    setMissileTrailLength(event.target.value);
+    this.refreshSettings();
+  };
+
   toggleOptionsMenu() {
     this.setState({ showOptionsMenu: !this.state.showOptionsMenu });
   }
@@ -1010,6 +1128,31 @@ export default class levelVisualizer extends Component {
                 ></NodeToggleOnClick>
               </div>
             </div>
+
+            <div className="visualizer-option-row text-info">
+              <span>Show Node Numbers</span>
+              <button
+                type="button"
+                className={`visualizer-option-toggle ${
+                  getShowCampaignNodeNumbers() ? 'is-active' : ''
+                }`}
+                onClick={this.toggleCampaignNodeNumbers}
+              >
+                {getShowCampaignNodeNumbers() ? 'On' : 'Off'}
+              </button>
+            </div>
+
+            <label className="visualizer-option-row text-info">
+              <span>Missile Trail Length</span>
+              <input
+                type="number"
+                min="1"
+                max="12"
+                value={getMissileTrailLength()}
+                onChange={this.updateMissileTrailLength}
+                className="visualizer-number-input"
+              />
+            </label>
 
             <button
               className="optionsMenuButton"
@@ -1090,7 +1233,7 @@ export default class levelVisualizer extends Component {
         {this.state.showOptionsMenu ? this.getOptionsMenu() : null}
 
         {this.state.showDialogueMenu
-          ? this.getDialogueMenu(false, false, false)
+          ? this.getDialogueMenu()
           : null}
 
         {this.state.showTutorialMenu && Number(currentLevel) === 1

@@ -16,8 +16,16 @@ import {
   setGridOutlineToggled,
   isGridOutlineToggled,
   getToggleWallOnClick,
+  getMissileTrailLength,
+  getSandboxEndExplosionToggled,
+  getShowSandboxNodeNumbers,
+  getUseCampaignMissileTrailInSandbox,
   setToggleWallOnClick,
+  setMissileTrailLength,
+  setSandboxEndExplosionToggled,
   getHasGridBeenReset,
+  setShowSandboxNodeNumbers,
+  setUseCampaignMissileTrailInSandbox,
   setHasGridBeenReset,
 } from '../optionsHandling';
 import NodeToggleGrid from './Node/NodeToggleGrid';
@@ -65,6 +73,12 @@ let RANDOM_WALL_NUMBER = 400;
 export default class sandboxVisualizer extends Component {
   constructor() {
     super();
+    const initialLayout = getVisualizerLayout({
+      rows: NUM_ROWS,
+      columns: NUM_COLUMNS,
+      topbarHeight: 70,
+    });
+
     this.state = {
       grid: [],
       showOptionsMenu: false,
@@ -75,14 +89,8 @@ export default class sandboxVisualizer extends Component {
       lastAddedUserLevel: '',
       levelClicked: -1,
       renamingUserLevel: false,
-      gridScale: 1,
-      gridTop: 88,
-      gridLeft: 24,
-      gridWidth: 1281,
-      gridHeight: 650,
-      nodeWidth: 25.1,
-      nodeHeight: 25,
-      nodeFontSize: 12,
+      ...initialLayout,
+      settingsRefresh: 0,
       dragging: [false, null, null], // 0: is-dragging ; 1: node-being-dragged ; 2: end/previous node
       //sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occurred on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging all together. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to create an illusion like the user is actual dragging the node around.
     };
@@ -92,6 +100,7 @@ export default class sandboxVisualizer extends Component {
     this.activeTimeouts = new Set();
     this.layoutFrameId = null;
     this.planeFrameId = null;
+    this.topbarResizeObserver = null;
     this.activePlaneAudio = null;
     this.isUnmounted = false;
   }
@@ -116,6 +125,7 @@ export default class sandboxVisualizer extends Component {
     [100, 300, 800, 1600].forEach((delay) => {
       this.setManagedTimeout(this.updateVisualizerLayout, delay);
     });
+    this.observeTopbarLayout();
   }
 
   componentWillUnmount() {
@@ -130,9 +140,26 @@ export default class sandboxVisualizer extends Component {
     }
     this.clearManagedTimers();
     this.stopPlaneAudio();
+    if (this.topbarResizeObserver) {
+      this.topbarResizeObserver.disconnect();
+      this.topbarResizeObserver = null;
+    }
     if (this.layoutFrameId) window.cancelAnimationFrame(this.layoutFrameId);
     if (this.planeFrameId) window.cancelAnimationFrame(this.planeFrameId);
   }
+
+  observeTopbarLayout = () => {
+    if (!window.ResizeObserver || !this.visualizerRef.current) return;
+
+    const topbar = this.visualizerRef.current.querySelector(
+      '.topButtonsContainer'
+    );
+
+    if (!topbar) return;
+
+    this.topbarResizeObserver = new ResizeObserver(this.updateVisualizerLayout);
+    this.topbarResizeObserver.observe(topbar);
+  };
 
   setManagedTimeout = (callback, delay) => {
     const timeoutId = window.setTimeout(() => {
@@ -827,6 +854,32 @@ export default class sandboxVisualizer extends Component {
     });
   };
 
+  refreshSettings = () => {
+    this.setState(({ settingsRefresh }) => ({
+      settingsRefresh: settingsRefresh + 1,
+    }));
+  };
+
+  toggleSandboxNodeNumbers = () => {
+    setShowSandboxNodeNumbers(!getShowSandboxNodeNumbers());
+    this.refreshSettings();
+  };
+
+  toggleCampaignMissileTrail = () => {
+    setUseCampaignMissileTrailInSandbox(!getUseCampaignMissileTrailInSandbox());
+    this.refreshSettings();
+  };
+
+  toggleSandboxEndExplosion = () => {
+    setSandboxEndExplosionToggled(!getSandboxEndExplosionToggled());
+    this.refreshSettings();
+  };
+
+  updateMissileTrailLength = (event) => {
+    setMissileTrailLength(event.target.value);
+    this.refreshSettings();
+  };
+
   getOptionsMenu() {
     let currentPermanentWallClass = null;
 
@@ -944,6 +997,53 @@ export default class sandboxVisualizer extends Component {
                       ></NodeChangeWallType>
                     </div>
                   </div>
+                  <div className="visualizer-option-row text-info">
+                    <span>Show Node Numbers</span>
+                    <button
+                      type="button"
+                      className={`visualizer-option-toggle ${
+                        getShowSandboxNodeNumbers() ? 'is-active' : ''
+                      }`}
+                      onClick={this.toggleSandboxNodeNumbers}
+                    >
+                      {getShowSandboxNodeNumbers() ? 'On' : 'Off'}
+                    </button>
+                  </div>
+                  <div className="visualizer-option-row text-info">
+                    <span>Campaign Missile Trail</span>
+                    <button
+                      type="button"
+                      className={`visualizer-option-toggle ${
+                        getUseCampaignMissileTrailInSandbox() ? 'is-active' : ''
+                      }`}
+                      onClick={this.toggleCampaignMissileTrail}
+                    >
+                      {getUseCampaignMissileTrailInSandbox() ? 'On' : 'Off'}
+                    </button>
+                  </div>
+                  <div className="visualizer-option-row text-info">
+                    <span>End Node Explosion</span>
+                    <button
+                      type="button"
+                      className={`visualizer-option-toggle ${
+                        getSandboxEndExplosionToggled() ? 'is-active' : ''
+                      }`}
+                      onClick={this.toggleSandboxEndExplosion}
+                    >
+                      {getSandboxEndExplosionToggled() ? 'On' : 'Off'}
+                    </button>
+                  </div>
+                  <label className="visualizer-option-row text-info">
+                    <span>Missile Trail Length</span>
+                    <input
+                      type="number"
+                      min="1"
+                      max="12"
+                      value={getMissileTrailLength()}
+                      onChange={this.updateMissileTrailLength}
+                      className="visualizer-number-input"
+                    />
+                  </label>
                   <div
                     className="optionsMenuDevelopment"
                   >
@@ -1218,16 +1318,6 @@ export default class sandboxVisualizer extends Component {
         }}
       >
         {this.state.showOptionsMenu ? this.getOptionsMenu() : null}
-
-        <div
-          style={{
-            backgroundColor: 'lightblue',
-            position: 'absolute',
-            left: '0px',
-            width: '100%',
-            height: '100vh',
-          }}
-        ></div>
 
         {plane}
         <div className="topButtonsContainerOutline"></div>
