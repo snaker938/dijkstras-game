@@ -1,144 +1,308 @@
-.levelButtonClicked {
-  border: 2px solid rgb(175, 175, 175);
-  display: block;
-  margin-bottom: 7px;
-  font-family: QTYPE;
-  width: 350px;
-  text-align: left;
-  height: 33px;
-  font-size: 16px;
-  background: rgba(0, 0, 0, 0.1);
-  color: rgba(255, 255, 255, 1);
-  position: relative;
-  top: 30px;
-  left: 50px;
+.campaignScreenRoot {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  min-width: 320px;
+  overflow: auto;
+  background-color: rgb(187, 211, 223);
 }
 
-.levelButtonLocked {
-  border: 2px solid rgb(0, 0, 0);
+.campaignScreenRoot .imgbox {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: block;
-  margin-bottom: 7px;
-  font-family: QTYPE;
-  width: 350px;
-  text-align: left;
-  height: 33px;
-  font-size: 16px;
-  background: rgba(0, 0, 0, 0.35);
-  color: rgba(255, 255, 255, 1);
-  position: relative;
-  top: 30px;
-  left: 50px;
+  overflow: hidden;
 }
 
-.levelButtons {
-  position: relative;
-  top: 30px;
-  left: 50px;
-  display: block;
-  margin-bottom: 10px;
-  height: 30px;
-  font-family: QTYPE;
-  width: 350px;
-  text-align: left;
-  font-size: 16px;
-  background: rgba(0, 0, 0, 0.6);
-  color: rgba(255, 255, 255, 1);
-  border: 0;
+.campaignScreenRoot .center-fit {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 178.3vh;
+  min-width: 100vw;
+  height: 100vh;
+  max-height: none;
+  border: 0px;
+  object-fit: cover;
+  animation-duration: 8s;
+  animation-name: campaignSlidein;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
-.levelButtons:hover {
-  opacity: 65%;
+@keyframes campaignSlidein {
+  from {
+    transform: translateX(calc(-50% + 1vw));
+  }
+
+  to {
+    transform: translateX(calc(-50% - 2.5vw));
+  }
 }
 
 .positioningLevelInfoClass {
-  position: absolute;
-  top: 5%;
-  left: 13%;
-  transform: scale(1.14);
+  --campaign-header-height: clamp(54px, 8.5vh, 65px);
+  --campaign-panel-bg: rgba(26, 23, 23, 0.8);
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(300px, 381px) minmax(420px, 600px);
+  gap: clamp(18px, 3vw, 48px);
+  align-items: stretch;
+  justify-content: center;
+  width: min(1120px, calc(100vw - 48px));
+  height: min(700px, calc(100vh - 88px));
+  min-height: 540px;
+  margin: clamp(14px, 5vh, 48px) auto 24px;
 }
 
-.levelContainer {
-  height: 0;
-  width: 201px;
-  top: 20px;
-  left: 85px;
-  position: absolute;
-  border-bottom: 65px solid #1a1717;
-  border-left: 90px solid transparent;
-  border-right: 90px solid transparent;
-  opacity: 80%;
+.campaignStagePanel,
+.campaignDetailsPanel {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
 }
 
-.levelContainer2 {
-  width: 381px;
-  height: 611px;
-  top: 84.3px;
-  left: 85px;
+.levelContainer,
+.levelInfoContainer {
   position: absolute;
-  background: #1a1717;
-  opacity: 80%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: var(--campaign-header-height);
+  background: var(--campaign-panel-bg);
+  clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+}
+
+.levelContainer2,
+.levelInfoContainer2 {
+  position: absolute;
+  top: var(--campaign-header-height);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--campaign-header-height));
+  box-sizing: border-box;
+  background: var(--campaign-panel-bg);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .selectStageText {
-  font-family: 'QYTPE';
   position: absolute;
-  font-weight: 900;
-  font-size: 35px;
+  top: clamp(8px, 1.5vh, 12px);
+  left: 50%;
+  z-index: 2;
+  margin: 0;
+  padding-bottom: 3px;
   color: white;
-  top: 30px;
-  left: 188px;
+  font-family: 'QTYPE';
+  font-size: clamp(26px, 3vw, 35px);
+  font-weight: 900;
+  line-height: 1;
   white-space: nowrap;
   border-bottom: 3px solid white;
   border-radius: 8px;
-  padding-bottom: 3px;
+  transform: translateX(-50%);
   user-select: none;
 }
 
-.levelInfoContainer {
-  height: 0;
-  width: 400px;
-  top: 20px;
-  left: 600px;
+.levelButtonList {
   position: absolute;
-  border-bottom: 65px solid #1a1717;
-  border-left: 100px solid transparent;
-  border-right: 100px solid transparent;
-  opacity: 80%;
+  top: calc(var(--campaign-header-height) + clamp(8px, 1.5vh, 18px));
+  right: clamp(14px, 5%, 34px);
+  bottom: clamp(10px, 1.6vh, 20px);
+  left: clamp(14px, 5%, 34px);
+  z-index: 2;
+  overflow-y: auto;
+  padding-right: 4px;
 }
 
-.levelInfoContainer2 {
-  width: 600px;
-  height: 611px;
-  top: 84.7px;
-  left: 600px;
-  position: absolute;
-  background: #1a1717;
-  opacity: 80%;
-  backdrop-filter: blur(10px);
+.levelButtonClicked,
+.levelButtonLocked,
+.levelButtons {
+  position: relative;
+  top: auto;
+  left: auto;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: clamp(28px, 4vh, 33px);
+  margin-bottom: clamp(4px, 0.65vh, 8px);
+  overflow: hidden;
+  color: rgba(255, 255, 255, 1);
+  font-family: QTYPE;
+  font-size: clamp(14px, 1.55vw, 16px);
+  line-height: clamp(28px, 4vh, 33px);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.levelButtonClicked {
+  background: rgba(0, 0, 0, 0.1);
+  border: 2px solid rgb(175, 175, 175);
+}
+
+.levelButtonLocked {
+  cursor: default;
+  background: rgba(0, 0, 0, 0.35);
+  border: 2px solid rgb(0, 0, 0);
+}
+
+.levelButtons {
+  background: rgba(0, 0, 0, 0.6);
+  border: 0;
+}
+
+.levelButtons:hover,
+.levelButtonClicked:hover {
+  opacity: 0.65;
+}
+
+.levelButtonContent {
+  display: grid;
+  grid-template-columns: 2.8rem minmax(0, 1fr);
+  align-items: center;
+  min-width: 0;
+}
+
+.levelButtonId {
+  padding-left: 8px;
+}
+
+.levelButtonName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .levelNameToRender {
-  font-family: 'QTYPE';
-  font-weight: 900;
-  font-size: 32.76px;
-  margin-top: 12px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0 clamp(48px, 9%, 72px);
+  overflow: hidden;
   color: white;
+  font-family: 'QTYPE';
+  font-size: clamp(24px, 2.8vw, 32.76px);
+  font-weight: 900;
+  line-height: var(--campaign-header-height);
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   user-select: none;
 }
 
+.levelInfoContainer2 {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(18px, 2.7vh, 28px) clamp(18px, 2.3vw, 36px)
+    clamp(12px, 2vh, 22px);
+}
+
+.levelInfoBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: clamp(18px, 3vh, 34px);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.levelDescription {
+  margin: 0;
+  color: white;
+  font-family: 'QTYPE';
+  font-size: clamp(16px, 1.7vw, 20px);
+  line-height: 1.25;
+  text-align: center;
+}
+
+.levelDescriptionContainer {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: clamp(64px, 10vh, 82px);
+  padding: 10px 16px;
+  background: rgba(26, 23, 23, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.levelInfoRows {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: clamp(12px, 2vh, 26px);
+  justify-content: space-evenly;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.infoContainer {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) minmax(120px, 1fr);
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: clamp(32px, 4.8vh, 38px);
+  background: rgba(26, 23, 23, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.levelInfoTag {
+  position: static;
+  margin-left: clamp(8px, 1.4vw, 12px);
+  color: white;
+  font-family: 'QTYPE';
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: bold;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.infoText {
+  margin: 0;
+  color: white;
+  font-family: 'QTYPE';
+  font-size: clamp(16px, 1.8vw, 20px);
+  line-height: 1;
+  text-align: center;
+}
+
+.campaignActionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: clamp(8px, 1.8vh, 18px);
+}
+
 .campaignScreenButton {
+  position: static;
+  color: rgb(180, 180, 180);
   font-family: QTYPEBOLD;
-  font-size: 40px;
-  position: absolute;
-  bottom: 9px;
-  background-color: transparent;
-  border: 0;
+  font-size: clamp(28px, 3.6vw, 40px);
+  line-height: 1;
   text-decoration: none;
   text-shadow: 0px 1px 2px #000000;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
   opacity: 100%;
-  color: rgb(180, 180, 180);
 }
 
 .campaignScreenButton:hover {
@@ -146,60 +310,131 @@
 }
 
 .startLevel {
+  margin-left: auto;
 }
 
 .backButton {
-  left: 5%;
+  left: auto;
+  order: -1;
 }
 
-.levelDescription {
-  font-family: 'QTYPE';
-  color: white;
-  margin-left: 0px;
-  text-align: center;
-  font-size: 20px;
+@media (max-height: 680px) and (min-width: 901px) {
+  .positioningLevelInfoClass {
+    height: calc(100vh - 56px);
+    min-height: 500px;
+    margin-top: 12px;
+  }
+
+  .levelButtonList {
+    top: calc(var(--campaign-header-height) + 10px);
+    bottom: 12px;
+  }
+
+  .levelInfoContainer2 {
+    padding: 16px 24px 12px;
+  }
+
+  .levelInfoBody {
+    gap: 14px;
+  }
+
+  .levelDescriptionContainer {
+    min-height: 58px;
+  }
 }
 
-.levelDescriptionContainer {
-  width: 563px;
-  height: 75px;
-  top: 75px;
-  left: 620px;
-  position: absolute;
-  background: #1a1717;
-  opacity: 40%;
-  backdrop-filter: blur(10px);
+@media (max-width: 900px) {
+  .positioningLevelInfoClass {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: calc(100vw - 24px);
+    height: auto;
+    min-height: 0;
+    margin-top: 16px;
+    padding-bottom: 24px;
+  }
 
-  /* Centre all items inside this div */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .campaignStagePanel {
+    min-height: 360px;
+    height: min(56vh, 520px);
+  }
+
+  .campaignDetailsPanel {
+    min-height: 360px;
+    height: min(54vh, 500px);
+  }
+
+  .levelInfoContainer2 {
+    padding: 16px;
+  }
+
+  .selectStageText {
+    font-size: clamp(24px, 7vw, 34px);
+  }
+
+  .levelNameToRender {
+    font-size: clamp(22px, 5.5vw, 31px);
+  }
+
+  .campaignScreenButton {
+    font-size: clamp(26px, 8vw, 36px);
+  }
 }
 
-.infoContainer {
-  width: 563px;
-  height: 35px;
-  position: absolute;
-  background: #1a1717;
-  opacity: 80%;
-  backdrop-filter: blur(10px);
-}
+@media (max-width: 520px) {
+  .positioningLevelInfoClass {
+    gap: 14px;
+    width: calc(100vw - 16px);
+    margin-top: 8px;
+  }
 
-.levelInfoTag {
-  font-family: 'QTYPE';
-  color: white;
-  font-weight: bold;
-  margin-left: 10px;
-  font-size: 20px;
-  line-height: 35px;
-  position: absolute;
-}
+  .campaignStagePanel {
+    min-height: 340px;
+  }
 
-.infoText {
-  font-family: 'QTYPE';
-  color: white;
-  margin-left: 0px;
-  text-align: center;
-  font-size: 20px;
-  line-height: 35px;
+  .campaignDetailsPanel {
+    min-height: 560px;
+  }
+
+  .levelInfoBody {
+    gap: 12px;
+  }
+
+  .levelInfoRows {
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .infoContainer {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    height: auto;
+    min-height: 52px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+
+  .levelInfoTag {
+    margin: 0;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .infoText {
+    text-align: center;
+  }
+
+  .campaignActionRow {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .startLevel {
+    margin-left: 0;
+  }
+
+  .backButton {
+    order: 0;
+  }
 }

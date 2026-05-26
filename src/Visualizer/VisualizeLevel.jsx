@@ -52,6 +52,12 @@ let END_NODE_COL;
 // Specifies the number of rows and columns
 const NUM_ROWS = 26;
 const NUM_COLUMNS = 51;
+const NODE_WIDTH = 25.1;
+const NODE_HEIGHT = 25;
+const GRID_MARGIN = 24;
+const GRID_TOP_GAP = 18;
+const MAX_GRID_SCALE = 1.2156;
+const MIN_GRID_SCALE = 0.25;
 
 // Specifies the number of walls the player can have active at one time
 let NUM_WALLS_TOTAL;
@@ -99,8 +105,12 @@ export default class levelVisualizer extends Component {
       showDialogueMenu: false,
       dialogueLineNumber: 0,
       dialogueStartLoop: 0,
+      gridScale: 1,
+      gridTop: 88,
+      gridLeft: GRID_MARGIN,
     };
 
+    this.visualizerRef = React.createRef();
     reloadLevelData();
     NUM_WALLS_ACTIVE = 0;
   }
@@ -148,7 +158,116 @@ export default class levelVisualizer extends Component {
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress, false);
+    window.addEventListener('resize', this.updateVisualizerLayout);
     this.loadBlankGrid();
+    this.updateVisualizerLayout();
+    this.syncIntroMenus();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.syncIntroMenus();
+
+    if (
+      prevState.showDialogueMenu !== this.state.showDialogueMenu ||
+      prevState.showTutorialMenu !== this.state.showTutorialMenu ||
+      prevState.showOptionsMenu !== this.state.showOptionsMenu
+    ) {
+      this.updateVisualizerLayout();
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress, false);
+    window.removeEventListener('resize', this.updateVisualizerLayout);
+  }
+
+  syncIntroMenus = () => {
+    if (LEVEL_ID > 1) toggleHasTutorialEnded();
+
+    if (!getCurrentDialogueStatus() && !this.state.showDialogueMenu) {
+      this.setState({ showDialogueMenu: true }, this.updateVisualizerLayout);
+      toggleDialogueMenu();
+      return;
+    }
+
+    if (
+      Number(currentLevel) === 1 &&
+      !getCurrentTutorialStatus() &&
+      getHasDialogueEnded() &&
+      !this.state.showTutorialMenu
+    ) {
+      this.setState({ showTutorialMenu: true }, this.updateVisualizerLayout);
+      toggleHasShownTutorial();
+    }
+  };
+
+  updateVisualizerLayout = () => {
+    window.requestAnimationFrame(() => {
+      if (!this.visualizerRef.current) return;
+
+      const topbar =
+        this.visualizerRef.current &&
+        this.visualizerRef.current.querySelector('.topButtonsContainer');
+      const topbarHeight = topbar ? topbar.getBoundingClientRect().height : 70;
+      const baseWidth = NUM_COLUMNS * NODE_WIDTH;
+      const baseHeight = NUM_ROWS * NODE_HEIGHT;
+      const availableWidth = Math.max(
+        window.innerWidth - GRID_MARGIN * 2,
+        baseWidth * MIN_GRID_SCALE
+      );
+      const availableHeight = Math.max(
+        window.innerHeight - topbarHeight - GRID_TOP_GAP - GRID_MARGIN,
+        baseHeight * MIN_GRID_SCALE
+      );
+      const gridScale = Math.max(
+        MIN_GRID_SCALE,
+        Math.min(
+          MAX_GRID_SCALE,
+          availableWidth / baseWidth,
+          availableHeight / baseHeight
+        )
+      );
+      const nextGridScale = Number(gridScale.toFixed(4));
+      const nextGridTop = Math.ceil(topbarHeight + GRID_TOP_GAP);
+      const nextGridLeft = Math.max(
+        GRID_MARGIN,
+        Math.floor((window.innerWidth - baseWidth * nextGridScale) / 2)
+      );
+
+      if (
+        nextGridScale !== this.state.gridScale ||
+        nextGridTop !== this.state.gridTop ||
+        nextGridLeft !== this.state.gridLeft
+      ) {
+        this.setState({
+          gridScale: nextGridScale,
+          gridTop: nextGridTop,
+          gridLeft: nextGridLeft,
+        });
+      }
+    });
+  };
+
+  getPlaneWallColumn() {
+    const planeElement = document.getElementById('plane');
+    const gridElement =
+      this.visualizerRef.current &&
+      this.visualizerRef.current.querySelector('.visualizer-grid');
+
+    if (!planeElement || !gridElement) return null;
+
+    const planeRect = planeElement.getBoundingClientRect();
+    const gridRect = gridElement.getBoundingClientRect();
+    const cellWidth = gridRect.width / NUM_COLUMNS;
+
+    if (!cellWidth) return null;
+
+    const columnPosition = (planeRect.right - gridRect.left) / cellWidth;
+
+    return randomIntFromInterval(
+      Math.floor(columnPosition),
+      Math.ceil(columnPosition)
+    );
   }
 
   loadBlankGrid() {
@@ -281,9 +400,8 @@ export default class levelVisualizer extends Component {
 
       if (currentLevelDialogue[i][0] === '') {
         dialogue = (
-          <>
+          <React.Fragment key={`dialogue-${i}`}>
             <div
-              key={i + 'dialogueBlock'}
               className={dialogueBlockPosition}
               style={{
                 display: i <= currentDialogueLineNumber ? 'inline' : 'none',
@@ -296,7 +414,6 @@ export default class levelVisualizer extends Component {
 
             {i === currentDialogueLineNumber ? (
               <div
-                key={i + 'dialogueBlock2'}
                 className={dialogueBlockPosition}
                 style={{
                   display: i <= currentDialogueLineNumber ? 'inline' : 'none',
@@ -317,13 +434,12 @@ export default class levelVisualizer extends Component {
                 </p>
               </div>
             ) : null}
-          </>
+          </React.Fragment>
         );
       } else {
         dialogue = (
-          <>
+          <React.Fragment key={`dialogue-${i}`}>
             <div
-              key={i + 'dialogueBlock3'}
               className={dialogueBlockPosition}
               style={{
                 display: i <= currentDialogueLineNumber ? 'inline' : 'none',
@@ -346,7 +462,6 @@ export default class levelVisualizer extends Component {
             </div>
             {i === currentDialogueLineNumber ? (
               <div
-                key={i + 'dialogueBlock4'}
                 className={dialogueBlockPosition}
                 style={{
                   display: i <= currentDialogueLineNumber ? 'inline' : 'none',
@@ -367,7 +482,7 @@ export default class levelVisualizer extends Component {
                 </p>
               </div>
             ) : null}
-          </>
+          </React.Fragment>
         );
       }
 
@@ -378,13 +493,12 @@ export default class levelVisualizer extends Component {
 
   getSkipAllDialogueButton() {
     return (
-      <button
-        style={{ left: '10px', top: '16px', zIndex: '1000' }}
-        id="skipAllDialogueButton"
-        className="optionsMenuButton"
-        onClick={() => {
-          this.closeDialogueMenu();
-        }}
+        <button
+          id="skipAllDialogueButton"
+          className="optionsMenuButton visualizer-skip-button"
+          onClick={() => {
+            this.closeDialogueMenu();
+          }}
       >
         Skip...
       </button>
@@ -420,20 +534,11 @@ export default class levelVisualizer extends Component {
       <>
         <div
           onClick={() => {}}
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '200vh',
-            background: '#1a1717',
-            opacity: '0.5',
-            backdropFilter: 'blur(100px)',
-            zIndex: '99',
-          }}
+          className="visualizer-modal-backdrop"
         ></div>
         {skipAllDialogueButton}
         <div
-          className="dialogueMenuPositionClass"
-          style={{ position: 'absolute', zIndex: '100' }}
+          className="dialogueMenuPositionClass visualizer-modal-shell visualizer-dialogue-shell"
         >
           <div className="dialogueBigContainer">
             <p
@@ -533,17 +638,9 @@ export default class levelVisualizer extends Component {
       <>
         <div
           onClick={() => {}}
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '200vh',
-            background: '#1a1717',
-            opacity: '0.5',
-            backdropFilter: 'blur(100px)',
-            zIndex: '99',
-          }}
+          className="visualizer-modal-backdrop"
         ></div>
-        <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
+        <div className="visualizer-modal-shell visualizer-tutorial-shell">
           <div className="levelInfoContainer">
             <p
               style={{ left: '143px', opacity: '1' }}
@@ -697,19 +794,11 @@ export default class levelVisualizer extends Component {
                   .classList.add('node-unwallable');
               }
 
-              let column =
-                (document.getElementById('plane').getBoundingClientRect().x +
-                  520) /
-                27.5;
-
-              column = randomIntFromInterval(
-                Math.floor(column),
-                Math.ceil(column)
-              );
+              let column = this.getPlaneWallColumn();
 
               let grid = this.state.grid;
 
-              if (column <= 50) {
+              if (column !== null && column >= 0 && column < NUM_COLUMNS) {
                 // Generates a random row and column number
                 let row = Math.floor(Math.random() * NUM_ROWS);
 
@@ -734,7 +823,11 @@ export default class levelVisualizer extends Component {
                   }
                 }
               }
-              if (i % 45 === 0 || i === 400 - 1 || column === 51)
+              if (
+                i % 45 === 0 ||
+                i === 400 - 1 ||
+                column === NUM_COLUMNS
+              )
                 this.setState({ grid: grid });
 
               if (i === 400 - 1) {
@@ -821,17 +914,9 @@ export default class levelVisualizer extends Component {
       <>
         <div
           onClick={() => {}}
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '200vh',
-            background: '#1a1717',
-            opacity: '0.5',
-            backdropFilter: 'blur(100px)',
-            zIndex: '99',
-          }}
+          className="visualizer-modal-backdrop"
         ></div>
-        <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
+        <div className="visualizer-modal-shell visualizer-options-shell">
           <div className="mainInfoContainer">
             <p
               style={{ left: '143px', opacity: '1' }}
@@ -889,22 +974,6 @@ export default class levelVisualizer extends Component {
 
     let plane = null;
 
-    if (
-      Number(currentLevel) === 1 &&
-      !getCurrentTutorialStatus() &&
-      getHasDialogueEnded()
-    ) {
-      this.toggleTutorialMenu();
-      toggleHasShownTutorial();
-    }
-
-    if (LEVEL_ID > 1) toggleHasTutorialEnded();
-
-    if (!getCurrentDialogueStatus()) {
-      this.toggleDialogueMenu();
-      toggleDialogueMenu();
-    }
-
     plane = (
       <img
         className="plane"
@@ -924,8 +993,7 @@ export default class levelVisualizer extends Component {
       if (NUM_RANDOM_WALL_PRESSES > 0) {
         numRandomWallButton = (
           <button
-            style={{ left: '10px', top: '16px', padding: '5px' }}
-            className="standard-button"
+            className="standard-button topbar-control random-walls-button"
             onClick={() => this.startToAnimatePlane()} // add random walls to the grid and animate plane
           >
             Random Walls
@@ -934,13 +1002,7 @@ export default class levelVisualizer extends Component {
       } else {
         numRandomWallButton = (
           <button
-            style={{
-              left: '10px',
-              top: '16px',
-              padding: '5px',
-              opacity: '0.3',
-            }}
-            className="standard-button-disabled"
+            className="standard-button-disabled topbar-control random-walls-button"
             onClick={() => this.startToAnimatePlane()} // add random walls to the grid and animate plane
           >
             Random Walls
@@ -952,7 +1014,15 @@ export default class levelVisualizer extends Component {
     }
 
     return (
-      <>
+      <div
+        className="visualize-screen visualize-level-screen"
+        ref={this.visualizerRef}
+        style={{
+          '--visualizer-grid-scale': String(this.state.gridScale),
+          '--visualizer-grid-top': `${this.state.gridTop}px`,
+          '--visualizer-grid-left': `${this.state.gridLeft}px`,
+        }}
+      >
         {this.state.showOptionsMenu ? this.getOptionsMenu() : null}
 
         {this.state.showDialogueMenu
@@ -970,25 +1040,23 @@ export default class levelVisualizer extends Component {
         <div className="topButtonsContainer">
           {numRandomWallButton}
 
-          <p className="numWallsActiveMessage">
+          <p className="numWallsActiveMessage topbar-message">
             {NUM_WALLS_ACTIVE} out of {NUM_WALLS_TOTAL} walls used
           </p>
 
-          <p className="currentEndDistanceMessage">
+          <p className="currentEndDistanceMessage topbar-message">
             End Distance: {getCurrentLevelEndDistance()}
           </p>
 
           <button
-            style={{ right: '100px', top: '16px', padding: '5px' }}
-            className="standard-button"
+            className="standard-button topbar-control settings-button"
             onClick={() => this.toggleOptionsMenu()} // Options
           >
             Settings
           </button>
 
           <button
-            style={{ right: '10px', top: '16px', padding: '5px' }}
-            className="standard-button home-button enabled"
+            className="standard-button topbar-control home-button enabled"
             id="homeButton"
             onClick={() => EnterHome(this.state.animatingPlane)}
           >
@@ -996,7 +1064,7 @@ export default class levelVisualizer extends Component {
           </button>
 
           <button
-            className="button-82-pushable"
+            className="button-82-pushable start-button"
             onClick={() =>
               startDijkstra(
                 this.state.grid,
@@ -1015,7 +1083,10 @@ export default class levelVisualizer extends Component {
           </button>
         </div>
 
-        <div className="grid" /*  creates the div that holds the rows*/>
+        <div
+          className="grid visualizer-grid"
+          /*  creates the div that holds the rows*/
+        >
           {grid.map((row, rowID) => {
             return (
               <div
@@ -1056,7 +1127,7 @@ export default class levelVisualizer extends Component {
             );
           })}
         </div>
-      </>
+      </div>
     );
   }
 }

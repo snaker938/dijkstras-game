@@ -79,7 +79,11 @@ export default class HomeScreen extends Component {
           style={{
             // backgroundColor: 'rgb(187, 211, 223)',
             position: 'absolute',
-            width: '150%',
+            top: '0',
+            right: '0',
+            bottom: '0',
+            left: '0',
+            width: '100%',
             height: '100%',
             background: '#1a1717',
             opacity: '0.5',
@@ -111,50 +115,24 @@ export default class HomeScreen extends Component {
                 </p>
               </div>
             </div>
-            <div>
-              <div
-                className="creditsContainer"
-                style={{ top: '200px', left: '20px' }}
-              >
-                <span>
-                  <div className="creditsInfoTag">Background Game Art</div>
-                  <p className="creditsText">
-                    vivekart on Fiverr (commissioned)
-                  </p>
-                </span>
+            <div className="creditsRows">
+              <div className="creditsContainer">
+                <div className="creditsInfoTag">Background Game Art</div>
+                <p className="creditsText">
+                  vivekart on Fiverr (commissioned)
+                </p>
               </div>
-            </div>
-            <div>
-              <div
-                className="creditsContainer"
-                style={{ top: '300px', left: '20px' }}
-              >
-                <span>
-                  <div className="creditsInfoTag">Plane Sprite Art</div>
-                  <span className="creditsText">UnLucky Studio (free)</span>
-                </span>
+              <div className="creditsContainer">
+                <div className="creditsInfoTag">Plane Sprite Art</div>
+                <span className="creditsText">UnLucky Studio (free)</span>
               </div>
-            </div>
-            <div>
-              <div
-                className="creditsContainer"
-                style={{ top: '400px', left: '20px' }}
-              >
-                <span>
-                  <div className="creditsInfoTag">Plane Sound Effect</div>
-                  <span className="creditsText">soundjay.com (free)</span>
-                </span>
+              <div className="creditsContainer">
+                <div className="creditsInfoTag">Plane Sound Effect</div>
+                <span className="creditsText">soundjay.com (free)</span>
               </div>
-            </div>
-            <div>
-              <div
-                className="creditsContainer"
-                style={{ top: '500px', left: '20px' }}
-              >
-                <span>
-                  <div className="creditsInfoTag">Start Button</div>
-                  <span className="creditsText">freefrontend.com (free)</span>
-                </span>
+              <div className="creditsContainer">
+                <div className="creditsInfoTag">Start Button</div>
+                <span className="creditsText">freefrontend.com (free)</span>
               </div>
             </div>
 
@@ -180,7 +158,11 @@ export default class HomeScreen extends Component {
           onClick={() => {}}
           style={{
             position: 'absolute',
-            width: '150%',
+            top: '0',
+            right: '0',
+            bottom: '0',
+            left: '0',
+            width: '100%',
             height: '100%',
             background: '#1a1717',
             opacity: '0.5',
@@ -213,30 +195,18 @@ export default class HomeScreen extends Component {
                   data.
                 </p>
               </div>
-              <div>
-                <div
-                  className="dataContainer"
-                  style={{ top: '200px', left: '20px' }}
-                >
-                  <span>
-                    <div className="dataInfoTag">Username</div>
-                    <p style={{ left: '350px' }} className="dataText">
-                      {getCurrentUserName()}
-                    </p>
-                  </span>
+              <div className="dataRows">
+                <div className="dataContainer">
+                  <div className="dataInfoTag">Username</div>
+                  <p className="dataText">
+                    {getCurrentUserName()}
+                  </p>
                 </div>
-              </div>
-              <div>
-                <div
-                  className="dataContainer"
-                  style={{ top: '310px', left: '20px' }}
-                >
-                  <span>
-                    <div className="dataInfoTag">Number Of Levels Unlocked</div>
-                    <p style={{ left: '350px' }} className="dataText">
-                      {numLevelsUnlocked}
-                    </p>
-                  </span>
+                <div className="dataContainer">
+                  <div className="dataInfoTag">Number Of Levels Unlocked</div>
+                  <p className="dataText">
+                    {numLevelsUnlocked}
+                  </p>
                 </div>
               </div>
 
@@ -271,7 +241,7 @@ export default class HomeScreen extends Component {
 
   render() {
     return (
-      <>
+      <div className="homeScreenRoot">
         {this.state.showCreditsMenu ? this.getCreditsMenu() : null}
         {this.state.showDataMenu ? this.getDataMenu() : null}
         <div
@@ -279,7 +249,7 @@ export default class HomeScreen extends Component {
             backgroundColor: 'rgb(187, 211, 223)',
             position: 'absolute',
             left: '0px',
-            width: '150%',
+            width: '100%',
             height: '100%',
             // zIndex: '1000000',
           }}
@@ -345,7 +315,7 @@ export default class HomeScreen extends Component {
             Credits
           </button>
         </div>
-      </>
+      </div>
     );
   }
 }

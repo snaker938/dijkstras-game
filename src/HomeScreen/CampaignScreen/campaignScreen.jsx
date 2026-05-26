@@ -28,23 +28,19 @@ export default class CampaignScreen extends Component {
     let levelName;
 
     for (let i = 1; i <= numLevels; i++) {
-      let lastLevelUnlocked;
       let locked = false;
       levelName = allLevelNames[i - 1];
-      if (i === numLevelsUnlocked) {
-        lastLevelUnlocked = true;
-      } else {
-        lastLevelUnlocked = false;
-      }
       if (i > numLevelsUnlocked) {
         levelName = 'Locked';
         locked = true;
       }
 
+      const selected = i === this.state.levelClicked;
+
       buttons.push(
         <button
           className={
-            lastLevelUnlocked
+            selected
               ? 'levelButtonClicked'
               : locked
               ? 'levelButtonLocked'
@@ -54,15 +50,9 @@ export default class CampaignScreen extends Component {
           onClick={() => this.showLevelInfo(i)}
           key={i}
         >
-          <span>
-            <div style={{ position: 'absolute', marginLeft: '8px' }}>
-              {allLevelIDs[i - 1]}{' '}
-            </div>
-            <span
-              style={
-                i < 10 ? { marginLeft: '3.4rem' } : { marginLeft: '3.5rem' }
-              }
-            >
+          <span className="levelButtonContent">
+            <span className="levelButtonId">{allLevelIDs[i - 1]}</span>
+            <span className="levelButtonName">
               {levelName}
             </span>
           </span>
@@ -74,12 +64,6 @@ export default class CampaignScreen extends Component {
 
   showLevelInfo(levelID) {
     if (levelID > numLevelsUnlocked) return;
-    for (let button of document.getElementsByClassName('levelButtonClicked')) {
-      button.classList = 'levelButtons';
-    }
-
-    document.getElementById(levelID).classList = 'levelButtonClicked';
-
     this.setState({ levelClicked: levelID });
   }
 
@@ -89,54 +73,26 @@ export default class CampaignScreen extends Component {
     if (numRandomWallPresses > 0) powerupMessage = 'Active';
 
     return (
-      <div style={{ position: 'absolute', top: '50px' }}>
-        <div>
-          <div className="levelDescriptionContainer">
-            <p className="levelDescription">{getLevelDescription(id)}</p>
-          </div>
+      <div className="levelInfoBody">
+        <div className="levelDescriptionContainer">
+          <p className="levelDescription">{getLevelDescription(id)}</p>
         </div>
-        <div>
-          <div
-            className="infoContainer"
-            style={{ top: '225px', left: '620px' }}
-          >
-            <span>
-              <div className="levelInfoTag">Random Walls</div>
-              <p className="infoText"> {powerupMessage}</p>
-            </span>
+        <div className="levelInfoRows">
+          <div className="infoContainer">
+            <div className="levelInfoTag">Random Walls</div>
+            <p className="infoText">{powerupMessage}</p>
           </div>
-        </div>
-        <div>
-          <div
-            className="infoContainer"
-            style={{ top: '325px', left: '620px' }}
-          >
-            <span>
-              <div className="levelInfoTag">Allowed Walls</div>
-              <span className="infoText">{getLevelAllowedWalls(id)}</span>
-            </span>
+          <div className="infoContainer">
+            <div className="levelInfoTag">Allowed Walls</div>
+            <span className="infoText">{getLevelAllowedWalls(id)}</span>
           </div>
-        </div>
-        <div>
-          <div
-            className="infoContainer"
-            style={{ top: '425px', left: '620px' }}
-          >
-            <span>
-              <div className="levelInfoTag">End Distance</div>
-              <span className="infoText">{getLevelEndDistance(id)}</span>
-            </span>
+          <div className="infoContainer">
+            <div className="levelInfoTag">End Distance</div>
+            <span className="infoText">{getLevelEndDistance(id)}</span>
           </div>
-        </div>
-        <div>
-          <div
-            className="infoContainer"
-            style={{ top: '525px', left: '620px' }}
-          >
-            <span>
-              <div className="levelInfoTag">Difficulty</div>
-              <span className="infoText"> {getLevelDifficulty(id)}</span>
-            </span>
+          <div className="infoContainer">
+            <div className="levelInfoTag">Difficulty</div>
+            <span className="infoText">{getLevelDifficulty(id)}</span>
           </div>
         </div>
       </div>
@@ -145,12 +101,16 @@ export default class CampaignScreen extends Component {
 
   render() {
     return (
-      <>
+      <div className="campaignScreenRoot">
         <div
           style={{
             backgroundColor: 'rgb(187, 211, 223)',
             position: 'absolute',
-            width: '150%',
+            top: '0',
+            right: '0',
+            bottom: '0',
+            left: '0',
+            width: '100%',
             height: '100%',
           }}
         ></div>
@@ -166,7 +126,11 @@ export default class CampaignScreen extends Component {
           onClick={() => {}}
           style={{
             position: 'absolute',
-            width: '150%',
+            top: '0',
+            right: '0',
+            bottom: '0',
+            left: '0',
+            width: '100%',
             height: '100%',
             background: '#1a1717',
             opacity: '0.3',
@@ -176,45 +140,41 @@ export default class CampaignScreen extends Component {
         ></div>
 
         <div className="positioningLevelInfoClass">
-          <div>
+          <div className="campaignStagePanel">
             <div className="levelContainer"></div>
             <div className="levelContainer2"></div>
             <p className="selectStageText">Select Stage</p>
+            <div className="levelButtonList">{this.getLevelButtons(numLevels)}</div>
           </div>
-          <div style={{ position: 'absolute', top: '65px', left: '51px' }}>
-            {this.getLevelButtons(numLevels)}
-          </div>
-          <div style={{ position: 'absolute', left: '-110px' }}>
+          <div className="campaignDetailsPanel">
             <div className="levelInfoContainer">
               <p className="levelNameToRender">
                 {getLevelName(this.state.levelClicked - 1)}
               </p>
             </div>
             <div className="levelInfoContainer2">
-              <button
-                id="startLevelButton"
-                onClick={() =>
-                  EnterLevel(
-                    document
-                      .getElementsByClassName('levelButtonClicked')
-                      .item(0).id
-                  )
-                }
-                className="campaignScreenButton startLevel"
-              >
-                Start Game
-              </button>
-              <button
-                className="campaignScreenButton backButton"
-                onClick={() => EnterHomeFromMenu()}
-              >
-                Back
-              </button>
+              {this.getLevelInfo(this.state.levelClicked - 1)}
+              <div className="campaignActionRow">
+                <button
+                  id="startLevelButton"
+                  onClick={() =>
+                    EnterLevel(this.state.levelClicked)
+                  }
+                  className="campaignScreenButton startLevel"
+                >
+                  Start Game
+                </button>
+                <button
+                  className="campaignScreenButton backButton"
+                  onClick={() => EnterHomeFromMenu()}
+                >
+                  Back
+                </button>
+              </div>
             </div>
-            {this.getLevelInfo(this.state.levelClicked - 1)}
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

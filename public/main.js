@@ -3,8 +3,8 @@ const path = require('path');
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 
-const height = 700;
-const width = 1400;
+const height = 900;
+const width = 1440;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling
 if (require('electron-squirrel-startup')) {
@@ -16,9 +16,20 @@ function createWindow() {
   const win = new BrowserWindow({
     width: width,
     height: height,
+    minWidth: 1024,
+    minHeight: 700,
+    title: "Dijkstra's Game",
+    backgroundColor: '#070a16',
+    autoHideMenuBar: true,
+    show: false,
     webPreferences: {
       nodeIntegration: true,
     },
+  });
+
+  win.once('ready-to-show', () => {
+    win.maximize();
+    win.show();
   });
 
   // and load the index.html of the app.
@@ -33,7 +44,6 @@ function createWindow() {
   if (isDev) {
     win.webContents.openDevTools({ mode: 'detach' });
   }
-  win.maximize();
 
   // on window resize, output the new window size in the console
   // win.on('resize', () => {

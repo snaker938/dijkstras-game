@@ -41,6 +41,12 @@ let END_NODE_COL = 50;
 // Specifies the number of rows and columns
 const NUM_ROWS = 26;
 const NUM_COLUMNS = 51;
+const NODE_WIDTH = 25.1;
+const NODE_HEIGHT = 25;
+const GRID_MARGIN = 24;
+const GRID_TOP_GAP = 18;
+const MAX_GRID_SCALE = 1.2156;
+const MIN_GRID_SCALE = 0.25;
 
 // The maximum number of walls that can be placed randomly on the grid
 let RANDOM_WALL_NUMBER = 400;
@@ -58,9 +64,14 @@ export default class sandboxVisualizer extends Component {
       lastAddedUserLevel: '',
       levelClicked: -1,
       renamingUserLevel: false,
+      gridScale: 1,
+      gridTop: 88,
+      gridLeft: GRID_MARGIN,
       dragging: [false, null, null], // 0: is-dragging ; 1: node-being-dragged ; 2: end/previous node
       //sets the default dragging values of the dragging state. The first index is whether dragging is taking place or node. The second index holds the value of the node that dragging first occurred on, ie. the node the user originally clicks. The third index holds the value of the previous node, and also holds the value of the current node the user is on when they stop dragging all together. The second index is used to get what type of node is being dragged: a start or end node. The third index allows us to remove the class of the previous node, when the new one gets updated to create an illusion like the user is actual dragging the node around.
     };
+
+    this.visualizerRef = React.createRef();
   }
 
   // If the Escape button is pressed, run the Show Options function
@@ -72,8 +83,84 @@ export default class sandboxVisualizer extends Component {
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress, false);
+    window.addEventListener('resize', this.updateVisualizerLayout);
     const grid = initialiseGrid();
     this.setState({ grid });
+    this.updateVisualizerLayout();
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress, false);
+    window.removeEventListener('resize', this.updateVisualizerLayout);
+  }
+
+  updateVisualizerLayout = () => {
+    window.requestAnimationFrame(() => {
+      if (!this.visualizerRef.current) return;
+
+      const topbar =
+        this.visualizerRef.current &&
+        this.visualizerRef.current.querySelector('.topButtonsContainer');
+      const topbarHeight = topbar ? topbar.getBoundingClientRect().height : 70;
+      const baseWidth = NUM_COLUMNS * NODE_WIDTH;
+      const baseHeight = NUM_ROWS * NODE_HEIGHT;
+      const availableWidth = Math.max(
+        window.innerWidth - GRID_MARGIN * 2,
+        baseWidth * MIN_GRID_SCALE
+      );
+      const availableHeight = Math.max(
+        window.innerHeight - topbarHeight - GRID_TOP_GAP - GRID_MARGIN,
+        baseHeight * MIN_GRID_SCALE
+      );
+      const gridScale = Math.max(
+        MIN_GRID_SCALE,
+        Math.min(
+          MAX_GRID_SCALE,
+          availableWidth / baseWidth,
+          availableHeight / baseHeight
+        )
+      );
+      const nextGridScale = Number(gridScale.toFixed(4));
+      const nextGridTop = Math.ceil(topbarHeight + GRID_TOP_GAP);
+      const nextGridLeft = Math.max(
+        GRID_MARGIN,
+        Math.floor((window.innerWidth - baseWidth * nextGridScale) / 2)
+      );
+
+      if (
+        nextGridScale !== this.state.gridScale ||
+        nextGridTop !== this.state.gridTop ||
+        nextGridLeft !== this.state.gridLeft
+      ) {
+        this.setState({
+          gridScale: nextGridScale,
+          gridTop: nextGridTop,
+          gridLeft: nextGridLeft,
+        });
+      }
+    });
+  };
+
+  getPlaneWallColumn() {
+    const planeElement = document.getElementById('plane');
+    const gridElement =
+      this.visualizerRef.current &&
+      this.visualizerRef.current.querySelector('.visualizer-grid');
+
+    if (!planeElement || !gridElement) return null;
+
+    const planeRect = planeElement.getBoundingClientRect();
+    const gridRect = gridElement.getBoundingClientRect();
+    const cellWidth = gridRect.width / NUM_COLUMNS;
+
+    if (!cellWidth) return null;
+
+    const columnPosition = (planeRect.right - gridRect.left) / cellWidth;
+
+    return randomIntFromInterval(
+      Math.floor(columnPosition),
+      Math.ceil(columnPosition)
+    );
   }
 
   toggleOptionsMenu() {
@@ -131,19 +218,11 @@ export default class sandboxVisualizer extends Component {
         for (let i = 0; i < RANDOM_WALL_NUMBER; i++) {
           // let grid = this.state.grid;
           setTimeout(() => {
-            let column =
-              (document.getElementById('plane').getBoundingClientRect().x +
-                520) /
-              27.5;
-
-            column = randomIntFromInterval(
-              Math.floor(column),
-              Math.ceil(column)
-            );
+            let column = this.getPlaneWallColumn();
 
             let grid = this.state.grid;
 
-            if (column <= 50) {
+            if (column !== null && column >= 0 && column < NUM_COLUMNS) {
               // Generates a random row and column number
               let row = Math.floor(Math.random() * NUM_ROWS);
 
@@ -162,7 +241,11 @@ export default class sandboxVisualizer extends Component {
                 grid[row][column] = newNode;
               }
             }
-            if (i % 45 === 0 || i === RANDOM_WALL_NUMBER - 1 || column === 51)
+            if (
+              i % 45 === 0 ||
+              i === RANDOM_WALL_NUMBER - 1 ||
+              column === NUM_COLUMNS
+            )
               this.setState({ grid: grid });
           }, i * 10);
         }
@@ -714,17 +797,9 @@ export default class sandboxVisualizer extends Component {
     return (
       <>
         <div
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '200vh',
-            background: '#1a1717',
-            opacity: '0.5',
-            backdropFilter: 'blur(100px)',
-            zIndex: '99',
-          }}
+          className="visualizer-modal-backdrop"
         ></div>
-        <div style={{ position: 'absolute', left: '-249px', zIndex: '100' }}>
+        <div className="visualizer-modal-shell visualizer-options-shell">
           <div className="mainInfoContainer">
             <p
               style={{ left: '143px', opacity: '1' }}
@@ -832,17 +907,6 @@ export default class sandboxVisualizer extends Component {
                       </div>
                     </div>
                   </div>
-                  {optionsMenuPageButton}
-
-                  <button
-                    style={{ right: '12px', top: '558px' }}
-                    className="optionsMenuButton"
-                    onClick={() => {
-                      this.saveOptions();
-                    }}
-                  >
-                    Save
-                  </button>
                 </div>
               </>
             ) : (
@@ -1103,7 +1167,15 @@ export default class sandboxVisualizer extends Component {
     );
 
     return (
-      <>
+      <div
+        className="visualize-screen visualize-sandbox-screen"
+        ref={this.visualizerRef}
+        style={{
+          '--visualizer-grid-scale': String(this.state.gridScale),
+          '--visualizer-grid-top': `${this.state.gridTop}px`,
+          '--visualizer-grid-left': `${this.state.gridLeft}px`,
+        }}
+      >
         {this.state.showOptionsMenu ? this.getOptionsMenu() : null}
 
         <div
@@ -1120,15 +1192,14 @@ export default class sandboxVisualizer extends Component {
         <div className="topButtonsContainerOutline"></div>
         <div className="topButtonsContainer">
           <button
-            style={{ left: '10px', top: '16px', padding: '5px' }}
-            className="standard-button"
+            className="standard-button topbar-control random-walls-button"
             onClick={() => this.startToAnimatePlane()} // add random walls to the grid and animate plane
           >
             Random Walls
           </button>
 
           <button
-            className="button-82-pushable"
+            className="button-82-pushable start-button"
             onClick={() =>
               startDijkstra(
                 this.state.grid,
@@ -1147,16 +1218,14 @@ export default class sandboxVisualizer extends Component {
           </button>
 
           <button
-            style={{ right: '100px', top: '16px', padding: '5px' }}
-            className="standard-button"
+            className="standard-button topbar-control settings-button"
             onClick={() => this.toggleOptionsMenu()} // Options
           >
             Settings
           </button>
 
           <button
-            style={{ right: '10px', top: '16px', padding: '5px' }}
-            className="standard-button enabled"
+            className="standard-button topbar-control home-button enabled"
             id="homeButton"
             onClick={() => EnterHome(this.state.animatingPlane)}
           >
@@ -1164,7 +1233,10 @@ export default class sandboxVisualizer extends Component {
           </button>
         </div>
 
-        <div className="grid" /*  creates the div that holds the rows*/>
+        <div
+          className="grid visualizer-grid"
+          /*  creates the div that holds the rows*/
+        >
           {/* Loops through the grid variable */}
           {grid.map((row, rowID) => {
             return (
@@ -1208,7 +1280,7 @@ export default class sandboxVisualizer extends Component {
             );
           })}
         </div>
-      </>
+      </div>
     );
   }
 }

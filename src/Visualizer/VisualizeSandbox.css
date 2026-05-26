@@ -379,3 +379,343 @@ body {
 .userLevelButtons:hover {
   opacity: 65%;
 }
+
+.visualize-screen {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  min-width: 320px;
+  overflow: hidden;
+  --visualizer-grid-scale: 1;
+  --visualizer-grid-top: 88px;
+  --visualizer-grid-left: 24px;
+}
+
+.visualize-sandbox-screen {
+  background: lightblue;
+}
+
+.visualize-screen .topButtonsContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 14px;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  min-height: 70px;
+  padding: 10px 14px;
+  background: rgba(26, 23, 23, 0.82);
+  backdrop-filter: blur(10px);
+  opacity: 1;
+}
+
+.visualize-screen .topButtonsContainerOutline {
+  display: none;
+}
+
+.visualize-screen .topbar-control,
+.visualize-screen .standard-button.topbar-control,
+.visualize-screen .standard-button-disabled.topbar-control {
+  position: static;
+  min-height: 38px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  font-size: clamp(14px, 1.5vw, 20px);
+  white-space: nowrap;
+}
+
+.visualize-screen .standard-button-disabled.topbar-control {
+  opacity: 0.3;
+}
+
+.visualize-screen .random-walls-button {
+  order: 1;
+}
+
+.visualize-screen .button-82-pushable.start-button {
+  order: 3;
+  position: relative;
+  top: auto;
+  left: auto;
+  width: clamp(128px, 18vw, 225px);
+  flex: 0 0 auto;
+  transform: none;
+}
+
+.visualize-screen .settings-button {
+  order: 5;
+  margin-left: 0;
+}
+
+.visualize-screen .home-button {
+  order: 6;
+}
+
+.visualize-screen .button-82-front {
+  padding: 10px clamp(24px, 3vw, 42px);
+  font-size: clamp(0.95rem, 1.6vw, 1.25rem);
+}
+
+.visualize-screen .visualizer-grid {
+  position: absolute;
+  top: var(--visualizer-grid-top);
+  left: var(--visualizer-grid-left);
+  width: 1280.1px;
+  height: 650px;
+  background: rgb(101, 97, 97);
+  background: linear-gradient(
+    90deg,
+    rgba(101, 97, 97, 1) 0%,
+    rgba(82, 77, 77, 1) 50%,
+    rgb(103, 97, 97) 75%,
+    rgb(84, 81, 81) 100%
+  );
+  transform: scale(var(--visualizer-grid-scale));
+  transform-origin: top left;
+  will-change: transform;
+  z-index: 1;
+}
+
+.visualize-screen .grid > div {
+  height: 25px;
+  white-space: nowrap;
+}
+
+.visualize-screen .plane {
+  top: calc(var(--visualizer-grid-top) + 35px);
+  width: clamp(180px, 24vw, 350px);
+  height: auto;
+}
+
+@media (max-width: 760px) {
+  .visualize-screen .topButtonsContainer {
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .visualize-screen .topbar-control,
+  .visualize-screen .standard-button.topbar-control,
+  .visualize-screen .standard-button-disabled.topbar-control {
+    flex: 1 1 calc(50% - 8px);
+  }
+
+  .visualize-screen .button-82-pushable.start-button {
+    flex: 1 1 calc(50% - 8px);
+    max-width: 180px;
+  }
+}
+
+.visualize-screen .visualizer-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(26, 23, 23, 0.68);
+  backdrop-filter: blur(14px);
+}
+
+.visualize-screen .visualizer-modal-shell {
+  position: fixed;
+  top: clamp(78px, 11vh, 118px);
+  left: 50%;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: min(920px, calc(100vw - 32px));
+  max-height: min(760px, calc(100vh - 108px));
+  color: white;
+  font-family: QTYPE, sans-serif;
+  transform: translateX(-50%);
+}
+
+.visualize-screen .mainInfoContainer {
+  position: relative;
+  top: auto;
+  left: auto;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  padding: clamp(12px, 2.5vw, 18px) clamp(18px, 4vw, 32px);
+  border: 0;
+  background: rgba(26, 23, 23, 0.92);
+  opacity: 1;
+  clip-path: polygon(5% 0, 95% 0, 100% 100%, 0 100%);
+}
+
+.visualize-screen .mainInfoContainer2 {
+  position: relative;
+  top: auto;
+  left: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 16px;
+  align-items: start;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  max-height: min(620px, calc(100vh - 192px));
+  padding: clamp(18px, 3vw, 30px);
+  overflow: auto;
+  background: rgba(26, 23, 23, 0.86);
+  opacity: 1;
+  backdrop-filter: blur(10px);
+}
+
+.visualize-screen .mainTextToRender {
+  position: static;
+  display: block;
+  margin: 0;
+  color: white;
+  font-family: QTYPEBOLD, QTYPE, sans-serif;
+  font-size: clamp(1.45rem, 4vw, 2.6rem);
+  line-height: 1.1;
+  text-align: center;
+  opacity: 1;
+}
+
+.visualize-screen .optionsMenuButton {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: end;
+  min-height: 42px;
+  margin: 8px 0 0;
+  padding: 0 12px;
+  font-size: clamp(1.4rem, 4vw, 2.5rem);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.visualize-screen .toggle-grid-holder,
+.visualize-screen .toggle-onclick-holder,
+.visualize-screen .toggle-permanent-holder,
+.visualize-screen .optionsMenuDevelopment,
+.visualize-screen .loadGridButton,
+.visualize-screen .saveGridButton,
+.visualize-screen .saveUserGridButton,
+.visualize-screen .endDistanceOptions,
+.visualize-screen .developmentOptionsText {
+  position: static;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  z-index: auto;
+}
+
+.visualize-screen .toggle-grid-holder,
+.visualize-screen .toggle-onclick-holder,
+.visualize-screen .toggle-permanent-holder {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  opacity: 1;
+}
+
+.visualize-screen .optionsMenuDevelopment {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: 12px;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+.visualize-screen .developmentOptionsText {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  white-space: normal;
+}
+
+.visualize-screen .endDistanceOptions {
+  margin: 0 0 8px;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+}
+
+.visualize-screen .standard-button-options {
+  position: static;
+  width: fit-content;
+  min-height: 40px;
+  justify-self: start;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+}
+
+.visualize-screen .visualizer-modal-shell input.usernameInput {
+  position: static !important;
+  width: min(100%, 360px) !important;
+  box-sizing: border-box;
+}
+
+.visualize-screen .wrapperDiv {
+  position: relative;
+  top: auto;
+  right: auto;
+  width: 1280px;
+  height: 294px;
+  transform: scale(0.45);
+  transform-origin: top left;
+}
+
+.visualize-screen .outerSmallerGridContainer {
+  width: 100%;
+  height: auto;
+  overflow: auto;
+}
+
+.visualize-screen .gridSmaller {
+  position: relative;
+  left: auto;
+  width: 1280px;
+}
+
+.visualize-screen .userLevelButtons,
+.visualize-screen .userLevelButtonsClicked {
+  left: auto;
+  box-sizing: border-box;
+  width: min(100%, 520px);
+}
+
+@media (max-width: 760px) {
+  .visualize-screen .visualizer-modal-shell {
+    top: 72px;
+    width: calc(100vw - 20px);
+    max-height: calc(100vh - 84px);
+  }
+
+  .visualize-screen .mainInfoContainer2 {
+    max-height: calc(100vh - 160px);
+    padding: 14px;
+  }
+
+  .visualize-screen .mainInfoContainer {
+    padding: 12px 18px;
+    clip-path: polygon(7% 0, 93% 0, 100% 100%, 0 100%);
+  }
+
+  .visualize-screen .optionsMenuButton,
+  .visualize-screen .standard-button-options {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .visualize-screen .wrapperDiv {
+    height: 196px;
+    transform: scale(0.3);
+  }
+}

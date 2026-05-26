@@ -25,6 +25,8 @@
     "test": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts test",
     "eject": "react-scripts eject",
     "electron": "wait-on tcp:3000 && electron-forge start",
+    "electron:prod": "npm run build && cross-env ELECTRON_IS_DEV=0 electron .",
+    "desktop": "npm run electron:prod",
     "dev": "concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
     "package": "npm run build && electron-forge package",
     "make": "npm run build && electron-forge make"
