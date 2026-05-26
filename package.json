@@ -57,6 +57,7 @@
     "@electron-forge/maker-zip": "^6.0.0-beta.61",
     "concurrently": "^5.2.0",
     "electron": "^9.1.1",
+    "react-error-overlay": "6.0.9",
     "wait-on": "^5.1.0"
   },
   "config": {
