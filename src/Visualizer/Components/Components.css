@@ -1,39 +1,57 @@
-/* Track */
-#userLevelsContainer::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
-  border-radius: 10px;
+.scrollable-box {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-color: transparent transparent;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  transition: scrollbar-color 180ms ease;
 }
 
-/* Handle */
-#userLevelsContainer::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 10px;
+.scrollable-box:hover,
+.scrollable-box:focus,
+.scrollable-box:focus-within,
+.scrollable-box--scrolling {
+  scrollbar-color: #888 transparent;
 }
 
-/* Handle on hover */
-#userLevelsContainer::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
-/* Corner */
-#userLevelsContainer::-webkit-scrollbar-corner {
-  background-color: #f1f1f1;
-}
-
-/* Resizer */
-#userLevelsContainer::-webkit-scrollbar-resizer {
-  background-color: #f1f1f1;
-}
-
-/* Scrollbar width and height */
-#userLevelsContainer::-webkit-scrollbar {
+.scrollable-box::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-#userLevelsContainer {
-  box-sizing: border-box;
-  max-width: 100%;
-  min-width: 0;
-  overflow-x: hidden;
+.scrollable-box::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+.scrollable-box::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  transition: background-color 180ms ease;
+}
+
+.scrollable-box:hover::-webkit-scrollbar-thumb,
+.scrollable-box:focus::-webkit-scrollbar-thumb,
+.scrollable-box:focus-within::-webkit-scrollbar-thumb,
+.scrollable-box--scrolling::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+.scrollable-box::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.scrollable-box::-webkit-scrollbar-corner,
+.scrollable-box::-webkit-scrollbar-resizer {
+  background-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollable-box,
+  .scrollable-box::-webkit-scrollbar-thumb {
+    transition: none;
+  }
 }

@@ -3,7 +3,7 @@
   "levelName": "The Three Walled Rows",
   "randomWallPressesAllowed": 0,
   "difficulty": "Easy",
-  "description": "Our plan to confuse the missile AI has failed, now all we have are some three walled rows to protect us!",
+  "description": "A risky decoy-wall plan has failed. Use the remaining rows to force a longer route before impact.",
   "startNodeCoords": [0, 25],
   "endNodeCoords": [48, 25],
   "wallsAllowed": 10,

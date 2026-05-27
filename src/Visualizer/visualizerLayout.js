@@ -36,11 +36,29 @@ export function getPlaneTravelBounds(gridElement, planeElement) {
 
   const gridRect = gridElement.getBoundingClientRect();
   const planeRect = planeElement.getBoundingClientRect();
-  const planeWidth = planeRect.width || planeElement.offsetWidth || 350;
+  const planeStyles = window.getComputedStyle(planeElement);
+  const styledPlaneWidth = Number.parseFloat(planeStyles.width);
+  const styledPlaneHeight = Number.parseFloat(planeStyles.height);
+  const naturalPlaneRatio =
+    planeElement.naturalWidth > 0 && planeElement.naturalHeight > 0
+      ? planeElement.naturalHeight / planeElement.naturalWidth
+      : 1;
+  const planeWidth =
+    planeRect.width ||
+    planeElement.offsetWidth ||
+    styledPlaneWidth ||
+    350;
+  const planeHeight =
+    planeRect.height ||
+    planeElement.offsetHeight ||
+    styledPlaneHeight ||
+    planeWidth * naturalPlaneRatio ||
+    350;
   const padding = Math.max(24, Math.min(72, gridRect.width * 0.04));
 
   return {
     startX: Math.floor(gridRect.left - planeWidth - padding),
     endX: Math.ceil(gridRect.right + padding),
+    centerY: Math.round(gridRect.top + gridRect.height / 2 - planeHeight / 2),
   };
 }

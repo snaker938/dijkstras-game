@@ -19,13 +19,12 @@ const agentTwoShort = 'Agent Jenkins';
 const agentFourShort = 'Agent Leonard';
 const agentFiveShort = 'Officer Harold';
 const agentSixShort = 'Agent Rick';
-const agentSevenShort = 'Command Reese';
+const agentSevenShort = 'Commander Reese';
 const agentEightShort = 'Director Finch';
 
 const mrSmithShort = 'Mr Smith';
 
-let sceneBreaker =
-  '<------------------------------------------------------------------------------------------------------------------------------------------>';
+let sceneBreaker = '--- Transmission Break ---';
 
 const dialogueModules = import.meta.glob('./dialogue/level-*.json', {
   eager: true,

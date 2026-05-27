@@ -3,7 +3,7 @@
   "levelName": "Our Turn",
   "randomWallPressesAllowed": 0,
   "difficulty": "Very Hard",
-  "description": "While we attack the enemy, you must make sure that the enemy doesn't launch a surprise attack on us!",
+  "description": "Our counterattack is underway. Guard the base while the enemy looks for a chance to strike back.",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 10,

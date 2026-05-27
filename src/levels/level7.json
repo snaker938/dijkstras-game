@@ -3,7 +3,7 @@
   "levelName": "Communication Catastrophe",
   "randomWallPressesAllowed": 0,
   "difficulty": "Hard",
-  "description": "We have a GPS location on our enemy, we are sending some agents to check it out - you must make sure the enemy doesn't destroy our communication system!",
+  "description": "Field agents are moving on the enemy location. Keep communications alive or they will be stranded.",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 10,

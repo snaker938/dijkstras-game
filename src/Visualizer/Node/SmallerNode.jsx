@@ -3,7 +3,15 @@ import './Node.css';
 
 export default class NodeSmaller extends Component {
   render() {
-    const { col, row, isStart, isEnd, isWall, isPermanentWall } = this.props; // defines the properties of the node
+    const {
+      col,
+      row,
+      isStart,
+      isEnd,
+      isWall,
+      isPermanentWall,
+      isRandomWall,
+    } = this.props; // defines the properties of the node
 
     const specialNode = getSpecialNode();
 
@@ -11,6 +19,8 @@ export default class NodeSmaller extends Component {
     function getSpecialNode() {
       if (isEnd) return 'node-smaller-end';
       else if (isStart) return 'node-smaller-start';
+      else if (isRandomWall)
+        return 'node-smaller-wall node-smaller-permanent-wall node-smaller-random-wall';
       else if (isPermanentWall)
         return 'node-smaller-wall node-smaller-permanent-wall';
       else if (isWall) return 'node-smaller-wall';

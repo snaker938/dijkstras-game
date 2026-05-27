@@ -3,7 +3,7 @@
   "levelName": "New Location",
   "randomWallPressesAllowed": 0,
   "difficulty": "Medium",
-  "description": "We have arrived at our second base safely - but our enemy know where we are! You must defend us!",
+  "description": "The second base is secure for now, but the enemy knows where we are. Defend the new location.",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 10,

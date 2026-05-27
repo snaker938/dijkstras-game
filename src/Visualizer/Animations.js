@@ -1,8 +1,11 @@
 import { sendError } from './errorHandling';
 import {
   getCurrentDisplayOutlineClass,
+  getAnimationSpeedMultiplier,
+  getVisualizerPaused,
   getMissileTrailLength,
   getSandboxEndExplosionToggled,
+  getShowSandboxWallUsage,
   getUseCampaignMissileTrailInSandbox,
   shouldShowNodeNumbers,
 } from '../optionsHandling';
@@ -23,13 +26,28 @@ function getNodeElement(node) {
 
 function setNodeClass(node, className) {
   const nodeElement = getNodeElement(node);
-  if (nodeElement) nodeElement.className = className;
+  if (!nodeElement) return;
+
+  const showNodeNumberClass = nodeElement.classList.contains('node-show-number')
+    ? ' node-show-number'
+    : '';
+  nodeElement.className = `${className}${showNodeNumberClass}`;
 }
 
 function setNodeText(node, text) {
   if (!node) return;
   const nodeElement = getNodeElement(node);
-  if (nodeElement) nodeElement.innerHTML = text;
+  if (!nodeElement) return;
+
+  const nodeNumberLabel = nodeElement.querySelector('.node-number-label');
+  const shouldClear = text === `&nbsp` || text === `&nbsp;`;
+
+  if (nodeNumberLabel) {
+    nodeNumberLabel.textContent = shouldClear ? '' : String(text);
+    return;
+  }
+
+  nodeElement.innerHTML = text;
 }
 
 function setNodeDistance(node) {
@@ -41,8 +59,87 @@ function enableHomeButton() {
   if (homeButton) homeButton.classList.add('enabled');
 }
 
+function getAnimationDelay(baseDelay) {
+  return baseDelay / getAnimationSpeedMultiplier();
+}
+
+let animationClockTime = 0;
+let animationClockLastTimestamp = null;
+let animationFrameId = null;
+let animationTaskId = 0;
+let animationTasks = [];
+
+function flushAnimationTasks() {
+  animationTasks.sort((first, second) => {
+    if (first.targetTime !== second.targetTime) {
+      return first.targetTime - second.targetTime;
+    }
+
+    return first.id - second.id;
+  });
+
+  while (
+    animationTasks.length > 0 &&
+    animationTasks[0].targetTime <= animationClockTime
+  ) {
+    const task = animationTasks.shift();
+    task.callback();
+  }
+}
+
+function runAnimationClock(timestamp) {
+  if (animationClockLastTimestamp === null) {
+    animationClockLastTimestamp = timestamp;
+  }
+
+  if (!getVisualizerPaused()) {
+    animationClockTime += timestamp - animationClockLastTimestamp;
+  }
+
+  animationClockLastTimestamp = timestamp;
+  flushAnimationTasks();
+
+  if (animationTasks.length > 0) {
+    animationFrameId = requestAnimationFrame(runAnimationClock);
+    return;
+  }
+
+  animationFrameId = null;
+  animationClockLastTimestamp = null;
+}
+
+function scheduleAnimation(callback, baseDelay) {
+  animationTasks.push({
+    id: animationTaskId++,
+    targetTime: animationClockTime + getAnimationDelay(baseDelay),
+    callback,
+  });
+
+  if (animationFrameId === null) {
+    animationFrameId = requestAnimationFrame(runAnimationClock);
+  }
+}
+
+export function clearAnimationQueue() {
+  animationTasks = [];
+  if (animationFrameId !== null) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
+  animationClockLastTimestamp = null;
+  animationClockTime = 0;
+}
+
 function shouldUseMissileTrail() {
-  return !inSandbox || getUseCampaignMissileTrailInSandbox();
+  return (
+    !inSandbox ||
+    getShowSandboxWallUsage() ||
+    getUseCampaignMissileTrailInSandbox()
+  );
+}
+
+function shouldUseSandboxImpactEndHit() {
+  return inSandbox && !getSandboxEndExplosionToggled();
 }
 
 function getActualEndNode(fallbackNode) {
@@ -62,7 +159,72 @@ function getActualEndNode(fallbackNode) {
   };
 }
 
-function finishMissileAtEnd(fallbackNode, displayedDistance) {
+function isSameGridNode(firstNode, secondNode) {
+  return (
+    firstNode &&
+    secondNode &&
+    Number(firstNode.row) === Number(secondNode.row) &&
+    Number(firstNode.col) === Number(secondNode.col)
+  );
+}
+
+function animateSandboxEndHit(pathNodes, fallbackNode, displayedDistance) {
+  if (!inSandbox || !fallbackNode) return false;
+
+  const endNode = getActualEndNode(fallbackNode);
+  if (!endNode) return false;
+
+  const impactNodes = pathNodes.length > 0 ? [...pathNodes] : [fallbackNode];
+  const lastImpactNode = impactNodes[impactNodes.length - 1];
+  if (!isSameGridNode(lastImpactNode, endNode)) impactNodes.push(endNode);
+  const pulseDelay = 34;
+
+  impactNodes.forEach((node, index) => {
+    scheduleAnimation(() => {
+      setNodeDistance(node);
+      setNodeClass(
+        node,
+        `${getCurrentDisplayOutlineClass()} ${
+          isSameGridNode(node, endNode)
+            ? 'node-sandbox-impact-end'
+            : 'node-sandbox-impact-trail'
+        }`
+      );
+    }, pulseDelay * index);
+  });
+
+  scheduleAnimation(() => {
+    const endNodeElement = getNodeElement(endNode);
+    setNodeText(
+      endNode,
+      shouldShowNodeNumbers(inSandbox) ? displayedDistance : `&nbsp`
+    );
+
+    if (!endNodeElement) {
+      enableHomeButton();
+      return;
+    }
+
+    const handleAnimationEnd = function () {
+      enableHomeButton();
+      endNodeElement.removeEventListener('animationend', handleAnimationEnd);
+    };
+
+    endNodeElement.addEventListener('animationend', handleAnimationEnd);
+    endNodeElement.className = `${getCurrentDisplayOutlineClass()} node-sandbox-impact-end`;
+  }, pulseDelay * impactNodes.length);
+
+  return true;
+}
+
+function finishMissileAtEnd(fallbackNode, displayedDistance, pathNodes = []) {
+  if (
+    shouldUseSandboxImpactEndHit() &&
+    animateSandboxEndHit(pathNodes, fallbackNode, displayedDistance)
+  ) {
+    return;
+  }
+
   const endNode = getActualEndNode(fallbackNode);
   if (!endNode) {
     enableHomeButton();
@@ -74,7 +236,11 @@ function finishMissileAtEnd(fallbackNode, displayedDistance) {
     shouldShowNodeNumbers(inSandbox) ? displayedDistance : `&nbsp`
   );
 
-  if (inSandbox && !getSandboxEndExplosionToggled()) {
+  if (
+    inSandbox &&
+    !getSandboxEndExplosionToggled() &&
+    !getShowSandboxWallUsage()
+  ) {
     enableHomeButton();
     return;
   }
@@ -97,15 +263,41 @@ function finishMissileAtEnd(fallbackNode, displayedDistance) {
   endNodeElement.addEventListener('animationend', handleAnimationEnd);
 }
 
+function getVisitedNodeAnimationClass(node, maxVisitedDistance) {
+  const distance = Number(node?.distance);
+  const maxDistance = Number(maxVisitedDistance);
+
+  if (!Number.isFinite(distance) || !Number.isFinite(maxDistance)) {
+    return 'node-visited';
+  }
+
+  if (maxDistance >= 4 && distance >= maxDistance - 1) {
+    return 'node-visited node-visited-outermost';
+  }
+
+  if (maxDistance >= 8 && distance >= maxDistance - 4) {
+    return 'node-visited node-visited-outer';
+  }
+
+  return 'node-visited';
+}
+
 export function animateAllNodes(
   visitedNodesInOrder,
   nodesInShortestPathOrder,
   endDistance
 ) {
+  const maxVisitedDistance = visitedNodesInOrder.reduce((maxDistance, node) => {
+    const distance = Number(node?.distance);
+    return Number.isFinite(distance)
+      ? Math.max(maxDistance, distance)
+      : maxDistance;
+  }, -Infinity);
+
   for (let i = 0; i <= visitedNodesInOrder.length; i++) {
     if (i === visitedNodesInOrder.length) {
       if (nodesInShortestPathOrder.length === 0) {
-        setTimeout(() => {
+        scheduleAnimation(() => {
           if (!inSandbox) sendError('NO-PATH');
           // If there is no path, and the user is in the Campaign, animate the "NO-PATH" error message
           else sendError('NO-PATH-SANDBOX'); // If there is no path, and the user is in the Sandbox, animate the "NO-PATH-SANDBOX" error message
@@ -113,15 +305,21 @@ export function animateAllNodes(
         }, 8 * i);
       }
       // These lines of code run once all the nodes have been animated - because once they have all been animated, the shortest path needs to be animated
-      setTimeout(() => {
+      scheduleAnimation(() => {
         animateShortestPath(nodesInShortestPathOrder, Number(endDistance));
       }, 8 * i);
       return;
     }
-    setTimeout(() => {
+    scheduleAnimation(() => {
       // This animates all the visited nodes, excluding the start node
       const node = visitedNodesInOrder[i];
-      setNodeClass(node, `${getCurrentDisplayOutlineClass()} node-visited`);
+      setNodeClass(
+        node,
+        `${getCurrentDisplayOutlineClass()} ${getVisitedNodeAnimationClass(
+          node,
+          maxVisitedDistance
+        )}`
+      );
       setNodeDistance(node);
     }, 6 * i);
   }
@@ -160,7 +358,7 @@ export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
   const useMissileTrail = shouldUseMissileTrail();
 
   for (let i = 0; i < loopLength; i++) {
-    setTimeout(() => {
+    scheduleAnimation(() => {
       if (
         // Check that the next node in the shortest path is less than the endDistance, if it isn't, then end the trail as the missile did not reach the end node
         nodesInShortestPathOrder[i].distance >
@@ -233,7 +431,7 @@ export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
           if (i === nodesInShortestPathOrder.length - 1) {
             const remainingTrailLength = nodesToAnimate.length;
             for (let count = 1; count <= remainingTrailLength; count++) {
-              setTimeout(() => {
+              scheduleAnimation(() => {
                 const nodeToUnAnimate = nodesToAnimate.shift();
                 if (nodeToUnAnimate) {
                   setNodeClass(
@@ -243,14 +441,22 @@ export function animateShortestPath(nodesInShortestPathOrder, endDistance) {
                 }
 
                 if (count === remainingTrailLength) {
-                  finishMissileAtEnd(node, loopLength + 1);
+                  finishMissileAtEnd(
+                    node,
+                    loopLength + 1,
+                    nodesInShortestPathOrder
+                  );
                 }
               }, 250 * count);
             }
           }
         } else {
           if (i === nodesInShortestPathOrder.length - 1) {
-            finishMissileAtEnd(node, nodesInShortestPathOrder[i].distance);
+            finishMissileAtEnd(
+              node,
+              nodesInShortestPathOrder[i].distance,
+              nodesInShortestPathOrder
+            );
           }
         }
       }
@@ -277,7 +483,7 @@ export function endTrail(endIndex, nodesInShortestPathOrder) {
         } else enableHomeButton();
       }
     } else {
-      setTimeout(() => {
+      scheduleAnimation(() => {
         // Used [count - 2 - x] for the index as the setTimout reverses the for loop, so instead from starting from endIndex, going to 0, it starts from 0 to endIndex. The count - 2 - x, reverses this reversal, so the nodes are selected from the top down, like it should be.
         const node = nodesInShortestPathOrder[counter - 2 - x];
 
@@ -302,7 +508,7 @@ export function animateNoProperPath(errorMessage, otherNodes, importantNodes) {
   // This for loop animates all the nodes that display the actual error message
 
   for (let i = 0; i < importantNodes.length; i++) {
-    setTimeout(() => {
+    scheduleAnimation(() => {
       const node = importantNodes[i];
       document.getElementById(
         `node-${node.row}-${node.col}`
@@ -311,7 +517,7 @@ export function animateNoProperPath(errorMessage, otherNodes, importantNodes) {
   }
 
   for (let i = 0; i < errorMessage.length; i++) {
-    setTimeout(() => {
+    scheduleAnimation(() => {
       const node = errorMessage[i];
       document.getElementById(
         `node-${node.row}-${node.col}`
@@ -322,7 +528,7 @@ export function animateNoProperPath(errorMessage, otherNodes, importantNodes) {
   // This for loop animates the other nodes in the message- ie. all the nodes that are not the actual, error message
   for (let i = 0; i < otherNodes.length; i++) {
     // First, toggle the classlist of the homebutton to remove the "enabled" class. This means that animations are playing.
-    setTimeout(() => {
+    scheduleAnimation(() => {
       const node = otherNodes[i];
       document.getElementById(
         `node-${node.row}-${node.col}`

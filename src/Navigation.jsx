@@ -70,29 +70,20 @@ function EnterLevel(levelNum) {
 }
 
 // The user wants to enter the home page from the sandbox or level
-function EnterHome(animatingPlane) {
-  const button = document.getElementById('homeButton');
-  if (!button) return;
+function EnterHome() {
+  inSandbox = false;
 
-  const classes = button.classList;
+  setHasShownDialogueMenu(false);
+  setCurrentDialogueLineNumber(0);
+  setTutorialHasEnded(false);
+  setHasShownTutorial(false);
+  setHasDialogueEnded(false);
 
-  // Makes sure the user cannot enter the home page which animations are playing
-  if (classes.contains('enabled') && !animatingPlane) {
-    inSandbox = false;
-
-    setHasShownDialogueMenu(false);
-    setCurrentDialogueLineNumber(0);
-    setTutorialHasEnded(false);
-    setHasShownTutorial(false);
-    setHasDialogueEnded(false);
-
-    renderScreen(
-      <div className="App">
-        <HomeScreen></HomeScreen>
-      </div>
-    );
-  } else {
-  }
+  renderScreen(
+    <div className="App">
+      <HomeScreen></HomeScreen>
+    </div>
+  );
 }
 
 // The user wants to leave to the Home page, from the campaign screen

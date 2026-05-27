@@ -22,19 +22,26 @@ export function resetAllNodes(grid) {
         needClassAdded = true;
 
       let specialClass = '';
-      if (node.isPermanentWall) specialClass = 'node-wall node-permanent-wall';
-      if (node.isWall && !node.isPermanentWall) specialClass = 'node-wall';
+      if (node.isRandomWall)
+        specialClass = 'node-wall node-permanent-wall node-random-wall';
+      else if (node.isPermanentWall)
+        specialClass = 'node-wall node-permanent-wall';
+      else if (node.isWall) specialClass = 'node-wall';
       if (node.isStart) specialClass = 'node-start';
       if (node.isEnd) specialClass = 'node-end';
       node.previousNode = null;
-      document.getElementById(
-        `node-${node.row}-${node.col}`
-      ).className = `${getDisplayOutlineClass(
+      const nodeElement = document.getElementById(`node-${node.row}-${node.col}`);
+      const showNodeNumberClass = nodeElement.classList.contains(
+        'node-show-number'
+      )
+        ? ' node-show-number'
+        : '';
+      nodeElement.className = `${getDisplayOutlineClass(
         isGridOutlineToggled()
-      )} ${specialClass}`;
-      document.getElementById(
-        `node-${node.row}-${node.col}`
-      ).innerHTML = `&nbsp`; // resets the innerHTML of the node to a blank space so that the grid does not shift when the nodes are animated
+      )} ${specialClass}${showNodeNumberClass}`;
+      const nodeNumberLabel = nodeElement.querySelector('.node-number-label');
+      if (nodeNumberLabel) nodeNumberLabel.textContent = '';
+      else nodeElement.innerHTML = `&nbsp`;
       if (needClassAdded)
         document
           .getElementById(`node-${node.row}-${node.col}`)

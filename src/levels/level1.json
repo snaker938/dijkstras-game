@@ -3,7 +3,7 @@
   "levelName": "Every Other One",
   "randomWallPressesAllowed": 0,
   "difficulty": "Very Easy",
-  "description": "Seems like there is a problem with our defences. Only every other one is active!",
+  "description": "Our defence grid is damaged: only every other barrier is active. Keep the next missile away from the base.",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 10,

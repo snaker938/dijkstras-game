@@ -93,8 +93,8 @@ export default class CampaignScreen extends Component {
 
   getLevelInfo(id) {
     let numRandomWallPresses = getLevelRandomWallPresses(id);
-    let powerupMessage = 'None';
-    if (numRandomWallPresses > 0) powerupMessage = 'Active';
+    let powerupMessage = 'Not available';
+    if (numRandomWallPresses > 0) powerupMessage = 'Available';
 
     return (
       <div className="levelInfoBody">
@@ -103,7 +103,7 @@ export default class CampaignScreen extends Component {
         </div>
         <div className="levelInfoRows">
           <div className="infoContainer">
-            <div className="levelInfoTag">Random Walls</div>
+            <div className="levelInfoTag">Random Wall Power-Up</div>
             <p className="infoText">{powerupMessage}</p>
           </div>
           <div className="infoContainer">
@@ -141,7 +141,7 @@ export default class CampaignScreen extends Component {
 
         <div className="imgbox">
           <img
-            alt="test"
+            alt="Campaign background"
             className="center-fit"
             src={backgroundImagePath}
           ></img>
@@ -167,7 +167,7 @@ export default class CampaignScreen extends Component {
           <div className="campaignStagePanel">
             <div className="levelContainer"></div>
             <div className="levelContainer2"></div>
-            <p className="selectStageText">Select Stage</p>
+            <p className="selectStageText">Select Level</p>
             <div className="levelButtonList">{this.getLevelButtons(numLevels)}</div>
           </div>
           <div className="campaignDetailsPanel">
@@ -186,7 +186,7 @@ export default class CampaignScreen extends Component {
                   }
                   className="campaignScreenButton startLevel"
                 >
-                  Start Game
+                  Start Level
                 </button>
                 <button
                   className="campaignScreenButton backButton"

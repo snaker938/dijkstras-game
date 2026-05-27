@@ -3,7 +3,7 @@
   "levelName": "New Threat",
   "randomWallPressesAllowed": 0,
   "difficulty": "Extremely Hard",
-  "description": "Something peculiar has been spotted on our radar, and it's heading right towards us...",
+  "description": "Radar has detected something huge, fast, and unfamiliar. Whatever it is, it is heading straight for us.",
   "startNodeCoords": [7, 7],
   "endNodeCoords": [43, 18],
   "wallsAllowed": 10,

@@ -3,7 +3,7 @@
   "levelName": "Circular Motion",
   "randomWallPressesAllowed": 0,
   "difficulty": "Easy",
-  "description": "Our main base has been wiped out, we are on the move to a temporary one. Hold them off untill reinforcements arrive!",
+  "description": "The main base is gone and the convoy is exposed. Hold the missile off until reinforcements arrive.",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 10,

@@ -1,46 +1,84 @@
 {
   "dialogue": [
-    [6, "We have a GPS location of {20}..", 2],
-    [1, "Where was he hiding?", 1],
-    [6, "In a small farm near the South Coast..", 2],
-    [4, "You've got to be joking!", 1],
     [
       6,
-      "Of course I'm joking! He is in a high-security underground bunker in Middlesbrough..",
+      "We found Smith.",
       2
     ],
-    [4, "And I thought my jokes were bad..", 1],
-    [8, "We will send in our best agents for this mission..", 2],
-    [7, "I'll start rounding them up!", 1],
     [
-      8,
-      "This is one of the most crucial missions we have ever done. We need to bring {20} back here for questioning, so we can figure out what is really going on here, and the reason behind these attacks..",
+      1,
+      "Where?",
       1
     ],
-    [null, "*the sound of sirens start blaring again*", 3],
-    [4, "Hmm, that's very strange..", 1],
-    [1000, "", 3],
-    [3, "What is it?", 2],
+    [
+      6,
+      "A high-security underground bunker in Middlesbrough.",
+      2
+    ],
     [
       4,
-      "Well, the system is saying that the intended target is the underground bunker in Middlesbrough. The missile seems to be of the digging variety..",
+      "That is less dramatic than I expected and somehow worse.",
       1
     ],
-    [1, "What? Why would they be attacking their own base?", 2],
     [
       8,
-      "My guess is that the secrets that {20} hold are so valuable, he is willing to die to make sure that the information he has does not get leaked...",
+      "We need him alive. He is the only person who can explain the larger plan.",
+      1
+    ],
+    [
+      7,
+      "Strike team is ready.",
+      2
+    ],
+    [
+      null,
+      "*sirens begin before the deployment order is finished*",
+      3
+    ],
+    [
+      4,
+      "This is strange. The missile target is Smith's bunker.",
       1
     ],
     [
       1,
-      "Surely you are not implying that we actually have to protect this bunker from the missile, and capture {20} at the same time?",
+      "They are attacking their own hideout?",
+      2
+    ],
+    [
+      8,
+      "Or Smith would rather die than be questioned.",
       1
     ],
-    [5, "I think that is exactly what the Director is suggesting...", 2],
-    [4, "I don't think we are winning this one...", 1],
-    [1, "Just gets the walls ready, would you..", 2],
-    [4, "On it Boss...", 1],
-    [0, ""]
+    [
+      1000,
+      "",
+      3
+    ],
+    [
+      5,
+      "That means we protect the bunker long enough to capture the man inside it.",
+      2
+    ],
+    [
+      4,
+      "The missile is a digging variant. End distance: {endDistance}.",
+      1
+    ],
+    [
+      1,
+      "Protect the enemy asset, capture the enemy architect. Simple.",
+      2
+    ],
+    [
+      8,
+      "Nothing about this is simple. Begin.",
+      1
+    ],
+    [
+      0,
+      "",
+      3
+    ]
   ]
 }

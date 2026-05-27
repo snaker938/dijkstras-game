@@ -3,7 +3,7 @@
   "levelName": "Symmetrical Surveillance",
   "randomWallPressesAllowed": 1,
   "difficulty": "Very Easy",
-  "description": "The enemy is targetting our surveillance system! You must stop them at once - otherwise our eyes and ears will be wiped out!",
+  "description": "The enemy is targeting our surveillance system. Stop the strike before our eyes and ears go dark.",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 10,

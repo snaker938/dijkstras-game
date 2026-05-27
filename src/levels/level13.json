@@ -3,7 +3,7 @@
   "levelName": "Captured",
   "randomWallPressesAllowed": 0,
   "difficulty": "Nightmare",
-  "description": "While we interrogate the captured Mr Smith, you must stop the enemy from freeing him with an explosive missile!",
+  "description": "Smith is in custody, but the enemy wants the interrogation stopped. Defend the holding block.",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 47,

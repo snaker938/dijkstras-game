@@ -3,7 +3,7 @@
   "levelName": "Intel",
   "randomWallPressesAllowed": 0,
   "difficulty": "Medium",
-  "description": "New information has been received about the whereabouts of the enemy base. Hold them off while we locate them using our satelites!",
+  "description": "Fresh intelligence may reveal the enemy base. Protect the GPS network while our satellites narrow the search.",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 10,

@@ -1,59 +1,79 @@
 {
   "dialogue": [
-    [3, "Nicely handled {userName}!", 2],
+    [
+      3,
+      "Surveillance is stable. Good work.",
+      2
+    ],
     [
       4,
-      "Definitely! While all that was going on, I took another look at the missile's software - and I think I've found something..",
+      "I have been studying how the missile classifies obstacles. I may have found a pattern exploit.",
       1
     ],
-    [1, "What?", 2],
+    [
+      1,
+      "That sounded confident until the word may.",
+      2
+    ],
     [
       4,
-      "It's to do with the way the missile determines what is an obstacle, and what isn't. I think there may be a way to confuse it!",
+      "Diagonal rows. Three walls per row. It should confuse the pathfinder.",
       1
     ],
-    [3, "That is excellent news! What do we have to do?", 2],
+    [
+      3,
+      "Should?",
+      2
+    ],
     [
       4,
-      "We just need to arrange a few walls diagonally, with three walls in each diagonal row",
+      "Dijkstra expands up, down, left, and right. Diagonals look clever to us, but they may not change the actual shortest route.",
       1
     ],
-    [1, "Yeah... I don't follow..", 2],
-    [4, "Don't worry. Everyone, follow me outside", 1],
-    [999, "", 3],
     [
-      null,
-      "*you follow {4} outside, and he starts giving orders. Eventually, the walls are placed in the correct positions*",
+      999,
+      "",
       3
     ],
-    [1, "Are you sure this is going to work?", 1],
-    [
-      4,
-      "I am 50% confident that there is a 75% chance that this could work!",
-      1
-    ],
-    [3, "What? That doesn't make se-", 2],
-    [null, "*alarm sirens start blaring*", 3],
-    [4, "Only one way to find out! Everyone back inside!", 1],
-    [1000, "", 3],
     [
       null,
-      "*you all head back inside and look at the surveillance monitor*",
+      "*outside, the team places Leonard's diagonal rows under a red sky*",
       3
     ],
     [
       1,
-      "I really hope this works, otherwise we won't have enough time to place a lot of walls",
+      "If this fails, we lose setup time.",
+      2
+    ],
+    [
+      4,
+      "Then we learn quickly.",
       1
     ],
     [
       null,
-      "*the missile approaches the three walled rows, and carries on towards the base*",
+      "*sirens start before anyone can answer*",
       3
     ],
-    [3, "Is that supposed to happen?", 2],
-    [4, "{userName}, it's all up to you...", 1],
-    [1, "When is it not...", 2],
-    [0, ""]
+    [
+      4,
+      "Missile entering the grid. It is ignoring the diagonal pattern.",
+      1
+    ],
+    [
+      3,
+      "Because the shortest path barely changed.",
+      2
+    ],
+    [
+      1,
+      "No more tricks. I will place walls that actually raise the route cost.",
+      2
+    ],
+    [
+      0,
+      "",
+      3
+    ]
   ]
 }

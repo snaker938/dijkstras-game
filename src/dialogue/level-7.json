@@ -1,36 +1,59 @@
 {
   "dialogue": [
-    [5, "Phew! That was a clos-", 2],
-    [6, "Attention everybody!", 1],
-    [5, "Huh?", 2],
-    [6, "We have a location on the enemy!", 1],
-    [3, "Excellent!", 2],
     [
-      5,
-      "That's great news! I'll send out some of our top field-agents to check it out",
-      1
-    ],
-    [4, "I'll get the communication system up and running!", 2],
-    [1, "Oh no...", 1],
-    [3, "What's wrong?", 2],
-    [
-      1,
-      "It's just another system that the enemy could potentially target..",
-      1
-    ],
-    [3, "{userName} is right, but it is all we've got", 2],
-    [
-      1,
-      "If they take out our communication system, those field-agents will be stranded out there, with no way of talking to us",
+      6,
+      "Attention, everyone. We have a location.",
       1
     ],
     [
       5,
-      "Then we have to make doubly sure that the enemy does not destroy this system with a missi-",
+      "Send the field team.",
+      2
+    ],
+    [
+      4,
+      "I will open the communication channels.",
       1
     ],
-    [null, "*the sirens start up again*", 3],
-    [5, "Why did I have to say something...", 1],
-    [0, ""]
+    [
+      1,
+      "That gives the enemy a new target.",
+      2
+    ],
+    [
+      3,
+      "{userName} is right. If communications drop, the field team is blind.",
+      1
+    ],
+    [
+      5,
+      "Then communications become the mission.",
+      2
+    ],
+    [
+      4,
+      "Think of it like the grid. Break one key connection and every route changes.",
+      1
+    ],
+    [
+      null,
+      "*the warning alarm starts on the first syllable of Leonard's next sentence*",
+      3
+    ],
+    [
+      4,
+      "Missile locked onto the communication array. End distance: {endDistance}.",
+      1
+    ],
+    [
+      1,
+      "I will keep the network alive.",
+      2
+    ],
+    [
+      0,
+      "",
+      3
+    ]
   ]
 }

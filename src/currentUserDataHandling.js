@@ -1,5 +1,54 @@
 let numLevelsUnlocked;
 
+const MAX_LEVELS_UNLOCKED = 15;
+const MIN_LEVELS_UNLOCKED = 1;
+const NUM_LEVELS_UNLOCKED_KEY = 'numLevelsUnlocked';
+const UNLOCK_ALL_LEVELS_KEY = 'unlockAllLevels';
+
+function clampLevelsUnlocked(value) {
+  const parsedValue = Number(value);
+  if (!Number.isSafeInteger(parsedValue)) return MIN_LEVELS_UNLOCKED;
+
+  return Math.min(
+    MAX_LEVELS_UNLOCKED,
+    Math.max(MIN_LEVELS_UNLOCKED, parsedValue)
+  );
+}
+
+function getStoredLevelsUnlocked() {
+  if (localStorage.getItem(NUM_LEVELS_UNLOCKED_KEY) === null) {
+    localStorage.setItem(NUM_LEVELS_UNLOCKED_KEY, MIN_LEVELS_UNLOCKED);
+    return MIN_LEVELS_UNLOCKED;
+  }
+
+  const storedValue = clampLevelsUnlocked(
+    localStorage.getItem(NUM_LEVELS_UNLOCKED_KEY)
+  );
+  localStorage.setItem(NUM_LEVELS_UNLOCKED_KEY, storedValue);
+  return storedValue;
+}
+
+export function isUnlockAllLevelsToggled() {
+  return localStorage.getItem(UNLOCK_ALL_LEVELS_KEY) === 'true';
+}
+
+function syncLevelsUnlocked() {
+  numLevelsUnlocked = isUnlockAllLevelsToggled()
+    ? MAX_LEVELS_UNLOCKED
+    : getStoredLevelsUnlocked();
+  return numLevelsUnlocked;
+}
+
+export function setUnlockAllLevelsToggled(value) {
+  localStorage.setItem(UNLOCK_ALL_LEVELS_KEY, Boolean(value) ? 'true' : 'false');
+  return syncLevelsUnlocked();
+}
+
+export function resetStoredUserData() {
+  localStorage.clear();
+  return syncLevelsUnlocked();
+}
+
 export function getUserLevelsFromLocalStorage() {
   const userLevels = [];
 
@@ -50,20 +99,19 @@ export function saveUserLevels(userLevelsInput) {
 
 // If a new level has been unlocked, increase the number of levels unlocked by 1 and change the value in the local storage
 export function newLevelUnlocked() {
-  if (numLevelsUnlocked < 15) {
-    numLevelsUnlocked = Number(numLevelsUnlocked) + 1;
-    localStorage.setItem('numLevelsUnlocked', Number(numLevelsUnlocked));
+  const storedLevelsUnlocked = getStoredLevelsUnlocked();
+
+  if (storedLevelsUnlocked < MAX_LEVELS_UNLOCKED) {
+    localStorage.setItem(
+      NUM_LEVELS_UNLOCKED_KEY,
+      Number(storedLevelsUnlocked) + 1
+    );
+    syncLevelsUnlocked();
   }
 }
 
 // check if "numLevelsUnlocked" is in localStorage. If not, set it to 1. If it is, retrieve it
-if (localStorage.getItem('numLevelsUnlocked') === null) {
-  localStorage.setItem('numLevelsUnlocked', 1);
-  numLevelsUnlocked = 1;
-} else {
-  numLevelsUnlocked = Number(localStorage.getItem('numLevelsUnlocked'));
-  numLevelsUnlocked = 11;
-}
+syncLevelsUnlocked();
 
 // check if "userName" is in localStorage. If not, set it to the input. If it is, retrieve it
 export function setCurrentUserName(inputtedUsername) {

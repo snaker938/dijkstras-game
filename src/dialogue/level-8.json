@@ -1,44 +1,74 @@
 {
   "dialogue": [
-    [5, "Excellent work as always, {userName}", 2],
-    [7, "Indeed it was. Now, onto our attack plans..", 1],
-    [
-      7,
-      "I will be leading our counter-attack, so if you have any questions or hear any new information, let me know..",
-      1
-    ],
-    [
-      7,
-      "We will be following a similar strategy to the one we used back in '98 to take over the Algul base..",
-      1
-    ],
-    [
-      7,
-      "Our attack plan is quite simple, our foot agents will circle the base, and use machines that emit high frequency waves that should disrupt their electronics.. ",
-      1
-    ],
-    [
-      7,
-      "This should give us the opportunity to launch our own missiles and this just hopefully cause a lot of damage to their operations..",
-      1
-    ],
     [
       5,
-      "We are also aware that this would give the enemy a perfect opportunity to launch a surprise counter-attack on us, so stay on high alert!",
+      "Another system saved. Commander Reese, proceed.",
       2
     ],
-    [7, "Lets begin!", 1],
-    [999, "", 3],
     [
-      null,
-      "*the attack seems to be going smoothly, and it's obvious that the enemy was not expecting it, however, you feel that things are almost going too well...*",
+      7,
+      "Our counterattack begins now. Field agents will circle the enemy base and disrupt their electronics.",
+      1
+    ],
+    [
+      3,
+      "That will expose us.",
+      2
+    ],
+    [
+      7,
+      "Yes. They will expect us to overcommit.",
+      1
+    ],
+    [
+      1,
+      "So the base becomes bait.",
+      2
+    ],
+    [
+      7,
+      "A controlled risk. Remember the algorithm: the missile follows the cheapest path, not the one that looks dramatic.",
+      1
+    ],
+    [
+      999,
+      "",
       3
     ],
-    [4, "This is going very well!", 2],
-    [1, "I just feel like there could be an-", 1],
-    [null, "*the sound of sirens start again*", 3],
-    [3, "Oh great. Just when I thought we had the upper hand...", 2],
-    [1, "I'll get the walls ready...", 1],
-    [0, ""]
+    [
+      null,
+      "*the first reports are good, almost too good*",
+      3
+    ],
+    [
+      4,
+      "Enemy systems are flickering. Our agents are inside the perimeter.",
+      1
+    ],
+    [
+      1,
+      "This is the point where the trap closes.",
+      2
+    ],
+    [
+      null,
+      "*sirens answer before anyone else can*",
+      3
+    ],
+    [
+      3,
+      "Incoming strike on the base. End distance: {endDistance}.",
+      2
+    ],
+    [
+      1,
+      "Then we make their cheapest path expensive.",
+      1
+    ],
+    [
+      0,
+      "",
+      3
+    ]
   ]
 }

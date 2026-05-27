@@ -3,7 +3,7 @@
   "levelName": "Critical Info",
   "randomWallPressesAllowed": 0,
   "difficulty": "Elite",
-  "description": "Mr Smith has revealed his overall plan: destroy London with a nuclear missile. While we figure out the location of the nuke, prevent the enemy from attacking us one last time.",
+  "description": "Smith's final plan is clear: London is the target. Survive one last strike while we locate the nuclear missile.",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 21,

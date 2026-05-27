@@ -1,66 +1,99 @@
 {
   "dialogue": [
-    [8, "{userName}, {3}, {4}, {5}, get in here now!", 2],
-    [1, "What's going on?", 1],
-    [8, "We have discovered what {20}'s plan is..", 2],
-    [5, "And...?", 1],
-    [
-      20,
-      "Currently, sitting in a secret location, a nuclear missile is waiting to launch",
-      1
-    ],
-    [4, "Wha-", 2],
-    [20, "The target: London.", 1],
-    [3, "He must be lying!", 2],
-    [8, "He isn't.", 1],
-    [5, "How do you know?", 2],
-    [8, "I didn't tell you the full reason why we had to fire {20}...", 1],
-    [1, "Go on..", 2],
-    [1000, "", 3],
     [
       8,
-      "I found out that he was attempting to build a nuclear missile behind my back. I guess he finally found the resources to build it..",
+      "{userName}, Pembroke, Leonard, Harold. Interrogation room. Now.",
+      2
+    ],
+    [
+      1,
+      "What did Smith say?",
       1
     ],
     [
       20,
-      "I sure did.. And if my plan worked to remove this Agency from the picture, there would be nobody to even try and stop me!",
+      "That a nuclear missile is waiting in a secret launch site.",
       1
     ],
     [
+      4,
+      "No.",
+      2
+    ],
+    [
       20,
-      "And the best part about it - even though I have now told you, there is nothing you can do to stop it! The self-destruct distance is huge, and you don't even know where it is being located!",
+      "The target is London.",
       1
     ],
-    [999, "", 3],
+    [
+      3,
+      "He is lying.",
+      2
+    ],
+    [
+      8,
+      "He is not. I dismissed him years ago after finding early plans for exactly this weapon.",
+      1
+    ],
+    [
+      1000,
+      "",
+      3
+    ],
+    [
+      20,
+      "The best part is that you understand the maths and still cannot stop the clock.",
+      1
+    ],
+    [
+      1,
+      "The clock is the end distance.",
+      2
+    ],
+    [
+      20,
+      "And this clock is very generous.",
+      1
+    ],
+    [
+      999,
+      "",
+      3
+    ],
     [
       null,
-      "*you all leave the interrogation room and gather in the control room*",
+      "*the team regroups in the control room with every screen searching for the launch site*",
       3
     ],
     [
       6,
-      "My team and I will do the best we can, but I don't think we can find it. We simply have no information to go off on!",
+      "We have almost no data. I will search anyway.",
       1
     ],
     [
       8,
-      "I guess we have to prepare for the worst. Let's get some walls ready ",
-      1
+      "Prepare for another strike while Rick works.",
+      2
     ],
     [
       null,
-      "*as soon as the words left {8}'s lips, the sound of sirens filled the room*",
+      "*the familiar missile alarm returns*",
       3
     ],
-    [5, "This is it guys! Get ready to stop that nuke!", 2],
     [
       4,
-      "Actually, this just seems to be a standard missile, with an self-destruct distance of {endDistance}. I guess they just want us out of the picture, we can't let that happen!",
+      "Standard missile, not the nuke. End distance: {endDistance}. They want us blind before launch.",
       1
     ],
-    [3, "Let's get the walls!", 2],
-    [1, "Hey! Thats my line!", 1],
-    [0, ""]
+    [
+      1,
+      "Then we stay alive long enough to find the real threat.",
+      2
+    ],
+    [
+      0,
+      "",
+      3
+    ]
   ]
 }

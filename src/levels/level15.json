@@ -3,7 +3,7 @@
   "levelName": "Endgame",
   "randomWallPressesAllowed": 0,
   "difficulty": "Impossible",
-  "description": "With the nuke now in the air, you must find a way to stop it without London being destroyed!",
+  "description": "The nuclear missile is airborne. Force its shortest path past the self-destruct distance before London is hit.",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 10,

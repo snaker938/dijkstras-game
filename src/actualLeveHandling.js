@@ -30,14 +30,21 @@ export function getCurrentTutorialStatus() {
 }
 
 // Sets the current end distance in the Sandbox mode. If the value is <1, then default value is 75
-export function setCurrentEndDistance(newEndDistance) {
-  document.getElementById('endDistanceInput').value = currentEndDistance;
-  if (!(newEndDistance >= 1)) {
-    currentEndDistance = 75;
-  } else {
-    currentEndDistance = newEndDistance;
-    document.getElementById('endDistanceInput').value = currentEndDistance;
-  }
+export function setCurrentEndDistance(newEndDistance, maxEndDistance = Infinity) {
+  const stringValue = String(newEndDistance).trim();
+  if (!/^\d+$/.test(stringValue)) return;
+  const nextEndDistance = Number(stringValue);
+  if (!Number.isSafeInteger(nextEndDistance)) return;
+  const maxDistance = Number.isFinite(maxEndDistance)
+    ? Math.max(1, maxEndDistance)
+    : Number.POSITIVE_INFINITY;
+  currentEndDistance =
+    Number.isFinite(nextEndDistance) && nextEndDistance >= 1
+      ? Math.min(maxDistance, nextEndDistance)
+      : currentEndDistance;
+
+  const endDistanceInput = document.getElementById('endDistanceInput');
+  if (endDistanceInput) endDistanceInput.value = currentEndDistance;
 }
 
 export function getActualCurrentEndDistance() {

@@ -3,7 +3,7 @@
   "levelName": "The Records",
   "randomWallPressesAllowed": 0,
   "difficulty": "Tough",
-  "description": "While we run the records obtained during our attack of the enemy base through our algorithms, we must stop the enemy from cutting off our power supply!",
+  "description": "Recovered records are being reconstructed. Keep the power grid online long enough for the algorithms to finish.",
   "startNodeCoords": [0, 0],
   "endNodeCoords": [50, 25],
   "wallsAllowed": 10,

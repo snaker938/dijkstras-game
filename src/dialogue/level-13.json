@@ -1,57 +1,84 @@
 {
   "dialogue": [
-    [8, "It's been a while {20}.", 2],
-    [
-      20,
-      "Indeed it has. Well. You have me now, what would you like to discuss?",
-      1
-    ],
-    [8, "Why are you doing this?", 2],
-    [
-      20,
-      "Ahh yes, the big question. I don't think I can tell you that just yet...",
-      1
-    ],
-    [8, "So there IS something bigger than just destroying our bases..", 2],
-    [20, "Of course there is!", 1],
     [
       8,
-      "We will find out what it is eventually, so why not just tell us now?",
+      "It has been a long time, Smith.",
       2
     ],
     [
       20,
-      "Of course you will find out eventually. I'm counting on it! In fact, I think quite a lot of people will found out eventually!",
+      "Long enough for you to forget how predictable this agency can be.",
       1
     ],
-    [8, "What do you mean by that?", 2],
-    [20, "...", 1],
-    [8, "WHAT DO Y-", 2],
     [
-      null,
-      "*the sound of sirens echo throughout the interrogation room and {3} bursts into the room*",
-      3
+      8,
+      "Why attack us?",
+      2
     ],
-    [3, "Sir, we have to go now!", 1],
-    [8, "We will finish this later..", 2],
-    [20, "I'm counting on it!", 1],
-    [1000, "", 3],
-    [null, "*{8} and {3} go back into the control room*", 3],
-    [8, "What's happening?", 2],
     [
-      4,
-      "Another missile has been sent! The target, the interrogation block. However, this time, it is not being targeted at the specific cell {20} is in..",
+      20,
+      "Because you are the only obstacle between me and a much larger correction.",
       1
     ],
-    [1, "Perhaps {20} didn't want to die after all?", 2],
-    [5, "Which meant that he knew we'd save him...", 1],
-    [3, "We had no choice..", 2],
     [
       1,
-      "Forget about him, there is missile is nearly here, lets get the walls ready!",
+      "He wanted us focused on missiles.",
+      2
+    ],
+    [
+      20,
+      "I wanted you trained. Every wall you placed taught me how you think.",
       1
     ],
-    [5, "You heard the Agent! Get to it!", 2],
-    [0, ""]
+    [
+      8,
+      "You are stalling.",
+      2
+    ],
+    [
+      20,
+      "I am counting on you realising that too late.",
+      1
+    ],
+    [
+      null,
+      "*sirens echo through the interrogation block*",
+      3
+    ],
+    [
+      3,
+      "Director, control room now.",
+      1
+    ],
+    [
+      1000,
+      "",
+      3
+    ],
+    [
+      4,
+      "Missile inbound. Target is the holding block, but not Smith's cell.",
+      1
+    ],
+    [
+      5,
+      "He knew we would save him.",
+      2
+    ],
+    [
+      1,
+      "A counterexample in human form: he changes our choices, then predicts the path.",
+      1
+    ],
+    [
+      8,
+      "We still need him alive. Stop the missile.",
+      2
+    ],
+    [
+      0,
+      "",
+      3
+    ]
   ]
 }

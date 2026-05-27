@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   getCurrentTutorialStatus,
   randomIntFromInterval,
+  setHasShownTutorial,
   toggleHasShownTutorial,
   toggleHasTutorialEnded,
 } from '../actualLeveHandling';
@@ -30,15 +31,26 @@ import {
 import { EnterHome } from '../Navigation';
 import {
   getHasGridBeenReset,
+  getAnimationSpeedMultiplier,
+  getGridPalette,
+  getGridPaletteCssVariables,
+  getGridPaletteOptions,
+  getVisualizerPaused,
   getMissileTrailLength,
   getShowCampaignNodeNumbers,
+  getSoundMuted,
   getToggleWallOnClick,
   gridOutlineToggled,
+  resetCampaignOptions,
+  setAnimationSpeedMultiplier,
+  setGridPalette,
   setGridOutlineToggled,
   setHasGridBeenReset,
   setMissileTrailLength,
   setShowCampaignNodeNumbers,
+  setSoundMuted,
   setToggleWallOnClick,
+  setVisualizerPaused,
 } from '../optionsHandling';
 import Node from './Node/Node';
 import NodeToggleGrid from './Node/NodeToggleGrid';
@@ -50,6 +62,7 @@ import planeFrame4 from '../assets/Animated/4.png';
 import planeSoundEffect from '../assets/Animated/plane_sound_effect.mp3';
 import blankTemplate from './templates/BLANK.json';
 import './VisualizeLevel.css';
+import { clearAnimationQueue } from './Animations';
 import { cloneVariable, resetAllNodes, startDijkstra } from './Visualizer';
 import { getPlaneTravelBounds, getVisualizerLayout } from './visualizerLayout';
 
@@ -64,6 +77,13 @@ let END_NODE_COL;
 const NUM_ROWS = 26;
 const NUM_COLUMNS = 51;
 const PLANE_FRAMES = [planeFrame1, planeFrame2, planeFrame3, planeFrame4];
+const RANDOM_WALL_ANIMATION_DURATION = 6500 / 2.2;
+const RANDOM_WALL_FRAME_INTERVAL = 80;
+const TUTORIAL_PAGE_COUNT = 6;
+const DIALOGUE_ALERT_PATTERN =
+  /alarm|black screen|emergency|explosion|incoming|missile|nuclear|siren/i;
+const DIALOGUE_BRIEF_PATTERN =
+  /cost|Dijkstra|distance|path|route|self-destruct|shortest|wall limit/i;
 
 // Specifies the number of walls the player can have active at one time
 let NUM_WALLS_TOTAL;
@@ -119,6 +139,7 @@ export default class levelVisualizer extends Component {
       dialogueStartLoop: 0,
       dialogueNeedsPageBreak: false,
       dialogueOverflowNextLine: null,
+      dialogueIsScrolling: false,
       ...initialLayout,
       settingsRefresh: 0,
     };
@@ -129,6 +150,7 @@ export default class levelVisualizer extends Component {
     this.activeTimeouts = new Set();
     this.layoutFrameId = null;
     this.dialogueFrameId = null;
+    this.dialogueScrollTimeoutId = null;
     this.planeFrameId = null;
     this.topbarResizeObserver = null;
     this.activePlaneAudio = null;
@@ -151,7 +173,7 @@ export default class levelVisualizer extends Component {
     if (
       event.key === 'Enter' &&
       this.state.showTutorialMenu &&
-      !(this.state.tutorialPage === 3)
+      !(this.state.tutorialPage === TUTORIAL_PAGE_COUNT)
     ) {
       this.nextPage();
     }
@@ -164,6 +186,7 @@ export default class levelVisualizer extends Component {
 
   componentDidMount() {
     this.isUnmounted = false;
+    resetCampaignOptions();
     document.addEventListener('keydown', this.handleKeyPress, false);
     window.addEventListener('resize', this.updateVisualizerLayout);
     if (window.visualViewport) {
@@ -189,6 +212,17 @@ export default class levelVisualizer extends Component {
       this.updateVisualizerLayout();
     }
 
+    if (prevState.showOptionsMenu !== this.state.showOptionsMenu) {
+      if (this.activePlaneAudio) {
+        if (this.state.showOptionsMenu) {
+          this.activePlaneAudio.pause();
+        } else if (!getSoundMuted()) {
+          const playPromise = this.activePlaneAudio.play();
+          if (playPromise) playPromise.catch(() => {});
+        }
+      }
+    }
+
     if (
       this.state.showDialogueMenu &&
       (prevState.showDialogueMenu !== this.state.showDialogueMenu ||
@@ -211,6 +245,9 @@ export default class levelVisualizer extends Component {
       );
     }
     this.clearManagedTimers();
+    clearAnimationQueue();
+    setVisualizerPaused(false);
+    resetCampaignOptions();
     this.stopPlaneAudio();
     if (this.topbarResizeObserver) {
       this.topbarResizeObserver.disconnect();
@@ -218,6 +255,9 @@ export default class levelVisualizer extends Component {
     }
     if (this.layoutFrameId) window.cancelAnimationFrame(this.layoutFrameId);
     if (this.dialogueFrameId) window.cancelAnimationFrame(this.dialogueFrameId);
+    if (this.dialogueScrollTimeoutId) {
+      window.clearTimeout(this.dialogueScrollTimeoutId);
+    }
     if (this.planeFrameId) window.cancelAnimationFrame(this.planeFrameId);
   }
 
@@ -474,24 +514,22 @@ export default class levelVisualizer extends Component {
     const dialogueBody = this.dialogueBodyRef.current;
     if (!dialogueBody || !this.state.showDialogueMenu) return;
 
-    const hasOverflow =
-      dialogueBody.scrollHeight > dialogueBody.clientHeight + 2;
+    this.scrollDialogueToBottom();
+  };
 
-    if (
-      hasOverflow &&
-      this.state.dialogueLineNumber > this.state.dialogueStartLoop
-    ) {
-      const overflowLine = this.state.dialogueLineNumber;
-
-      this.setState({
-        dialogueLineNumber: this.getPreviousDialogueLineIndex(overflowLine),
-        dialogueNeedsPageBreak: true,
-        dialogueOverflowNextLine: overflowLine,
-      });
-      return;
+  handleDialogueScroll = () => {
+    if (this.dialogueScrollTimeoutId) {
+      window.clearTimeout(this.dialogueScrollTimeoutId);
     }
 
-    this.scrollDialogueToBottom();
+    if (!this.state.dialogueIsScrolling) {
+      this.setState({ dialogueIsScrolling: true });
+    }
+
+    this.dialogueScrollTimeoutId = window.setTimeout(() => {
+      this.dialogueScrollTimeoutId = null;
+      if (!this.isUnmounted) this.setState({ dialogueIsScrolling: false });
+    }, 900);
   };
 
   getPreviousDialogueLineIndex(index) {
@@ -511,7 +549,7 @@ export default class levelVisualizer extends Component {
             this.closeDialogueMenu();
           }}
         >
-          Exit
+          Close Comms
         </button>
       );
     }
@@ -524,18 +562,27 @@ export default class levelVisualizer extends Component {
             this.advanceDialoguePage();
           }}
         >
-          Continue
+          Continue Transmission
         </button>
       );
     }
 
-    return null;
+    return (
+      <button
+        className="optionsMenuButton"
+        onClick={() => {
+          this.advanceDialogueLine();
+        }}
+      >
+        Continue Transmission
+      </button>
+    );
   }
 
   getDialogueBlocks(currentDialogueLineNumber) {
     let dialogueBlocks = [];
-    let enterText = '<hit enter>';
-    let continueText = '<press continue>';
+    let enterText = 'Press Enter or click Continue';
+    let continueText = 'Review the next transmission page';
     let markerIndexes = this.getDialogueMarkerIndexes();
 
     let currentLevelSpeakerPosition = cloneVariable(
@@ -556,12 +603,6 @@ export default class levelVisualizer extends Component {
         ? continueText
         : enterText;
 
-      // If the currentLevelDialogue[i][0] is "", then dialogue is given the className of "dialogueBlockTextOther". If the currentLevelSpeakerPosition[i] is 1, then dialogue is given the className of "dialogue-left-side". If it is 2, then dialogue is given the className of "dialogue-right-side".
-
-      // If the currentLevelDialogue[i][0] is not "", then dialogue is given the className of "dialogueBlockText". If the currentLevelSpeakerPosition[i] is 1, then dialogue is given the className of "dialogue-left-side". If it is 2, then dialogue is given the className of "dialogue-right-side".
-
-      // The text "<hit enter>" should only be displayed at the end of all the dialogue that is visible on the screen. This is done by checking if the i is equal to currentDialogueLineNumber. The text should have an opacity of 0.75.
-
       let dialogueBlockPosition;
       if (currentLevelSpeakerPosition[i] === 1) {
         dialogueBlockPosition = 'dialogue-left-side';
@@ -571,13 +612,37 @@ export default class levelVisualizer extends Component {
         dialogueBlockPosition = 'dialogue-centre';
       }
 
+      const currentLineSpeaker = currentLevelDialogue[i][0];
+      const currentLineText = currentLevelDialogue[i][1] || '';
+      const isCurrentLine = i === currentDialogueLineNumber;
+      const isStageLine = currentLineSpeaker === '';
+      const isSmithLine = currentLineSpeaker === '<Mr Smith>';
+      const isAlertLine = DIALOGUE_ALERT_PATTERN.test(currentLineText);
+      const isBriefLine = DIALOGUE_BRIEF_PATTERN.test(currentLineText);
+      const dialogueLineClassName = [
+        dialogueBlockPosition,
+        'dialogue-line',
+        isCurrentLine ? 'dialogue-line--current' : '',
+        isStageLine ? 'dialogue-line--stage' : '',
+        isSmithLine ? 'dialogue-line--smith' : '',
+        isAlertLine ? 'dialogue-line--alert' : '',
+        isBriefLine ? 'dialogue-line--brief' : '',
+      ]
+        .filter(Boolean)
+        .join(' ');
+
+      if (!this.state.dialogueNeedsPageBreak) {
+        if (isAlertLine) textToDisplay = 'Acknowledge alert';
+        else if (isBriefLine) textToDisplay = 'Confirm briefing';
+      }
+
       if (currentLevelDialogue[i][0] === '') {
         dialogue = (
           <React.Fragment key={`dialogue-${i}`}>
             <div
-              className={dialogueBlockPosition}
+              className={dialogueLineClassName}
               style={{
-                display: i <= currentDialogueLineNumber ? 'inline' : 'none',
+                display: i <= currentDialogueLineNumber ? 'block' : 'none',
               }}
             >
               <p style={{ opacity: '0.85' }} className="dialogueBlockTextOther">
@@ -587,9 +652,9 @@ export default class levelVisualizer extends Component {
 
             {i === currentDialogueLineNumber ? (
               <div
-                className={dialogueBlockPosition}
+                className={dialogueLineClassName}
                 style={{
-                  display: i <= currentDialogueLineNumber ? 'inline' : 'none',
+                  display: i <= currentDialogueLineNumber ? 'block' : 'none',
                 }}
               >
                 <p
@@ -613,9 +678,9 @@ export default class levelVisualizer extends Component {
         dialogue = (
           <React.Fragment key={`dialogue-${i}`}>
             <div
-              className={dialogueBlockPosition}
+              className={dialogueLineClassName}
               style={{
-                display: i <= currentDialogueLineNumber ? 'inline' : 'none',
+                display: i <= currentDialogueLineNumber ? 'block' : 'none',
               }}
             >
               <p className="dialogueBlockText">
@@ -635,9 +700,9 @@ export default class levelVisualizer extends Component {
             </div>
             {i === currentDialogueLineNumber ? (
               <div
-                className={dialogueBlockPosition}
+                className={dialogueLineClassName}
                 style={{
-                  display: i <= currentDialogueLineNumber ? 'inline' : 'none',
+                  display: i <= currentDialogueLineNumber ? 'block' : 'none',
                 }}
               >
                 <p
@@ -673,9 +738,16 @@ export default class levelVisualizer extends Component {
             this.closeDialogueMenu();
           }}
       >
-        Skip...
+        Skip Briefing
       </button>
     );
+  }
+
+  isCurrentDialogueAlerting() {
+    const currentDialogue = cloneVariable(getCurrentLevelDialogue());
+    const currentLine = currentDialogue[this.state.dialogueLineNumber];
+    const currentText = currentLine?.[1] || '';
+    return DIALOGUE_ALERT_PATTERN.test(currentText);
   }
 
   getDialogueMenu() {
@@ -686,6 +758,7 @@ export default class levelVisualizer extends Component {
     let skipAllDialogueButton = this.getSkipAllDialogueButton();
 
     let dialogueBlocks = this.getDialogueBlocks(this.state.dialogueLineNumber);
+    const isAlerting = this.isCurrentDialogueAlerting();
 
     return (
       <>
@@ -695,15 +768,34 @@ export default class levelVisualizer extends Component {
         ></div>
         {skipAllDialogueButton}
         <div
-          className="dialogueMenuPositionClass visualizer-modal-shell visualizer-dialogue-shell"
+          className={`dialogueMenuPositionClass visualizer-modal-shell visualizer-dialogue-shell ${
+            isAlerting ? 'is-alerting' : ''
+          }`}
         >
           <div className="dialogueBigContainer">
+            <div
+              className={`dialogue-status-strip ${
+                isAlerting ? 'dialogue-status-strip--alert' : ''
+              }`}
+            >
+              <span className="dialogue-status-dot"></span>
+              {isAlerting ? 'MISSILE ALERT' : 'LIVE COMMS'}
+            </div>
             <p className="levelNameToRender">
               {LEVEL_NAME}
             </p>
+            <p className="dialogueBriefingHint">
+              Tactical briefing
+            </p>
           </div>
 
-          <div className="dialogueBigContainer2" ref={this.dialogueBodyRef}>
+          <div
+            className={`dialogueBigContainer2 ${
+              this.state.dialogueIsScrolling ? 'is-scrolling' : ''
+            }`}
+            ref={this.dialogueBodyRef}
+            onScroll={this.handleDialogueScroll}
+          >
             {dialogueBlocks}
 
             {dialogueNextButton}
@@ -714,7 +806,7 @@ export default class levelVisualizer extends Component {
   }
 
   nextPage() {
-    if (this.state.tutorialPage < 3) {
+    if (this.state.tutorialPage < TUTORIAL_PAGE_COUNT) {
       this.setState({ tutorialPage: this.state.tutorialPage + 1 });
     } else {
       toggleHasTutorialEnded();
@@ -734,58 +826,57 @@ export default class levelVisualizer extends Component {
 
   getTutorialMenu() {
     let tutorialNextPageText = 'Next';
-    if (this.state.tutorialPage === 3) tutorialNextPageText = 'Exit';
+    if (this.state.tutorialPage === TUTORIAL_PAGE_COUNT) {
+      tutorialNextPageText = 'Start Mission';
+    }
 
     let tutorialPreviousPageText = 'Back';
     if (this.state.tutorialPage === 1) tutorialPreviousPageText = '';
 
     function getCurrentTutorialPageText(pageNum) {
-      if (pageNum === 1) {
-        return (
-          <p className="tutorialText">
-            Welcome to Dijkstra's Game! This is a game where you can learn about
-            Dijkstra's Algorithm. Dijkstra's Algorithm is a pathfinding
-            algorithm that finds the shortest path between two nodes. In this
-            game, you will be able to see how the algorithm works and how it
-            finds the shortest path between two nodes. This tutorial will teach
-            you how to play the game.
+      const pages = [
+        {
+          title: 'Your Mission',
+          body:
+            'The missile always follows the shortest available route from the green start node to the red end node. Your job is to slow it down, not block it completely.',
+        },
+        {
+          title: 'The Grid',
+          body:
+            'Each square is a node. Moving up, down, left, or right costs 1. Black squares are walls. Permanent walls are fixed obstacles. Empty squares are the spaces you can usually change.',
+        },
+        {
+          title: 'End Distance',
+          body:
+            'The end distance is the missile self-destruct range. If the end distance is 75, the shortest valid route must be 76 steps or longer. If the shortest route is 75 or less, the missile reaches the target.',
+        },
+        {
+          title: 'How Dijkstra Thinks',
+          body:
+            'Dijkstra spreads out from the start node in distance order. It always checks the closest unfinished node next. When it reaches the end node, it has found the shortest route the missile can take.',
+        },
+        {
+          title: 'Placing Walls',
+          body:
+            'A wall only helps if it changes the shortest route. Use the wall limit carefully, then press Start to run the algorithm again and see the new missile path.',
+        },
+        {
+          title: 'Common Mistakes',
+          body:
+            'Do not block every route. If there is no path, the enemy detects our interference and patches the backdoor. Leave a route open, make it too long, and let the missile destroy itself.',
+        },
+      ];
+      const page = pages[pageNum - 1] || pages[0];
+
+      return (
+        <div className="tutorialPage">
+          <p className="tutorialStep">
+            {pageNum} / {TUTORIAL_PAGE_COUNT}
           </p>
-        );
-      } else if (pageNum === 2) {
-        return (
-          <p className="tutorialText">
-            The grid is where the algorithm will run. It is made up of square
-            nodes. The nodes can be walls, permanent walls, start nodes, end
-            nodes, or empty nodes. The walls are the black squares and the
-            permanent walls are a bit lighter. The start nodes are the green
-            squares. The end nodes are the red squares. The empty nodes are the
-            grey-ish squares. The empty and wall nodes are the only nodes that
-            can be changed.
-            <br></br>
-            <br></br>
-            On the top of the screen, you will find the Home, Settings and Run
-            buttons. You may also find powerup buttons, if they are available to
-            you. The Run button will run the Dijkstra algorithm, starting from
-            the start node.
-          </p>
-        );
-      } else if (pageNum === 3) {
-        return (
-          <p className="tutorialText">
-            The aim of the game is simple, make the "missile" self-destruct by
-            making it take the longest path you can. The "missile" will
-            self-destruct after a given distance. If the missile reaches the end
-            node, you will lose the level. You can stop this by placing walls in
-            the path of the missile, but be careful, do not fully block the
-            missile path because then the enemy who sent the missile will know
-            that we can view the missile's path, and change their software. You
-            will only have a limited amount of walls to place, so use them
-            wisely, and some walls are permanent, and cannot be removed.
-            Powerups, such as the Random Wall Powerup, can aid you in your
-            mission.
-          </p>
-        );
-      }
+          <h2>{page.title}</h2>
+          <p className="tutorialText">{page.body}</p>
+        </div>
+      );
     }
 
     return (
@@ -807,14 +898,18 @@ export default class levelVisualizer extends Component {
             </div>
 
             <div className="visualizer-modal-actions">
-              <button
-                className="optionsMenuButton"
-                onClick={() => {
-                  this.previousPage();
-                }}
-              >
-                {tutorialPreviousPageText}
-              </button>
+              {tutorialPreviousPageText ? (
+                <button
+                  className="optionsMenuButton"
+                  onClick={() => {
+                    this.previousPage();
+                  }}
+                >
+                  {tutorialPreviousPageText}
+                </button>
+              ) : (
+                <span></span>
+              )}
 
               <button
                 className="optionsMenuButton"
@@ -907,33 +1002,50 @@ export default class levelVisualizer extends Component {
       return;
     }
 
-    const duration = 6500;
+    const duration = RANDOM_WALL_ANIMATION_DURATION;
     let startTime = null;
+    let lastFrameTimestamp = null;
     let lastWallTick = -1;
     let frameIndex = 0;
     let lastTurbineFrameTime = 0;
 
     planeElement.style.display = 'block';
     planeElement.style.left = `${travelBounds.startX}px`;
+    planeElement.style.top = `${travelBounds.centerY}px`;
     planeElement.src = PLANE_FRAMES[0];
 
-    this.activePlaneAudio = new Audio(planeSoundEffect);
-    const playPromise = this.activePlaneAudio.play();
-    if (playPromise) playPromise.catch(() => {});
-    this.setManagedTimeout(this.stopPlaneAudio, 6300);
+    if (!getSoundMuted()) {
+      this.activePlaneAudio = new Audio(planeSoundEffect);
+      const playPromise = this.activePlaneAudio.play();
+      if (playPromise) playPromise.catch(() => {});
+    }
 
     const step = (timestamp) => {
       if (this.isUnmounted) return;
 
       if (startTime === null) startTime = timestamp;
+      if (lastFrameTimestamp === null) lastFrameTimestamp = timestamp;
+
+      if (getVisualizerPaused()) {
+        startTime += timestamp - lastFrameTimestamp;
+        lastFrameTimestamp = timestamp;
+        this.planeFrameId = window.requestAnimationFrame(step);
+        return;
+      }
+
+      lastFrameTimestamp = timestamp;
 
       const progress = Math.min((timestamp - startTime) / duration, 1);
+      const easedProgress =
+        progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
       const currentLeft =
         travelBounds.startX +
-        (travelBounds.endX - travelBounds.startX) * progress;
+        (travelBounds.endX - travelBounds.startX) * easedProgress;
       planeElement.style.left = `${currentLeft}px`;
 
-      if (timestamp - lastTurbineFrameTime >= 100) {
+      if (timestamp - lastTurbineFrameTime >= RANDOM_WALL_FRAME_INTERVAL) {
         frameIndex = (frameIndex + 1) % PLANE_FRAMES.length;
         planeElement.src = PLANE_FRAMES[frameIndex];
         lastTurbineFrameTime = timestamp;
@@ -941,7 +1053,7 @@ export default class levelVisualizer extends Component {
 
       const nextWallTick = Math.min(
         RANDOM_WALL_NUMBER - 1,
-        Math.floor(progress * RANDOM_WALL_NUMBER)
+        Math.floor(easedProgress * RANDOM_WALL_NUMBER)
       );
       for (let tick = lastWallTick + 1; tick <= nextWallTick; tick++) {
         onWallTick(tick);
@@ -970,7 +1082,8 @@ export default class levelVisualizer extends Component {
     if (column !== null && column >= 0 && column < NUM_COLUMNS) {
       const row = Math.floor(Math.random() * NUM_ROWS);
       const node = grid[row][column];
-      const unWallable = node.isEnd || node.isStart || node.isPermanentWall;
+      const unWallable =
+        node.isEnd || node.isStart || node.isWall || node.isPermanentWall;
 
       if (!unWallable && randomWallsAdded.indexOf(node) === -1) {
         if (Math.floor(Math.random() * 2) === 1) {
@@ -980,13 +1093,14 @@ export default class levelVisualizer extends Component {
             ...node,
             isWall: true,
             isPermanentWall: true,
+            isRandomWall: true,
           };
           this.markNodeUnwallable(node);
         }
       }
     }
 
-    if (tick % 45 === 0 || tick === RANDOM_WALL_NUMBER - 1) {
+    if (tick % 12 === 0 || tick === RANDOM_WALL_NUMBER - 1) {
       this.setState({ grid });
     }
   }
@@ -1091,8 +1205,46 @@ export default class levelVisualizer extends Component {
     this.refreshSettings();
   };
 
+  updateAnimationSpeedMultiplier = (event) => {
+    setAnimationSpeedMultiplier(event.target.value);
+    this.refreshSettings();
+  };
+
+  updateGridPalette = (event) => {
+    setGridPalette(event.target.value);
+    this.refreshSettings();
+  };
+
+  toggleSoundMuted = () => {
+    setSoundMuted(!getSoundMuted());
+    if (getSoundMuted()) this.stopPlaneAudio();
+    this.refreshSettings();
+  };
+
+  resetCampaignSettings = () => {
+    resetCampaignOptions();
+    setVisualizerPaused(this.state.showOptionsMenu);
+    this.refreshSettings();
+  };
+
+  preventInvalidIntegerKey = (event) => {
+    if (['e', 'E', '+', '-', '.', ','].includes(event.key)) {
+      event.preventDefault();
+    }
+  };
+
+  openTutorialFromHeader = () => {
+    if (Number(currentLevel) !== 1 || this.state.showDialogueMenu) return;
+    setHasShownTutorial(true);
+    this.setState({ showTutorialMenu: true, tutorialPage: 1 });
+  };
+
   toggleOptionsMenu() {
-    this.setState({ showOptionsMenu: !this.state.showOptionsMenu });
+    this.setState(({ showOptionsMenu }) => {
+      const nextShowOptionsMenu = !showOptionsMenu;
+      setVisualizerPaused(nextShowOptionsMenu);
+      return { showOptionsMenu: nextShowOptionsMenu };
+    });
   }
 
   getOptionsMenu() {
@@ -1103,65 +1255,133 @@ export default class levelVisualizer extends Component {
           className="visualizer-modal-backdrop"
         ></div>
         <div className="visualizer-modal-shell visualizer-options-shell">
-          <div className="mainInfoContainer">
-            <p className="mainTextToRender">
+          <div className="visualizer-modal-header">
+            <p className="visualizer-modal-title">
               Settings
             </p>
           </div>
-          <div className="mainInfoContainer2">
-            <div className="toggle-grid-holder text-info">
-              Toggle Grid Outline
-              <div>
-                <NodeToggleGrid
-                  currentState={gridOutlineToggled}
-                  onClick={() => this.toggleGrid()}
-                ></NodeToggleGrid>
-              </div>
+          <div className="visualizer-modal-body">
+            <div className="visualizer-options-grid campaign-settings-grid">
+              <section className="visualizer-settings-section">
+                <div className="visualizer-section-header">Grid Display</div>
+                <div className="visualizer-section-controls">
+                  <div className="toggle-grid-holder text-info">
+                    Grid Outline
+                    <div>
+                      <NodeToggleGrid
+                        currentState={gridOutlineToggled}
+                        onClick={() => this.toggleGrid()}
+                      ></NodeToggleGrid>
+                    </div>
+                  </div>
+
+                  <div className="visualizer-option-row text-info">
+                    <span>Show Node Numbers</span>
+                    <button
+                      type="button"
+                      className={`visualizer-option-toggle ${
+                        getShowCampaignNodeNumbers() ? 'is-active' : ''
+                      }`}
+                      onClick={this.toggleCampaignNodeNumbers}
+                    >
+                      {getShowCampaignNodeNumbers() ? 'On' : 'Off'}
+                    </button>
+                  </div>
+
+                  <label className="visualizer-option-row text-info">
+                    <span>Grid Palette</span>
+                    <select
+                      value={getGridPalette()}
+                      onChange={this.updateGridPalette}
+                      className="visualizer-select-input"
+                    >
+                      {getGridPaletteOptions().map((palette) => (
+                        <option value={palette.id} key={palette.id}>
+                          {palette.label}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+              </section>
+
+              <section className="visualizer-settings-section">
+                <div className="visualizer-section-header">
+                  Gameplay & Animation
+                </div>
+                <div className="visualizer-section-controls">
+                  <div className="toggle-onclick-holder text-info">
+                    Wall Editing After Animation
+                    <div>
+                      <NodeToggleOnClick
+                        currentState={getToggleWallOnClick()}
+                        onClick={() => this.toggleOnClick()}
+                      ></NodeToggleOnClick>
+                    </div>
+                  </div>
+
+                  <label className="visualizer-option-row text-info">
+                    <span>Missile Trail Length</span>
+                    <input
+                      type="number"
+                      min="1"
+                      max="12"
+                      value={getMissileTrailLength()}
+                      onChange={this.updateMissileTrailLength}
+                      onKeyDown={this.preventInvalidIntegerKey}
+                      className="visualizer-number-input"
+                    />
+                  </label>
+
+                  <label className="visualizer-option-row text-info visualizer-range-row">
+                    <span>Speed Multiplier</span>
+                    <span className="visualizer-control-stack">
+                      <input
+                        type="range"
+                        min="0.25"
+                        max="3"
+                        step="0.25"
+                        value={getAnimationSpeedMultiplier()}
+                        onChange={this.updateAnimationSpeedMultiplier}
+                        className="visualizer-range-input"
+                      />
+                      <span className="visualizer-range-value">
+                        {getAnimationSpeedMultiplier().toFixed(2)}x
+                      </span>
+                    </span>
+                  </label>
+                  <div className="visualizer-option-row text-info">
+                    <span>Mute Audio</span>
+                    <button
+                      type="button"
+                      className={`visualizer-option-toggle ${
+                        getSoundMuted() ? 'is-active' : ''
+                      }`}
+                      onClick={this.toggleSoundMuted}
+                    >
+                      {getSoundMuted() ? 'Muted' : 'Sound On'}
+                    </button>
+                  </div>
+                </div>
+              </section>
             </div>
 
-            <div className="toggle-onclick-holder text-info">
-              Toggle Wall After Animation
-              <div>
-                <NodeToggleOnClick
-                  currentState={getToggleWallOnClick()}
-                  onClick={() => this.toggleOnClick()}
-                ></NodeToggleOnClick>
-              </div>
-            </div>
-
-            <div className="visualizer-option-row text-info">
-              <span>Show Node Numbers</span>
+            <div className="visualizer-modal-footer">
               <button
-                type="button"
-                className={`visualizer-option-toggle ${
-                  getShowCampaignNodeNumbers() ? 'is-active' : ''
-                }`}
-                onClick={this.toggleCampaignNodeNumbers}
+                className="optionsMenuButton"
+                onClick={this.resetCampaignSettings}
               >
-                {getShowCampaignNodeNumbers() ? 'On' : 'Off'}
+                Reset Settings
+              </button>
+              <button
+                className="optionsMenuButton"
+                onClick={() => {
+                  this.toggleOptionsMenu();
+                }}
+              >
+                Save
               </button>
             </div>
-
-            <label className="visualizer-option-row text-info">
-              <span>Missile Trail Length</span>
-              <input
-                type="number"
-                min="1"
-                max="12"
-                value={getMissileTrailLength()}
-                onChange={this.updateMissileTrailLength}
-                className="visualizer-number-input"
-              />
-            </label>
-
-            <button
-              className="optionsMenuButton"
-              onClick={() => {
-                this.toggleOptionsMenu();
-              }}
-            >
-              Save
-            </button>
           </div>
         </div>
       </>
@@ -1170,6 +1390,7 @@ export default class levelVisualizer extends Component {
 
   render() {
     const { grid } = this.state;
+    const paletteVariables = getGridPaletteCssVariables();
 
     let src = planeFrame1;
 
@@ -1217,9 +1438,12 @@ export default class levelVisualizer extends Component {
 
     return (
       <div
-        className="visualize-screen visualize-level-screen"
+        className={`visualize-screen visualize-level-screen ${
+          this.state.showOptionsMenu ? 'visualizer-paused' : ''
+        }`}
         ref={this.visualizerRef}
         style={{
+          ...paletteVariables,
           '--visualizer-grid-scale': String(this.state.gridScale),
           '--visualizer-grid-top': `${this.state.gridTop}px`,
           '--visualizer-grid-left': `${this.state.gridLeft}px`,
@@ -1245,49 +1469,77 @@ export default class levelVisualizer extends Component {
         <div className="topButtonsContainerOutline"> </div>
 
         <div className="topButtonsContainer">
-          {numRandomWallButton}
+          <div className="topbar-section topbar-left">
+            {numRandomWallButton}
 
-          <p className="numWallsActiveMessage topbar-message">
-            {NUM_WALLS_ACTIVE} out of {NUM_WALLS_TOTAL} walls used
-          </p>
+            {Number(currentLevel) === 1 ? (
+              <button
+                className="standard-button topbar-control tutorial-button"
+                onClick={this.openTutorialFromHeader}
+              >
+                Tutorial
+              </button>
+            ) : null}
 
-          <p className="currentEndDistanceMessage topbar-message">
-            End Distance: {getCurrentLevelEndDistance()}
-          </p>
+            <p className="numWallsActiveMessage topbar-message">
+              {NUM_WALLS_ACTIVE} out of {NUM_WALLS_TOTAL} walls used
+            </p>
 
-          <button
-            className="standard-button topbar-control settings-button"
-            onClick={() => this.toggleOptionsMenu()} // Options
-          >
-            Settings
-          </button>
+            <p className="currentEndDistanceMessage topbar-message">
+              End Distance: {getCurrentLevelEndDistance()}
+            </p>
+          </div>
 
-          <button
-            className="standard-button topbar-control home-button enabled"
-            id="homeButton"
-            onClick={() => EnterHome(this.state.animatingPlane)}
-          >
-            Home
-          </button>
+          <div className="topbar-section topbar-center">
+            <button
+              className="button-82-pushable start-button"
+              onClick={() =>
+                startDijkstra(
+                  this.state.grid,
+                  END_NODE_ROW,
+                  END_NODE_COL,
+                  START_NODE_ROW,
+                  START_NODE_COL,
+                  NUM_ROWS,
+                  NUM_COLUMNS
+                )
+              }
+            >
+              <span className="button-82-shadow"></span>
+              <span className="button-82-edge"></span>
+              <span className="button-82-front text">Start</span>
+            </button>
+          </div>
 
-          <button
-            className="button-82-pushable start-button"
-            onClick={() =>
-              startDijkstra(
-                this.state.grid,
-                END_NODE_ROW,
-                END_NODE_COL,
-                START_NODE_ROW,
-                START_NODE_COL,
-                NUM_ROWS,
-                NUM_COLUMNS
-              )
-            }
-          >
-            <span className="button-82-shadow"></span>
-            <span className="button-82-edge"></span>
-            <span className="button-82-front text">Start</span>
-          </button>
+          <div className="topbar-section topbar-right">
+            <label className="topbar-speed-control">
+              <span>Speed</span>
+              <input
+                type="range"
+                min="0.25"
+                max="3"
+                step="0.25"
+                value={getAnimationSpeedMultiplier()}
+                onChange={this.updateAnimationSpeedMultiplier}
+              />
+              <span>{getAnimationSpeedMultiplier().toFixed(2)}x</span>
+            </label>
+
+            <button
+              className="standard-button topbar-control settings-button"
+              onClick={() => this.toggleOptionsMenu()} // Options
+            >
+              Settings
+            </button>
+
+            <button
+              className="standard-button topbar-control home-button enabled"
+              id="homeButton"
+              onClick={() => EnterHome()}
+            >
+              Home
+            </button>
+          </div>
         </div>
 
         <div className="visualizer-grid-viewport">
@@ -1306,10 +1558,12 @@ export default class levelVisualizer extends Component {
                     const {
                       row,
                       col,
+                      distance,
                       isEnd,
                       isStart,
                       isWall,
                       isPermanentWall,
+                      isRandomWall,
                     } = node;
                     let unWallable = isEnd || isStart; // checks to see if the node is an End or start node
                     return (
@@ -1321,6 +1575,9 @@ export default class levelVisualizer extends Component {
                         isEnd={isEnd}
                         isWall={isWall}
                         isPermanentWall={isPermanentWall}
+                        isRandomWall={isRandomWall}
+                        showNodeNumber={getShowCampaignNodeNumbers()}
+                        nodeNumber={distance}
                         key={nodeID}
                         onClick={(row, col) =>
                           this.toggleWall(

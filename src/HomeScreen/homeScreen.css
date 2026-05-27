@@ -142,14 +142,14 @@
   bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(760px, 86vw, 1644px);
+  width: clamp(820px, 90vw, 1720px);
   max-width: 100vw;
   height: var(--home-nav-height);
-  padding: 0 clamp(34px, 9vw, 150px);
+  padding: 0 clamp(24px, 6vw, 120px);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(22px, 4vw, 76px);
+  gap: clamp(14px, 2.8vw, 56px);
   box-sizing: border-box;
   background: #1a1717;
   clip-path: polygon(9% 0, 91% 0, 100% 100%, 0% 100%);
@@ -164,7 +164,7 @@
   border: 0;
   color: rgb(180, 180, 180);
   font-family: 'QTYPEBOLD';
-  font-size: clamp(26px, 3vw, 40px);
+  font-size: clamp(23px, 2.6vw, 40px);
   line-height: 1;
   text-decoration: none;
   text-shadow: 0px 1px 2px #000000;
@@ -188,20 +188,35 @@
 }
 
 .outerCreditsDiv,
-.outerDataDiv {
-  --modal-top: clamp(18px, 7vh, 86px);
-  --modal-width: clamp(340px, 55vw, 601px);
+.outerDataDiv,
+.outerLearningDiv {
+  --modal-width: clamp(420px, 64vw, 760px);
   --modal-side: clamp(50px, 8vw, 100px);
   --modal-header-height: clamp(52px, 7vh, 65px);
+  --modal-body-height: min(
+    620px,
+    calc(100dvh - var(--modal-header-height) - 48px)
+  );
 
   position: fixed;
   z-index: 1000;
-  top: var(--modal-top);
+  top: 50%;
   left: 50%;
   width: var(--modal-width);
   max-width: calc(100vw - 24px);
-  transform: translateX(-50%);
-  transform-origin: top center;
+  height: calc(var(--modal-header-height) + var(--modal-body-height));
+  max-height: calc(100dvh - 24px);
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+}
+
+.outerLearningDiv {
+  --modal-width: min(1080px, calc(100vw - 28px));
+  --modal-side: clamp(44px, 7vw, 90px);
+  --modal-body-height: min(
+    760px,
+    calc(100dvh - var(--modal-header-height) - 36px)
+  );
 }
 
 .mainInfoContainer {
@@ -222,10 +237,7 @@
   top: var(--modal-header-height);
   left: 0px;
   width: 100%;
-  height: min(
-    611px,
-    calc(100vh - var(--modal-top) - var(--modal-header-height) - 16px)
-  );
+  height: var(--modal-body-height);
   min-height: 0;
   overflow: hidden;
   background: #1a1717;
@@ -289,8 +301,108 @@
   padding-right: 2px;
 }
 
-.dataRows {
+.learningModalContent {
+  gap: clamp(12px, 2vh, 20px);
+  overflow: hidden;
+}
+
+.learningIntro {
   flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(12px, 2vw, 18px);
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(105, 105, 105, 0.68);
+  color: white;
+  font-family: QTYPE, sans-serif;
+  font-size: clamp(16px, 1.55vw, 20px);
+  line-height: 1.35;
+  text-align: center;
+}
+
+.learningGrid {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.6vw, 18px);
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-color: rgba(255, 255, 255, 0.58) transparent;
+  scrollbar-width: thin;
+}
+
+.learningGrid::-webkit-scrollbar {
+  width: 9px;
+}
+
+.learningGrid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.learningGrid::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+  background-color: rgba(255, 255, 255, 0.58);
+}
+
+.learningSection {
+  box-sizing: border-box;
+  min-width: 0;
+  padding: clamp(12px, 1.5vw, 18px);
+  border: 2px solid rgba(175, 175, 175, 0.58);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.24);
+  color: white;
+  font-family: QTYPE, sans-serif;
+  text-align: left;
+}
+
+.learningSectionWide {
+  grid-column: 1 / -1;
+}
+
+.learningSection h2 {
+  margin: 0 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.32);
+  color: white;
+  font-family: QTYPEBOLD, QTYPE, sans-serif;
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.1;
+}
+
+.learningSection p {
+  margin: 0;
+  font-size: clamp(15px, 1.45vw, 18px);
+  line-height: 1.34;
+  overflow-wrap: anywhere;
+}
+
+.learningFormula {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.44);
+  color: rgba(255, 255, 255, 0.92);
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: clamp(12px, 1.2vw, 15px);
+  line-height: 1.35;
+  text-align: left;
+  user-select: text;
+}
+
+.learningModalFooter {
+  justify-content: flex-end;
+}
+
+.dataRows {
+  flex: 1 1 auto;
+  min-height: 0;
   gap: clamp(14px, 3vh, 24px);
 }
 
@@ -337,6 +449,36 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.dataToggleButton {
+  justify-self: end;
+  min-width: 168px;
+  min-height: 34px;
+  padding: 5px 12px;
+  border: 3px solid rgba(210, 210, 210, 0.8);
+  border-radius: 8px;
+  background: rgba(18, 18, 18, 0.85);
+  color: white;
+  font-family: QTYPE;
+  font-size: clamp(14px, 1.55vw, 17px);
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.dataToggleButton.is-active {
+  border-color: rgba(188, 228, 244, 0.95);
+  background: rgb(38, 115, 148);
+}
+
+.dataToggleButton:hover {
+  background: rgba(76, 76, 76, 0.92);
+}
+
+.dataToggleButton.is-active:hover {
+  background: rgb(47, 139, 178);
 }
 
 .homeModalFooter {
@@ -445,11 +587,12 @@
   }
 
   .outerCreditsDiv,
-  .outerDataDiv {
-    --modal-top: 12px;
-    --modal-width: min(370px, calc(100vw - 24px));
+  .outerDataDiv,
+  .outerLearningDiv {
+    --modal-width: min(420px, calc(100vw - 24px));
     --modal-side: clamp(30px, 10vw, 50px);
     --modal-header-height: 50px;
+    --modal-body-height: calc(100dvh - var(--modal-header-height) - 24px);
   }
 
   .homeModalContent {
@@ -493,6 +636,11 @@
     white-space: normal;
   }
 
+  .dataToggleButton {
+    justify-self: center;
+    width: min(220px, 100%);
+  }
+
   .dataModalFooter {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 12px;
@@ -506,13 +654,22 @@
   .dataMenuButton {
     grid-column: 2;
   }
+
+  .learningGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .learningSectionWide {
+    grid-column: auto;
+  }
 }
 
 @media (max-height: 720px) {
   .outerCreditsDiv,
-  .outerDataDiv {
-    --modal-top: 12px;
+  .outerDataDiv,
+  .outerLearningDiv {
     --modal-header-height: 50px;
+    --modal-body-height: calc(100dvh - var(--modal-header-height) - 24px);
   }
 
   .homeModalContent {
@@ -553,6 +710,7 @@
     padding-top: 14px;
     padding-bottom: 10px;
     gap: 10px;
+    overflow-y: auto;
   }
 
   .dataDescriptionContainer,

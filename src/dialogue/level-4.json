@@ -2,46 +2,78 @@
   "dialogue": [
     [
       null,
-      "*you, and the other agents look at the North side of the base - ruined*",
+      "*the north side of the base burns behind a line of emergency lights*",
       3
     ],
-    [1, "I couldn't stop them all, there were just too many", 2],
-    [3, "It's not your fault..", 1],
-    [4, "I don't know what happened, it should have worked", 2],
     [
-      3,
-      "It doesn't matter now, what is important is that we get to the secondary base",
-      1
-    ],
-    [1, "I didn't know we had two bases?", 2],
-    [
-      3,
-      "The director had it built when there were threats to attack us... I guess those threats were true",
-      1
-    ],
-    [null, "*you see the transport vehicles begin to arrive*", 3],
-    [3, "Right, off we go", 2],
-    [
-      4,
-      "I will bring my laptop, so if there is another attack, we can try and prevent it",
-      1
-    ],
-    [1, "This time, can you leave the missile prevention to me?", 2],
-    [4, "Affirmative!", 1],
-    [1000, "", 3],
-    [null, "*you all board the minivan and head to the temporary base*", 3],
-    [1, "Any info on our mysterious attackers?", 1],
-    [
-      3,
-      "Unfortunately not, however, the leader of our research team ensures us that they have some solid leads",
+      1,
+      "I could not stop them all.",
       2
     ],
-    [null, "*suddenly, a loud siren blasts from Leonard's laptop*", 3],
-    [3, "Can you turn that thing off??", 1],
-    [4, "It's another missile alert!", 2],
-    [1, "They already destroyed our base?", 1],
-    [4, "The target isn't our base, it's us... End distance is set at 60!", 2],
-    [1, "Stop the car, let me handle this...", 1],
-    [0, ""]
+    [
+      3,
+      "You stopped the one that mattered. The base did not survive, but the people did.",
+      1
+    ],
+    [
+      4,
+      "My diagonal theory did not help.",
+      2
+    ],
+    [
+      3,
+      "Then we stop theorising in the open and move to the secondary base.",
+      1
+    ],
+    [
+      1,
+      "We have a secondary base?",
+      2
+    ],
+    [
+      3,
+      "The Director built it for the day our walls failed. Today is that day.",
+      1
+    ],
+    [
+      1000,
+      "",
+      3
+    ],
+    [
+      null,
+      "*the convoy pulls out as Leonard balances a laptop on his knees*",
+      3
+    ],
+    [
+      4,
+      "If they fire again, I can still read the grid.",
+      1
+    ],
+    [
+      1,
+      "Good. One wall in the right place can reroute an entire frontier.",
+      2
+    ],
+    [
+      null,
+      "*a missile alert screams from the laptop speakers*",
+      3
+    ],
+    [
+      4,
+      "Target is not the base. It is the convoy. End distance: {endDistance}.",
+      1
+    ],
+    [
+      3,
+      "Everyone stay moving. {userName}, keep the route open and make it too long.",
+      2
+    ],
+    [
+      0,
+      "",
+      3
+    ]
   ]
 }
